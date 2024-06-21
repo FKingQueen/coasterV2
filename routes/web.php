@@ -17,6 +17,10 @@ use App\Http\Controllers\Test\StorageController ;
 Route::post('/postApi', [StorageController ::class, 'postApi']);
 Route::get('/getApi/{msg}', [StorageController ::class, 'getApi']);
 
+Route::get('/csrf-token', function() {
+    return response()->json(['csrf_token' => csrf_token()]);
+});
+
 
 Route::get('/{any}', function () {
     return view('main');
