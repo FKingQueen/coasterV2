@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Test\StorageController ;  
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::post('/postApi', [StorageController ::class, 'postApi']);
+Route::get('/getApi/{msg}', [StorageController ::class, 'getApi']);
+
 
 Route::get('/{any}', function () {
     return view('main');

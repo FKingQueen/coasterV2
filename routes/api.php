@@ -13,6 +13,7 @@ use App\Http\Controllers\Home\HomeArticleController;
 use App\Http\Controllers\Home\ProjectController;  
 use App\Http\Controllers\Home\HomeMonitoringSystemController;  
 use App\Http\Controllers\Home\MapController;  
+use App\Http\Controllers\Test\StorageController;  
 
 /*
 |--------------------------------------------------------------------------
@@ -85,3 +86,6 @@ Route::post('/getLayerData', [MapController::class, 'getLayerData']);
 Route::post('/getProvinceData', [MapController::class, 'getProvinceData']);
 Route::post('/getMunicipalitiesData', [MapController::class, 'getMunicipalitiesData']);
 Route::post('/getBarangaysData', [MapController::class, 'getBarangaysData']);
+
+// Test API
+Route::get('/getMsg', [StorageController::class, 'getMsg']);

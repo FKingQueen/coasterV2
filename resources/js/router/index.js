@@ -50,11 +50,19 @@ import MonitoringSystem from '../components/pages/monitoringSystemPage/monitorin
 // Map
 import Map from '../components/pages/mapPage/map.vue';
 
+// TestApi
+import TestApi from '../components/test/test.vue';
+
 const routes = [
     {
         name: 'login',
         path: '/login',
         component: Login,
+    },
+    {
+        name: 'testApi',
+        path: '/testApi',
+        component: TestApi,
     },
     {
         path: '/',
