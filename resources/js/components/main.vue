@@ -144,7 +144,7 @@
 
                     <div class="flex justify-between w-full lg:hidden block">
                         <!-- Search Bar -->
-                        <button @click="value1 = true" type="button" class="text-2xl text-white hover:text-gray-200 ">
+                        <button @click="sideBarDrawer = true" type="button" class="text-2xl text-white hover:text-gray-200 ">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -152,8 +152,8 @@
                             </svg>
                         </button>
                         <!-- /Search Bar -->
-                        <Drawer placement="left" :closable="false" v-model="value1">
-                            <div class="w-full border-b-4 flex">
+                        <Drawer placement="left" :closable="false" v-model="sideBarDrawer" :styles="{ padding: '0' }">
+                            <div class="w-full border-b-4 flex p-2">
                                 <img src="/img/top.png" @click="this.$router.push('/')"
                                     class="w-20 text-center duration-200 blur-none cursor-pointer object-fill mb-2 "
                                     alt="#">
@@ -175,51 +175,44 @@
                             </div>
                             <div class="">
                                 <a-menu v-model:openKeys="openKeys" v-model:selectedKeys="selectedKeys"
-                                    style="width: 224px" mode="inline" @click="handleClick">
+                                     mode="inline" @click="handleClick">
                                     <a-menu-item key="1">
                                         <template #icon>
                                             <Icon type="ios-home" />
                                         </template>
-                                        HOME
+                                        Home
                                     </a-menu-item>
-                                    <!-- <a-menu-item key="2">
+                                    <a-menu-item key="2">
                                         <template #icon>
                                             <Icon type="ios-water" />
                                         </template>
-                                        WEATHER
-                                    </a-menu-item> -->
+                                        Monitoring System
+                                    </a-menu-item>
                                     <a-menu-item key="3">
                                         <template #icon>
                                             <Icon type="ios-cloud" />
                                         </template>
-                                        MAP
+                                        Map
                                     </a-menu-item>
-                                    <a-menu-item key="4">
-                                        <template #icon>
-                                            <Icon type="ios-cloud" />
-                                        </template>
-                                        GEE
-                                    </a-menu-item>
-
                                     <a-sub-menu key="sub1">
                                         <template #icon>
                                             <Icon type="ios-document" />
                                         </template>
-                                        <template #title>PROJECT</template>
-                                        <a-menu-item key="5">PROJECT 1</a-menu-item>
-                                        <a-menu-item key="6">PROJECT 2</a-menu-item>
-                                        <a-menu-item key="7">PROJECT 3</a-menu-item>
-                                        <a-menu-item key="8">PROJECT 4</a-menu-item>
+                                        <template #title>Project</template>
+                                        <a-menu-item key="5">Project 1</a-menu-item>
+                                        <a-menu-item key="6">Project 2</a-menu-item>
+                                        <a-menu-item key="7">Project 3</a-menu-item>
+                                        <a-menu-item key="8">Project 4</a-menu-item>
                                     </a-sub-menu>
                                     <a-sub-menu key="sub2">
                                         <template #icon>
                                             <Icon type="ios-document" />
                                         </template>
-                                        <template #title>ABOUT</template>
-                                        <a-menu-item key="9">ABOUT</a-menu-item>
-                                        <a-menu-item key="10">DOCUMENTS</a-menu-item>
-                                        <a-menu-item key="11">ORGANIZATION STRUCTURE</a-menu-item>
-                                        <a-menu-item key="12">ACCOMPLISHMENT</a-menu-item>
+                                        <template #title>About</template>
+                                        <a-menu-item key="9">About</a-menu-item>
+                                        <a-menu-item key="10">Documents</a-menu-item>
+                                        <a-menu-item key="11">Organization Structure</a-menu-item>
+                                        <a-menu-item key="12">Accomplishment</a-menu-item>
                                     </a-sub-menu>
 
                                 </a-menu>
@@ -383,7 +376,7 @@
 
                         <div class="flex justify-between w-full lg:hidden block">
                             <!-- Search Bar -->
-                            <button @click="value1 = true" type="button"
+                            <button @click="sideBarDrawer = true" type="button"
                                 class="text-2xl text-white hover:text-gray-200">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -392,7 +385,7 @@
                                 </svg>
                             </button>
                             <!-- /Search Bar -->
-                            <Drawer placement="left" :closable="false" v-model="value1">
+                            <Drawer placement="left" :closable="false" v-model="sideBarDrawer">
                                 <div class="w-full border-b-4 flex">
                                     <img src="/img/top.png" @click="this.$router.push('/')"
                                         class="w-20 text-center duration-200 blur-none cursor-pointer object-fill mb-2 "
@@ -600,7 +593,7 @@ export default defineComponent({
                 min: '',
                 sec: '',
             },
-            value1: false,
+            sideBarDrawer: false,
             activeItem1,
             activeItem2,
             isShowNav: ref(false),
@@ -644,14 +637,10 @@ export default defineComponent({
                 this.$router.push({ path: '/' })
             }
             else if (event.key == 2) {
-                console.log(event.key);
+                this.$router.push({ path: '/monitoringSystem' })
             }
             else if (event.key == 3) {
                 this.$router.push({ path: '/map' })
-            }
-            else if (event.key == 4) {
-                console.log(event.key);
-                this.$router.push({ path: '/gee' })
             }
             else if (event.key == 5) {
                 this.$router.push({ path: '/projects/project1' })

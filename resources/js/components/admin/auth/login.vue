@@ -72,7 +72,6 @@
                 </div>
             </div>
         </div>
-            <button @click="increment">Increment</button>
     </div>
 
 </template>
@@ -91,7 +90,7 @@ export default defineComponent({
         const disabled = computed(() => {
             return !(this.formLogin.email && this.formLogin.password);
         });
-
+        
         const validateMessages = {
             required: '${label} is required!',
             types: {

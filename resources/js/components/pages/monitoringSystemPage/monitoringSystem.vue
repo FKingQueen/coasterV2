@@ -1,6 +1,6 @@
 <template>
-    <div class="w-full flex">
-        <div ref="map" class="full-screen-map h-[90vh]">
+    <div class="w-full md:flex">
+        <div ref="map" class="full-screen-map md:h-[90vh] h-[50vh]">
             <div id="legend" class="legend">
                 <div class=" text-white text-sm rounded-md grid grid-cols-1">
                     <div class="flex justify-start space-x-2">
