@@ -13,12 +13,12 @@ export default {
             .catch(function (error) {
             });
 
-        axios.post(`/postApi`, { msg: 'message' })
-            .then(function (response) {
-                console.log('post: ',response.data)
-            })
-            .catch(function (error) {
-            });
+        // axios.post(`/postApi`, { msg: 'message' })
+        //     .then(function (response) {
+        //         console.log('post: ',response.data)
+        //     })
+        //     .catch(function (error) {
+        //     });
     },
 };
 </script>
