@@ -40,7 +40,7 @@
                             <div class=" bg-[#F1F6F9] py-1 pr-2 ">
                                 <p class="blur-none antialiased text-4xl font-bold  text-center">{{
                                     this.digitalTime.hour
-                                    }}:{{ this.digitalTime.min }}:{{ this.digitalTime.sec }}</p>
+                                }}:{{ this.digitalTime.min }}:{{ this.digitalTime.sec }}</p>
                                 <p class="blur-none antialiased text-sm font-bold text-center">{{ this.digitalTime.date
                                     }} :
                                     {{ this.digitalTime.day }} : {{ this.digitalTime.year }}</p>
@@ -122,6 +122,7 @@
                                     </div>
                                 </template>
                             </Modal>
+                            <!-- Downloads -->
                             <!-- About -->
                             <div class="dropdown z-40  px-4 flex text-white font-semibold hover:bg-sky-700 
                                     cursor-pointer transition-colors duration-300 " style="float:left;">
@@ -144,7 +145,8 @@
 
                     <div class="flex justify-between w-full lg:hidden block">
                         <!-- Search Bar -->
-                        <button @click="sideBarDrawer = true" type="button" class="text-2xl text-white hover:text-gray-200 ">
+                        <button @click="sideBarDrawer = true" type="button"
+                            class="text-2xl text-white hover:text-gray-200 ">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -174,8 +176,8 @@
                                 </div>
                             </div>
                             <div class="">
-                                <a-menu v-model:openKeys="openKeys" v-model:selectedKeys="selectedKeys"
-                                     mode="inline" @click="handleClick">
+                                <a-menu v-model:openKeys="openKeys" v-model:selectedKeys="selectedKeys" mode="inline"
+                                    @click="handleClick">
                                     <a-menu-item key="1">
                                         <template #icon>
                                             <Icon type="ios-home" />
@@ -268,114 +270,123 @@
             </div>
 
             <Transition>
-                <nav v-if="isShowNav"
-                    class=" fixed z-30 top-0 flex w-full bg-[#002B5B] lg:px-20 md:px-3 sm:px-1 border-y-4 border-cyan-900 ">
-                    <div class="px-5 xl:px-12  flex w-full justify-around">
+                <nav v-if="isShowNav" class="fixed z-30 top-0 flex w-full bg-[#002B5B] border-y-4 border-cyan-900 ">
+                    <div class="w-full">
                         <!-- Nav Links -->
                         <div class="lg:block hidden">
-
-                            <div class=" lg:flex text-white font-normal font-heading w-full px-40">
-                                <div class="text-center flex items-center pr-10">
+                            <div class="flex justify-center space-x-10 text-white font-normal font-heading w-full">
+                                <div class="flex items-center">
                                     <!-- <img src="/img/top.png" class="blur-none antialiased duration-200 blur-none cursor-pointer object-fill h-12 mr-2" alt="#"> -->
                                     <p
                                         class="cursor-pointer text-5xl font-serif font-semibold text-[#146C94] tracking-wide blur-none antialiased">
                                         COASTER
                                     </p>
                                 </div>
-                                <!-- Home -->
-                                <router-link to="/" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+                                <div class="flex">
+                                    <!-- Home -->
+                                    <router-link to="/" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
                                         cursor-pointer  blur-none tracking-wide antialiased">
-                                    HOME
-                                </router-link>
-                                <!-- /Home -->
-                                <!-- Weather -->
-                                <!-- <a to="/" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
-                                        cursor-pointer  blur-none tracking-wide antialiased">
-                                    WEATHER
-                                </a> -->
-                                <!-- /Weather -->
-                                <!-- Monitoring System -->
-                                <router-link to="/MonitoringSystem" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+                                        HOME
+                                    </router-link>
+                                    <!-- Home -->
+                                    <router-link to="/MonitoringSystem" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
                                         cursor-pointer  blur-none tracking-wide antialiased whitespace-nowrap">
-                                    MONITORING SYSTEM
-                                </router-link>
-                                <!-- /Monitoring System -->
+                                        MONITORING SYSTEM
+                                    </router-link>
+                                    <!-- /Monitoring System -->
 
-                                <!-- Map -->
-                                <div class="dropdown z-40  px-4 flex text-white font-semibold hover:bg-sky-700 
-                                                                cursor-pointer transition-colors duration-300 "
-                                    style="float:left;">
-                                    <button class="dropdown py-4  blur-none tracking-wide antialiased">MAP</button>
-                                    <div class="dropdown-content p-1 w-[23rem] font-normal " style="left:0;">
-                                        <a @click="this.$router.push('/erosionMap')"
-                                            class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">
-                                            Coastal Erosion Hazard Map</a>
-                                        <a @click="this.$router.push('/floodingMap')"
-                                            class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">
-                                            Coastal Flood Hazard Map</a>
-                                    </div>
-                                </div>
-                                <!-- /Map -->
+                                    <!-- Map -->
+                                    <router-link to="/Map" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+                                    cursor-pointer  blur-none tracking-wide antialiased">
+                                        MAP
+                                    </router-link>
+                                    <!-- /Map -->
 
-                                <!-- Project -->
-                                <div :class="{ active: activeItem2 }" class="dropdown z-40  px-4 flex text-white font-semibold hover:bg-sky-700 
+                                    <!-- Project -->
+                                    <div :class="{ active: activeItem2 }" class="dropdown z-40  px-4 flex text-white font-semibold hover:bg-sky-700 
                                     cursor-pointer transition-colors duration-300 " style="float:left;">
-                                    <button class="dropdown py-4  blur-none tracking-wide antialiased">PROJECT</button>
-                                    <div class="dropdown-content p-1 w-[23rem] font-normal " style="left:0;">
-                                        <a @click="this.$router.push('/projects/project1')"
-                                            class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Coastal
-                                            Erosion Trends and Management Strategies for Region 1</a>
-                                        <a @click="this.$router.push('/projects/project2')"
-                                            class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Assesment
-                                            Monitoring, and Prediction of Coastal Flooding of Selected Municipalities in
-                                            Region 1</a>
-                                        <a @click="this.$router.push('/projects/project3')"
-                                            class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Development
-                                            of Science-based Engineering Approach to Coastal Prediction in Region 1</a>
-                                        <a @click="this.$router.push('/projects/project4')"
-                                            class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Enhancing
-                                            Coastal Design and Infrastructure Intervention through the Establishment of
-                                            Wave
-                                            Testing Facility</a>
+                                        <button
+                                            class="dropdown py-4  blur-none tracking-wide antialiased">PROJECT</button>
+                                        <div class="dropdown-content p-1 w-[23rem] font-normal " style="left:0;">
+                                            <a @click="this.$router.push('/projects/project1')"
+                                                class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Coastal
+                                                Erosion Trends and Management Strategies for Region 1</a>
+                                            <a @click="this.$router.push('/projects/project2')"
+                                                class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Assesment
+                                                Monitoring, and Prediction of Coastal Flooding of Selected
+                                                Municipalities in
+                                                Region 1</a>
+                                            <a @click="this.$router.push('/projects/project3')"
+                                                class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Development
+                                                of Science-based Engineering Approach to Coastal Prediction in Region
+                                                1</a>
+                                            <a @click="this.$router.push('/projects/project4')"
+                                                class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Enhancing
+                                                Coastal Design and Infrastructure Intervention through the Establishment
+                                                of
+                                                Wave
+                                                Testing Facility</a>
+                                        </div>
                                     </div>
-                                </div>
-                                <!-- /Project -->
-                                <!-- Downloads -->
-                                <!-- <button @click="modal2 = true" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
-                                        cursor-pointer  blur-none tracking-wide antialiased">
-                                    DOWNLOADS
-                                </button>
-                                <Modal
-                                    title="Title"
-                                    v-model="modal2"
-                                    :mask-closable="false">
-                                    <p>Content of dialog</p>
-                                    <p>Content of dialog</p>
-                                    <p>Content of dialog</p>
-                                </Modal> -->
-                                <!-- /Downloads -->
-                                <!-- About -->
-                                <div class="dropdown z-40  px-4 flex text-white font-semibold hover:bg-sky-700 
+                                    <!-- /Project -->
+                                    <!-- Downloads -->
+                                    <button @click="downloadsModal = true" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+                                    cursor-pointer  blur-none tracking-wide antialiased">
+                                        DOWNLOADS
+                                    </button>
+                                    <Modal v-model="downloadsModal" width="700" :mask-closable="false">
+                                        <template #header>
+                                            <p style="text-align:center">
+                                                <span>Download Request Form</span>
+                                            </p>
+                                        </template>
+                                        <div class="w-full">
+                                            <Downloads class="w-full p-3" @id-selected="handleIdSelection" />
+                                        </div>
+                                        <template #footer>
+                                            <div class="w-full justify-start flex">
+
+                                            </div>
+                                        </template>
+                                    </Modal>
+                                    <!-- Downloads -->
+                                    <!-- About -->
+                                    <div class="dropdown z-40  px-4 flex text-white font-semibold hover:bg-sky-700 
                                     cursor-pointer transition-colors duration-300 " style="float:left;">
-                                    <button class="dropdown py-4  blur-none tracking-wide antialiased">ABOUT</button>
-                                    <div class="dropdown-content p-1 w-[17rem] font-normal " style="left:0;">
-                                        <a @click="gotoAbout(1)"
-                                            class="antialiased text-white text-justify  hover:shadow-[inset_17rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">ABOUT</a>
-                                        <a @click="gotoAbout(2)"
-                                            class="antialiased text-white text-justify  hover:shadow-[inset_17rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">DOCUMENTS</a>
-                                        <a @click="gotoAbout(3)"
-                                            class="antialiased text-white text-justify  hover:shadow-[inset_17rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">ORGANIZATION
-                                            STRUCTURE</a>
-                                        <a @click="gotoAbout(4)"
-                                            class="antialiased text-white text-justify  hover:shadow-[inset_17rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">ACCOMPLISHMENT</a>
+                                        <button
+                                            class="dropdown py-4  blur-none tracking-wide antialiased">ABOUT</button>
+                                        <div class="dropdown-content p-1 w-[17rem] font-normal " style="left:0;">
+                                            <a @click="gotoAbout(1)"
+                                                class="antialiased text-white text-justify  hover:shadow-[inset_17rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">ABOUT</a>
+                                            <a @click="gotoAbout(2)"
+                                                class="antialiased text-white text-justify  hover:shadow-[inset_17rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">DOCUMENTS</a>
+                                            <a @click="gotoAbout(3)"
+                                                class="antialiased text-white text-justify  hover:shadow-[inset_17rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">ORGANIZATION
+                                                STRUCTURE</a>
+                                            <a @click="gotoAbout(4)"
+                                                class="antialiased text-white text-justify  hover:shadow-[inset_17rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">ACCOMPLISHMENT</a>
+                                        </div>
                                     </div>
+                                    <!-- /About -->
                                 </div>
-                                <!-- /About -->
+                                <div class="flex items-center">
+                                    <!-- Search Bar -->
+                                    <button @click="gotoTop()" type="button"
+                                        class="lg:block hidden mr-60 text-2xl text-white hover:text-gray-200 ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor"
+                                            class="w-6 h-6 focus:outline outline-offset-2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                        </svg>
+                                    </button>
+                                    <!-- /Search Bar -->
+                                </div>
                             </div>
+
                         </div>
 
-                        <div class="flex justify-between w-full lg:hidden block">
-                            <!-- Search Bar -->
+                        <div class="flex justify-between w-full lg:hidden block px-5 xl:px-12  ">
                             <button @click="sideBarDrawer = true" type="button"
                                 class="text-2xl text-white hover:text-gray-200">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -384,9 +395,9 @@
                                         d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                 </svg>
                             </button>
-                            <!-- /Search Bar -->
-                            <Drawer placement="left" :closable="false" v-model="sideBarDrawer">
-                                <div class="w-full border-b-4 flex">
+                            <Drawer placement="left" :closable="false" v-model="sideBarDrawer"
+                                :styles="{ padding: '0' }">
+                                <div class="w-full border-b-4 flex p-2">
                                     <img src="/img/top.png" @click="this.$router.push('/')"
                                         class="w-20 text-center duration-200 blur-none cursor-pointer object-fill mb-2 "
                                         alt="#">
@@ -409,61 +420,55 @@
                                 </div>
                                 <div class="">
                                     <a-menu v-model:openKeys="openKeys" v-model:selectedKeys="selectedKeys"
-                                        style="width: 224px" mode="inline" @click="handleClick">
+                                        mode="inline" @click="handleClick">
                                         <a-menu-item key="1">
                                             <template #icon>
                                                 <Icon type="ios-home" />
                                             </template>
-                                            HOME
+                                            Home
                                         </a-menu-item>
-                                        <!-- <a-menu-item key="2">
+                                        <a-menu-item key="2">
                                             <template #icon>
                                                 <Icon type="ios-water" />
                                             </template>
-                                            WEATHER
-                                        </a-menu-item> -->
+                                            Monitoring System
+                                        </a-menu-item>
                                         <a-menu-item key="3">
                                             <template #icon>
                                                 <Icon type="ios-cloud" />
                                             </template>
-                                            MAP
+                                            Map
                                         </a-menu-item>
-                                        <a-menu-item key="4">
-                                            <template #icon>
-                                                <Icon type="ios-cloud" />
-                                            </template>
-                                            GEE
-                                        </a-menu-item>
-
                                         <a-sub-menu key="sub1">
                                             <template #icon>
                                                 <Icon type="ios-document" />
                                             </template>
-                                            <template #title>PROJECT</template>
-                                            <a-menu-item key="5">PROJECT 1</a-menu-item>
-                                            <a-menu-item key="6">PROJECT 2</a-menu-item>
-                                            <a-menu-item key="7">PROJECT 3</a-menu-item>
-                                            <a-menu-item key="8">PROJECT 4</a-menu-item>
+                                            <template #title>Project</template>
+                                            <a-menu-item key="5">Project 1</a-menu-item>
+                                            <a-menu-item key="6">Project 2</a-menu-item>
+                                            <a-menu-item key="7">Project 3</a-menu-item>
+                                            <a-menu-item key="8">Project 4</a-menu-item>
                                         </a-sub-menu>
                                         <a-sub-menu key="sub2">
                                             <template #icon>
                                                 <Icon type="ios-document" />
                                             </template>
-                                            <template #title>ABOUT</template>
-                                            <a-menu-item key="9">ABOUT</a-menu-item>
-                                            <a-menu-item key="10">DOCUMENTS</a-menu-item>
-                                            <a-menu-item key="11">ORGANIZATION STRUCTURE</a-menu-item>
-                                            <a-menu-item key="12">ACCOMPLISHMENT</a-menu-item>
+                                            <template #title>About</template>
+                                            <a-menu-item key="9">About</a-menu-item>
+                                            <a-menu-item key="10">Documents</a-menu-item>
+                                            <a-menu-item key="11">Organization Structure</a-menu-item>
+                                            <a-menu-item key="12">Accomplishment</a-menu-item>
                                         </a-sub-menu>
 
                                     </a-menu>
                                 </div>
                             </Drawer>
-                            <!-- /Search Bar -->
                             <img src="/img/logo/COASTER.png" @click="this.$router.push('/')"
                                 class="duration-200 blur-none cursor-pointer object-fill h-14 py-1" alt="#">
+
                             <!-- Search Bar -->
-                            <button type="button" class="text-2xl text-white hover:text-gray-200 ">
+                            <button @click="gotoTop()" type="button"
+                                class="text-2xl text-white hover:text-gray-200 ">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor"
                                     class="w-6 h-6 focus:outline outline-offset-2">
@@ -473,17 +478,6 @@
                             </button>
                             <!-- /Search Bar -->
                         </div>
-
-                        <!-- Search Bar -->
-                        <button @click="gotoTop()" type="button"
-                            class="lg:block hidden mr-60 text-2xl text-white hover:text-gray-200 ">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-6 h-6 focus:outline outline-offset-2">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                            </svg>
-                        </button>
-                        <!-- /Search Bar -->
                     </div>
                 </nav>
 
