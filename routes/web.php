@@ -28,7 +28,7 @@ Route::group(['prefix' => 'admin','middleware' => 'auth:sanctum'], function() {
     });
     Route::post('/storeDataWLMS', function(Request $request) {
         return $request;
-});
+    });
 });
 
 
