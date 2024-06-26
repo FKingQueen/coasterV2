@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Test\StorageController ;  
 
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +22,15 @@ Route::get('/getApi/{msg}', [StorageController ::class, 'getApi']);
 Route::get('/csrf-token', function() {
     return response()->json(['csrf_token' => csrf_token()]);
 });
+Route::group(['prefix' => 'admin','middleware' => 'auth:sanctum'], function() {
+    Route::post('/storeBuoy', function(Request $request) {
+        return $request;
+    });
+    Route::post('/storeDataWLMS', function(Request $request) {
+        return $request;
+});
+});
+
 
 
 Route::get('/{any}', function () {
