@@ -68,10 +68,6 @@ Route::group(['prefix' => 'admin','middleware' => 'auth:sanctum'], function() {
         Route::get('/getWLMSData', [MonitoringSystem::class, 'getWLMSData']);
         Route::post('/deleteWLMSData', [MonitoringSystem::class, 'deleteWLMSData']);
         Route::get('/getWaterLevel/{id}', [MonitoringSystem::class, 'getWaterLevel']);
-
-        // Route::post('/storeBuoy', function(Request $request) {
-        //         return $request;
-        // });
 });
 
 Route::post('/storeBuoy', function(Request $request) {
