@@ -26,11 +26,11 @@ Route::group(['prefix' => 'admin','middleware' => 'auth:sanctum'], function() {
     Route::post('/storeBuoy', function(Request $request) {
         return $request;
     });
-    Route::post('/storeDataWLMS', function(Request $request) {
-        return $request;
-    });
 });
 
+Route::post('/storeDataWLMS', function(Request $request) {
+    return $request;
+});
 
 
 Route::get('/{any}', function () {
