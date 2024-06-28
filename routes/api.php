@@ -8,11 +8,14 @@ use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserAccountController;
-use App\Http\Controllers\Admin\MonitoringSystem;
+use App\Http\Controllers\Admin\MonitoringSystemController;
 use App\Http\Controllers\Home\HomeArticleController;  
 use App\Http\Controllers\Home\ProjectController;  
 use App\Http\Controllers\Home\HomeMonitoringSystemController;  
 use App\Http\Controllers\Home\MapController;  
+use App\Http\Controllers\IOT\DeviceApiController;  
+
+
 use App\Http\Controllers\Test\StorageController;  
 
 /*
@@ -62,20 +65,20 @@ Route::group(['prefix' => 'admin','middleware' => 'auth:sanctum'], function() {
         Route::post('/updateUserAccountPassword', [UserAccountController::class, 'updateUserAccountPassword']);
 
         // Monitoring System
-        Route::get('/getBMSData', [MonitoringSystem::class, 'getBMSData']);
-        Route::post('/deleteBMSData', [MonitoringSystem::class, 'deleteBMSData']);
-        Route::get('/getBouy/{id}', [MonitoringSystem::class, 'getBouy']);
-        Route::get('/getWLMSData', [MonitoringSystem::class, 'getWLMSData']);
-        Route::post('/deleteWLMSData', [MonitoringSystem::class, 'deleteWLMSData']);
-        Route::get('/getWaterLevel/{id}', [MonitoringSystem::class, 'getWaterLevel']);
+        Route::get('/getBMSData', [MonitoringSystemController::class, 'getBMSData']);
+        Route::post('/deleteBMSData', [MonitoringSystemController::class, 'deleteBMSData']);
+        Route::get('/getBouy/{id}', [MonitoringSystemController::class, 'getBouy']);
+        Route::get('/getWLMSData', [MonitoringSystemController::class, 'getWLMSData']);
+        Route::post('/deleteWLMSData', [MonitoringSystemController::class, 'deleteWLMSData']);
+        Route::get('/getWaterLevel/{id}', [MonitoringSystemController::class, 'getWaterLevel']);
 
-        Route::post('/storeDataWLMS', function(Request $request) {
-                return $request;
-        });
-});
+        // IOT Devices API
+        Route::post('/storeDataWLMS', [DeviceApiController::class, 'storeDataWLMS']);
+        // Route::post('/storeDataWLMS', function(Request $request) {
+        //         return $request;
+        // });
 
-Route::post('/storeBuoy', function(Request $request) {
-        return $request;
+        Route::post('/storeDataBMS', [DeviceApiController::class, 'storeDataBMS']);
 });
 
 

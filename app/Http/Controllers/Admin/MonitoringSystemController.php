@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Bouy;
 use App\Models\WaterLevel;
 
-class MonitoringSystem extends Controller
+class MonitoringSystemController extends Controller
 {
     // Bouy
     public function getBMSData(){
