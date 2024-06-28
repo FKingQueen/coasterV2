@@ -6,7 +6,7 @@
                 disableOnInteraction: false,
             }" :mousewheel="false" :modules="modules" class="mySwiper">
                 <swiper-slide>
-                    <img v-if="this.visibleSlides" src="/img/slides/Slide1Mobile.png" alt="#">
+                    <img v-if="this.visibleSlides" src="/img/slides/Slide1Mobile.webp" alt="#">
                     <img v-if="!this.visibleSlides" src="/img/slides/Slide1.PNG" class="object-cover w-full" alt="#">
                 </swiper-slide>
                 <swiper-slide>
