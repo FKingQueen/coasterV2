@@ -12,7 +12,7 @@ use App\Models\Type;
 class HomeArticleController extends Controller
 {
     public function getArticles() {
-        $article =  Article::with('articleprojects.project')->with('type')->get();
+        $article =  Article::with('articleprojects.project')->with('type')->orderBy('created_at','DESC')->get();
         
         foreach($article as $key => $arti)
         {
