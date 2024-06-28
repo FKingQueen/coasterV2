@@ -133,7 +133,7 @@ class ArticleController extends Controller
 
     public function getArticleEdit($id)
     {
-        return Article::orderBy('id', 'desc')->with('articleprojects.project')->with('type')->get();
+        return Article::where('id', $id)->with('articleprojects.project')->with('type')->get();
     }
 
     public function updateArticle(Request $request){

@@ -237,7 +237,7 @@ export default defineComponent({
     },
     async mounted() {
         let existingObj = this;
-        this.token = localStorage.getItem('authToken'); // Replace with your actual API token
+        
         const headers = {
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         };
@@ -266,6 +266,9 @@ export default defineComponent({
         existingObj.formValidate.projectValue = existingObj.formValidate.model1
         existingObj.formValidate.typeValue = existingObj.formValidate.model2
         // console.log(existingObj.formValidate.projectValue);
+    },
+    created() {
+        this.token = localStorage.getItem('authToken'); // Replace with your actual API token
     }
 })
 </script>
