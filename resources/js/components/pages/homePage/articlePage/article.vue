@@ -3,7 +3,7 @@
         <div v-if="isLoaded" class="lg:flex lg:px-0 px-2 justify-center lg:space-x-6 space-x-0 lg:py-10 py-3">
             <div class="lg:w-7/12 sm:w-full h-full drop-shadow-md bg-white">
                 <img class="object-cover w-full" :src="`/img/uploads/${this.article.image}`" >
-                <div class="p-10 grid grid-cols-1 divide-y divide-sky-400">
+                <div class="lg:p-10 p-5 grid grid-cols-1 divide-y divide-sky-400">
                     <div>
                         <div class="flex justify-end pb-3">
                             <div v-for="project in this.article.projects">
