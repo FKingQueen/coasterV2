@@ -28,71 +28,90 @@
             </swiper>
         </div>
         <div class="w-full lg:flex lg:justify-center lg:space-x-20 lg:pt-14 lg:px-0 px-5 lg:pb-14 pb-5">
-            <div v-if="this.news.length != 0" class=" lg:w-3/12 w-full  bg-white drop-shadow-md border-t lg:mt-0 mt-3 ">
+
+            <!-- <div v-if="this.news.length != 0" class=" lg:w-3/12 w-full  bg-white drop-shadow-md border-t lg:mt-0 mt-3 "> -->
+            <div class=" lg:w-3/12 w-full  bg-white drop-shadow-md border-t lg:mt-0 mt-3 ">
                 <p class="text-sky-800 text-2xl text-center blur-none ">News</p>
                 <div class="h-4/5 border-t-2 border-sky-800 p-2">
-                    <div v-for="(news, key, index) in this.news.slice(0, 3)" class="flex block border-b pb-1 mb-3">
-                        <img @click="gotoArticle(news)"
-                            class="cursor-pointer bg-sky-200 object-cover object-center blur-none w-20 h-20 "
-                            :src="`/img/uploads/${news.image}`" >
-                        <div class="block w-fit px-1 overflow-hidden">
-                            <p @click="gotoArticle(news)"
-                                class="cursor-pointer text-sm blur-none font-semibold text-sky-600  truncate">{{ news.title
-                                }}</p>
-                            <p class="text-xs blur-none">News | {{ news.date }}</p>
-                            <p class="text-xs blur-none text-justify line-clamp-3" v-html="news.article"> </p>
+                    <a-skeleton :loading="articleLoading">
+                        <div v-for="(news, key, index) in this.news.slice(0, 3)" class="flex block border-b pb-1 mb-3">
+                            <img @click="gotoArticle(news)"
+                                class="cursor-pointer bg-sky-200 object-cover object-center blur-none w-20 h-20 "
+                                :src="`/img/uploads/${news.image}`">
+                            <div class="block w-fit px-1 overflow-hidden">
+                                <p @click="gotoArticle(news)"
+                                    class="cursor-pointer text-sm blur-none font-semibold text-sky-600  truncate">{{
+                                        news.title
+                                    }}</p>
+                                <p class="text-xs blur-none">News | {{ news.date }}</p>
+                                <p class="text-xs blur-none text-justify line-clamp-3" v-html="news.article"> </p>
+                            </div>
                         </div>
-                    </div>
+                    </a-skeleton>
+
                 </div>
                 <div @click="moreArticle('News')"
                     class="bg-white cursor-pointer border-t grid h-12 text-center place-content-center text-lg blur-none ">
                     View More
                 </div>
             </div>
-            <div v-if="this.announcements.length != 0"
-                class=" lg:w-3/12 w-full  bg-white drop-shadow-md border-t lg:mt-0 mt-10">
+
+            <!-- <div v-if="this.announcements.length != 0" class=" lg:w-3/12 w-full  bg-white drop-shadow-md border-t lg:mt-0 mt-10"> -->
+            <div class=" lg:w-3/12 w-full  bg-white drop-shadow-md border-t lg:mt-0 mt-10">
                 <p class="text-sky-800 text-2xl text-center blur-none">Announcements</p>
                 <div class="h-4/5 border-t-2 border-sky-800 p-2">
-                    <div v-for="(announcement, key, index) in this.announcements.slice(0, 3)"
-                        class="flex block border-b pb-1 mb-3">
-                        <img @click="gotoArticle(announcement)"
-                            class="cursor-pointer bg-sky-200 object-cover object-center blur-none w-20 h-20 "
-                            :src="`/img/uploads/${announcement.image}`" >
-                        <div class="block w-fit px-1 overflow-hidden">
-                            <p @click="gotoArticle(announcement)"
-                                class="cursor-pointer text-sm blur-none font-semibold text-sky-600  truncate">{{
-                                    announcement.title }}</p>
-                            <p class="text-xs blur-none">Announcements | {{ announcement.date }}</p>
-                            <p class="text-xs blur-none text-justify line-clamp-3" v-html="announcement.article"></p>
+                    <a-skeleton :loading="articleLoading">
+                        <div v-for="(announcement, key, index) in this.announcements.slice(0, 3)"
+                            class="flex block border-b pb-1 mb-3">
+                            <img @click="gotoArticle(announcement)"
+                                class="cursor-pointer bg-sky-200 object-cover object-center blur-none w-20 h-20 "
+                                :src="`/img/uploads/${announcement.image}`">
+                            <div class="block w-fit px-1 overflow-hidden">
+                                <p @click="gotoArticle(announcement)"
+                                    class="cursor-pointer text-sm blur-none font-semibold text-sky-600  truncate">{{
+                                        announcement.title }}</p>
+                                <p class="text-xs blur-none">Announcements | {{ announcement.date }}</p>
+                                <p class="text-xs blur-none text-justify line-clamp-3" v-html="announcement.article">
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    </a-skeleton>
+
                 </div>
                 <div @click="moreArticle('Announcements')"
                     class="bg-white cursor-pointer border-t grid h-12 text-center place-content-center text-lg blur-none ">
                     View More
                 </div>
             </div>
-            <div v-if="this.events.length != 0" class=" lg:w-3/12 w-full  bg-white drop-shadow-md border-t lg:mt-0 mt-10">
+
+            <!-- <div v-if="this.events.length != 0" class=" lg:w-3/12 w-full  bg-white drop-shadow-md border-t lg:mt-0 mt-10"> -->
+            <div class=" lg:w-3/12 w-full  bg-white drop-shadow-md border-t lg:mt-0 mt-10">
                 <p class="text-sky-800 text-2xl text-center blur-none">Events</p>
                 <div class="h-4/5 border-t-2 border-sky-800 p-2">
-                    <div v-for="(event, key, index) in this.events.slice(0, 3)" class="flex block border-b pb-1 mb-3">
-                        <img @click="gotoArticle(event)"
-                            class="cursor-pointer bg-sky-200 object-cover object-center blur-none w-20 h-20 "
-                            :src="`/img/uploads/${event.image}`">
-                        <div class="block w-fit px-1 overflow-hidden">
-                            <p @click="gotoArticle(event)"
-                                class="cursor-pointer text-sm blur-none font-semibold text-sky-600  truncate">{{ event.title
-                                }}</p>
-                            <p class="text-xs blur-none">Events | {{ event.date }}</p>
-                            <p class="text-xs blur-none text-justify line-clamp-3" v-html="event.article"></p>
+                    <a-skeleton :loading="articleLoading">
+                        <div v-for="(event, key, index) in this.events.slice(0, 3)"
+                            class="flex block border-b pb-1 mb-3">
+                            <img @click="gotoArticle(event)"
+                                class="cursor-pointer bg-sky-200 object-cover object-center blur-none w-20 h-20 "
+                                :src="`/img/uploads/${event.image}`">
+                            <div class="block w-fit px-1 overflow-hidden">
+                                <p @click="gotoArticle(event)"
+                                    class="cursor-pointer text-sm blur-none font-semibold text-sky-600  truncate">{{
+                                        event.title
+                                    }}</p>
+                                <p class="text-xs blur-none">Events | {{ event.date }}</p>
+                                <p class="text-xs blur-none text-justify line-clamp-3" v-html="event.article"></p>
+                            </div>
                         </div>
-                    </div>
+                    </a-skeleton>
+
                 </div>
                 <div @click="moreArticle('Events')"
                     class="bg-white cursor-pointer border-t grid h-12 text-center place-content-center text-lg blur-none ">
                     View More
                 </div>
             </div>
+
         </div>
         <!-- Project -->
         <div class="grid gap-2 place-content-center">
@@ -106,32 +125,32 @@
             <div class="lg:w-3/4 w-full place-content-center grid lg:grid-cols-2 lg:gap-4">
                 <div class="w-full ">
                     <img @click="this.$router.push('/projects/project1')" alt="ecommerce"
-                                class="lg:p-4 p-2 cursor-pointer transition drop-shadow-lg ease-in-out delay-75  hover:-translate-y-1 hover:scale-103 duration-300"
-                                src="/img/Project1/P1.png" />
+                        class="lg:p-4 p-2 cursor-pointer transition drop-shadow-lg ease-in-out delay-75  hover:-translate-y-1 hover:scale-103 duration-300"
+                        src="/img/Project1/P1.png" />
                     <div class="mt-4 flex justify-center">
                         <h3 class="title-font mb-1 text-xs tracking-widest text-gray-500">PROJECT 1</h3>
                     </div>
                 </div>
                 <div class="w-full">
                     <img @click="this.$router.push('/projects/project2')" alt="ecommerce"
-                                    class="lg:p-4 p-2 cursor-pointer transition drop-shadow-lg ease-in-out delay-75  hover:-translate-y-1 hover:scale-103 duration-300"
-                                    src="/img/Project2/P2.png" />
+                        class="lg:p-4 p-2 cursor-pointer transition drop-shadow-lg ease-in-out delay-75  hover:-translate-y-1 hover:scale-103 duration-300"
+                        src="/img/Project2/P2.png" />
                     <div class="mt-4 flex justify-center">
                         <h3 class="title-font mb-1 text-xs tracking-widest text-gray-500">PROJECT 2</h3>
                     </div>
                 </div>
                 <div class="w-full">
                     <img @click="this.$router.push('/projects/project3')" alt="ecommerce"
-                                    class="lg:p-4 p-2 cursor-pointer transition drop-shadow-lg ease-in-out delay-75  hover:-translate-y-1 hover:scale-103 duration-300"
-                                    src="/img/Project3/P3.png" />
+                        class="lg:p-4 p-2 cursor-pointer transition drop-shadow-lg ease-in-out delay-75  hover:-translate-y-1 hover:scale-103 duration-300"
+                        src="/img/Project3/P3.png" />
                     <div class="mt-4 flex justify-center">
                         <h3 class="title-font mb-1 text-xs tracking-widest text-gray-500">PROJECT 3</h3>
                     </div>
                 </div>
                 <div class="w-full">
                     <img @click="this.$router.push('/projects/project4')" alt="ecommerce"
-                                    class="lg:p-4 p-2 cursor-pointer transition drop-shadow-lg ease-in-out delay-75  hover:-translate-y-1 hover:scale-103 duration-300"
-                                    src="/img/Project4/P4.png" />
+                        class="lg:p-4 p-2 cursor-pointer transition drop-shadow-lg ease-in-out delay-75  hover:-translate-y-1 hover:scale-103 duration-300"
+                        src="/img/Project4/P4.png" />
                     <div class="mt-4 flex justify-center">
                         <h3 class="title-font mb-1 text-xs tracking-widest text-gray-500">PROJECT 4</h3>
                     </div>
@@ -155,7 +174,8 @@
                                         The Coastal Engineering Research Center or CoastER Center is the country’s first
                                         coastal engineering and management research and development center and
                                         the hub of innovations for coastal resiliency. This facility will spur the
-                                        development of innovations that address coastal erosion, development construction
+                                        development of innovations that address coastal erosion, development
+                                        construction
                                         materials for coastal protection, policies, and guidelines intended to protect
                                         resources from coastal flooding and improve the lives of people in coastal
                                         communities. It will also bolster the capability of Filipino engineers towards
@@ -191,8 +211,10 @@
                                 WHERE WE ARE
                                 <template #content>
                                     <p class="text-base text-justify indent-8 px-5 font-normal">
-                                        The Coastal Engineering Research Center or CoastER Center is located in #16 Quiling
-                                        Sur, City of Batac 2906 Ilocos Norte, within the Mariano Marcos State University, in
+                                        The Coastal Engineering Research Center or CoastER Center is located in #16
+                                        Quiling
+                                        Sur, City of Batac 2906 Ilocos Norte, within the Mariano Marcos State
+                                        University, in
                                         front of College of Engineering (COE).
                                         <a @click="showModal" class="underline">Location</a>
                                         <!-- <a-modal ref="modalRef" v-model:visible="visible"
@@ -217,12 +239,12 @@
                                                 <div ref="modalTitleRef" style="width: 100%; cursor: move">Coaster Location
                                                 </div>
                                             </template>
-                                            <template #modalRender="{ originVNode }">
+    <template #modalRender="{ originVNode }">
                                                 <div :style="transformStyle">
                                                     <component :is="originVNode" />
                                                 </div>
                                             </template>
-                                        </a-modal> -->
+    </a-modal> -->
                                     <div>
                                         <img src="/img/location/building_location.jpg" />
                                     </div>
@@ -311,7 +333,8 @@ export default defineComponent({
             events: [],
             news: [],
             announcements: [],
-            selectedProject: ''
+            selectedProject: '',
+            articleLoading: true,
         }
     },
     methods: {
@@ -336,9 +359,9 @@ export default defineComponent({
             this.$router.push({ name: 'about', params: { id } })
         },
         onResize() {
-            if(680 > window.innerWidth){
+            if (680 > window.innerWidth) {
                 this.visibleSlides = true;
-            } else if(680 < window.innerWidth){
+            } else if (680 < window.innerWidth) {
                 this.visibleSlides = false;
             }
         }
@@ -359,6 +382,7 @@ export default defineComponent({
                         existingObj.events.push(existingObj.articles[i]);
                     }
                 }
+                existingObj.articleLoading = false;
             })
             .catch(function (error) {
             });
@@ -367,14 +391,14 @@ export default defineComponent({
         this.$nextTick(() => {
             window.addEventListener('resize', this.onResize);
         })
-        if(680 > window.innerWidth){
+        if (680 > window.innerWidth) {
             this.visibleSlides = true;
-        } else if(680 < window.innerWidth){
+        } else if (680 < window.innerWidth) {
             this.visibleSlides = false;
         }
     },
-    beforeDestroy() { 
-        window.removeEventListener('resize', this.onResize); 
+    beforeDestroy() {
+        window.removeEventListener('resize', this.onResize);
     },
 });
 </script>
@@ -528,7 +552,5 @@ body {
     position: absolute;
     white-space: nowrap;
     width: 1px;
-}</style>
-  
-    
-  
+}
+</style>
