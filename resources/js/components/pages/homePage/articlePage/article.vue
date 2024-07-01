@@ -118,7 +118,6 @@ export default defineComponent({
         await axios.get(`/api/getArticle/${id}`)    
             .then(function (response) {
                 existingObj.projects = response.data.article[0];
-                console.log(response.data);
                 existingObj.articles = response.data.articles
                 existingObj.article.id = response.data.article[0].id
                 existingObj.article.title = response.data.article[0].title
