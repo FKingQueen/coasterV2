@@ -42,7 +42,7 @@ class ProjectController extends Controller
         $articles = ArticleProject::where('project_id', $id)->with('article.type')->get();
         foreach($articles as $key => $arti)
         {
-            $articles[$key]->date = Carbon::createFromFormat('Y-m-d H:i:s', $arti->created_at)->format('F d, Y');
+            $arti->date = Carbon::createFromFormat('Y-m-d H:i:s', $arti->created_at)->format('F d, Y');
         }
         return $articles;
     }

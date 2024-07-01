@@ -122,12 +122,14 @@ class ArticleController extends Controller
 
     public function deleteArticle(Request $ruquest){
         $Article = Article::find($ruquest->id);
+        $ArticleProject = ArticleProject::where('article_id', $ruquest->id);
         $fileName = $Article->image;
         $filePath = public_path().'/img/uploads/'.$fileName;
         if(file_exists($filePath)){
             @unlink($filePath);
         }
         $Article->delete();
+        $ArticleProject->delete();
         return $fileName;
     }
 
