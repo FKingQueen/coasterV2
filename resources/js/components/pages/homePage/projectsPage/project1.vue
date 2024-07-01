@@ -292,11 +292,9 @@ export default defineComponent({
         let existingObj = this;
         await axios.get(`/api/getRelatedArticle/${1}`)
             .then(function (response) {
-                console.log(response);
                 for (let i = 0; i < response.data.length-1; i++) {
                     existingObj.relatedArticles.push(response.data[i].article);
                 }
-                console.log(existingObj.relatedArticles);
                 existingObj.isLoaded = true;
             })
             .catch(function (error) {
