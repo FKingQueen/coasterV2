@@ -2,6 +2,7 @@
 
 import { createStore } from 'vuex';
 import router from '../router';
+import { notification } from 'ant-design-vue';
 
 const store = createStore({
     state() {
@@ -43,7 +44,11 @@ const store = createStore({
                            router.push({ path: '/admin/articlePlatform' })
                         })
                         .catch(function (error) {
-                            console.error(error);
+                            // console.log(error.response.data.message);
+                            notification.error({
+                                message: 'Error',
+                                description: error.response.data.errors.error[0],
+                            });
                         });
                 })
 

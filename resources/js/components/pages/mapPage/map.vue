@@ -111,15 +111,23 @@
                         <div class="w-full flex justify-center">
                             <a-spin v-if="resultLoading == true" :indicator="indicator" />
                         </div>
-                        <div v-if="resultLoading == false">
+                        <div v-if="resultLoading == false && errorResult == false">
                             <highcharts :options="this.chartOptions"></highcharts>
                             <p class="opacity-75 text-blue-800" @click="modalVisibleData = true">more...</p>
                         </div>
                     </div>
+                    <div v-if="errorResult" class="">
+                        <Alert type="error"  class="opacity-75" >
+                            Request Time Out
+                            <template #desc>
+                                This page will reload in 5 seconds.
+                            </template>
+                        </Alert>
+                    </div>
                 </div>
             </div>
             <!-- /Results -->
-
+            
             <!-- Legend -->
             <div class="legend-bottom">
                 <div class=" text-white text-sm rounded-md grid grid-cols-1 bg-white p-5">
@@ -128,20 +136,20 @@
                     </div>
                     <div class="flex justify-start space-x-2">
                         <div class="items-center flex">
-                            <span class="h-3 w-4 border border-black"
-                                style="background-color: blue; display: inline-block;"></span>
+                            <span class="h-3 w-4 border"
+                                style="background-color: #1260cc; display: inline-block;"></span>
                         </div>
                         <div class="text-justify w-full text-black">Accreting</div>
                     </div>
                     <div class="flex justify-start space-x-2">
                         <div class="items-center flex">
-                            <span class="h-3 w-4 border" style="background-color: red; display: inline-block;"></span>
+                            <span class="h-3 w-4 border" style="background-color: #f94449; display: inline-block;"></span>
                         </div>
                         <div class="text-justify w-full text-black">Eroded</div>
                     </div>
                     <div class="flex justify-start space-x-2">
                         <div class="items-center flex">
-                            <span class="h-3 w-4 border" style="background-color: green; display: inline-block;"></span>
+                            <span class="h-3 w-4 border" style="background-color: #407f3e; display: inline-block;"></span>
                         </div>
                         <div class="text-justify w-full text-black">Stable</div>
                     </div>
@@ -150,12 +158,15 @@
             <!-- /Legend -->
 
             <!-- Modal -->
-            <a-modal v-model:open="modalVisibleData" title="Data" width="1000px">
+            <a-modal v-model:open="modalVisibleData" title="Raw Data" width="1000px">
                 <template #footer>
                     <a-button key="back" @click="handleClose">Close</a-button>
                 </template>
-                <a-table v-if="modalVisibleData" :columns="columns" :data-source="this.properties"
-                    :pagination="{ pageSize: 50 }" :scroll="{ y: 240 }" />
+                <!-- <a-table v-if="modalVisibleData" :columns="columns" :data-source="this.properties"
+                    :pagination="{ pageSize: 50 }" :scroll="{ y: 240 }" /> -->
+                <DataTable v-if="modalVisibleData" :columns="this.datatableCol" :data="this.properties"
+                    class="display shadow-sm rounded">
+                </DataTable>
             </a-modal>
             <!-- /Modal -->
 
@@ -189,10 +200,15 @@ import GeoJSON from 'ol/format/GeoJSON';
 
 import * as ol from 'ol'; // Add this line
 import { extend as extentExtend } from 'ol/extent';
+
+// Datatables
+import { DataTable } from 'datatables.net-vue3';
+import Select from 'datatables.net-select';
 // Components
 export default defineComponent({
     components: {
         LoadingOutlined,
+        DataTable
     },
     setup() {
         const indicator = h(LoadingOutlined, {
@@ -202,35 +218,13 @@ export default defineComponent({
             spin: true,
         });
 
-        const columns = [{
-            title: 'Province',
-            dataIndex: 'NAME_1',
-            width: 50,
-        }, {
-            title: 'Municipality/City',
-            dataIndex: 'NAME_2',
-            width: 50,
-        }, {
-            title: 'Barangay',
-            dataIndex: 'NAME_3',
-            width: 50,
-        }, {
-            title: 'EPR',
-            dataIndex: 'EPR',
-            width: 50,
-        }, {
-            title: 'EPR_UNC',
-            dataIndex: 'EPR_unc',
-            width: 50,
-        }, {
-            title: 'EPR_Trend',
-            dataIndex: 'EPR_trend',
-            width: 50,
-        }];
-
         return {
             indicator,
-            columns,
+            dataTableOptions: {
+                fixedColumns: false,
+                scrollX: true,
+            },
+            columns: ''
         };
     },
     data() {
@@ -255,6 +249,7 @@ export default defineComponent({
                 label: 'Abra River'
             }
         ];
+
 
 
         return {
@@ -300,6 +295,7 @@ export default defineComponent({
                         animation: true
                     }
                 },
+                colors: [],
                 tooltip: {
                     headerFormat: '',
                     pointFormat: ''
@@ -321,10 +317,16 @@ export default defineComponent({
 
             resultLoading: null,
 
+            // Datatable
+            datatableCol: [],
+
+            // Result
+            errorResult: false,
         }
     },
     async mounted() {
         this.initializeMap();
+        DataTable.use(Select);  // Initialize the Select plugin
     },
     methods: {
         initializeMap() {
@@ -362,6 +364,27 @@ export default defineComponent({
             this.brgyOptions = null;
             thiss.provinceName = null;
 
+            // DataTable Column Name
+            if (thiss.layerName === 'epr') {
+                thiss.datatableCol = [
+                    { data: 'NAME_1', title: 'Province' },
+                    { data: 'NAME_2', title: 'Municipality/City' },
+                    { data: 'NAME_3', title: 'Barangay' },
+                    { data: 'EPR', title: 'EPR' },
+                    { data: 'EPR_unc', title: 'EPR_unc' },
+                    { data: 'EPR_trend', title: 'EPR_trend' },
+                ];
+            } else {
+                thiss.datatableCol = [
+                    { data: 'NAME_1', title: 'Province' },
+                    { data: 'NAME_2', title: 'Municipality/City' },
+                    { data: 'NAME_3', title: 'Barangay' },
+                    { data: 'NSM', title: 'NSM' },
+                    { data: 'NSM_highest', title: 'NSM_highest' },
+                    { data: 'NSM_trend', title: 'NSM_trend' },
+                ];
+            }
+
             const form = {
                 layerName: this.layerName
             }
@@ -369,9 +392,7 @@ export default defineComponent({
             await axios.post(`/api/getLayerData`, form)
                 .then(function (response) {
                     var layers = thiss.map.getLayers();
-
                     thiss.properties = response.data.properties;
-
                     // Remove layers starting from index 1
                     for (var i = layers.getLength() - 1; i > 0; i--) {
                         var layer = layers.item(i);
@@ -397,13 +418,14 @@ export default defineComponent({
                             }),
                             crossOrigin: 'anonymous', // Add this line
                         }),
+                        
                         style: (feature) => {
                             const validation = thiss.layerName === 'epr' ? 'EPR_trend' : 'NSM_trend'
                             const propertyValue = feature.get(validation);
-                            const fillColor = propertyValue === 'stable' ? 'green'
-                                : (propertyValue === 'erosion' ? 'red' : 'blue');
-                            const strokeColor = propertyValue === 'stable' ? 'green'
-                                : (propertyValue === 'erosion' ? 'red' : 'blue');
+                            const fillColor = propertyValue === 'stable' ? '#407f3e'
+                                : (propertyValue === 'erosion' ? '#f94449' : '#1260cc');
+                            const strokeColor = propertyValue === 'stable' ? '#407f3e'
+                                : (propertyValue === 'erosion' ? '#f94449' : '#1260cc');
                             return new Style({
                                 fill: new Fill({
                                     color: fillColor,
@@ -416,6 +438,8 @@ export default defineComponent({
                         },
                     });
                     thiss.map.addLayer(dataGeojson);
+                    // Delete Pie Color to make it randomize
+                    delete thiss.chartOptions.colors;
                     thiss.chartOptions.series[0].data = response.data.chartData
 
                     if (thiss.layerName == 'epr') {
@@ -443,6 +467,12 @@ export default defineComponent({
                 })
                 .catch(function (error) {
                     console.error(error);
+                    thiss.resultLoading = false;
+                    thiss.errorResult = true;
+                    setInterval(() => {
+                        window.location.reload(); // Reloads the entire page
+                    }, 5000); // Refresh interval in milliseconds (5 seconds)
+
                 });
 
         },
@@ -504,13 +534,14 @@ export default defineComponent({
                             }),
                             crossOrigin: 'anonymous', // Add this line
                         }),
+                        
                         style: (feature) => {
                             const validation = thiss.layerName === 'epr' ? 'EPR_trend' : 'NSM_trend'
                             const propertyValue = feature.get(validation);
-                            const fillColor = propertyValue === 'stable' ? 'green'
-                                : (propertyValue === 'erosion' ? 'red' : 'blue');
-                            const strokeColor = propertyValue === 'stable' ? 'green'
-                                : (propertyValue === 'erosion' ? 'red' : 'blue');
+                            const fillColor = propertyValue === 'stable' ? '#407f3e'
+                                : (propertyValue === 'erosion' ? '#f94449' : '#1260cc');
+                            const strokeColor = propertyValue === 'stable' ? '#407f3e'
+                                : (propertyValue === 'erosion' ? '#f94449' : '#1260cc');
                             return new Style({
                                 fill: new Fill({
                                     color: fillColor,
@@ -523,7 +554,8 @@ export default defineComponent({
                         },
                     });
                     thiss.map.addLayer(dataGeojson);
-
+                    // Delete Pie Color to make it randomize
+                    delete thiss.chartOptions.colors;
                     thiss.chartOptions.series[0].data = response.data.chartData
                     thiss.chartOptions.subtitle.text = 'Municipalities/Cities'
                     thiss.chartOptions.tooltip.pointFormat = '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
@@ -543,6 +575,11 @@ export default defineComponent({
                 })
                 .catch(function (error) {
                     console.error(error);
+                    thiss.resultLoading = false;
+                    thiss.errorResult = true;
+                    setInterval(() => {
+                        window.location.reload(); // Reloads the entire page
+                    }, 5000); // Refresh interval in milliseconds (5 seconds)
                 });
         },
         async handleMuniNameChange() {
@@ -562,6 +599,7 @@ export default defineComponent({
                 .then(function (response) {
 
                     thiss.properties = response.data.properties
+
                     var layers = thiss.map.getLayers();
 
                     // Remove layers starting from index 1
@@ -603,13 +641,14 @@ export default defineComponent({
                             }),
                             crossOrigin: 'anonymous', // Add this line
                         }),
+                        
                         style: (feature) => {
                             const validation = thiss.layerName === 'epr' ? 'EPR_trend' : 'NSM_trend'
                             const propertyValue = feature.get(validation);
-                            const fillColor = propertyValue === 'stable' ? 'green'
-                                : (propertyValue === 'erosion' ? 'red' : 'blue');
-                            const strokeColor = propertyValue === 'stable' ? 'green'
-                                : (propertyValue === 'erosion' ? 'red' : 'blue');
+                            const fillColor = propertyValue === 'stable' ? '#407f3e'
+                                : (propertyValue === 'erosion' ? '#f94449' : '#1260cc');
+                            const strokeColor = propertyValue === 'stable' ? '#407f3e'
+                                : (propertyValue === 'erosion' ? '#f94449' : '#1260cc');
                             return new Style({
                                 fill: new Fill({
                                     color: fillColor,
@@ -623,6 +662,8 @@ export default defineComponent({
                     });
                     thiss.map.addLayer(dataGeojson);
 
+                    // Delete Pie Color to make it randomize
+                    delete thiss.chartOptions.colors;
                     thiss.chartOptions.series[0].data = response.data.chartData
                     thiss.chartOptions.subtitle.text = 'Barangays'
                     thiss.brgyOptions = response.data.Options
@@ -641,6 +682,11 @@ export default defineComponent({
                 })
                 .catch(function (error) {
                     console.error(error);
+                    thiss.resultLoading = false;
+                    thiss.errorResult = true;
+                    setInterval(() => {
+                        window.location.reload(); // Reloads the entire page
+                    }, 5000); // Refresh interval in milliseconds (5 seconds)
                 });
         },
         async handleBrgyNameChange() {
@@ -689,13 +735,14 @@ export default defineComponent({
                             }),
                             crossOrigin: 'anonymous', // Add this line
                         }),
+                        
                         style: (feature) => {
                             const validation = thiss.layerName === 'epr' ? 'EPR_trend' : 'NSM_trend'
                             const propertyValue = feature.get(validation);
-                            const fillColor = propertyValue === 'stable' ? 'green'
-                                : (propertyValue === 'erosion' ? 'red' : 'blue');
-                            const strokeColor = propertyValue === 'stable' ? 'green'
-                                : (propertyValue === 'erosion' ? 'red' : 'blue');
+                            const fillColor = propertyValue === 'stable' ? '#407f3e'
+                                : (propertyValue === 'erosion' ? '#f94449' : '#1260cc');
+                            const strokeColor = propertyValue === 'stable' ? '#407f3e'
+                                : (propertyValue === 'erosion' ? '#f94449' : '#1260cc');
                             return new Style({
                                 fill: new Fill({
                                     color: fillColor,
@@ -708,7 +755,8 @@ export default defineComponent({
                         },
                     });
                     thiss.map.addLayer(dataGeojson);
-
+                    // Customize Color for the Pie
+                   thiss.chartOptions.colors = ['#1260cc', '#f94449',  '#407f3e'];
                     thiss.chartOptions.series[0].data = response.data.chartData
                     thiss.chartOptions.subtitle.text = ''
                     thiss.chartOptions.tooltip.pointFormat = '<span style="color:{point.color}">\u25CF</span> Accreting: <b>{point.y}%</b><br/><br/>'
@@ -722,6 +770,11 @@ export default defineComponent({
                 })
                 .catch(function (error) {
                     console.error(error);
+                    thiss.resultLoading = false;
+                    thiss.errorResult = true;
+                    setInterval(() => {
+                        window.location.reload(); // Reloads the entire page
+                    }, 5000); // Refresh interval in milliseconds (5 seconds)
                 });
         }
     }

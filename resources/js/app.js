@@ -11,6 +11,8 @@ import Highcharts from "highcharts";
 import StockModule from "highcharts/modules/stock";
 import HighchartsVue from "highcharts-vue";
 
+import DataTable from 'datatables.net-vue3'
+
 import store from './store';  // Import the store
 
 StockModule(Highcharts);
@@ -20,6 +22,7 @@ const app = createApp(App);
 app.config.globalProperties.$axios = axios;
 app.use(ViewUIPlus, {locale: locale});
 app.use(router);
+app.use(DataTable);
 app.use(Antd);
 app.use(CKEditor);
 app.use(store);

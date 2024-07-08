@@ -24,9 +24,18 @@ class AuthController extends Controller
 
             return response()->json(['user' => $user, 'token' => $token]);
         }
+        // Check if the email exists in the database
+        $user = User::where('email', $request->email)->first();
 
+        if (!$user) {
+            throw ValidationException::withMessages([
+                'error' => ['Email not found.'],
+            ]);
+        }
+
+        // If Auth::attempt fails due to incorrect password, return an error message
         throw ValidationException::withMessages([
-            'email' => ['The provided credentials are incorrect.'],
+            'error' => ['Incorrect Password.'],
         ]);
     }
 

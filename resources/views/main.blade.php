@@ -9,6 +9,7 @@
             href="/img/logo/COASTER.png"
         >
         <script src="https://code.highcharts.com/stock/highstock.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
 
     </head>
     <body class="antialiased">
