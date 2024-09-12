@@ -1,11 +1,11 @@
 <template>
     <div class="w-full h-full">
-        <div class="flex w-full justify-around">
-            <div class="w-2/4 text-center">
-                <p v-if="this.id == 1" class="text-lg font-medium">Ilocos Norte</p>
-                <p v-if="this.id == 2" class="text-lg font-medium">Ilocos Sur</p>
+        <div class="flex w-full justify-between pb-1">
+            <div class=" text-center">
+                <p v-if="this.id == 1" class=" font-medium">Ilocos Norte</p>
+                <p v-if="this.id == 2" class=" font-medium">Ilocos Sur</p>
             </div>
-            <div class="w-2/4 flex justify-center items-center">
+            <div class=" flex justify-center items-center">
                 <Select :change="onChangeType()" size="small" v-model="type" style="width:200px">
                     <Option v-for="item in typeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                 </Select>

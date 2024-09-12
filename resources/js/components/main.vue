@@ -73,12 +73,21 @@
                                 MONITORING SYSTEM
                             </router-link>
                             <!-- /Monitoring System -->
+
+                            <!-- Swan -->
+                            <router-link to="/Swan" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+                                    cursor-pointer  blur-none tracking-wide antialiased">
+                                SWAN
+                            </router-link>
+                            <!-- /Swan -->
+
                             <!-- Map -->
                             <router-link to="/Map" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
                                     cursor-pointer  blur-none tracking-wide antialiased">
                                 MAP
                             </router-link>
                             <!-- /Map -->
+
                             <!-- Project -->
                             <div class="dropdown z-40  px-4 flex text-white font-semibold hover:bg-sky-700 
                                 cursor-pointer transition-colors duration-300 " style="float:left;">
@@ -295,12 +304,21 @@
                                     </router-link>
                                     <!-- /Monitoring System -->
 
+
+                                    <!-- Swan -->
+                                    <router-link to="/Swan" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+                                    cursor-pointer  blur-none tracking-wide antialiased">
+                                        SWAN
+                                    </router-link>
+                                    <!-- /Swan -->
+
                                     <!-- Map -->
                                     <router-link to="/Map" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
                                     cursor-pointer  blur-none tracking-wide antialiased">
                                         MAP
                                     </router-link>
                                     <!-- /Map -->
+
 
                                     <!-- Project -->
                                     <div :class="{ active: activeItem2 }" class="dropdown z-40  px-4 flex text-white font-semibold hover:bg-sky-700 
@@ -467,8 +485,7 @@
                                 class="duration-200 blur-none cursor-pointer object-fill h-14 py-1" alt="#">
 
                             <!-- Search Bar -->
-                            <button @click="gotoTop()" type="button"
-                                class="text-2xl text-white hover:text-gray-200 ">
+                            <button @click="gotoTop()" type="button" class="text-2xl text-white hover:text-gray-200 ">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor"
                                     class="w-6 h-6 focus:outline outline-offset-2">

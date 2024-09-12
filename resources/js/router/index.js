@@ -50,6 +50,9 @@ import MonitoringSystem from '../components/pages/monitoringSystemPage/monitorin
 // Map
 import Map from '../components/pages/mapPage/map.vue';
 
+// Swan
+import Swan from '../components/pages/swanPage/swan.vue';
+
 // TestApi
 import Test from '../components/test/test.vue';
 
@@ -122,10 +125,15 @@ const routes = [
                 path: '/monitoringSystem',
                 component: MonitoringSystem,
             },
-            // 
-            
+            // SWAN
             {
-                name: 'Map',
+                name: 'swan',
+                path: '/swan',
+                component: Swan,
+            },
+            // MAP
+            {
+                name: 'map',
                 path: '/map',
                 component: Map,
             },

@@ -10,7 +10,7 @@ use App\Models\WaterLevel;
 class DeviceApiController extends Controller
 {
     public function storeDataWLMS(Request $request) {
-        return $request;
+        // return $request;
         $count = WaterLevel::where('wlms_id', $request->id)->count();
     
         if ($count > 0) {
@@ -66,6 +66,41 @@ class DeviceApiController extends Controller
 
     public function storeDataBMS(Request $request){
 
-        return $request;
+        $table->integer('bouy_id');
+        $table->double('air_temperature', 15, 8);
+        $table->double('water_temperature', 15, 8);
+        $table->double('barometric_temperature', 15, 8);
+        $table->double('ultrasonic', 15, 8);
+        $table->double('compass', 15, 8);
+        $table->double('significant_wave_height', 15, 8);
+        $table->double('wave_period', 15, 8);
+
+        $newBuoyData = new Bouy;
+        $newBuoyData->bouy_id = $request->id;
+        $newBuoyData->air_temperature = $request->at;
+        $newBuoyData->water_temperature = $request->wt;
+        $newBuoyData->barometric_temperature = $request->bt;
+        $newBuoyData->ultrasonic = $request->th;
+        $newBuoyData->compass = $request->hd;
+        $newBuoyData->significant_wave_height = $request->swh;
+        $newBuoyData->wave_period = $request->wp;
+        $newBuoyData->save();
+
+        if($newBuoyData->save()){
+            return response()->json([
+                'id' => $request->id,
+                'air temperature' => $request->at,
+                'water temperature' => $request->wt,
+                'barometric temperature' => $request->bt,
+                'ultrasonic' => $request->th,
+                'compass' => $request->hd,
+                'significant wave height' => $request->swh,
+                'wave period' => $request->wp,
+            ]);
+        } else {
+            return $request;
+        }
+
+        
     }
 }

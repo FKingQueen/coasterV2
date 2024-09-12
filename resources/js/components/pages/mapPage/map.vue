@@ -1,17 +1,23 @@
 <template>
     <div class="w-full flex">
-        <div ref="map" class="full-screen-map h-[90vh]">
+        <!-- <div class="w-2/5 border-[30px] border-[#146C94] h-[90vh]">
+            <p class="text-4xl py-3 font-serif text-center font-semibold text-[#146C94] blur-none antialiased">
+                COASTER
+            </p>
+            <Default v-if="this.layerName == null"/>
+            <CEHM v-if="this.layerName == 'epr' || this.layerName == 'nsm'"/>
+        </div> -->
 
+        <div ref="map" class="full-screen-map h-[90vh]">
             <!-- Filter Option -->
             <div class="filter-option">
                 <div class=" text-white text-sm rounded-md grid grid-cols-1 bg-white p-5 space-y-3">
-                    <div class="text-black text-blue-800">
-                        FILTER OPTION
-
+                    <div class="text-blue-800 tracking-wide blur-none leading-loose">
+                        Layer Selection
                     </div>
                     <!-- Layer Name -->
                     <div>
-                        <span class="text-black block">Layer Name: </span>
+                        <span class="text-black block tracking-wide blur-none leading-loose">Select Layer: </span>
                         <div class="flex">
                             <div>
                                 <Select v-model="layerName" :disabled="layerNameLoading" style="width:200px"
@@ -36,7 +42,7 @@
                     <!-- /Layer Name -->
                     <!-- Province Name -->
                     <div v-if="this.provOptions != null">
-                        <span class="text-black block">Province: </span>
+                        <span class="text-black block tracking-wide blur-none leading-loose">Province: </span>
                         <div class="flex">
                             <div>
                                 <Select v-model="provinceName" :disabled="provinceNameLoading" style="width:200px"
@@ -55,7 +61,8 @@
                     <!-- /Province Name -->
                     <!-- MuniCities Name -->
                     <div v-if="this.muniOptions != null">
-                        <span class="text-black block">Municipalities/Cities: </span>
+                        <span class="text-black block tracking-wide blur-none leading-loose">Municipalities/Cities:
+                        </span>
                         <div class="flex">
                             <div>
                                 <Select v-model="muniName" :disabled="muniNameLoading" style="width:200px" size="small"
@@ -73,7 +80,7 @@
                     <!-- /MuniCities Name -->
                     <!-- Barangays Name -->
                     <div v-if="this.brgyOptions != null">
-                        <span class="text-black block">Barangays: </span>
+                        <span class="text-black block tracking-wide blur-none leading-loose">Barangays: </span>
                         <div class="flex">
                             <div>
                                 <Select v-model="brgyName" :disabled="brgyNameLoading" style="width:200px" size="small"
@@ -113,11 +120,16 @@
                         </div>
                         <div v-if="resultLoading == false && errorResult == false">
                             <highcharts :options="this.chartOptions"></highcharts>
-                            <p class="opacity-75 text-blue-800" @click="modalVisibleData = true">more...</p>
+                            <div class="flex w-full justify-between">
+                                <p class="opacity-75 text-blue-800 cursor-pointer" @click="modalVisibleData = true">Show Raw
+                                    Data</p>
+                                <p class="opacity-75 text-blue-800 cursor-pointer" @click="modalVisibleDownload = true">Request Download</p>
+                            </div>
+                            
                         </div>
                     </div>
                     <div v-if="errorResult" class="">
-                        <Alert type="error"  class="opacity-75" >
+                        <Alert type="error" class="opacity-75">
                             Request Time Out
                             <template #desc>
                                 This page will reload in 5 seconds.
@@ -127,7 +139,7 @@
                 </div>
             </div>
             <!-- /Results -->
-            
+
             <!-- Legend -->
             <div class="legend-bottom">
                 <div class=" text-white text-sm rounded-md grid grid-cols-1 bg-white p-5">
@@ -143,13 +155,15 @@
                     </div>
                     <div class="flex justify-start space-x-2">
                         <div class="items-center flex">
-                            <span class="h-3 w-4 border" style="background-color: #f94449; display: inline-block;"></span>
+                            <span class="h-3 w-4 border"
+                                style="background-color: #f94449; display: inline-block;"></span>
                         </div>
                         <div class="text-justify w-full text-black">Eroded</div>
                     </div>
                     <div class="flex justify-start space-x-2">
                         <div class="items-center flex">
-                            <span class="h-3 w-4 border" style="background-color: #407f3e; display: inline-block;"></span>
+                            <span class="h-3 w-4 border"
+                                style="background-color: #407f3e; display: inline-block;"></span>
                         </div>
                         <div class="text-justify w-full text-black">Stable</div>
                     </div>
@@ -157,7 +171,7 @@
             </div>
             <!-- /Legend -->
 
-            <!-- Modal -->
+            <!-- Modal Raw Data -->
             <a-modal v-model:open="modalVisibleData" title="Raw Data" width="1000px">
                 <template #footer>
                     <a-button key="back" @click="handleClose">Close</a-button>
@@ -168,9 +182,20 @@
                     class="display shadow-sm rounded">
                 </DataTable>
             </a-modal>
-            <!-- /Modal -->
+            <!-- /Modal Raw Data -->
 
+            <!-- Modal Download -->
+            <a-modal v-model:open="modalVisibleDownload" title="Download Request" width="1000px">
+                <template #footer>
+                    <a-button key="back" @click="handleModalDownloadClose">Close</a-button>
+                </template>
+            </a-modal>
+            <!-- /Modal Download -->
         </div>
+        <!-- 
+        <div class="w-1/4">
+            Hello
+        </div> -->
     </div>
 </template>
 
@@ -205,10 +230,17 @@ import { extend as extentExtend } from 'ol/extent';
 import { DataTable } from 'datatables.net-vue3';
 import Select from 'datatables.net-select';
 // Components
+
+// Overview Component
+import Default from './components/default';
+import CEHM from './components/cehm';
+
 export default defineComponent({
     components: {
         LoadingOutlined,
-        DataTable
+        DataTable,
+        Default,
+        CEHM
     },
     setup() {
         const indicator = h(LoadingOutlined, {
@@ -254,6 +286,7 @@ export default defineComponent({
 
         return {
             modalVisibleData: false,
+            modalVisibleDownload: false,
             properties: [],
             map: null,
             layerName: null,
@@ -353,6 +386,9 @@ export default defineComponent({
         handleClose() {
             this.modalVisibleData = false;
         },
+        handleModalDownloadClose() {
+            this.modalVisibleDownload = false;
+        },
 
         async handleLayerNameChange() {
 
@@ -418,7 +454,7 @@ export default defineComponent({
                             }),
                             crossOrigin: 'anonymous', // Add this line
                         }),
-                        
+
                         style: (feature) => {
                             const validation = thiss.layerName === 'epr' ? 'EPR_trend' : 'NSM_trend'
                             const propertyValue = feature.get(validation);
@@ -534,7 +570,7 @@ export default defineComponent({
                             }),
                             crossOrigin: 'anonymous', // Add this line
                         }),
-                        
+
                         style: (feature) => {
                             const validation = thiss.layerName === 'epr' ? 'EPR_trend' : 'NSM_trend'
                             const propertyValue = feature.get(validation);
@@ -641,7 +677,7 @@ export default defineComponent({
                             }),
                             crossOrigin: 'anonymous', // Add this line
                         }),
-                        
+
                         style: (feature) => {
                             const validation = thiss.layerName === 'epr' ? 'EPR_trend' : 'NSM_trend'
                             const propertyValue = feature.get(validation);
@@ -735,7 +771,7 @@ export default defineComponent({
                             }),
                             crossOrigin: 'anonymous', // Add this line
                         }),
-                        
+
                         style: (feature) => {
                             const validation = thiss.layerName === 'epr' ? 'EPR_trend' : 'NSM_trend'
                             const propertyValue = feature.get(validation);
@@ -756,7 +792,7 @@ export default defineComponent({
                     });
                     thiss.map.addLayer(dataGeojson);
                     // Customize Color for the Pie
-                   thiss.chartOptions.colors = ['#1260cc', '#f94449',  '#407f3e'];
+                    thiss.chartOptions.colors = ['#1260cc', '#f94449', '#407f3e'];
                     thiss.chartOptions.series[0].data = response.data.chartData
                     thiss.chartOptions.subtitle.text = ''
                     thiss.chartOptions.tooltip.pointFormat = '<span style="color:{point.color}">\u25CF</span> Accreting: <b>{point.y}%</b><br/><br/>'
