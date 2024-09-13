@@ -65,7 +65,7 @@ class DeviceApiController extends Controller
     }
 
     public function storeDataBMS(Request $request){
-        return $request;
+        // return $request;
         $table->integer('bouy_id');
         $table->double('air_temperature', 15, 8);
         $table->double('water_temperature', 15, 8);
