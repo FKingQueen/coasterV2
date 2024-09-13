@@ -10,7 +10,7 @@ use App\Models\WaterLevel;
 class DeviceApiController extends Controller
 {
     public function storeDataWLMS(Request $request) {
-        // return $request;
+        return $request;
         $count = WaterLevel::where('wlms_id', $request->id)->count();
     
         if ($count > 0) {
@@ -65,7 +65,7 @@ class DeviceApiController extends Controller
     }
 
     public function storeDataBMS(Request $request){
-
+        return $request;
         $table->integer('bouy_id');
         $table->double('air_temperature', 15, 8);
         $table->double('water_temperature', 15, 8);

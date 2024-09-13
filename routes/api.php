@@ -74,10 +74,6 @@ Route::group(['prefix' => 'admin','middleware' => 'auth:sanctum'], function() {
 
         // IOT Devices API
         Route::post('/storeDataWLMS', [DeviceApiController::class, 'storeDataWLMS']);
-        // Route::post('/storeDataWLMS', function(Request $request) {
-        //         return $request;
-        // });
-
         Route::post('/storeDataBMS', [DeviceApiController::class, 'storeDataBMS']);
 });
 
