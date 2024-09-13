@@ -71,6 +71,7 @@ class DeviceApiController extends Controller
         $table->double('water_temperature', 15, 8);
         $table->double('barometric_temperature', 15, 8);
         $table->double('ultrasonic', 15, 8);
+        $table->double('altitude_pressure', 15, 8);
         $table->double('compass', 15, 8);
         $table->double('significant_wave_height', 15, 8);
         $table->double('wave_period', 15, 8);
@@ -81,6 +82,7 @@ class DeviceApiController extends Controller
         $newBuoyData->water_temperature = $request->wt;
         $newBuoyData->barometric_temperature = $request->bt;
         $newBuoyData->ultrasonic = $request->th;
+        $newBuoyData->altitude_pressure = $request->ap;
         $newBuoyData->compass = $request->hd;
         $newBuoyData->significant_wave_height = $request->swh;
         $newBuoyData->wave_period = $request->wp;
@@ -93,6 +95,7 @@ class DeviceApiController extends Controller
                 'water temperature' => $request->wt,
                 'barometric temperature' => $request->bt,
                 'ultrasonic' => $request->th,
+                'altitude' => $request->ap,
                 'compass' => $request->hd,
                 'significant wave height' => $request->swh,
                 'wave period' => $request->wp,
