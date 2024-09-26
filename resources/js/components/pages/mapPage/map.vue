@@ -306,6 +306,9 @@ export default defineComponent({
                 chart: {
                     type: 'pie'
                 },
+                credits: {
+                    text: '',
+                },
                 title: {
                     text: ''
                 },

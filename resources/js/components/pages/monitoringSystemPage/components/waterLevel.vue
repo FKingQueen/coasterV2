@@ -40,12 +40,15 @@ export default defineComponent({
             chartOptions: {
                 chart: {
                     zoomType: 'x',
-                    type: "spline",
+                    type: "areaspline",
                     scrollablePlotArea: {
                         minWidth: 200,
                         scrollPositionX: 1,
                     },
 
+                },
+                credits: {
+                    text: '',
                 },
                 rangeSelector: {
                     buttons: [{
@@ -80,9 +83,9 @@ export default defineComponent({
                     labels: {
                         overflow: "justify",
                     },
-                    title: {
-                        text: 'DateTime'
-                    },
+                    // title: {
+                    //     text: 'DateTime'
+                    // },
                 },
                 yAxis: {
                     title: {
@@ -92,7 +95,45 @@ export default defineComponent({
                 series: [
                     {
                         name: "WaterLevel",
-                        data: [],
+                        data: [],  // your data will be filled dynamically
+                        tooltip: {
+                            valueDecimals: 2
+                        },
+                        threshold: 0,  // Set the threshold at 0 for negative values handling
+                        fillColor: {
+                            linearGradient: {
+                                x1: 0,
+                                y1: 0,
+                                x2: 0,
+                                y2: 1
+                            },
+                            stops: [
+                                [0, Highcharts.getOptions().colors[0]], // Color at the top (positive values)
+                                [
+                                    1,
+                                    Highcharts.color(Highcharts.getOptions().colors[0])
+                                        .setOpacity(0)
+                                        .get('rgba') // Transparent at the bottom (negative values)
+                                ]
+                            ]
+                        },
+                        negativeFillColor: {
+                            linearGradient: {
+                                x1: 0,
+                                y1: 0,
+                                x2: 0,
+                                y2: 1
+                            },
+                            stops: [
+                                [0, Highcharts.getOptions().colors[1]], // Color at the top for negative values
+                                [
+                                    1,
+                                    Highcharts.color(Highcharts.getOptions().colors[1])
+                                        .setOpacity(0)
+                                        .get('rgba') // Transparent at the bottom for negative values
+                                ]
+                            ]
+                        },
                     },
                 ],
                 title: {
@@ -128,6 +169,7 @@ export default defineComponent({
     methods: {
         async fetchDataFromApi() {
             let existingObj = this;
+            
             existingObj.chartOptions.series[0].data = [];
             try {
                 await axios
@@ -160,6 +202,7 @@ export default defineComponent({
                     .catch(function (error) {
                         console.error(error);
                     });
+                    console.log('wlms:', existingObj.chartOptions);
             } catch (error) {
                 console.error('Error fetching data:', error);
                 // Handle errors (e.g., display an error message)
@@ -176,13 +219,13 @@ export default defineComponent({
                 switch (existingObj.type) {
                     case '1':
                         for (let i = 0; i < existingObj.data.length; i++) {
-                            if(existingObj.id == 1){
+                            if (existingObj.id == 1) {
                                 existingObj.chartOptions.series[0].data[i][1] = Math.round((13.5 - existingObj.data[i].level) * 100) / 100;
                             }
-                            if(existingObj.id == 2){
+                            if (existingObj.id == 2) {
                                 existingObj.chartOptions.series[0].data[i][1] = Math.round((26 - existingObj.data[i].level) * 100) / 100;
                             }
-                            
+
                             existingObj.chartOptions.series[0].name = 'Water Level'
                             existingObj.chartOptions.subtitle.text = 'Water Level'
                             existingObj.chartOptions.yAxis.title.text = 'Height (Meter)'
@@ -190,7 +233,7 @@ export default defineComponent({
                         break;
                     case '2':
                         for (let i = 0; i < existingObj.data.length; i++) {
-                            existingObj.chartOptions.series[0].data[i][1] = Math.round((existingObj.data[i].temperature) * 100) / 100; 
+                            existingObj.chartOptions.series[0].data[i][1] = Math.round((existingObj.data[i].temperature) * 100) / 100;
                             existingObj.chartOptions.series[0].name = 'Temperature'
                             existingObj.chartOptions.subtitle.text = 'Temperature'
                             existingObj.chartOptions.yAxis.title.text = 'Temperature'
@@ -198,7 +241,7 @@ export default defineComponent({
                         break;
                     case '3':
                         for (let i = 0; i < existingObj.data.length; i++) {
-                            existingObj.chartOptions.series[0].data[i][1] = Math.round((existingObj.data[i].humidity) * 100) / 100; 
+                            existingObj.chartOptions.series[0].data[i][1] = Math.round((existingObj.data[i].humidity) * 100) / 100;
                             existingObj.chartOptions.series[0].name = 'Humidity'
                             existingObj.chartOptions.subtitle.text = 'Humidity'
                             existingObj.chartOptions.yAxis.title.text = 'Humidity'

@@ -1,10 +1,10 @@
 <template>
     <div class="w-full flex md:flex justify-center pt-3">
-        <div class="w-4/6">
+        <div class="w-full sm:w-5/6">
             <Tabs type="card" :model-value="sample">
                 <TabPane label="Water Level Sensor">
-                    <div class="flex">
-                        <div class="w-1/2 drop-shadow-lg p-1">
+                    <div class="block sm:flex">
+                        <div class="w-full sm:w-1/2 drop-shadow-lg p-1">
                             <div>
                                 <WaterLevel class="w-full p-3" :id="1" />
                             </div>
@@ -18,7 +18,7 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="w-1/2 drop-shadow-lg p-1">
+                        <div class="w-full sm:w-1/2 drop-shadow-lg p-1">
                             <div>
                                 <WaterLevel class="w-full p-3" :id="2" />
                             </div>
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div class="py-3">
-                        <p class="text-justify">
+                        <p class="text-justify px-5 md:px-0">
                             <span class="font-semibold">Data Details:</span> The data presented here is based on
                             research and analysis conducted by the CoastEr Program. It may not conform to the standards
                             or quality control procedures associated with official government or industry data sources.
@@ -53,8 +53,8 @@
                     </div>
                 </TabPane>
                 <TabPane label="Buoy Sensor">
-                    <div class="flex">
-                        <div class="w-1/2 drop-shadow-lg p-1">
+                    <div class="block sm:flex">
+                        <div class="w-full sm:w-1/2  drop-shadow-lg p-1">
                             <div>
                                 <Buoy class="w-full p-3" :id="1" />
                             </div>
@@ -68,7 +68,7 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="w-1/2 drop-shadow-lg p-1">
+                        <div class="w-full sm:w-1/2  drop-shadow-lg p-1">
                             <div>
                                 <Buoy class="w-full p-3" :id="2" />
                             </div>
@@ -84,7 +84,7 @@
                         </div>
                     </div>
                     <div class="py-3">
-                        <p class="text-justify">
+                        <p class="text-justify px-5 md:px-0">
                             <span class="font-semibold">Data Details:</span> The data presented here is based on
                             research and analysis conducted by the CoastEr Program. It may not conform to the standards
                             or quality control procedures associated with official government or industry data sources.
@@ -117,13 +117,15 @@ import WaterLevel from './components/waterLevel';
 import Buoy from './components/buoy';
 import WaLevLocation from './components/walevLocation';
 import buoyLocation from './components/buoyLocation';
+import sample from '../mapPage/map';
 export default defineComponent({
     components: {
         WaterLevel,
         Places,
         Buoy,
         WaLevLocation,
-        buoyLocation
+        buoyLocation,
+        sample
     },
     data() {
         return {

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Bouy;
 use App\Models\WaterLevel;
+use Carbon\Carbon;
 
 class DeviceApiController extends Controller
 {
@@ -65,7 +66,10 @@ class DeviceApiController extends Controller
     }
 
     public function storeDataBMS(Request $request){
-        // return $request;
+        
+        if($request->id == 3){
+            return;
+        }
 
         $newBuoyData = new Bouy;
         $newBuoyData->bouy_id = $request->id;
@@ -77,19 +81,29 @@ class DeviceApiController extends Controller
         $newBuoyData->compass = $request->hd;
         $newBuoyData->significant_wave_height = $request->swh;
         $newBuoyData->wave_period = $request->wp;
+
+        // Date Time
+        $datetimeString = $request->dateTime;
+        $datetimeString = substr($datetimeString, 0, 14); // '24/09/20,09:12'
+
+        $datetime = Carbon::createFromFormat('d/m/y,H:i', $datetimeString);
+
+        $newBuoyData->created_at = $datetime;
+
         $newBuoyData->save();
 
         if($newBuoyData->save()){
             return response()->json([
-                'id' => $request->id,
-                'air temperature' => $request->at,
-                'water temperature' => $request->wt,
-                'barometric temperature' => $request->bt,
-                'ultrasonic' => $request->th,
-                'altitude' => $request->ap,
-                'compass' => $request->hd,
-                'significant wave height' => $request->swh,
-                'wave period' => $request->wp,
+                'id' => $newBuoyData->bouy_id,
+                'air temperature' => $newBuoyData->air_temperature,
+                'water temperature' => $newBuoyData->water_temperature,
+                'barometric temperature' => $newBuoyData->barometric_temperature,
+                'ultrasonic' => $newBuoyData->ultrasonic,
+                'altitude' => $newBuoyData->altitude_pressure,
+                'compass' => $newBuoyData->compass,
+                'significant wave height' => $newBuoyData->significant_wave_height,
+                'wave period' => $newBuoyData->wave_period,
+                'date time' => $newBuoyData->created_at,
             ]);
         } else {
             return $request;

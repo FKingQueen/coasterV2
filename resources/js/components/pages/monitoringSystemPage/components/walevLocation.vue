@@ -1,5 +1,5 @@
 <template>
-    <div ref="map" class="full-screen-map md:h-[10vh] h-[20vh]">
+    <div ref="map" class="full-screen-map md:h-[10vh] h-[5vh]">
     </div>
 </template>
 
