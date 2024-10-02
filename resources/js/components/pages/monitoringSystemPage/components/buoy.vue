@@ -404,7 +404,7 @@ export default defineComponent({
                         response.data.data[i].date[5],
                     );
                     
-                    existingObj.chartOptions1.series[0].data[i][1] = response.data.data[i].ultrasonic;
+                    existingObj.chartOptions1.series[0].data[i][1] = response.data.data[i].altitude_pressure;
                     // Tide Chart END
 
                     // Temp Chart

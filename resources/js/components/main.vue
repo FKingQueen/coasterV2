@@ -67,33 +67,25 @@
                                 WEATHER
                             </a> -->
                             <!-- /Weather -->
-
-                            <!-- Services -->
-                            <router-link to="/Services" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
-                                    cursor-pointer  blur-none tracking-wide antialiased">
-                                SERVICES
-                            </router-link>
-                            <!-- /Serveces -->
-
                             <!-- Monitoring System -->
-                            <!-- <router-link to="/MonitoringSystem" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+                            <router-link to="/MonitoringSystem" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
                                     cursor-pointer  blur-none tracking-wide antialiased">
                                 MONITORING SYSTEM
-                            </router-link> -->
+                            </router-link>
                             <!-- /Monitoring System -->
 
                             <!-- Swan -->
-                            <!-- <router-link to="/Swan" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+                            <router-link to="/Swan" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
                                     cursor-pointer  blur-none tracking-wide antialiased">
                                 SWAN
-                            </router-link> -->
+                            </router-link>
                             <!-- /Swan -->
 
                             <!-- Map -->
-                            <!-- <router-link to="/Map" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+                            <router-link to="/Map" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
                                     cursor-pointer  blur-none tracking-wide antialiased">
-                                MAP
-                            </router-link> -->
+                                HAZARD MAP
+                            </router-link>
                             <!-- /Map -->
 
                             <!-- Project -->
@@ -120,10 +112,10 @@
                             </div>
                             <!-- /Project -->
                             <!-- Downloads -->
-                            <!-- <button @click="downloadsModal = true" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+                            <button @click="downloadsModal = true" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
                                     cursor-pointer  blur-none tracking-wide antialiased">
                                 DOWNLOADS
-                            </button> -->
+                            </button>
                             <Modal v-model="downloadsModal" width="700" :mask-closable="false">
                                 <template #header>
                                     <p style="text-align:center">
@@ -323,7 +315,7 @@
                                     <!-- Map -->
                                     <router-link to="/Map" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
                                     cursor-pointer  blur-none tracking-wide antialiased">
-                                        MAP
+                                        HAZARD MAP
                                     </router-link>
                                     <!-- /Map -->
 
