@@ -391,7 +391,6 @@ export default defineComponent({
         await axios
             .get(`/api/getBouy/${this.id}`)
             .then((response) => {
-                // console.log(response.data.data);s
                 for (let i = 0; i < response.data.data.length; i++) {
                     // Tide Chart
                     existingObj.chartOptions1.series[0].data[i] = [];

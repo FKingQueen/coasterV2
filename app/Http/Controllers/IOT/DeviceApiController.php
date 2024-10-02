@@ -86,7 +86,7 @@ class DeviceApiController extends Controller
         $datetimeString = $request->dateTime;
         $datetimeString = substr($datetimeString, 0, 14); // '24/09/20,09:12'
 
-        $datetime = Carbon::createFromFormat('d/m/y,H:i', $datetimeString);
+        $datetime = Carbon::createFromFormat('y/m/d,H:i', $datetimeString);
 
         $newBuoyData->created_at = $datetime;
 
