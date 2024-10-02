@@ -97,9 +97,34 @@
                             </svg>
                             <p class="text-justify">
                                 The Buoy monitoring system in Laoag City, Ilocos Norte, and Santa, Ilocos Sur,
-                                collects real-time data on water height, tide height, wave period, wave power, wave temperature and air temperature.
+                                collects real-time data on water height, tide height, wave period, wave power, wave
+                                temperature and air temperature.
                             </p>
                         </div>
+                    </div>
+                </TabPane>
+                <TabPane label="Hazard Maps">
+                    <div class="block sm:flex">
+                        <sample class="w-full" />
+                    </div>
+                    <div class="py-3">
+                        <p class="text-justify px-5 md:px-0">
+                            <span class="font-semibold">Data Details:</span> The data presented here is based on
+                            research and analysis conducted by the CoastEr Program. It may not conform to the standards
+                            or quality control procedures associated with official government or industry data sources.
+                        </p>
+                        <!-- <div class="px-10 flex pt-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="size-5">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                            </svg>
+                            <p class="text-justify">
+                                The Buoy monitoring system in Laoag City, Ilocos Norte, and Santa, Ilocos Sur,
+                                collects real-time data on water height, tide height, wave period, wave power, wave
+                                temperature and air temperature.
+                            </p>
+                        </div> -->
                     </div>
                 </TabPane>
             </Tabs>

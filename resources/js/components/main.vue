@@ -40,7 +40,7 @@
                             <div class=" bg-[#F1F6F9] py-1 pr-2 ">
                                 <p class="blur-none antialiased text-4xl font-bold  text-center">{{
                                     this.digitalTime.hour
-                                }}:{{ this.digitalTime.min }}:{{ this.digitalTime.sec }}</p>
+                                    }}:{{ this.digitalTime.min }}:{{ this.digitalTime.sec }}</p>
                                 <p class="blur-none antialiased text-sm font-bold text-center">{{ this.digitalTime.date
                                     }} :
                                     {{ this.digitalTime.day }} : {{ this.digitalTime.year }}</p>
@@ -73,19 +73,19 @@
                                 MONITORING SYSTEM
                             </router-link> -->
                             <!-- /Monitoring System -->
-                            <!-- Monitoring System -->
+                            <!-- Services -->
                             <router-link to="/services" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
                                     cursor-pointer  blur-none tracking-wide antialiased">
                                 SERVICES
                             </router-link>
-                            <!-- /Monitoring System -->
+                            <!-- /Services -->
 
-                            <!-- Swan -->
-                            <router-link to="/Swan" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+                            <!-- integratedModel -->
+                            <router-link to="/integratedModel" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
                                     cursor-pointer  blur-none tracking-wide antialiased">
                                 INTEGRATED MODEL
                             </router-link>
-                            <!-- /Swan -->
+                            <!-- /integratedModel -->
 
                             <!-- Map -->
                             <!-- <router-link to="/Map" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
@@ -304,25 +304,32 @@
                                         HOME
                                     </router-link>
                                     <!-- Home -->
-                                    <router-link to="/MonitoringSystem" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+                                    <!-- <router-link to="/MonitoringSystem" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
                                         cursor-pointer  blur-none tracking-wide antialiased whitespace-nowrap">
                                         MONITORING SYSTEM
-                                    </router-link>
+                                    </router-link> -->
                                     <!-- /Monitoring System -->
 
+                                    <!-- Services -->
+                                    <router-link to="/services" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+                                    cursor-pointer  blur-none tracking-wide antialiased">
+                                        SERVICES
+                                    </router-link>
+                                    <!-- /Services -->
 
-                                    <!-- Swan -->
-                                    <router-link to="/Swan" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+
+                                    <!-- integratedModel -->
+                                    <router-link to="/integratedModel" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
                                     cursor-pointer  blur-none tracking-wide antialiased">
                                         INTEGRATED MODEL
                                     </router-link>
-                                    <!-- /Swan -->
+                                    <!-- /integratedModel -->
 
                                     <!-- Map -->
-                                    <router-link to="/Map" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+                                    <!-- <router-link to="/Map" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
                                     cursor-pointer  blur-none tracking-wide antialiased">
                                         HAZARD MAP
-                                    </router-link>
+                                    </router-link> -->
                                     <!-- /Map -->
 
 

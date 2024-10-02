@@ -48,13 +48,14 @@ import Project4 from '../components/pages/homePage/projectsPage/project4.vue';
 import MonitoringSystem from '../components/pages/monitoringSystemPage/monitoringSystem.vue';
 
 // Services
-import services from '../components/pages/servicesPage/services.vue';
+import Services from '../components/pages/servicesPage/services.vue';
 
 // Map
 import Map from '../components/pages/mapPage/map.vue';
 
 // Swan
-import Swan from '../components/pages/swanPage/swan.vue';
+// import Swan from '../components/pages/swanPage/swan.vue';
+import IntegratedModel from '../components/pages/swanPage/swan.vue';
 
 // TestApi
 import Test from '../components/test/test.vue';
@@ -126,7 +127,7 @@ const routes = [
             {
                 name: 'Services',
                 path: '/services',
-                component: services,
+                component: Services,
             },
             // Monitoring System Page
             {
@@ -136,9 +137,9 @@ const routes = [
             },
             // SWAN
             {
-                name: 'swan',
-                path: '/swan',
-                component: Swan,
+                name: 'integratedModel',
+                path: '/integratedModel',
+                component: IntegratedModel,
             },
             // MAP
             {
