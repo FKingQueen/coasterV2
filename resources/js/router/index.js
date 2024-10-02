@@ -47,6 +47,9 @@ import Project4 from '../components/pages/homePage/projectsPage/project4.vue';
 // Monitoring Page
 import MonitoringSystem from '../components/pages/monitoringSystemPage/monitoringSystem.vue';
 
+// Services
+import services from '../components/pages/servicesPage/services.vue';
+
 // Map
 import Map from '../components/pages/mapPage/map.vue';
 
@@ -118,6 +121,12 @@ const routes = [
                 path: '/projects/project4',
                 component: Project4,
                 props:true 
+            },
+            // Services Page
+            {
+                name: 'Services',
+                path: '/services',
+                component: services,
             },
             // Monitoring System Page
             {
