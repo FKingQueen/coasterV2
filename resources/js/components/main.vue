@@ -68,24 +68,30 @@
                             </a> -->
                             <!-- /Weather -->
                             <!-- Monitoring System -->
-                            <router-link to="/MonitoringSystem" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+                            <!-- <router-link to="/MonitoringSystem" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
                                     cursor-pointer  blur-none tracking-wide antialiased">
                                 MONITORING SYSTEM
+                            </router-link> -->
+                            <!-- /Monitoring System -->
+                            <!-- Monitoring System -->
+                            <router-link to="/services" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+                                    cursor-pointer  blur-none tracking-wide antialiased">
+                                SERVICES
                             </router-link>
                             <!-- /Monitoring System -->
 
                             <!-- Swan -->
                             <router-link to="/Swan" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
                                     cursor-pointer  blur-none tracking-wide antialiased">
-                                SWAN
+                                INTEGRATED MODEL
                             </router-link>
                             <!-- /Swan -->
 
                             <!-- Map -->
-                            <router-link to="/Map" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+                            <!-- <router-link to="/Map" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
                                     cursor-pointer  blur-none tracking-wide antialiased">
                                 HAZARD MAP
-                            </router-link>
+                            </router-link> -->
                             <!-- /Map -->
 
                             <!-- Project -->
@@ -308,7 +314,7 @@
                                     <!-- Swan -->
                                     <router-link to="/Swan" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
                                     cursor-pointer  blur-none tracking-wide antialiased">
-                                        SWAN
+                                        INTEGRATED MODEL
                                     </router-link>
                                     <!-- /Swan -->
 

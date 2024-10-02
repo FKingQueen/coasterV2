@@ -80,11 +80,12 @@ class DeviceApiController extends Controller
         $newBuoyData->altitude_pressure = $request->ap;
         $newBuoyData->compass = $request->hd;
         $newBuoyData->significant_wave_height = $request->swh;
-        if (!is_numeric($request->wp)) {
-            $newBuoyData->wave_period = null; // Set to null if it's a string
-        } else {
-            $newBuoyData->wave_period = 123;
-        }
+        $newBuoyData->wave_period = $request->wp;
+        // if (!is_numeric($request->wp)) {
+        //     $newBuoyData->wave_period = null; // Set to null if it's a string
+        // } else {
+        //     $newBuoyData->wave_period = 123;
+        // }
 
         // Date Time
         $datetimeString = $request->dateTime;
