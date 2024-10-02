@@ -391,6 +391,7 @@ export default defineComponent({
         await axios
             .get(`/api/getBouy/${this.id}`)
             .then((response) => {
+                console.log('buoy: ', response.data);
                 for (let i = 0; i < response.data.data.length; i++) {
                     // Tide Chart
                     existingObj.chartOptions1.series[0].data[i] = [];
@@ -399,7 +400,7 @@ export default defineComponent({
                         response.data.data[i].date[1] - 1,
                         response.data.data[i].date[2],
                         response.data.data[i].date[3],
-                        response.data.data[i].date[4],
+                        response.data.data[i].date[4] - 1,
                         response.data.data[i].date[5],
                     );
                     
