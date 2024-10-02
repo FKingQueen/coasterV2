@@ -333,7 +333,7 @@ export default defineComponent({
                     type: 'column',
                     yAxis: 1,
                     data: [],
-                    tooltip: { valueSuffix: 'm' },
+                    tooltip: { valueSuffix: 'm',valueDecimals: 2 },
                     dataLabels: {
                         enabled: true,
                         useHTML: true,
@@ -349,7 +349,7 @@ export default defineComponent({
                     name: 'Wave Period',
                     type: 'spline',
                     data: [],
-                    tooltip: { valueSuffix: 's' }
+                    tooltip: { valueSuffix: 's',valueDecimals: 2 }
                 }],
                 plotOptions: {
                     series: {
