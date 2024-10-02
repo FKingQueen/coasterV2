@@ -83,7 +83,7 @@ class DeviceApiController extends Controller
         if (!is_numeric($request->wp)) {
             $newBuoyData->wave_period = null; // Set to null if it's a string
         } else {
-            $newBuoyData->wave_period = $request->wp;
+            $newBuoyData->wave_period = 123;
         }
 
         // Date Time
