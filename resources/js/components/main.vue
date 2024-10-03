@@ -118,10 +118,10 @@
                             </div>
                             <!-- /Project -->
                             <!-- Downloads -->
-                            <button @click="downloadsModal = true" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
-                                    cursor-pointer  blur-none tracking-wide antialiased">
-                                DOWNLOADS
-                            </button>
+                                <!-- <button @click="downloadsModal = true" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+                                        cursor-pointer  blur-none tracking-wide antialiased">
+                                    DOWNLOADS
+                                </button> -->
                             <Modal v-model="downloadsModal" width="700" :mask-closable="false">
                                 <template #header>
                                     <p style="text-align:center">
@@ -361,10 +361,10 @@
                                     </div>
                                     <!-- /Project -->
                                     <!-- Downloads -->
-                                    <button @click="downloadsModal = true" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+                                    <!-- <button @click="downloadsModal = true" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
                                     cursor-pointer  blur-none tracking-wide antialiased">
                                         DOWNLOADS
-                                    </button>
+                                    </button> -->
                                     <Modal v-model="downloadsModal" width="700" :mask-closable="false">
                                         <template #header>
                                             <p style="text-align:center">

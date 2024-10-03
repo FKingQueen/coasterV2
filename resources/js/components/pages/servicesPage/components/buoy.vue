@@ -333,7 +333,7 @@ export default defineComponent({
                     type: 'column',
                     yAxis: 1,
                     data: [],
-                    tooltip: { valueSuffix: 'm',valueDecimals: 2 },
+                    tooltip: { valueSuffix: 'm', valueDecimals: 2 },
                     dataLabels: {
                         enabled: true,
                         useHTML: true,
@@ -349,7 +349,7 @@ export default defineComponent({
                     name: 'Wave Period',
                     type: 'spline',
                     data: [],
-                    tooltip: { valueSuffix: 's',valueDecimals: 2 }
+                    tooltip: { valueSuffix: 's', valueDecimals: 2 }
                 }],
                 plotOptions: {
                     series: {
@@ -395,33 +395,39 @@ export default defineComponent({
                 for (let i = 0; i < response.data.data.length; i++) {
                     // Tide Chart
                     existingObj.chartOptions1.series[0].data[i] = [];
-                    existingObj.chartOptions1.series[0].data[i][0] = Date.UTC(
-                        response.data.data[i].date[0],
-                        response.data.data[i].date[1] - 1,
-                        response.data.data[i].date[2],
-                        response.data.data[i].date[3],
-                        response.data.data[i].date[4] - 1,
-                        response.data.data[i].date[5],
-                    );
-                    
+
+                    if (response.data.data[i].date[4] % 5 !== 0) {
+                        response.data.data[i].date[4] = response.data.data[i].date[4] - 1; // store the remainder
+                    }
+
+                    response.data.data[i].date[4] - 1,
+                        existingObj.chartOptions1.series[0].data[i][0] = Date.UTC(
+                            response.data.data[i].date[0],
+                            response.data.data[i].date[1] - 1,
+                            response.data.data[i].date[2],
+                            response.data.data[i].date[3],
+                            response.data.data[i].date[4],
+                            response.data.data[i].date[5],
+                        );
+
                     existingObj.chartOptions1.series[0].data[i][1] = response.data.data[i].ultrasonic;
                     // Tide Chart END
 
                     // Temp Chart
                     existingObj.chartOptions2.series[0].data[i] = [];
                     existingObj.chartOptions2.series[1].data[i] = [];
-                    existingObj.chartOptions2.series[0].data[i][0]= existingObj.chartOptions1.series[0].data[i][0]
+                    existingObj.chartOptions2.series[0].data[i][0] = existingObj.chartOptions1.series[0].data[i][0]
                     existingObj.chartOptions2.series[0].data[i][1] = response.data.data[i].air_temperature;
-                    existingObj.chartOptions2.series[1].data[i][0]= existingObj.chartOptions1.series[0].data[i][0]
+                    existingObj.chartOptions2.series[1].data[i][0] = existingObj.chartOptions1.series[0].data[i][0]
                     existingObj.chartOptions2.series[1].data[i][1] = response.data.data[i].water_temperature;
                     // Temp Chart END
 
                     // Wave Chart
                     existingObj.chartOptions3.series[0].data[i] = [];
                     existingObj.chartOptions3.series[1].data[i] = [];
-                    existingObj.chartOptions3.series[0].data[i][0]= existingObj.chartOptions1.series[0].data[i][0]
+                    existingObj.chartOptions3.series[0].data[i][0] = existingObj.chartOptions1.series[0].data[i][0]
                     existingObj.chartOptions3.series[0].data[i][1] = response.data.data[i].significant_wave_height;
-                    existingObj.chartOptions3.series[1].data[i][0]= existingObj.chartOptions1.series[0].data[i][0]
+                    existingObj.chartOptions3.series[1].data[i][0] = existingObj.chartOptions1.series[0].data[i][0]
                     existingObj.chartOptions3.series[1].data[i][1] = response.data.data[i].wave_period;
                     // Wave Chart END
                 }
