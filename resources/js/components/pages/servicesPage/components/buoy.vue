@@ -396,14 +396,23 @@ export default defineComponent({
                     // Tide Chart
                     existingObj.chartOptions1.series[0].data[i] = [];
 
-                    let lastD = response.data.data[i].date[4] % 10; 
-                    if(lastD === 3 || lastD === 4 || lastD === 6 || lastD === 7 || lastD === 5 ){
-                        response.data.data[i].date[4] = response.data.data[i].date[4] - lastD;
-                        response.data.data[i].date[4] = response.data.data[i].date[4] + 5;
-                    } 
-                    if(lastD === 1 || lastD === 2 || lastD === 8 || lastD === 9){
-                        response.data.data[i].date[4] = response.data.data[i].date[4] - lastD;
-                    } 
+                    let dateValue = response.data.data[i].date[4]; // Access the value directly
+                    // Ensure dateValue is a number
+                    dateValue = Number(dateValue);
+
+                    if (!isNaN(dateValue)) { // Check if it is a valid number
+                        let lastDigit = dateValue % 10;
+
+                        // Round to the nearest multiple of 10
+                        if (lastDigit < 5) {
+                            response.data.data[i].date[4] = dateValue - lastDigit; // Round down to nearest 10
+                        } else {
+                            response.data.data[i].date[4] = dateValue + (5 - lastDigit); // Round up to nearest 10
+                        }
+                    } else {
+                        console.error(`Invalid number at index ${i}: ${response.data.data[i].date[4]}`);
+                    }
+
 
                     existingObj.chartOptions1.series[0].data[i][0] = Date.UTC(
                         response.data.data[i].date[0],
