@@ -397,20 +397,36 @@ export default defineComponent({
                     existingObj.chartOptions1.series[0].data[i] = [];
 
                     if (response.data.data[i].date[4] % 5 !== 0) {
-                        response.data.data[i].date[4] = response.data.data[i].date[4] - 1; // store the remainder
+                        response.data.data[i].date[4] = response.data.data[i].date[4] - 1;
                     }
 
-                    response.data.data[i].date[4] - 1,
-                        existingObj.chartOptions1.series[0].data[i][0] = Date.UTC(
-                            response.data.data[i].date[0],
-                            response.data.data[i].date[1] - 1,
-                            response.data.data[i].date[2],
-                            response.data.data[i].date[3],
-                            response.data.data[i].date[4],
-                            response.data.data[i].date[5],
-                        );
+                    existingObj.chartOptions1.series[0].data[i][0] = Date.UTC(
+                        response.data.data[i].date[0],
+                        response.data.data[i].date[1] - 1,
+                        response.data.data[i].date[2],
+                        response.data.data[i].date[3],
+                        response.data.data[i].date[4],
+                        response.data.data[i].date[5],
+                    );
 
-                    existingObj.chartOptions1.series[0].data[i][1] = response.data.data[i].ultrasonic;
+                    // pressure = 100046.05 * (1 - altitude / 44330) ^ (1 / 0.1903)
+                    // new altitude =(44330 * (1 - (pressure / 101325) ^ 0.1903)) / 100
+                    // new altitude - the average data from the last data of 24 hours = 288, 5 mins interval in 24 hours
+                    let pressure = 100046.05 * Math.pow(1 - response.data.data[i].altitude_pressure / 44330, 1 / 0.1903);
+                    let newAltitude = (44330 * (1 - Math.pow(pressure / 101325, 0.1903))) / 100;
+
+                    let sum = 0;
+                    let count = 0;
+
+                    for (let j = Math.max(i - 288 + 1, 0); j <= i; j++) {
+                        let getAvePressure = 100046.05 * Math.pow(1 - response.data.data[j].altitude_pressure / 44330, 1 / 0.1903);
+                        sum += (44330 * (1 - Math.pow(getAvePressure / 101325, 0.1903))) / 100;
+                        count++;
+                    }
+
+                    let averageRecentData = sum / count;
+
+                    existingObj.chartOptions1.series[0].data[i][1] = newAltitude - averageRecentData;
                     // Tide Chart END
 
                     // Temp Chart
