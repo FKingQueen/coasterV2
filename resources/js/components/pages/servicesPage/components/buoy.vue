@@ -397,9 +397,9 @@ export default defineComponent({
                     existingObj.chartOptions1.series[0].data[i] = [];
 
                     let lastD = response.data.data[i].date[4] % 10; 
-                    if(lastD === 3 || lastD === 4 || lastD === 6 || lastD === 7){
+                    if(lastD === 3 || lastD === 4 || lastD === 6 || lastD === 7 || lastD === 5 ){
                         response.data.data[i].date[4] = response.data.data[i].date[4] - lastD;
-                        response.data.data[i].date[4] = response.data.data[i].date[4] - 5;
+                        response.data.data[i].date[4] = response.data.data[i].date[4] + 5;
                     } 
                     if(lastD === 1 || lastD === 2 || lastD === 8 || lastD === 9){
                         response.data.data[i].date[4] = response.data.data[i].date[4] - lastD;
