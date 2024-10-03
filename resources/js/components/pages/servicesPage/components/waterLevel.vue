@@ -202,7 +202,7 @@ export default defineComponent({
                     .catch(function (error) {
                         console.error(error);
                     });
-                    console.log('wlms:', existingObj.chartOptions);
+                    // console.log('wlms:', existingObj.chartOptions);
             } catch (error) {
                 console.error('Error fetching data:', error);
                 // Handle errors (e.g., display an error message)

@@ -391,7 +391,7 @@ export default defineComponent({
         await axios
             .get(`/api/getBouy/${this.id}`)
             .then((response) => {
-                console.log('buoy: ', response.data);
+                // console.log('buoy: ', response.data);
                 for (let i = 0; i < response.data.data.length; i++) {
                     // Tide Chart
                     existingObj.chartOptions1.series[0].data[i] = [];
@@ -413,20 +413,21 @@ export default defineComponent({
                     // new altitude =(44330 * (1 - (pressure / 101325) ^ 0.1903)) / 100
                     // new altitude - the average data from the last data of 24 hours = 288, 5 mins interval in 24 hours
                     let pressure = 100046.05 * Math.pow(1 - response.data.data[i].altitude_pressure / 44330, 1 / 0.1903);
-                    let newAltitude = (44330 * (1 - Math.pow(pressure / 101325, 0.1903))) / 100;
-
+                    // let newAltitude = (44330 * (1 - Math.pow(pressure / 101325, 0.1903))) / 100;
+                    let tide = -(pressure-101325)/(1025*9.81);
                     let sum = 0;
                     let count = 0;
 
                     for (let j = Math.max(i - 288 + 1, 0); j <= i; j++) {
-                        let getAvePressure = 100046.05 * Math.pow(1 - response.data.data[j].altitude_pressure / 44330, 1 / 0.1903);
-                        sum += (44330 * (1 - Math.pow(getAvePressure / 101325, 0.1903))) / 100;
+                        let getAvetide = 100046.05 * Math.pow(1 - response.data.data[j].altitude_pressure / 44330, 1 / 0.1903);
+                        sum += (44330 * (1 - Math.pow(getAvetide / 101325, 0.1903))) / 100;
                         count++;
                     }
 
                     let averageRecentData = sum / count;
 
-                    existingObj.chartOptions1.series[0].data[i][1] = newAltitude - averageRecentData;
+                    // existingObj.chartOptions1.series[0].data[i][1] = tide - averageRecentData;
+                    existingObj.chartOptions1.series[0].data[i][1] = tide;
                     // Tide Chart END
 
                     // Temp Chart
@@ -457,7 +458,7 @@ export default defineComponent({
                 console.error(error);
             });
 
-        console.log('chart1: ', existingObj.chartOptions3);
+        // console.log('chart1: ', existingObj.chartOptions3);
     },
 });
 </script>
