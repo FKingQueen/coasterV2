@@ -31,7 +31,7 @@ class DeviceApiController extends Controller
         if($newWlms->save()){
             return response()->json([
                 'id' => $newWlms->wlms_id,
-                'waterLevel' => $newWlms->level,
+                'waterLevel' => $newWlms->wl,
                 'temperature' => $newWlms->temperature,
                 'humidity' => $newWlms->humidity,
                 // 'dateTime' => $newWlms->created_at,
