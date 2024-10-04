@@ -26,16 +26,26 @@ class DeviceApiController extends Controller
                     // Save new data
                     $newWlms = new WaterLevel;
                     $newWlms->wlms_id = $request->id;
-                    $newWlms->level = $request->level;
+                    $newWlms->level = $request->wl;
                     $newWlms->temperature = $request->temp;
                     $newWlms->humidity = $request->hum;
+
+                    // Date Time
+                    $datetimeString = $request->dateTime;
+                    $datetimeString = substr($datetimeString, 0, 14); // '24/09/20,09:12'
+
+                    $datetime = Carbon::createFromFormat('y/m/d,H:i', $datetimeString);
+
+                    $newWlms->created_at = $datetime;
+
                     $newWlms->save();
     
                     return response()->json([
                         'ID' => $request->id,
-                        'waterLevel' => $validated >= -0.50 && $validated <= 0.50,
-                        'temperature' => $request->temp,
-                        'humidity' => $request->hum,
+                        'waterLevel' => $newWlms->level,
+                        'temperature' => $newWlms->temperature,
+                        'humidity' => $newWlms->humidity,
+                        'dateTime' => $newWlms->created_at,
                     ]);
                 } else {
                     return response()->json([
@@ -54,13 +64,23 @@ class DeviceApiController extends Controller
             $newWlms->level = $request->level;
             $newWlms->temperature = $request->temp;
             $newWlms->humidity = $request->hum;
+
+            // Date Time
+            $datetimeString = $request->dateTime;
+            $datetimeString = substr($datetimeString, 0, 14); // '24/09/20,09:12'
+
+            $datetime = Carbon::createFromFormat('y/m/d,H:i', $datetimeString);
+
+            $newWlms->created_at = $datetime;
+
             $newWlms->save();
     
             return response()->json([
                 'ID' => $request->id,
-                'waterLevel' => $request->level,
-                'temperature' => $request->temp,
-                'humidity' => $request->hum,
+                'waterLevel' => $newWlms->level,
+                'temperature' => $newWlms->temperature,
+                'humidity' => $newWlms->humidity,
+                'dateTime' => $newWlms->created_at,
             ]);
         }
     }

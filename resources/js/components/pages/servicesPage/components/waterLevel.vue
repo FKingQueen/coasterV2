@@ -75,17 +75,13 @@ export default defineComponent({
                         type: 'all',
                         text: 'All'
                     }],
-                    inputEnabled: true, // it supports only days
-                    selected: 5 // all
+                    selected: 5 , // Default to 1 hour
                 },
                 xAxis: {
                     type: "datetime",
                     labels: {
                         overflow: "justify",
                     },
-                    // title: {
-                    //     text: 'DateTime'
-                    // },
                 },
                 yAxis: {
                     title: {
@@ -142,19 +138,19 @@ export default defineComponent({
                 subtitle: {
                     text: "",
                 },
-                plotOptions: {
-                    series: {
-                        pointStart: Date.UTC(2010, 0, 1),
-                        marker: {
-                            enabled: false,
-                            states: {
-                                hover: {
-                                    enabled: false
-                                }
-                            }
-                        }
-                    },
-                },
+                // plotOptions: {
+                //     series: {
+                //         pointStart: Date.UTC(2010, 0, 1),
+                //         marker: {
+                //             enabled: false,
+                //             states: {
+                //                 hover: {
+                //                     enabled: false
+                //                 }
+                //             }
+                //         }
+                //     },
+                // },
             },
         };
     },
@@ -169,7 +165,7 @@ export default defineComponent({
     methods: {
         async fetchDataFromApi() {
             let existingObj = this;
-            
+
             existingObj.chartOptions.series[0].data = [];
             try {
                 await axios
@@ -202,7 +198,7 @@ export default defineComponent({
                     .catch(function (error) {
                         console.error(error);
                     });
-                    // console.log('wlms:', existingObj.chartOptions);
+                // console.log('wlms:', existingObj.chartOptions);
             } catch (error) {
                 console.error('Error fetching data:', error);
                 // Handle errors (e.g., display an error message)

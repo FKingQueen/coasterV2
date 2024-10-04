@@ -97,8 +97,8 @@
                             </svg>
                             <p class="text-justify">
                                 The Buoy monitoring system in Laoag City, Ilocos Norte, and Santa, Ilocos Sur,
-                                collects real-time data on water height, tide height, wave period, wave power, wave
-                                temperature and air temperature.
+                                collects real-time data on tide height, water
+                                temperature,air temperature, wave period, and significant wave height.
                             </p>
                         </div>
                     </div>

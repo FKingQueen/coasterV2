@@ -339,7 +339,7 @@ export default defineComponent({
                         useHTML: true,
                         formatter: function () {
                             // Custom HTML content for each data label (icon)
-                            return '<img src="https://www.smashingmagazine.com/2016/05/easy-steps-to-better-logo-design/" width="20" height="20"/>';
+                            return '<img src="/img/arrow/north.jpg" width="20" height="20"/>';
                         },
                         align: 'center',  // Center-align the icon above the bar
                         verticalAlign: 'top',  // Position the icon at the top of the bar
