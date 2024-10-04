@@ -14,7 +14,7 @@ class DeviceApiController extends Controller
         
         $newWlms = new WaterLevel;
         $newWlms->wlms_id = $request->id;
-        $newWlms->level = $request->level;
+        $newWlms->level = $request->wl;
         $newWlms->temperature = $request->temp;
         $newWlms->humidity = $request->hum;
 
