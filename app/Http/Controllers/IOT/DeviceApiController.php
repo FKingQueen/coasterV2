@@ -19,12 +19,12 @@ class DeviceApiController extends Controller
         $newWlms->humidity = $request->hum;
 
         // Date Time
-        // $datetimeString = $request->dateTime;
-        // $datetimeString = substr($datetimeString, 0, 14); // '24/09/20,09:12'
+        $datetimeString = $request->dateTime;
+        $datetimeString = substr($datetimeString, 0, 14); // '24/09/20,09:12'
 
-        // $datetime = Carbon::createFromFormat('y/m/d,H:i', $datetimeString);
+        $datetime = Carbon::createFromFormat('y/m/d,H:i', $datetimeString);
 
-        // $newWlms->created_at = $datetime;
+        $newWlms->created_at = $datetime;
 
         $newWlms->save();
 
@@ -34,7 +34,7 @@ class DeviceApiController extends Controller
                 'waterLevel' => $newWlms->wl,
                 'temperature' => $newWlms->temperature,
                 'humidity' => $newWlms->humidity,
-                // 'dateTime' => $newWlms->created_at,
+                'dateTime' => $newWlms->created_at,
             ]);
         } else {
             return $request;
