@@ -11,7 +11,7 @@ use Carbon\Carbon;
 class DeviceApiController extends Controller
 {
     public function storeDataWLMS(Request $request) {
-        return $request;
+        // return $request;
         $count = WaterLevel::where('wlms_id', $request->id)->count();
     
         if ($count > 0) {
