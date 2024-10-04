@@ -11,85 +11,38 @@ use Carbon\Carbon;
 class DeviceApiController extends Controller
 {
     public function storeDataWLMS(Request $request) {
-        // return $request;
-        $count = WaterLevel::where('wlms_id', $request->id)->count();
-    
-        if ($count > 0) {
-            // Data exists for the given wlms_id
-            if ($request->level != 0) {
+        
+        $newWlms = new WaterLevel;
+        $newWlms->wlms_id = $request->id;
+        $newWlms->level = $request->level;
+        $newWlms->temperature = $request->temp;
+        $newWlms->humidity = $request->hum;
 
-                $latestData = WaterLevel::where('wlms_id', $request->id)->latest()->first();
+        // Date Time
+        $datetimeString = $request->dateTime;
+        $datetimeString = substr($datetimeString, 0, 14); // '24/09/20,09:12'
 
-                $validated = $latestData->level - $request->level;
+        $datetime = Carbon::createFromFormat('y/m/d,H:i', $datetimeString);
 
-                if ($validated >= -0.50 && $validated <= 0.50) {
-                    // Save new data
-                    $newWlms = new WaterLevel;
-                    $newWlms->wlms_id = $request->id;
-                    $newWlms->level = $request->wl;
-                    $newWlms->temperature = $request->temp;
-                    $newWlms->humidity = $request->hum;
+        $newWlms->created_at = $datetime;
 
-                    // Date Time
-                    $datetimeString = $request->dateTime;
-                    $datetimeString = substr($datetimeString, 0, 14); // '24/09/20,09:12'
+        $newWlms->save();
 
-                    $datetime = Carbon::createFromFormat('y/m/d,H:i', $datetimeString);
-
-                    $newWlms->created_at = $datetime;
-
-                    $newWlms->save();
-    
-                    return response()->json([
-                        'ID' => $request->id,
-                        'waterLevel' => $newWlms->level,
-                        'temperature' => $newWlms->temperature,
-                        'humidity' => $newWlms->humidity,
-                        'dateTime' => $newWlms->created_at,
-                    ]);
-                } else {
-                    return response()->json([
-                        'error' => "Water level data is invalid."
-                    ]);
-                }
-            } else {
-                return response()->json([
-                    'error' => "Water level data is invalid."
-                ]);
-            }
-        } else {
-            // No data for the given wlms_id, save new data
-            $newWlms = new WaterLevel;
-            $newWlms->wlms_id = $request->id;
-            $newWlms->level = $request->level;
-            $newWlms->temperature = $request->temp;
-            $newWlms->humidity = $request->hum;
-
-            // Date Time
-            $datetimeString = $request->dateTime;
-            $datetimeString = substr($datetimeString, 0, 14); // '24/09/20,09:12'
-
-            $datetime = Carbon::createFromFormat('y/m/d,H:i', $datetimeString);
-
-            $newWlms->created_at = $datetime;
-
-            $newWlms->save();
-    
+        if($newWlms->save()){
             return response()->json([
-                'ID' => $request->id,
+                'id' => $newWlms->wlms_id,
                 'waterLevel' => $newWlms->level,
                 'temperature' => $newWlms->temperature,
                 'humidity' => $newWlms->humidity,
                 'dateTime' => $newWlms->created_at,
             ]);
+        } else {
+            return $request;
         }
+    
     }
 
     public function storeDataBMS(Request $request){
-        
-        if($request->id == 3){
-            return;
-        }
 
         $newBuoyData = new Bouy;
         $newBuoyData->bouy_id = $request->id;
@@ -101,11 +54,6 @@ class DeviceApiController extends Controller
         $newBuoyData->compass = $request->hd;
         $newBuoyData->significant_wave_height = $request->swh;
         $newBuoyData->wave_period = $request->wp;
-        // if (!is_numeric($request->wp)) {
-        //     $newBuoyData->wave_period = null; // Set to null if it's a string
-        // } else {
-        //     $newBuoyData->wave_period = 123;
-        // }
 
         // Date Time
         $datetimeString = $request->dateTime;
