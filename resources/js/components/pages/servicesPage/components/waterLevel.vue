@@ -138,19 +138,6 @@ export default defineComponent({
                 subtitle: {
                     text: "",
                 },
-                // plotOptions: {
-                //     series: {
-                //         pointStart: Date.UTC(2010, 0, 1),
-                //         marker: {
-                //             enabled: false,
-                //             states: {
-                //                 hover: {
-                //                     enabled: false
-                //                 }
-                //             }
-                //         }
-                //     },
-                // },
             },
         };
     },
@@ -171,7 +158,6 @@ export default defineComponent({
                 await axios
                     .get(`/api/getWaterLevel/${this.id}`)
                     .then((response) => {
-                        console.log('b: ', response);
                         if (response.data.data.length != 0) {
                             for (let i = 0; i < response.data.data.length; i++) {
                                 existingObj.chartOptions.series[0].data[i] = [];

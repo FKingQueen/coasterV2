@@ -122,21 +122,7 @@
                                         cursor-pointer  blur-none tracking-wide antialiased">
                                     DOWNLOADS
                                 </button> -->
-                            <Modal v-model="downloadsModal" width="700" :mask-closable="false">
-                                <template #header>
-                                    <p style="text-align:center">
-                                        <span>Download Request Form</span>
-                                    </p>
-                                </template>
-                                <div class="w-full">
-                                    <Downloads class="w-full p-3" @id-selected="handleIdSelection" />
-                                </div>
-                                <template #footer>
-                                    <div class="w-full justify-start flex">
 
-                                    </div>
-                                </template>
-                            </Modal>
                             <!-- Downloads -->
                             <!-- About -->
                             <div class="dropdown z-40  px-4 flex text-white font-semibold hover:bg-sky-700 

@@ -334,22 +334,23 @@ export default defineComponent({
                     yAxis: 1,
                     data: [],
                     tooltip: { valueSuffix: 'm', valueDecimals: 2 },
-                    dataLabels: {
+                    marker: {
                         enabled: true,
-                        useHTML: true,
-                        formatter: function () {
-                            // Custom HTML content for each data label (icon)
-                            return '<img src="/img/arrow/north.jpg" width="20" height="20"/>';
-                        },
-                        align: 'center',  // Center-align the icon above the bar
-                        verticalAlign: 'top',  // Position the icon at the top of the bar
-                        y: -300  // Adjust the vertical position to place the icon above the top
-                    }
+                        radius: 10,
+                        symbol: 'circle' // Try a basic circle marker
+                    },
+                    // dataLabels: {
+                    //     enabled: true,
+                    //     formatter: function () {
+                    //         return '<b>' + this.y + '</b>'; // Just displaying the value above the marker
+                    //     }
+                    // }
                 }, {
                     name: 'Wave Period',
                     type: 'spline',
                     data: [],
-                    tooltip: { valueSuffix: 's', valueDecimals: 2 }
+                    tooltip: { valueSuffix: 's', valueDecimals: 2 },
+
                 }],
                 plotOptions: {
                     series: {
@@ -380,8 +381,6 @@ export default defineComponent({
                 case '2':
                     break;
             }
-
-
         }
     },
     async mounted() {
