@@ -11,7 +11,7 @@
                 </Select>
             </div>
         </div>
-        <highcharts class="hc w-full" :constructor-type="'stockChart'" :options="chartOptions" ref="chart">
+        <highcharts class="hc w-full" :constructor-type="'stockChart'" :options="chartOptions">
         </highcharts>
     </div>
 </template>

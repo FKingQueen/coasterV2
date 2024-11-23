@@ -213,6 +213,8 @@ export default defineComponent({
         },
         handleSuccess(res, file) {
             this.formValidate.image = res
+            console.log('res: ',res);
+            console.log('file: ',file);
         },
         handleError(res, file) {
             console.log('res', res);

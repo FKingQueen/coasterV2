@@ -9,10 +9,13 @@ use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserAccountController;
 use App\Http\Controllers\Admin\MonitoringSystemController;
+use App\Http\Controllers\Admin\DownloadController;
 use App\Http\Controllers\Home\HomeArticleController;  
 use App\Http\Controllers\Home\ProjectController;  
 use App\Http\Controllers\Home\HomeMonitoringSystemController;  
 use App\Http\Controllers\Home\MapController;  
+use App\Http\Controllers\Home\HomeDownloadController;  
+use App\Http\Controllers\Home\HomeStationController;  
 use App\Http\Controllers\IOT\DeviceApiController;  
 
 
@@ -75,6 +78,11 @@ Route::group(['prefix' => 'admin','middleware' => 'auth:sanctum'], function() {
         // IOT Devices API
         Route::post('/storeDataWLMS', [DeviceApiController::class, 'storeDataWLMS']);
         Route::post('/storeDataBMS', [DeviceApiController::class, 'storeDataBMS']);
+
+        // Download
+        Route::get('/getDownload', [DownloadController::class, 'getDownload']);
+        Route::post('/uploadDownload', [DownloadController::class, 'uploadDownload']);
+        Route::post('sendEmail', [DownloadController::class, 'sendEmail']);
 });
 
 
@@ -83,6 +91,8 @@ Route::get('/getArticles', [HomeArticleController::class, 'getArticles']);
 Route::get('/getArticle/{id}', [HomeArticleController::class, 'getArticle']);
 Route::get('/getmoreArticle/{id}', [HomeArticleController::class, 'getmoreArticle']);
 Route::post('/searchArticle', [HomeArticleController::class, 'searchArticle']);
+Route::get('/getStationCurrentData', [HomeStationController::class, 'getStationCurrentData']);
+
 // Projects 
 Route::get('/getProject/{id}', [ProjectController::class, 'getProject']);
 Route::get('/getRelatedArticle/{id}', [ProjectController::class, 'getRelatedArticle']);
@@ -94,6 +104,8 @@ Route::post('/getLayerData', [MapController::class, 'getLayerData']);
 Route::post('/getProvinceData', [MapController::class, 'getProvinceData']);
 Route::post('/getMunicipalitiesData', [MapController::class, 'getMunicipalitiesData']);
 Route::post('/getBarangaysData', [MapController::class, 'getBarangaysData']);
+// Download
+Route::post('/storeDownload', [HomeDownloadController::class, 'storeDownload']);
 
 // Test API
 Route::get('/getMsg', [StorageController::class, 'getMsg']);

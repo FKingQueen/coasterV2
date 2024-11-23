@@ -12,7 +12,8 @@ use App\Models\Type;
 class HomeArticleController extends Controller
 {
     public function getArticles() {
-        $article =  Article::with('articleprojects.project')->with('type')->orderBy('created_at','DESC')->get();
+        $article = Article::with('articleprojects.project')->with('type')->orderBy('created_at', 'DESC')->take(6)->get();
+
         
         foreach($article as $key => $arti)
         {
@@ -101,10 +102,12 @@ class HomeArticleController extends Controller
     }
 
     public function searchArticle(Request $request){
-        $search = $request->data;
-        $article = Article::where('title','LIKE',"%{$search}%")
-        ->orWhere('article','LIKE',"%{$search}%")->orderBy('created_at')->with('articleprojects.project')->with('type')
+        // return $request->data;
+        $article = Article::where('title','LIKE',"%{$request->data}%")
+        ->orWhere('article','LIKE',"%{$request->data}%")->orderBy('created_at')->with('articleprojects.project')->with('type')
         ->get();
+
+
         foreach($article as $key => $arti)
         {
             $article[$key]->date = Carbon::createFromFormat('Y-m-d H:i:s', $arti->created_at)->format('F d, Y');
@@ -116,32 +119,9 @@ class HomeArticleController extends Controller
         {
             $allArticles[$key]->date = Carbon::createFromFormat('Y-m-d H:i:s', $arti->created_at)->format('F d, Y');
         }
-
-        $newsArticle = Article::where('type_id', 1)->with('articleprojects.project')->with('type')->get();
-        foreach($newsArticle as $key => $arti)
-        {
-            $newsArticle[$key]->date = Carbon::createFromFormat('Y-m-d H:i:s', $arti->created_at)->format('F d, Y');
-        }
-
-        $announcementsArticle = Article::where('type_id', 2)->with('articleprojects.project')->with('type')->get();
-        foreach($announcementsArticle as $key => $arti)
-        {
-            $announcementsArticle[$key]->date = Carbon::createFromFormat('Y-m-d H:i:s', $arti->created_at)->format('F d, Y');
-        }
-
-        $eventsArticle = Article::where('type_id', 3)->with('articleprojects.project')->with('type')->get();
-        foreach($eventsArticle  as $key => $arti)
-        {
-            $eventsArticle [$key]->date = Carbon::createFromFormat('Y-m-d H:i:s', $arti->created_at)->format('F d, Y');
-        }
-
-
-        
         return response()->json([
             'articles'  =>  $article,
-            'newsArticle' => $newsArticle,
-            'announcementsArticle' => $announcementsArticle,
-            'eventsArticle' => $eventsArticle,
+            'allArticles'  =>  $allArticles,
         ]);
     }
 }

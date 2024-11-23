@@ -4,8 +4,8 @@
             <!-- <FormItem class="w-full"> -->
             <Input disabled v-model="dataName" />
         </FormItem>
-        <FormItem label="Official Email" class="w-full" prop="officialEmail">
-            <Input v-model="formValidate.officialEmail" placeholder="Enter Official Email"></Input>
+        <FormItem label="Official Email" class="w-full" prop="email">
+            <Input v-model="formValidate.email" placeholder="Enter Official Email"></Input>
         </FormItem>
         <FormItem label="Name" class="w-full" prop="name">
             <Input v-model="formValidate.name" placeholder="Enter Name"></Input>
@@ -13,8 +13,8 @@
         <FormItem label="Address" class="w-full" prop="address">
             <Input v-model="formValidate.address" placeholder="Enter Address"></Input>
         </FormItem>
-        <FormItem label="Office/Agency" class="w-full" prop="officeAgency">
-            <Input v-model="formValidate.officeAgency" placeholder="Enter Office/Agency"></Input>
+        <FormItem label="Office/Agency" class="w-full" prop="agency">
+            <Input v-model="formValidate.agency" placeholder="Enter Office/Agency"></Input>
         </FormItem>
         <FormItem label="Purpose" class="w-full" prop="purpose">
             <Input v-model="formValidate.purpose" type="textarea" placeholder="Enter Purpose"></Input>
@@ -51,15 +51,15 @@ export default {
     data() {
         return {
             formValidate: {
-                officialEmail: '',
+                email: '',
                 name: '',
                 address: '',
-                officeAgency: '',
+                agency: '',
                 purpose: '',
             },
             dataName: '',
             ruleValidate: {
-                officialEmail: [
+                email: [
                     { required: true, message: 'The Official Email cannot be empty', trigger: 'blur' },
                     { type: 'email', message: 'Incorrect email format', trigger: 'blur' }
                 ],
@@ -69,7 +69,7 @@ export default {
                 address: [
                     { required: true, message: 'The Address cannot be empty', trigger: 'blur' }
                 ],
-                officeAgency: [
+                agency: [
                     { required: true, message: 'The Office/Agency cannot be empty', trigger: 'blur' }
                 ],
                 purpose: [
@@ -80,14 +80,13 @@ export default {
     },
     methods: {
         async handleSubmit(name) {
-
             let thiss = this;
-            console.log(thiss.id);
             await this.$refs[name].validate((valid) => {
                 if (valid) {
-                    axios.post(`/api/storeDownload`, this.formValidate)
+                    axios.post(`/api/storeDownload`, thiss.formValidate)
                         .then(function (response) {
-                            message.success('Success! Please check you email');
+                            console.log(response);
+                            message.success('Success! We will send you the data as soon as possible Thank you!');
                         })
                         .catch(function (error) {
                         });

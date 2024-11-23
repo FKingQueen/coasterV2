@@ -16,20 +16,23 @@
                     </p>
                 </div>
                 <div>
-                    <p class="text-justify w-full tracking-wide blur-none leading-loose text-justify">
-                    <p class="font-bold pb-2">
-                        Coastal Erosion Hazard Maps
-                    </p>
-                    <div>
-                        <ul class="list-disc space-y-2 px-2">
-                            <li class="tracking-wide blur-none leading-loose text-justify">Display areas susceptible to coastal erosion.</li>
-                            <li class="tracking-wide blur-none leading-loose text-justify">Highlight regions with significant erosion risk.</li>
-                            <li class="tracking-wide blur-none leading-loose text-justify">Provide historical erosion data to show changes over time.</li>
-                            <!-- ... -->
-                        </ul>
-                    </div>
+                    <div class="text-justify w-full tracking-wide blur-none leading-loose text-justify">
+                        <p class="font-bold pb-2">
+                            Coastal Erosion Hazard Maps
+                        </p>
+                        <div>
+                            <ul class="list-disc space-y-2 px-2">
+                                <li class="tracking-wide blur-none leading-loose text-justify">Display areas susceptible
+                                    to coastal erosion.</li>
+                                <li class="tracking-wide blur-none leading-loose text-justify">Highlight regions with
+                                    significant erosion risk.</li>
+                                <li class="tracking-wide blur-none leading-loose text-justify">Provide historical
+                                    erosion data to show changes over time.</li>
+                                <!-- ... -->
+                            </ul>
+                        </div>
 
-                    </p>
+                    </div>
                 </div>
                 <div>
                     <p class="text-justify w-full tracking-wide blur-none leading-loose text-justify">
@@ -38,9 +41,12 @@
                     </p>
                     <div>
                         <ul class="list-disc space-y-2 px-2">
-                            <li class="tracking-wide blur-none leading-loose text-justify">Show areas at risk of coastal flooding.</li>
-                            <li class="tracking-wide blur-none leading-loose text-justify">Indicate flood zones and potential flood depths.</li>
-                            <li class="tracking-wide blur-none leading-loose text-justify">Include data on flood frequency and historical flood events.</li>
+                            <li class="tracking-wide blur-none leading-loose text-justify">Show areas at risk of coastal
+                                flooding.</li>
+                            <li class="tracking-wide blur-none leading-loose text-justify">Indicate flood zones and
+                                potential flood depths.</li>
+                            <li class="tracking-wide blur-none leading-loose text-justify">Include data on flood
+                                frequency and historical flood events.</li>
                             <!-- ... -->
                         </ul>
                     </div>

@@ -29,14 +29,22 @@ import userAccount from '../components/admin/userAccount/userAccount.vue';
 import buoyPlatform from '../components/admin/monitoringSystem/buoy/buoyPlatform.vue';
 import waterlevelPlatform from '../components/admin/monitoringSystem/waterLevel/waterlevelPlatform.vue';
 
+// Download 
+import downloadPlatform from '../components/admin/download/downloadPlatform.vue';
+// import addUserForm from '../components/admin/user/addForm.vue';
+// import editUserForm from '../components/admin/user/editForm.vue';
+
 // Main 
 import Main from '../components/main.vue'
 
 // Home Page
 import Home from '../components/pages/homePage/home.vue';
 import Article  from '../components/pages/homePage/articlePage/article.vue';
-import moreArticle  from '../components/pages/homePage/articlePage/moreArticle.vue';
+import MoreArticle  from '../components/pages/homePage/articlePage/moreArticle.vue';
 import Search  from '../components/pages/homePage/articlePage/search.vue';
+
+// Hazard Maps
+import HazardMaps  from '../components/pages/homePage/hazardMaps/hazardMaps.vue';
 
 // Projects
 import Project1 from '../components/pages/homePage/projectsPage/project1.vue';
@@ -53,9 +61,16 @@ import Services from '../components/pages/servicesPage/services.vue';
 // Map
 import Map from '../components/pages/mapPage/map.vue';
 
+// Coastal Flood Advisory
+import CoastalFloodAdvisoryPage from '../components/pages/coastalFloodAdvisoryPage/coastalFloodAdvisoryPage.vue';
+
 // Swan
 // import Swan from '../components/pages/swanPage/swan.vue';
 import IntegratedModel from '../components/pages/swanPage/swan.vue';
+
+// About
+import AboutPage from '../components/pages/aboutPage/aboutPage.vue';
+
 
 // TestApi
 import Test from '../components/test/test.vue';
@@ -81,17 +96,29 @@ const routes = [
                 path: '/',
                 component: Home ,
             },
+            // Hazard Maps
+            {
+                name: 'hazardmaps',
+                path: '/hazardmaps',
+                component: HazardMaps,
+            },
+            // Coastal Flood Advisory Page
+            {
+                name: 'coastalfloodadvisorypage',
+                path: '/coastalfloodadvisory',
+                component: CoastalFloodAdvisoryPage,
+            },
+            // Article
             {
                 name: 'article',
-                path: '/:article/:title/:id',
+                path: '/:title/:id',
                 component: Article ,
                 props:true 
             },
             {
                 name: 'moreArticle',
-                path: '/:article',
-                component: moreArticle ,
-                props:true 
+                path: '/morearticle',
+                component: MoreArticle
             },
             {
                 name: 'search',
@@ -146,6 +173,12 @@ const routes = [
                 name: 'map',
                 path: '/map',
                 component: Map,
+            },
+            // About
+            {
+                name: 'about',
+                path: '/about',
+                component: AboutPage ,
             },
         ]
     },
@@ -227,6 +260,13 @@ const routes = [
                 meta: { role: '1' },
                 component: waterlevelPlatform
             },
+            // Download
+            {
+                name: 'downloadPlatform',
+                path: '/admin/downloadPlatform',
+                component: downloadPlatform,
+                meta: { role: '1' }
+            }
         ]
     },
 ]

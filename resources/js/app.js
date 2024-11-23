@@ -8,8 +8,8 @@ import 'view-ui-plus/dist/styles/viewuiplus.css';
 import locale from 'view-ui-plus/dist/locale/en-US';
 import CKEditor from '@ckeditor/ckeditor5-vue';
 import Highcharts from "highcharts";
+import HighchartsVue from 'highcharts-vue';
 import StockModule from "highcharts/modules/stock";
-import HighchartsVue from "highcharts-vue";
 
 import DataTable from 'datatables.net-vue3'
 

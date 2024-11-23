@@ -134,7 +134,7 @@
     <Modal v-model="downloadsModal" width="700" :mask-closable="false" @on-cancel="cancelModal()">
         <template #header>
             <p style="text-align:center">
-                <span>Download Request Form</span>
+                <span>Data Request Form</span>
             </p>
         </template>
         <div class="w-full">

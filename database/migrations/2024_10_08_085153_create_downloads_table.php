@@ -15,6 +15,11 @@ class CreateDownloadsTable extends Migration
     {
         Schema::create('downloads', function (Blueprint $table) {
             $table->id();
+            $table->string('email');
+            $table->string('name');
+            $table->string('address');
+            $table->string('agency');
+            $table->string('purpose');
             $table->timestamps();
         });
     }

@@ -1,27 +1,22 @@
 <template>
+    
     <div>
         <div>
-            <!-- Top View -->
-            <div ref="topElement" id="topView" class="w-full hidden lg:block p-0">
-                <div class="flex justify-around bg-[#DDE6ED]">
-                    <div class="md:flex py-1 ">
-                        <div class="flex items-center space-x-2 w-full">
-                            <img src="/img/logo/DOST.png" class="blur-none antialiased cursor-pointer object-fill h-16"
-                                alt="#">
-                            <img src="/img/logo/MMSU.png" class="blur-none antialiased cursor-pointer object-fill h-16"
-                                alt="#">
+            <div class="w-full flex">
+                <div class="w-3/12 h-[6rem] p-1 bg-[#002B5B] border-b-4 border-cyan-900 border-r-1">
+                    <div class="w-full  flex items-center h-full space-x-2 justify-center">
+                        <div class="flex items-center ">
                             <img src="/img/logo/COASTER.png"
-                                class="blur-none antialiased cursor-pointer object-fill h-16" alt="#">
+                                class="blur-none antialiased cursor-pointer object-fill h-20 " alt="#">
                         </div>
-
-                        <div class="p-0 leading-normal pl-1">
-                            <div class="text-center grid divide-[#002B5B]/75 divide-y-2 w-full">
+                        <div>
+                            <div class="text-center grid divide-[#C49A6C]/75 divide-y-2 text-white">
                                 <div>
-                                    <p class="text-5xl font-serif font-semibold text-[#146C94] blur-none antialiased">
+                                    <p class="text-3xl  font-serif font-semibold blur-none antialiased ">
                                         COASTER
                                     </p>
                                 </div>
-                                <div class="text-center text-xs blur-none antialiased">
+                                <div class="text-center font-sans text-xs blur-none antialiased">
                                     <p>
                                         Coastal Engineering and Management
                                     </p>
@@ -32,477 +27,118 @@
                             </div>
                         </div>
                     </div>
-                    <div class="text-sm grid grid-cols-1 gap-1 content-center px-5 ">
-                        <div class="text-right leading-loose flex drop-shadow-md">
-                            <div class="grid grid-cols-1 gap-1 content-center bg-[#F1F6F9] pl-1 py-1 ">
-                                <Icon size="50" type="ios-clock-outline" />
+                </div>
+                <div class="w-full">
+                    <div class="h-[2rem] flex items-center justify-between w-full ">
+                        <div class="flex justify-start w-8/12">
+                            <div class="overflow-hidden  w-full">
+                                <div class="animate-scroll hover:animate-paused w-full max-w-md mx-auto ">
+                                    <span>
+                                        The COASTER STAFF will participate in the ICCIARD 2024... For more info. <a
+                                            href="">Click Here!!!</a>
+                                        The COASTER STAFF will participate in the ICCIARD 2024... For more info.
+                                        The COASTER STAFF will participate in the ICCIARD 2024... For more info.
+                                        The COASTER STAFF will participate in the ICCIARD 2024... For more info.
+                                        The COASTER STAFF will participate in the ICCIARD 2024... For more info.
+                                        The COASTER STAFF will participate in the ICCIARD 2024... For more info.
+                                        The COASTER STAFF will participate in the ICCIARD 2024... For more info.
+                                        The COASTER STAFF will participate in the ICCIARD 2024... For more info.
+                                        The COASTER STAFF will participate in the ICCIARD 2024... For more info.
+                                        The COASTER STAFF will participate in the ICCIARD 2024... For more info.
+                                        The COASTER STAFF will participate in the ICCIARD 2024... For more info.
+                                    </span>
+                                </div>
                             </div>
-                            <div class=" bg-[#F1F6F9] py-1 pr-2 ">
-                                <p class="blur-none antialiased text-4xl font-bold  text-center">{{
+                        </div>
+                        <div class="">
+                            <div class="flex space-x-2 bg-[#FFD700] px-2 py-3 text-white">
+                                <p class="font-semibold">
+                                    Official DateTime:
+                                </p>
+                                <p>{{
                                     this.digitalTime.hour
                                     }}:{{ this.digitalTime.min }}:{{ this.digitalTime.sec }}</p>
-                                <p class="blur-none antialiased text-sm font-bold text-center">{{ this.digitalTime.date
-                                    }} :
-                                    {{ this.digitalTime.day }} : {{ this.digitalTime.year }}</p>
+                                <p>{{ this.digitalTime.date
+                                    }} /
+                                    {{ this.digitalTime.day }} / 20{{ this.digitalTime.year }}</p>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <nav ref="navElement" style="transition: 0.6s;"
-                class=" relative z-30 flex w-full bg-[#002B5B] lg:px-20 md:px-3 sm:px-1 border-y-4 border-cyan-900">
-                <div class="px-5 xl:px-12  flex w-full justify-evenly">
-                    <!-- Nav Links -->
-                    <div class="lg:block hidden">
-                        <div class=" lg:flex text-white font-normal font-heading w-full ">
-                            <!-- About -->
-                            <router-link to="/" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
-                                    cursor-pointer blur-none tracking-wide antialiased">
-                                HOME
-                            </router-link>
-                            <!-- /About -->
-                            <!-- Weather -->
-                            <!-- <a to="/" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
-                                cursor-pointer  blur-none tracking-wide antialiased">
-                                WEATHER
-                            </a> -->
-                            <!-- /Weather -->
-                            <!-- Monitoring System -->
-                            <!-- <router-link to="/MonitoringSystem" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
-                                    cursor-pointer  blur-none tracking-wide antialiased">
-                                MONITORING SYSTEM
-                            </router-link> -->
-                            <!-- /Monitoring System -->
-                            <!-- Services -->
-                            <router-link to="/services" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
-                                    cursor-pointer  blur-none tracking-wide antialiased">
-                                SERVICES
-                            </router-link>
-                            <!-- /Services -->
-
-                            <!-- integratedModel -->
-                            <router-link to="/integratedModel" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
-                                    cursor-pointer  blur-none tracking-wide antialiased">
-                                INTEGRATED MODEL
-                            </router-link>
-                            <!-- /integratedModel -->
-
-                            <!-- Map -->
-                            <!-- <router-link to="/Map" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
-                                    cursor-pointer  blur-none tracking-wide antialiased">
-                                HAZARD MAP
-                            </router-link> -->
-                            <!-- /Map -->
-
-                            <!-- Project -->
-                            <div class="dropdown z-40  px-4 flex text-white font-semibold hover:bg-sky-700 
+                    <div class="w-full flex items-end  h-[4rem]">
+                        <div class="z-30 flex justify-between w-full bg-[#002B5B] border-y-4 border-cyan-900 ">
+                            <div class="flex">
+                                <router-link to="/" class="py-4 px-4 ml-2 flex text-white font-semibold hover:bg-sky-700 
+                                    cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm ">
+                                    HOME
+                                </router-link>
+                                <!-- <router-link to="/services" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+                                    cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm">
+                                    SERVICES
+                                </router-link> -->
+                                <router-link to="/monitoringSystem" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+                                    cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm">
+                                    MONITORING SYSTEM
+                                </router-link>
+                                <router-link to="/coastalfloodadvisory" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+                                    cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm">
+                                    COASTAL FLOOD ADVISORY
+                                </router-link>
+                                <!-- Project -->
+                                <div class="dropdown z-40  px-4 flex text-white font-semibold hover:bg-sky-700 
                                 cursor-pointer transition-colors duration-300 " style="float:left;">
-                                <button class="dropdown py-4  blur-none tracking-wide antialiased">PROJECT</button>
-                                <div class="dropdown-content p-1 w-[23rem] font-normal " style="left:0;">
-                                    <a @click="this.$router.push('/projects/project1')"
-                                        class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Coastal
-                                        Erosion Trends and Management Strategies for Region 1</a>
-                                    <a @click="this.$router.push('/projects/project2')"
-                                        class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Assesment
-                                        Monitoring, and Prediction of Coastal Flooding of Selected Municipalities in
-                                        Region
-                                        1</a>
-                                    <a @click="this.$router.push('/projects/project3')"
-                                        class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Development
-                                        of Science-based Engineering Approach to Coastal Prediction in Region 1</a>
-                                    <a @click="this.$router.push('/projects/project4')"
-                                        class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Enhancing
-                                        Coastal Design and Infrastructure Intervention through the Establishment of Wave
-                                        Testing Facility</a>
-                                </div>
-                            </div>
-                            <!-- /Project -->
-                            <!-- Downloads -->
-                                <!-- <button @click="downloadsModal = true" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
-                                        cursor-pointer  blur-none tracking-wide antialiased">
-                                    DOWNLOADS
-                                </button> -->
-
-                            <!-- Downloads -->
-                            <!-- About -->
-                            <div class="dropdown z-40  px-4 flex text-white font-semibold hover:bg-sky-700 
-                                    cursor-pointer transition-colors duration-300 " style="float:left;">
-                                <button class="dropdown py-4  blur-none tracking-wide antialiased">ABOUT</button>
-                                <div class="dropdown-content p-1 w-[17rem] font-normal " style="left:0;">
-                                    <a @click="gotoAbout(1)"
-                                        class="antialiased text-white text-justify  hover:shadow-[inset_17rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">ABOUT</a>
-                                    <a @click="gotoAbout(2)"
-                                        class="antialiased text-white text-justify  hover:shadow-[inset_17rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">DOCUMENTS</a>
-                                    <a @click="gotoAbout(3)"
-                                        class="antialiased text-white text-justify  hover:shadow-[inset_17rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">ORGANIZATION
-                                        STRUCTURE</a>
-                                    <a @click="gotoAbout(4)"
-                                        class="antialiased text-white text-justify  hover:shadow-[inset_17rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">ACCOMPLISHMENT</a>
-                                </div>
-                            </div>
-                            <!-- /About -->
-                        </div>
-                    </div>
-
-                    <div class="flex justify-between w-full lg:hidden block">
-                        <!-- Search Bar -->
-                        <button @click="sideBarDrawer = true" type="button"
-                            class="text-2xl text-white hover:text-gray-200 ">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                            </svg>
-                        </button>
-                        <!-- /Search Bar -->
-                        <Drawer placement="left" :closable="false" v-model="sideBarDrawer" :styles="{ padding: '0' }">
-                            <div class="w-full border-b-4 flex p-2">
-                                <img src="/img/top.png" @click="this.$router.push('/')"
-                                    class="w-20 text-center duration-200 blur-none cursor-pointer object-fill mb-2 "
-                                    alt="#">
-                                <div class="p-0 leading-normal">
-                                    <div class="text-center">
-                                        <p class="text-2xl font-serif font-semibold text-sky-900 blur-none antialiased">
-                                            COASTER
-                                        </p>
-                                        <div class="text-center text-xs blur-none antialiased">
-                                            <p>
-                                                Coastal Engineering, Management Research
-                                            </p>
-                                            <p>
-                                                and Development Center
-                                            </p>
-                                        </div>
+                                    <button class="dropdown py-4  blur-none tracking-wide antialiased">PROJECT</button>
+                                    <div class="dropdown-content p-1 w-[23rem] font-normal " style="left:0;">
+                                        <a @click="this.$router.push('/projects/project1')"
+                                            class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Coastal
+                                            Erosion Trends and Management Strategies for Region 1</a>
+                                        <a @click="this.$router.push('/projects/project2')"
+                                            class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Assesment
+                                            Monitoring, and Prediction of Coastal Flooding of Selected Municipalities in
+                                            Region
+                                            1</a>
+                                        <a @click="this.$router.push('/projects/project3')"
+                                            class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Development
+                                            of Science-based Engineering Approach to Coastal Prediction in Region 1</a>
+                                        <a @click="this.$router.push('/projects/project4')"
+                                            class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Enhancing
+                                            Coastal Design and Infrastructure Intervention through the Establishment of
+                                            Wave
+                                            Testing Facility</a>
                                     </div>
                                 </div>
+                                <!-- /Project -->
+                                <router-link to="/about" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
+                                    cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm">
+                                    ABOUT
+                                </router-link>
                             </div>
-                            <div class="">
-                                <a-menu v-model:openKeys="openKeys" v-model:selectedKeys="selectedKeys" mode="inline"
-                                    @click="handleClick">
-                                    <a-menu-item key="1">
-                                        <template #icon>
-                                            <Icon type="ios-home" />
-                                        </template>
-                                        Home
-                                    </a-menu-item>
-                                    <a-menu-item key="2">
-                                        <template #icon>
-                                            <Icon type="ios-water" />
-                                        </template>
-                                        Monitoring System
-                                    </a-menu-item>
-                                    <a-menu-item key="3">
-                                        <template #icon>
-                                            <Icon type="ios-cloud" />
-                                        </template>
-                                        Map
-                                    </a-menu-item>
-                                    <a-sub-menu key="sub1">
-                                        <template #icon>
-                                            <Icon type="ios-document" />
-                                        </template>
-                                        <template #title>Project</template>
-                                        <a-menu-item key="5">Project 1</a-menu-item>
-                                        <a-menu-item key="6">Project 2</a-menu-item>
-                                        <a-menu-item key="7">Project 3</a-menu-item>
-                                        <a-menu-item key="8">Project 4</a-menu-item>
-                                    </a-sub-menu>
-                                    <a-sub-menu key="sub2">
-                                        <template #icon>
-                                            <Icon type="ios-document" />
-                                        </template>
-                                        <template #title>About</template>
-                                        <a-menu-item key="9">About</a-menu-item>
-                                        <a-menu-item key="10">Documents</a-menu-item>
-                                        <a-menu-item key="11">Organization Structure</a-menu-item>
-                                        <a-menu-item key="12">Accomplishment</a-menu-item>
-                                    </a-sub-menu>
-
-                                </a-menu>
+                            <div class="flex items-center w-3/12 px-3 space-x-2 justify-around">
+                                <input ref="searchFocus" @keyup.enter="this.handleSubmitSearch($event.target.value)"
+                                    required
+                                    class="bg-transparent w-full leading-tight focus:outline-none text-white border-b-2 border-sky-800"
+                                    type="text" placeholder="Search News, Announcement, Events">
+                                <button type="button" @click="Search()"
+                                    class="lg:block hidden text-2xl text-white hover:text-gray-200 ">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor"
+                                        class="w-6 h-6 focus:outline outline-offset-2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                    </svg>
+                                </button>
                             </div>
-                        </Drawer>
-                        <!-- /Search Bar -->
-                        <img src="/img/logo/COASTER.png" @click="this.$router.push('/')"
-                            class="duration-200 blur-none cursor-pointer object-fill h-14 py-1" alt="#">
-                        <!-- Search Bar -->
-                        <button type="button" @click="Search()" class="text-2xl text-white hover:text-gray-200 ">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-6 h-6 focus:outline outline-offset-2">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                            </svg>
-                        </button>
-                        <!-- /Search Bar -->
-                    </div>
+                        </div>
 
-                    <!-- Search Bar -->
-                    <button type="button" @click="Search()"
-                        class="lg:block hidden text-2xl text-white hover:text-gray-200 ">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6 focus:outline outline-offset-2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                        </svg>
-                    </button>
-                    <!-- /Search Bar -->
-                </div>
-            </nav>
-
-            <div v-if="isSearch" class="w-full flex justify-center absolute z-30 ">
-                <div class="bg-gray-200 lg:w-3/4 w-full h-14 flex items-center justify-center border-x-2 border-b-2">
-                    <div class="lg:w-3/4 w-full flex justify-center items-center">
-                        <img src="/img/top.png"
-                            class="blur-none antialiased duration-200 blur-none cursor-pointer object-fill h-10 mr-5"
-                            alt="#">
-                        <input ref="searchFocus" @keyup.enter="this.handleSubmitSearch($event.target.value)" required
-                            class="bg-transparent w-full leading-tight focus:outline-none border-b-2 border-sky-800"
-                            type="text" placeholder="Search News, Announcement, Events">
-                        <button type="submit" class=" p-5">
-                            <svg class="h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg"
-                                xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
-                                viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;"
-                                xml:space="preserve" width="512px" height="512px">
-                                <path
-                                    d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
-                            </svg>
-                        </button>
                     </div>
                 </div>
             </div>
 
-            <Transition>
-                <nav v-if="isShowNav" class="fixed z-30 top-0 flex w-full bg-[#002B5B] border-y-4 border-cyan-900 ">
-                    <div class="w-full">
-                        <!-- Nav Links -->
-                        <div class="lg:block hidden">
-                            <div class="flex justify-center space-x-10 text-white font-normal font-heading w-full">
-                                <div class="flex items-center">
-                                    <!-- <img src="/img/top.png" class="blur-none antialiased duration-200 blur-none cursor-pointer object-fill h-12 mr-2" alt="#"> -->
-                                    <p
-                                        class="cursor-pointer text-5xl font-serif font-semibold text-[#146C94] tracking-wide blur-none antialiased">
-                                        COASTER
-                                    </p>
-                                </div>
-                                <div class="flex">
-                                    <!-- Home -->
-                                    <router-link to="/" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
-                                        cursor-pointer  blur-none tracking-wide antialiased">
-                                        HOME
-                                    </router-link>
-                                    <!-- Home -->
-                                    <!-- <router-link to="/MonitoringSystem" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
-                                        cursor-pointer  blur-none tracking-wide antialiased whitespace-nowrap">
-                                        MONITORING SYSTEM
-                                    </router-link> -->
-                                    <!-- /Monitoring System -->
 
-                                    <!-- Services -->
-                                    <router-link to="/services" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
-                                    cursor-pointer  blur-none tracking-wide antialiased">
-                                        SERVICES
-                                    </router-link>
-                                    <!-- /Services -->
-
-
-                                    <!-- integratedModel -->
-                                    <router-link to="/integratedModel" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
-                                    cursor-pointer  blur-none tracking-wide antialiased">
-                                        INTEGRATED MODEL
-                                    </router-link>
-                                    <!-- /integratedModel -->
-
-                                    <!-- Map -->
-                                    <!-- <router-link to="/Map" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
-                                    cursor-pointer  blur-none tracking-wide antialiased">
-                                        HAZARD MAP
-                                    </router-link> -->
-                                    <!-- /Map -->
-
-
-                                    <!-- Project -->
-                                    <div :class="{ active: activeItem2 }" class="dropdown z-40  px-4 flex text-white font-semibold hover:bg-sky-700 
-                                    cursor-pointer transition-colors duration-300 " style="float:left;">
-                                        <button
-                                            class="dropdown py-4  blur-none tracking-wide antialiased">PROJECT</button>
-                                        <div class="dropdown-content p-1 w-[23rem] font-normal " style="left:0;">
-                                            <a @click="this.$router.push('/projects/project1')"
-                                                class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Coastal
-                                                Erosion Trends and Management Strategies for Region 1</a>
-                                            <a @click="this.$router.push('/projects/project2')"
-                                                class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Assesment
-                                                Monitoring, and Prediction of Coastal Flooding of Selected
-                                                Municipalities in
-                                                Region 1</a>
-                                            <a @click="this.$router.push('/projects/project3')"
-                                                class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Development
-                                                of Science-based Engineering Approach to Coastal Prediction in Region
-                                                1</a>
-                                            <a @click="this.$router.push('/projects/project4')"
-                                                class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Enhancing
-                                                Coastal Design and Infrastructure Intervention through the Establishment
-                                                of
-                                                Wave
-                                                Testing Facility</a>
-                                        </div>
-                                    </div>
-                                    <!-- /Project -->
-                                    <!-- Downloads -->
-                                    <!-- <button @click="downloadsModal = true" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700 
-                                    cursor-pointer  blur-none tracking-wide antialiased">
-                                        DOWNLOADS
-                                    </button> -->
-                                    <Modal v-model="downloadsModal" width="700" :mask-closable="false">
-                                        <template #header>
-                                            <p style="text-align:center">
-                                                <span>Download Request Form</span>
-                                            </p>
-                                        </template>
-                                        <div class="w-full">
-                                            <Downloads class="w-full p-3" @id-selected="handleIdSelection" />
-                                        </div>
-                                        <template #footer>
-                                            <div class="w-full justify-start flex">
-
-                                            </div>
-                                        </template>
-                                    </Modal>
-                                    <!-- Downloads -->
-                                    <!-- About -->
-                                    <div class="dropdown z-40  px-4 flex text-white font-semibold hover:bg-sky-700 
-                                    cursor-pointer transition-colors duration-300 " style="float:left;">
-                                        <button
-                                            class="dropdown py-4  blur-none tracking-wide antialiased">ABOUT</button>
-                                        <div class="dropdown-content p-1 w-[17rem] font-normal " style="left:0;">
-                                            <a @click="gotoAbout(1)"
-                                                class="antialiased text-white text-justify  hover:shadow-[inset_17rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">ABOUT</a>
-                                            <a @click="gotoAbout(2)"
-                                                class="antialiased text-white text-justify  hover:shadow-[inset_17rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">DOCUMENTS</a>
-                                            <a @click="gotoAbout(3)"
-                                                class="antialiased text-white text-justify  hover:shadow-[inset_17rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">ORGANIZATION
-                                                STRUCTURE</a>
-                                            <a @click="gotoAbout(4)"
-                                                class="antialiased text-white text-justify  hover:shadow-[inset_17rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">ACCOMPLISHMENT</a>
-                                        </div>
-                                    </div>
-                                    <!-- /About -->
-                                </div>
-                                <div class="flex items-center">
-                                    <!-- Search Bar -->
-                                    <button @click="gotoTop()" type="button"
-                                        class="lg:block hidden mr-60 text-2xl text-white hover:text-gray-200 ">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor"
-                                            class="w-6 h-6 focus:outline outline-offset-2">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                                        </svg>
-                                    </button>
-                                    <!-- /Search Bar -->
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="flex justify-between w-full lg:hidden block px-5 xl:px-12  ">
-                            <button @click="sideBarDrawer = true" type="button"
-                                class="text-2xl text-white hover:text-gray-200">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                                </svg>
-                            </button>
-                            <Drawer placement="left" :closable="false" v-model="sideBarDrawer"
-                                :styles="{ padding: '0' }">
-                                <div class="w-full border-b-4 flex p-2">
-                                    <img src="/img/top.png" @click="this.$router.push('/')"
-                                        class="w-20 text-center duration-200 blur-none cursor-pointer object-fill mb-2 "
-                                        alt="#">
-                                    <div class="p-0 leading-normal">
-                                        <div class="text-center">
-                                            <p
-                                                class="text-2xl font-serif font-semibold text-sky-900 blur-none antialiased">
-                                                COASTER
-                                            </p>
-                                            <div class="text-center text-xs blur-none antialiased">
-                                                <p>
-                                                    Coastal Engineering, Management Research
-                                                </p>
-                                                <p>
-                                                    and Development Center
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="">
-                                    <a-menu v-model:openKeys="openKeys" v-model:selectedKeys="selectedKeys"
-                                        mode="inline" @click="handleClick">
-                                        <a-menu-item key="1">
-                                            <template #icon>
-                                                <Icon type="ios-home" />
-                                            </template>
-                                            Home
-                                        </a-menu-item>
-                                        <a-menu-item key="2">
-                                            <template #icon>
-                                                <Icon type="ios-water" />
-                                            </template>
-                                            Monitoring System
-                                        </a-menu-item>
-                                        <a-menu-item key="3">
-                                            <template #icon>
-                                                <Icon type="ios-cloud" />
-                                            </template>
-                                            Map
-                                        </a-menu-item>
-                                        <a-sub-menu key="sub1">
-                                            <template #icon>
-                                                <Icon type="ios-document" />
-                                            </template>
-                                            <template #title>Project</template>
-                                            <a-menu-item key="5">Project 1</a-menu-item>
-                                            <a-menu-item key="6">Project 2</a-menu-item>
-                                            <a-menu-item key="7">Project 3</a-menu-item>
-                                            <a-menu-item key="8">Project 4</a-menu-item>
-                                        </a-sub-menu>
-                                        <a-sub-menu key="sub2">
-                                            <template #icon>
-                                                <Icon type="ios-document" />
-                                            </template>
-                                            <template #title>About</template>
-                                            <a-menu-item key="9">About</a-menu-item>
-                                            <a-menu-item key="10">Documents</a-menu-item>
-                                            <a-menu-item key="11">Organization Structure</a-menu-item>
-                                            <a-menu-item key="12">Accomplishment</a-menu-item>
-                                        </a-sub-menu>
-
-                                    </a-menu>
-                                </div>
-                            </Drawer>
-                            <img src="/img/logo/COASTER.png" @click="this.$router.push('/')"
-                                class="duration-200 blur-none cursor-pointer object-fill h-14 py-1" alt="#">
-
-                            <!-- Search Bar -->
-                            <button @click="gotoTop()" type="button" class="text-2xl text-white hover:text-gray-200 ">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor"
-                                    class="w-6 h-6 focus:outline outline-offset-2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                                </svg>
-                            </button>
-                            <!-- /Search Bar -->
-                        </div>
-                    </div>
-                </nav>
-
-            </Transition>
 
             <router-view :key="$route.fullPath"></router-view>
 
             <!-- Footer -->
-            <footer id="footer" style="" class="bg-white dark:bg-gray-800">
+            <footer class="bg-white dark:bg-gray-800">
                 <div id="contact" class="max-w-screen-xl mx-auto lg:py-5 md:p-8 lg:p-10">
                     <div class="lg:flex lg:justify-between items-center ">
                         <div class="lg:w-4/12">
@@ -682,20 +318,20 @@ export default defineComponent({
             }
         },
         handleScroll() {
-            const top = this.$refs.topElement
-            const nav = this.$refs.navElement
-            if (window.scrollY >= top.offsetHeight + nav.offsetHeight - 50) {
-                this.isShowNav = true;
-            } else {
-                this.isShowNav = false;
-            }
+            // const top = this.$refs.topElement
+            // const nav = this.$refs.navElement
+            // if (window.scrollY >= top.offsetHeight + nav.offsetHeight - 50) {
+            //     this.isShowNav = true;
+            // } else {
+            //     this.isShowNav = false;
+            // }
 
 
-            if (this.isSearch == true) {
-                if (window.scrollY) {
-                    // this.isSearch = false;
-                }
-            }
+            // if (this.isSearch == true) {
+            //     if (window.scrollY) {
+            //         // this.isSearch = false;
+            //     }
+            // }
         },
         Search() {
             if (this.isSearch == false) {
@@ -804,5 +440,39 @@ export default defineComponent({
 .v-enter-from,
 .v-leave-to {
     opacity: 0;
+}
+
+.slide-fade-enter-active {
+    transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+    transition: all 0.1s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+    transform: translateX(20px);
+    opacity: 0;
+}
+
+@keyframes scrollLeft {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.animate-scroll {
+    display: inline-block;
+    white-space: nowrap;
+    animation: scrollLeft 15s linear infinite;
+}
+
+.hover\:animate-paused:hover {
+    animation-play-state: paused;
 }
 </style>

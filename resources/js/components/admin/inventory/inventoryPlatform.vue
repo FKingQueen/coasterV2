@@ -274,13 +274,9 @@ export default defineComponent({
     },
     data() {
         return {
-            token: '',
             modalData: '',
             modal: false,
             inventories: [],
-            token: '',
-            
-
         }
     },
     methods: {

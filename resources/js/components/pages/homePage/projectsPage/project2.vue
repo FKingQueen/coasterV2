@@ -1,5 +1,6 @@
 <template>
     <div :class="{ 'h-screen': !isLoaded }">
+        <div class="absolute w-full min-h-[800px] bg-gradient-to-b from-[#002B5B]"></div>
         <div v-if="isLoaded" class="w-full lg:flex justify-center lg:space-x-6 space-x-0 lg:py-10 py-5">
             <div class="lg:w-6/12  w-full lg:px-0 px-2">
                 <div v-if="isLoaded" class="flex justify-center drop-shadow-md bg-white">
@@ -308,8 +309,8 @@
                     </div>
                 </div>
             </div>
-            <div class="lg:w-2/12 w-full lg:pt-10 pt-5 px-2">
-                <p class="text-center text-2xl border-b-2 blur-none antialiased">
+            <div class="lg:w-2/12 w-full lg:pt-10 pt-5 px-2 z-40">
+                <p class="text-center text-2xl border-b-2 blur-none antialiased bg-white py-1">
                     Other <span class="text-sky-800 ">Projects</span>
                 </p>
                 <div class="py-2 drop-shadow-2xl grid gap-4">
@@ -326,7 +327,7 @@
                         <img src="/img/slides/Slide5.PNG" class="object-cover w-full" alt="#">
                     </div>
                 </div>
-                <p class="text-center text-2xl border-b-2 blur-none antialiased">
+                <p class="text-center text-2xl border-b-2 blur-none antialiased bg-white py-1">
                     Related <span class="text-sky-800 ">Activities</span>
                 </p>
                 <div v-for="(relatedArticle, key) in this.relatedArticles.slice(0, 5)" class="py-2 drop-shadow-2xl">
@@ -377,14 +378,7 @@ export default defineComponent({
         gotoArticle(article) {
             const id = article.id
             const title = article.title
-            if (article.type_id == 1) {
-                article = 'news'
-            } else if (article.type_id == 2) {
-                article = 'announcements'
-            } else if (article.type_id == 3) {
-                article = 'events'
-            }
-            this.$router.push({ name: 'article', params: { article, title, id } })
+            this.$router.push({ name: 'article', params: { title, id } })
         },
         gotoMoreArticle(article) {
             this.$router.push({ name: 'moreArticle', params: { article } })
@@ -394,6 +388,7 @@ export default defineComponent({
         let existingObj = this;
         await axios.get(`/api/getRelatedArticle/${2}`)
             .then(function (response) {
+                console.log(response.data);
                 for (let i = 0; i < response.data.length; i++) {
                     existingObj.relatedArticles.push(response.data[i].article);
                 }

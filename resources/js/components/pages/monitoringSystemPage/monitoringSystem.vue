@@ -1,8 +1,8 @@
 <template>
-    <div class="w-full flex md:flex justify-center pt-3">
+    <div class="w-full flex md:flex justify-center pt-3 bg-gradient-to-b from-[#002B5B]">
         <div class="w-full sm:w-5/6">
-            <Tabs type="card" :model-value="sample">
-                <TabPane label="Water Level Sensor">
+            <Tabs type="card" :model-value="sample" >
+                <TabPane label="Water Level Sensor" class="bg-white">
                     <div class="block sm:flex">
                         <div class="w-full sm:w-1/2 drop-shadow-lg p-1">
                             <div>
@@ -33,7 +33,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="py-3">
+                    <div class="p-3">
                         <p class="text-justify px-5 md:px-0">
                             <span class="font-semibold">Data Details:</span> The data presented here is based on
                             research and analysis conducted by the CoastEr Program. It may not conform to the standards
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                 </TabPane>
-                <TabPane label="Buoy Sensor">
+                <TabPane label="Buoy Sensor"  class="bg-white">
                     <div class="block sm:flex">
                         <div class="w-full sm:w-1/2  drop-shadow-lg p-1">
                             <div>
@@ -83,7 +83,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="py-3">
+                    <div class="p-3">
                         <p class="text-justify px-5 md:px-0">
                             <span class="font-semibold">Data Details:</span> The data presented here is based on
                             research and analysis conducted by the CoastEr Program. It may not conform to the standards
