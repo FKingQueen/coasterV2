@@ -10,11 +10,11 @@
                     <div>
                         <div class="text-center grid divide-[#C49A6C]/75 divide-y-2 text-white">
                             <div>
-                                <p class="text-3xl  font-serif font-semibold blur-none antialiased ">
+                                <p class="text-3xl text-blue-50 font-serif font-semibold blur-none antialiased ">
                                     COASTER
                                 </p>
                             </div>
-                            <div class="text-center font-sans text-xs blur-none antialiased">
+                            <div class="text-center font-sans text-xs blur-none antialiased text-blue-50">
                                 <p>
                                     Coastal Engineering and Management
                                 </p>
@@ -28,45 +28,45 @@
                 <div class="flex justify-center w-2/4">
                     <div class="flex space-x-1">
                         <router-link to="/"
-                            class="px-4 py-3  flex text-white font-semibold hover:bg-sky-700
+                            class="px-4 py-3  flex text-blue-50 font-semibold hover:bg-sky-700
                                     hover:rounded cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm ">
                             HOME
                         </router-link>
-                        <!-- <router-link to="/services" class="px-4 py-3  flex text-white font-semibold hover:bg-sky-700 hover:rounded
+                        <!-- <router-link to="/services" class="px-4 py-3  flex text-blue-50 font-semibold hover:bg-sky-700 hover:rounded
                                     cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm">
                             SERVICES
                         </router-link> -->
-                        <router-link to="/monitoringSystem" class="px-4 py-3  flex text-white font-semibold hover:bg-sky-700 hover:rounded
+                        <router-link to="/monitoringSystem" class="px-4 py-3  flex text-blue-50 font-semibold hover:bg-sky-700 hover:rounded
                                     cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm">
                             MONITORING SYSTEM
                         </router-link>
-                        <router-link to="/coastalfloodadvisory" class="px-4 py-3  flex text-white font-semibold hover:bg-sky-700 hover:rounded
+                        <router-link to="/coastalfloodadvisory" class="px-4 py-3  flex text-blue-50 font-semibold hover:bg-sky-700 hover:rounded
                                     cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm">
                             COASTAL FLOOD ADVISORY
                         </router-link>
-                        <div class="dropdown z-40  px-4 py-3  flex text-white font-semibold hover:bg-sky-700 hover:rounded
+                        <div class="dropdown z-40  px-4 py-3  flex text-blue-50 font-semibold hover:bg-sky-700 hover:rounded
                                 cursor-pointer transition-colors duration-300 " style="float:left;">
                             <button class="dropdown  blur-none tracking-wide antialiased">PROJECT</button>
                             <div class="dropdown-content p-1 w-[23rem] font-normal z-40" style="left:0;">
                                 <a @click="this.$router.push('/projects/project1')"
-                                    class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Coastal
+                                    class="antialiased text-blue-50 text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Coastal
                                     Erosion Trends and Management Strategies for Region 1</a>
                                 <a @click="this.$router.push('/projects/project2')"
-                                    class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Assesment
+                                    class="antialiased text-blue-50 text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Assesment
                                     Monitoring, and Prediction of Coastal Flooding of Selected Municipalities in
                                     Region
                                     1</a>
                                 <a @click="this.$router.push('/projects/project3')"
-                                    class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Development
+                                    class="antialiased text-blue-50 text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Development
                                     of Science-based Engineering Approach to Coastal Prediction in Region 1</a>
                                 <a @click="this.$router.push('/projects/project4')"
-                                    class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Enhancing
+                                    class="antialiased text-blue-50 text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Enhancing
                                     Coastal Design and Infrastructure Intervention through the Establishment of
                                     Wave
                                     Testing Facility</a>
                             </div>
                         </div>
-                        <router-link to="/about" class="px-4 py-3  flex text-white font-semibold hover:bg-sky-700 hover:rounded
+                        <router-link to="/about" class="px-4 py-3  flex text-blue-50 font-semibold hover:bg-sky-700 hover:rounded
                                     cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm">
                             ABOUT
                         </router-link>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="w-1/4">
                     <div class="w-full flex justify-end ">
-                        <div class=" w-fit border border-[#C49A6C] border-4 h-full text-center px-2 mr-5 text-white">
+                        <div class=" w-fit border border-[#C49A6C] border-4 h-full text-center px-2 mr-5 text-blue-100">
                             <p class="font-semibold">
                                 Philippine Standard Time (PST)
                             </p>
