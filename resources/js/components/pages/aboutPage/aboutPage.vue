@@ -7,12 +7,12 @@
             <img src="/img/logo/COASTER.png" class="w-44 h-44 " alt="#">
         </div>
         <div class="w-full flex justify-center py-5">
-            <div class="w-3/4">
+            <div class="lg:w-3/4 w-full">
                 <div class="bg-white drop-shadow-lg text-black p-5 rounded"
                     style="background: rgba(255, 255, 255, 0.50); backdrop-filter: blur(3px);">
                     <div>
                         <div class="flex justify-center">
-                            <div class="w-2/4 text-center grid divide-[#C49A6C]/75 divide-y-4">
+                            <div class="lg:w-2/4 w-full text-center grid divide-[#C49A6C]/75 divide-y-4">
                                 <div>
                                     <p
                                         class="text-5xl font-serif font-semibold bg-gradient-to-r from-[#002B5B] to-[#C49A6C] text-transparent bg-clip-text">
@@ -30,7 +30,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="p-10 space-y-5">
+                        <div class="lg:p-10 pt-6 space-y-5">
                             <div>
                                 <h1
                                     class="text-3xl w-fit font-sans font-semibold bg-gradient-to-r from-[#002B5B] to-[#C49A6C] text-transparent bg-clip-text">
@@ -96,7 +96,7 @@
                 <div class="bg-white drop-shadow-lg text-black p-5 rounded"
                     style="background: rgba(255, 255, 255, 0.50); backdrop-filter: blur(3px);">
                     <div class="flex justify-center">
-                        <div class="w-1/4 text-center grid divide-[#C49A6C]/75 divide-y-4">
+                        <div class="lg:w-1/4 w-2/4 text-center grid divide-[#C49A6C]/75 divide-y-4">
                             <div>
                                 <p
                                     class="text-2xl font-serif font-semibold bg-gradient-to-r from-[#002B5B] to-[#C49A6C] text-transparent bg-clip-text">
@@ -115,7 +115,7 @@
                 <div class="bg-white drop-shadow-lg text-black p-5 rounded"
                     style="background: rgba(255, 255, 255, 0.50); backdrop-filter: blur(3px);">
                     <div class="flex justify-center">
-                        <div class="w-1/4 text-center grid divide-[#C49A6C]/75 divide-y-4">
+                        <div class="lg:w-1/4 w-2/4 text-center grid divide-[#C49A6C]/75 divide-y-4">
                             <div>
                                 <p
                                     class="text-2xl font-serif font-semibold bg-gradient-to-r from-[#002B5B] to-[#C49A6C] text-transparent bg-clip-text">

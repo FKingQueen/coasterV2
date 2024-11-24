@@ -2,8 +2,8 @@
     <div class="p-5 space-y-5 w-full">
         <div class="w-full">
             <div class="border-2 rounded drop-shadow-lg w-full">
-                <div class="p-3 w-full border flex space-x-2">
-                    <div class="w-2/4">
+                <div class="p-3 w-full border lg:flex space-x-2">
+                    <div class="lg:w-2/4 w-full">
                         <!-- <img src="/gif/flood_hazard.gif" alt="" class="w-full"> -->
                         <transition name="fade" mode="out-in">
                             <img :key="currentImage" :src="currentImage" />
@@ -14,7 +14,7 @@
                             </p>
                         </div>
                     </div>
-                    <div class="w-2/4">
+                    <div class="lg:w-2/4 w-full">
                         <div class="flex items-center justify-center">
                             <div class="columns-3 gap-3 ">
                                 <div>

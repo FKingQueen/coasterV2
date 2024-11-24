@@ -1,7 +1,7 @@
 <template>
     <div class="">
         <div class="w-full pb-2">
-            <p class="text-base font-Roboto drop-shadow-lg">7-Day Weather Forecast</p>
+            <p class="text-base font-Roboto drop-shadow-lg lg:pl-0 pl-1">7-Day Weather Forecast</p>
         </div>
         <div class="flex items-center w-full justify-center justify-center pb-3">
             <a-row class="w-full flex justify-center" :gutter="5">
@@ -27,7 +27,7 @@
                             </p>
                         </div>
                         <!-- <p v-if="index == 0" class="text-xs text-between">
-                            Today 
+                            Today
                         </p>
                         <p v-else class="text-xs">
                             {{ this.dailyWeatherData.dayOfWeek[index] }} {{ dailyData }}/{{ this.dailyWeatherData.dayOfMonth[index] }}
@@ -401,7 +401,7 @@ export default defineComponent({
                 },
                 legend: {
                     align: 'center',
-                    // verticalAlign: 'buttom', 
+                    // verticalAlign: 'buttom',
                     borderWidth: 0
                 },
                 series: [{

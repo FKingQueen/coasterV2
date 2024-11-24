@@ -1,8 +1,8 @@
 <template>
-    <div class="bg-white text-zinc-700">
+    <div class="w-full bg-white text-zinc-700">
         <div class="w-full border">
-            <div class="w-full border-b flex px-3 py-2 justify-center">
-                <div class="w-full flex">
+            <div class="w-full border-b flex w-full px-3 py-2 justify-center">
+                <div class="w-full flex space-x-2 justify-center">
                     <div class="w-full flex items-center">
                         <p class="text-sm">
                             COASTER Stations: Real-Time Status Updates
@@ -161,7 +161,6 @@
                                 </tbody>
                             </table>
                             <p class="text-end text-xs">
-                                <!-- {{ dateTime[1] }} -->
                                 {{ stationData.wlmsData2.formatted_date }}
                             </p>
                         </div>
