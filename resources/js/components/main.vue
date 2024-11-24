@@ -1,26 +1,29 @@
 <template>
     <div>
-        <div class="z-30 w-full flex justify-center bg-[#002B5B] border-y-4 border-cyan-900 min-h-[5rem]">
-            <div class="flex items-center justify-between w-full">
-                <div class="w-1/4 justify-center flex space-x-3 " @click="this.$router.push('/')">
+        <div class=" z-30 w-full flex justify-center bg-[#002B5B] border-y-4 border-cyan-900 min-h-[5rem]">
+            <div class="hidden lg:flex items-center justify-between w-full">
+                <div class="w-1/4 justify-center flex space-x-3 ">
                     <div class="flex items-center ">
-                        <img src="/img/logo/COASTER.png" class="blur-none antialiased cursor-pointer object-fill h-[4rem]"
-                            alt="#">
+                        <img @click="this.$router.push('/')" src="/img/logo/COASTER.png"
+                            class="blur-none antialiased cursor-pointer object-fill h-[4rem]" alt="#">
                     </div>
                     <div>
-                        <div class="text-center grid divide-[#C49A6C]/75 divide-y-2 text-white">
-                            <div>
-                                <p class="text-3xl text-blue-50 font-serif font-semibold blur-none antialiased ">
+                        <div class="text-start grid text-white">
+                            <!-- <div>
+                                <p class="text-2xl text-blue-50 font-serif font-semibold blur-none antialiased ">
                                     COASTER
                                 </p>
-                            </div>
-                            <div class="text-center font-sans text-xs blur-none antialiased text-blue-50">
-                                <p>
-                                    Coastal Engineering and Management
-                                </p>
-                                <p>
-                                    Research and Development Center
-                                </p>
+                            </div> -->
+                            <div
+                                class="font-serif w-full h-[5rem] text-xs blur-none antialiased text-blue-50 flex items-center">
+                                <div>
+                                    <p class="text-xl">
+                                        Coastal Engineering and Management
+                                    </p>
+                                    <p class="text-xl">
+                                        Research and Development Center
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -80,7 +83,7 @@
                             </p>
                             <p>{{
                                 this.time
-                                }}
+                            }}
                             </p>
                             <p>
                                 {{ this.date }}
@@ -89,7 +92,94 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Mobile View -->
+            <div class="flex justify-between items-center w-full lg:hidden block px-5">
+                <!-- Search Bar -->
+                <button @click="sideBarDrawer = true" type="button" class="text-2xl text-white hover:text-gray-200 ">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </button>
+                <!-- /Search Bar -->
+                <Drawer placement="left" :closable="false" v-model="sideBarDrawer" :styles="{ padding: '0' }">
+                    <div class="flex justify-center pb-5">
+                        <div class="text-center grid divide-[#C49A6C]/75 divide-y-4">
+                            <div>
+                                <p
+                                    class="text-3xl font-serif font-semibold bg-gradient-to-r from-[#002B5B] to-[#C49A6C] text-transparent bg-clip-text">
+                                    COASTER
+                                </p>
+                            </div>
+                            <div
+                                class="text-center font-sans text-sm blur-none antialiased text-slate-600">
+                                <p>
+                                    Coastal Engineering and Management
+                                    Research and Development Center
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <a-menu v-model:openKeys="openKeys" v-model:selectedKeys="selectedKeys" mode="inline"
+                            @click="handleClick">
+                            <a-menu-item key="1">
+                                <template #icon>
+                                    <Icon type="ios-home" />
+                                </template>
+                                Home
+                            </a-menu-item>
+                            <a-menu-item key="2">
+                                <template #icon>
+                                    <Icon type="ios-water" />
+                                </template>
+                                Services
+                            </a-menu-item>
+                            <a-menu-item key="3">
+                                <template #icon>
+                                    <Icon type="ios-water" />
+                                </template>
+                                Monitoring System
+                            </a-menu-item>
+                            <a-sub-menu key="sub1">
+                                <template #icon>
+                                    <Icon type="ios-document" />
+                                </template>
+                                <template #title>Project</template>
+                                <a-menu-item key="5">Project 1</a-menu-item>
+                                <a-menu-item key="6">Project 2</a-menu-item>
+                                <a-menu-item key="7">Project 3</a-menu-item>
+                                <a-menu-item key="8">Project 4</a-menu-item>
+                            </a-sub-menu>
+                            <a-menu-item key="9">
+                                <template #icon>
+                                    <Icon type="ios-document" />
+                                </template>
+                                About
+                            </a-menu-item>
+
+                        </a-menu>
+                    </div>
+                </Drawer>
+                <!-- /Search Bar -->
+                <img src="/img/logo/COASTER.png" @click="this.$router.push('/')"
+                    class="duration-200 blur-none cursor-pointer object-fill h-14 py-1" alt="#">
+                <!-- Search Bar -->
+                <button type="button" @click="Search()" class="text-2xl text-white hover:text-gray-200 ">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6 focus:outline outline-offset-2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                </button>
+                <!-- /Search Bar -->
+            </div>
+
         </div>
+
+
 
         <!-- <div class="w-full flex">
             <div class="w-3/12 h-[6rem] p-1 bg-[#002B5B] border-b-4 border-cyan-900 border-r-1">
@@ -360,10 +450,10 @@ export default defineComponent({
                 this.$router.push({ path: '/' })
             }
             else if (event.key == 2) {
-                this.$router.push({ path: '/monitoringSystem' })
+                this.$router.push({ path: '/services' })
             }
             else if (event.key == 3) {
-                this.$router.push({ path: '/map' })
+                this.$router.push({ path: '/monitoringSystem' })
             }
             else if (event.key == 5) {
                 this.$router.push({ path: '/projects/project1' })
@@ -378,20 +468,7 @@ export default defineComponent({
                 this.$router.push({ path: '/projects/project4' })
             }
             else if (event.key == 9) {
-                let id = 1
-                this.$router.push({ name: 'about', params: { id } })
-            }
-            else if (event.key == 10) {
-                let id = 2
-                this.$router.push({ name: 'about', params: { id } })
-            }
-            else if (event.key == 11) {
-                let id = 3
-                this.$router.push({ name: 'about', params: { id } })
-            }
-            else if (event.key == 12) {
-                let id = 4
-                this.$router.push({ name: 'about', params: { id } })
+                this.$router.push({ path: '/about' })
             }
         },
         gotoProject(id) {

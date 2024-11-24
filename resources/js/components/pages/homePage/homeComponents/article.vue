@@ -50,7 +50,7 @@
         </div>
         <div>
             <p class="text-2xl text-bold">Videos</p>
-            <div class="grid grid-cols-1 md:grid-cols-1">
+            <!-- <div class="grid grid-cols-1 md:grid-cols-1">
                 <div class="flex justify-around">
                     <iframe width="640" height="360" src="https://www.youtube.com/embed/C7ZEzkKpxZs?rel=0"
                         title="MMSU COASTER" frameborder="0"
@@ -64,7 +64,7 @@
                         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
                     </iframe>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>

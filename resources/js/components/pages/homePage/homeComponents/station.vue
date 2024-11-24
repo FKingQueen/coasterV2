@@ -1,9 +1,9 @@
 <template>
     <div class="bg-white text-zinc-700">
         <div class="w-full border">
-            <div class="border-b flex w-full px-3 py-2 justify-center">
-                <div class="flex space-x-2">
-                    <div class="flex items-center">
+            <div class="w-full border-b flex px-3 py-2 justify-center">
+                <div class="w-full flex">
+                    <div class="w-full flex items-center">
                         <p class="text-sm">
                             COASTER Stations: Real-Time Status Updates
                         </p>
@@ -66,32 +66,36 @@
                     </div>
                     <div class="w-3/4 flex items-center">
                         <div class="w-full">
+
                             <table class="w-full border-none">
-                                <tr class="border-b">
-                                    <td class="py-1 text-xs">Tide</td>
-                                    <td class="py-1 text-xs">{{ stationData.buoyData1.altitude_pressure }}</td>
-                                    <td class="py-1 text-xs">m</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="py-1 text-xs">Air Temperature</td>
-                                    <td class="py-1 text-xs">{{ stationData.buoyData1.water_temperature }}</td>
-                                    <td class="py-1 text-xs">°C</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="py-1 text-xs">Water Temperature</td>
-                                    <td class="py-1 text-xs">{{ stationData.buoyData1.barometric_temperature }}</td>
-                                    <td class="py-1 text-xs">°C</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="py-1 text-xs">Significant Wave Height</td>
-                                    <td class="py-1 text-xs">{{ stationData.buoyData1.significant_wave_height }}</td>
-                                    <td class="py-1 text-xs">m</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="py-1 text-xs">Wave Period</td>
-                                    <td class="py-1 text-xs">{{ stationData.buoyData1.wave_period }}</td>
-                                    <td class="py-1 text-xs">secs</td>
-                                </tr>
+                                <tbody>
+                                    <tr class="border-b">
+                                        <td class="py-1 text-xs">Tide</td>
+                                        <td class="py-1 text-xs">{{ stationData.buoyData1.altitude_pressure }}</td>
+                                        <td class="py-1 text-xs">m</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="py-1 text-xs">Air Temperature</td>
+                                        <td class="py-1 text-xs">{{ stationData.buoyData1.water_temperature }}</td>
+                                        <td class="py-1 text-xs">°C</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="py-1 text-xs">Water Temperature</td>
+                                        <td class="py-1 text-xs">{{ stationData.buoyData1.barometric_temperature }}</td>
+                                        <td class="py-1 text-xs">°C</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="py-1 text-xs">Significant Wave Height</td>
+                                        <td class="py-1 text-xs">{{ stationData.buoyData1.significant_wave_height }}
+                                        </td>
+                                        <td class="py-1 text-xs">m</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="py-1 text-xs">Wave Period</td>
+                                        <td class="py-1 text-xs">{{ stationData.buoyData1.wave_period }}</td>
+                                        <td class="py-1 text-xs">secs</td>
+                                    </tr>
+                                </tbody>
                             </table>
                             <p class="text-end text-xs">
                                 {{ stationData.buoyData1.formatted_date }}
@@ -108,21 +112,23 @@
                         </div>
                         <div class="w-3/4 items-center">
                             <table class="w-full border-none">
-                                <tr class="border-b">
-                                    <td class="py-1 text-xs">Water Level</td>
-                                    <td class="py-1 text-xs">{{ stationData.wlmsData1.level }}</td>
-                                    <td class="py-1 text-xs">m</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="py-1 text-xs">Temperature</td>
-                                    <td class="py-1 text-xs">{{ stationData.wlmsData1.temperature }}</td>
-                                    <td class="py-1 text-xs">°C</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="py-1 text-xs">Humidity</td>
-                                    <td class="py-1 text-xs">{{ stationData.wlmsData1.humidity }}</td>
-                                    <td class="py-1 text-xs">%</td>
-                                </tr>
+                                <tbody>
+                                    <tr class="border-b">
+                                        <td class="py-1 text-xs">Water Level</td>
+                                        <td class="py-1 text-xs">{{ stationData.wlmsData1.level }}</td>
+                                        <td class="py-1 text-xs">m</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="py-1 text-xs">Temperature</td>
+                                        <td class="py-1 text-xs">{{ stationData.wlmsData1.temperature }}</td>
+                                        <td class="py-1 text-xs">°C</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="py-1 text-xs">Humidity</td>
+                                        <td class="py-1 text-xs">{{ stationData.wlmsData1.humidity }}</td>
+                                        <td class="py-1 text-xs">%</td>
+                                    </tr>
+                                </tbody>
                             </table>
                             <p class="text-end text-xs">
                                 {{ stationData.wlmsData1.formatted_date }}
@@ -136,21 +142,23 @@
                         </div>
                         <div class="w-3/4 items-center">
                             <table class="w-full border-none">
-                                <tr class="border-b">
-                                    <td class="py-1 text-xs">Water Level</td>
-                                    <td class="py-1 text-xs">{{ stationData.wlmsData2.level }}</td>
-                                    <td class="py-1 text-xs">m</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="py-1 text-xs">Temperature</td>
-                                    <td class="py-1 text-xs">{{ stationData.wlmsData2.temperature }}</td>
-                                    <td class="py-1 text-xs">°C</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="py-1 text-xs">Humidity</td>
-                                    <td class="py-1 text-xs">{{ stationData.wlmsData2.humidity }}</td>
-                                    <td class="py-1 text-xs">%</td>
-                                </tr>
+                                <tbody>
+                                    <tr class="border-b">
+                                        <td class="py-1 text-xs">Water Level</td>
+                                        <td class="py-1 text-xs">{{ stationData.wlmsData2.level }}</td>
+                                        <td class="py-1 text-xs">m</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="py-1 text-xs">Temperature</td>
+                                        <td class="py-1 text-xs">{{ stationData.wlmsData2.temperature }}</td>
+                                        <td class="py-1 text-xs">°C</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="py-1 text-xs">Humidity</td>
+                                        <td class="py-1 text-xs">{{ stationData.wlmsData2.humidity }}</td>
+                                        <td class="py-1 text-xs">%</td>
+                                    </tr>
+                                </tbody>
                             </table>
                             <p class="text-end text-xs">
                                 <!-- {{ dateTime[1] }} -->

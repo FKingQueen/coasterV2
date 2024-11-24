@@ -1,10 +1,10 @@
 <template>
     <div class="">
-        <div class="w-full flex justify-center space-x-2 bg-gradient-to-b from-[#002B5B] pt-2 text-white">
-            <div class="sm:w-2/4 w-full">
+        <div class="w-full lg:flex justify-center space-x-2 bg-gradient-to-b from-[#002B5B] pt-2 text-white">
+            <div class="lg:w-2/4 w-full">
                 <Forecast class="w-full" />
             </div>
-            <div class="sm:w-1/4 w-full items-center flex drop-shadow-lg">
+            <div class="lg:w-1/4 lg:mt-0 mt-5 w-full items-center flex drop-shadow-lg">
                 <Station class="w-full" />
             </div>
         </div>
