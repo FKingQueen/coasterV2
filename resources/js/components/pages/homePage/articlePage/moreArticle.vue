@@ -1,5 +1,5 @@
 <template>
-    <div class="absolute w-full min-h-[800px] bg-gradient-to-b from-[#002B5B]"></div>
+    <div class="absolute w-full bg-gradient-to-b from-[#002B5B]"></div>
     <div class="w-full  pt-8 min-h-[800px]">
         <div class="w-full justify-center flex pb-5">
             <div class=" w-3/4 text-center">

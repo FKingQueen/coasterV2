@@ -49,7 +49,8 @@
                         </router-link>
                         <div class="z-40 dropdown px-4 py-3  flex text-blue-50 hover:bg-sky-700 hover:rounded
                                 cursor-pointer transition-colors duration-300 " style="float:left;">
-                            <button class="text-blue-50  text-xs font-roboto blur-none tracking-wide antialiased">PROJECT</button>
+                            <button
+                                class="text-blue-50  text-xs font-roboto blur-none tracking-wide antialiased">PROJECT</button>
                             <div class="dropdown-content p-1 w-[23rem] font-normal z-40 mt-4" style="left:0;">
                                 <a @click="this.$router.push('/projects/project1')"
                                     class="antialiased text-blue-50 text-justify text-xs  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Coastal
@@ -77,7 +78,7 @@
                 </div>
                 <div class="w-1/4">
                     <div class="w-full flex justify-end ">
-                        <div class=" w-fit border border-[#C49A6C] border-4 h-full text-center px-2 mr-5 text-blue-100">
+                        <div class=" w-fit border border-[#C49A6C] border-2 h-full text-center px-2 mr-5 text-blue-100">
                             <p class="font-semibold">
                                 Philippine Standard Time (PST)
                             </p>
@@ -113,8 +114,7 @@
                                     COASTER
                                 </p>
                             </div>
-                            <div
-                                class="text-center font-sans text-sm blur-none antialiased text-slate-600">
+                            <div class="text-center font-sans text-sm blur-none antialiased text-slate-600">
                                 <p>
                                     Coastal Engineering and Management
                                     Research and Development Center
@@ -312,7 +312,7 @@
 
 
 
-        <router-view :key="$route.fullPath"></router-view>
+        <router-view :key="$route.fullPath" :style="minHeightStyle"></router-view>
 
         <!-- Footer -->
         <footer class="bg-white dark:bg-gray-800">
@@ -412,7 +412,7 @@ export default defineComponent({
             isShowNav: ref(false),
             isSearch: ref(false),
             downloadsModal: ref(false),
-
+            screenHeight: window.innerHeight-50
         };
     },
     setup() {
@@ -530,6 +530,14 @@ export default defineComponent({
             return this.updateTime();
         }, 1000);
         this.updateTime()
+    },
+    computed: {
+        minHeightStyle() {
+            console.log(this.screenHeight);
+            return {
+                minHeight: `${this.screenHeight}px`
+            }
+        }
     }
 });
 </script>

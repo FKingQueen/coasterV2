@@ -3,7 +3,7 @@
         <iframe 
             src="https://mmsucoaster.xyz/coastervisualize/" 
             width="100%" 
-            class="laptop:h-[700px] monitor:h-[900px]">
+            >
         </iframe>
     </div>
 </template>

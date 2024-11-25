@@ -816,15 +816,6 @@ video {
 .min-h-screen {
   min-height: 100vh;
 }
-.min-h-\[\] {
-  min-height: ;
-}
-.min-h-\[\$\{\}\] {
-  min-height: ${};
-}
-.min-h-\[821px\] {
-  min-height: 821px;
-}
 .w-1\/2 {
   width: 50%;
 }
@@ -1136,9 +1127,6 @@ video {
 .border-2 {
   border-width: 2px;
 }
-.border-4 {
-  border-width: 4px;
-}
 .border-\[30px\] {
   border-width: 30px;
 }
@@ -1405,38 +1393,6 @@ video {
   padding-top: 2rem;
   padding-bottom: 2rem;
 }
-.py-\[2\] {
-  padding-top: 2;
-  padding-bottom: 2;
-}
-.py-\[2px\] {
-  padding-top: 2px;
-  padding-bottom: 2px;
-}
-.py-\[3px\] {
-  padding-top: 3px;
-  padding-bottom: 3px;
-}
-.py-\[5px\] {
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-.py-\[10px\] {
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-.py-\[110px\] {
-  padding-top: 110px;
-  padding-bottom: 110px;
-}
-.py-\[11px\] {
-  padding-top: 11px;
-  padding-bottom: 11px;
-}
-.py-\[12px\] {
-  padding-top: 12px;
-  padding-bottom: 12px;
-}
 .pb-1 {
   padding-bottom: 0.25rem;
 }
@@ -1592,9 +1548,6 @@ video {
 }
 .leading-tight {
   line-height: 1.25;
-}
-.leading-6 {
-  line-height: 1.5rem;
 }
 .tracking-wide {
   letter-spacing: 0.025em;
@@ -2298,11 +2251,6 @@ video {
   .laptop\:text-lg {
     font-size: 1.125rem;
     line-height: 1.75rem;
-  }
-
-  .laptop\:text-xs {
-    font-size: 0.75rem;
-    line-height: 1rem;
   }
 }
 

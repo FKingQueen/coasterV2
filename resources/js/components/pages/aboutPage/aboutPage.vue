@@ -1,8 +1,8 @@
 <template>
-    <div class="absolute w-full min-h-[800px] bg-gradient-to-b from-[#002B5B] z-0 opacity-90">
+    <div class="absolute w-full bg-gradient-to-b from-[#002B5B] z-0 opacity-90">
         <img src="/img/background/building_location.jpg" class="object-cover w-full " alt="#">
     </div>
-    <div class="w-full laptop:min-h-[700px] monitor:min-h-[900px] ">
+    <div class="w-full ">
         <div class="z-40 relative w-full flex justify-center pt-5">
             <img src="/img/logo/COASTER.png" class="w-44 h-44 " alt="#">
         </div>
