@@ -3,8 +3,8 @@
         <div class="w-full border">
             <div class="w-full border-b flex w-full px-3 py-2 justify-center">
                 <div class="w-full flex space-x-2 justify-center">
-                    <div class="w-full flex items-center">
-                        <p class="text-sm">
+                    <div class="w-full flex items-center justify-center">
+                        <p class="text-sm text-center">
                             COASTER Stations: Real-Time Status Updates
                         </p>
                     </div>

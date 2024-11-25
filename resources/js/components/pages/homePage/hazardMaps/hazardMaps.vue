@@ -1,6 +1,6 @@
 <template>
     <div class="w-full flex">
-        <div ref="map" class="full-screen-map h-[90vh]">
+        <div ref="map" class="full-screen-map">
             <!-- Filter Option -->
             <div class="filter-option">
                 <div class=" text-white text-sm rounded-md grid grid-cols-1 bg-white p-5 space-y-3">

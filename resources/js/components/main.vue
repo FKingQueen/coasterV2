@@ -412,7 +412,7 @@ export default defineComponent({
             isShowNav: ref(false),
             isSearch: ref(false),
             downloadsModal: ref(false),
-            screenHeight: window.innerHeight-50
+            screenHeight: window.innerHeight-100
         };
     },
     setup() {
