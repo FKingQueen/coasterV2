@@ -47,7 +47,7 @@
                                     cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm">
                             COASTAL FLOOD ADVISORY
                         </router-link>
-                        <div class="dropdown z-40  px-4 py-3  flex text-blue-50 font-semibold hover:bg-sky-700 hover:rounded
+                        <div class="dropdown z-40  px-4 py-[11px]  flex text-blue-50 font-semibold hover:bg-sky-700 hover:rounded
                                 cursor-pointer transition-colors duration-300 " style="float:left;">
                             <button class="dropdown  blur-none tracking-wide antialiased">PROJECT</button>
                             <div class="dropdown-content p-1 w-[23rem] font-normal z-40" style="left:0;">
