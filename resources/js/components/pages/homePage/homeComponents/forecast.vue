@@ -281,7 +281,7 @@ export default defineComponent({
                 },
 
                 subtitle: {
-                    text: 'Source: JMA Japan',
+                    text: 'Source: Japan Meteorological Agency (JMA)',
                     align: 'center'
                 },
 

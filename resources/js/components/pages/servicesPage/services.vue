@@ -3,7 +3,7 @@
         <div class="bg-white p-10">
             <p class="text-2xl">Services</p>
             <p class="text-lg">
-                Mapping, Prototyping, Data Monitoring, Sensor Manufacturing 
+                Mapping, Prototyping, Data Monitoring, Sensor Manufacturing, Training
             </p>
         </div>
         

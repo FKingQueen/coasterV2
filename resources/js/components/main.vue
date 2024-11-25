@@ -28,49 +28,49 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-center w-2/4">
+                <div class="flex justify-center">
                     <div class="flex space-x-1">
                         <router-link to="/"
-                            class="px-4 py-3  flex text-blue-50 font-semibold hover:bg-sky-700
-                                    hover:rounded cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm ">
+                            class="px-4 py-3  flex text-blue-50 hover:bg-sky-700
+                                    hover:rounded cursor-pointer blur-none tracking-wide antialiased font-roboto text-xs ">
                             HOME
                         </router-link>
-                        <router-link to="/services" class="px-4 py-3  flex text-blue-50 font-semibold hover:bg-sky-700 hover:rounded
-                                    cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm">
+                        <router-link to="/services" class="px-4 py-3  flex text-blue-50 hover:bg-sky-700 hover:rounded
+                                    cursor-pointer blur-none tracking-wide antialiased font-roboto text-xs">
                             SERVICES
                         </router-link>
-                        <router-link to="/monitoringSystem" class="px-4 py-3  flex text-blue-50 font-semibold hover:bg-sky-700 hover:rounded
-                                    cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm">
+                        <router-link to="/monitoringSystem" class="px-4 py-3  flex text-blue-50 hover:bg-sky-700 hover:rounded
+                                    cursor-pointer blur-none tracking-wide antialiased font-roboto text-xs">
                             MONITORING SYSTEM
                         </router-link>
-                        <router-link to="/coastalfloodadvisory" class="px-4 py-3  flex text-blue-50 font-semibold hover:bg-sky-700 hover:rounded
-                                    cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm">
+                        <router-link to="/coastalfloodadvisory" class="px-4 py-3  flex text-blue-50 hover:bg-sky-700 hover:rounded
+                                    cursor-pointer blur-none tracking-wide antialiased font-roboto text-xs">
                             COASTAL FLOOD ADVISORY
                         </router-link>
-                        <div class="dropdown z-40  px-4 py-[11px]  flex text-blue-50 font-semibold hover:bg-sky-700 hover:rounded
+                        <div class="z-40 dropdown px-4 py-3  flex text-blue-50 hover:bg-sky-700 hover:rounded
                                 cursor-pointer transition-colors duration-300 " style="float:left;">
-                            <button class="text-blue-50 dropdown  blur-none tracking-wide antialiased">PROJECT</button>
-                            <div class="dropdown-content p-1 w-[23rem] font-normal z-40" style="left:0;">
+                            <button class="text-blue-50  text-xs font-roboto blur-none tracking-wide antialiased">PROJECT</button>
+                            <div class="dropdown-content p-1 w-[23rem] font-normal z-40 mt-4" style="left:0;">
                                 <a @click="this.$router.push('/projects/project1')"
-                                    class="antialiased text-blue-50 text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Coastal
+                                    class="antialiased text-blue-50 text-justify text-xs  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Coastal
                                     Erosion Trends and Management Strategies for Region 1</a>
                                 <a @click="this.$router.push('/projects/project2')"
-                                    class="antialiased text-blue-50 text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Assesment
+                                    class="antialiased text-blue-50 text-justify text-xs  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Assesment
                                     Monitoring, and Prediction of Coastal Flooding of Selected Municipalities in
                                     Region
                                     1</a>
                                 <a @click="this.$router.push('/projects/project3')"
-                                    class="antialiased text-blue-50 text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Development
+                                    class="antialiased text-blue-50 text-justify text-xs  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Development
                                     of Science-based Engineering Approach to Coastal Prediction in Region 1</a>
                                 <a @click="this.$router.push('/projects/project4')"
-                                    class="antialiased text-blue-50 text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Enhancing
+                                    class="antialiased text-blue-50 text-justify text-xs  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Enhancing
                                     Coastal Design and Infrastructure Intervention through the Establishment of
                                     Wave
                                     Testing Facility</a>
                             </div>
                         </div>
-                        <router-link to="/about" class="px-4 py-3  flex text-blue-50 font-semibold hover:bg-sky-700 hover:rounded
-                                    cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm">
+                        <router-link to="/about" class="px-4 py-3  flex text-blue-50 hover:bg-sky-700 hover:rounded
+                                    cursor-pointer blur-none tracking-wide antialiased font-roboto text-xs">
                             ABOUT
                         </router-link>
                     </div>
@@ -546,7 +546,7 @@ export default defineComponent({
 
 .dropdown {
     position: relative;
-    display: inline-block;
+    /* display: inline-block; */
 }
 
 .dropdown-content {
