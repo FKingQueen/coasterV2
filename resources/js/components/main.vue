@@ -35,10 +35,10 @@
                                     hover:rounded cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm ">
                             HOME
                         </router-link>
-                        <!-- <router-link to="/services" class="px-4 py-3  flex text-blue-50 font-semibold hover:bg-sky-700 hover:rounded
+                        <router-link to="/services" class="px-4 py-3  flex text-blue-50 font-semibold hover:bg-sky-700 hover:rounded
                                     cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm">
                             SERVICES
-                        </router-link> -->
+                        </router-link>
                         <router-link to="/monitoringSystem" class="px-4 py-3  flex text-blue-50 font-semibold hover:bg-sky-700 hover:rounded
                                     cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm">
                             MONITORING SYSTEM
@@ -49,7 +49,7 @@
                         </router-link>
                         <div class="dropdown z-40  px-4 py-[11px]  flex text-blue-50 font-semibold hover:bg-sky-700 hover:rounded
                                 cursor-pointer transition-colors duration-300 " style="float:left;">
-                            <button class="dropdown  blur-none tracking-wide antialiased">PROJECT</button>
+                            <button class="text-blue-50 dropdown  blur-none tracking-wide antialiased">PROJECT</button>
                             <div class="dropdown-content p-1 w-[23rem] font-normal z-40" style="left:0;">
                                 <a @click="this.$router.push('/projects/project1')"
                                     class="antialiased text-blue-50 text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Coastal
