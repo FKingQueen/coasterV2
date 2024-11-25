@@ -16,11 +16,11 @@
                             </div> -->
                             <div
                                 class="font-serif w-full h-[5rem] text-xs blur-none antialiased text-blue-50 flex items-center">
-                                <div>
-                                    <p class="text-xl">
+                                <div class="">
+                                    <p class="laptop:text-lg monitor:text-xl">
                                         Coastal Engineering and Management
                                     </p>
-                                    <p class="text-xl">
+                                    <p class="laptop:text-lg monitor:text-xl">
                                         Research and Development Center
                                     </p>
                                 </div>

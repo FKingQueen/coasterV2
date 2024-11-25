@@ -4,7 +4,7 @@
             <div class="lg:w-2/4 w-full">
                 <Forecast class="w-full" />
             </div>
-            <div class="lg:w-1/4 w-full lg:p-0 p-3">
+            <div class="lg:w-1/4 w-full lg:p-0 p-3 flex items-center">
                 <Station class="w-full" />
             </div>
         </div>
