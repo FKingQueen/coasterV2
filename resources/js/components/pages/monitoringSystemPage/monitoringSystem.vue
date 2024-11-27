@@ -68,20 +68,6 @@
                                 </p>
                             </div>
                         </div>
-                        <!-- <div class="w-full sm:w-1/2  drop-shadow-lg p-1">
-                            <div>
-                                <Buoy class="w-full p-3" :id="2" />
-                            </div>
-                            <div>
-                                <p class="text-center font-thin text-sm">
-                                    Sensor Location
-                                </p>
-                                <buoyLocation class="w-full" :id="2" />
-                                <p class="text-center font-thin text-xs">
-                                    Santa, Ilocos Sur
-                                </p>
-                            </div>
-                        </div> -->
                     </div>
                     <div class="p-3">
                         <p class="text-justify px-5 md:px-0">
