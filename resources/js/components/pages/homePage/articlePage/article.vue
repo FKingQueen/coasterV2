@@ -22,7 +22,7 @@
                             </p>
                             <p v-if="this.article.author != null"
                                 class="text-justify blur-none mb-5 font-medium tracking-wide antialiased">
-                                By {{ this.article.author }}
+                                {{ this.article.author }}
                             </p>
                             <p v-html="this.article.article"
                                 class="text-justify blur-none font-medium indent-4 leading-loose tracking-wide antialiased">
@@ -55,7 +55,7 @@
                                         <img :alt="item.title" :src="`/img/uploads/${item.image}`"
                                             class="object-cover rounded-lg shadow-sm h-40 w-64" />
                                     </template>
-                                    <a-list-item-meta :description="item.description">
+                                    <a-list-item-meta :description="item.date">
                                         <template #title>
                                             <a @click="gotoArticle(item)" class="line-clamp-1 font-semibold hover:text-blue-600 transition-colors">
                                                 {{ item.title }}

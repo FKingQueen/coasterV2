@@ -6,7 +6,7 @@
         </div>
         <div class="w-full  py-5 flex md:flex justify-center">
             <div class="bg-white w-3/4 border-black drop-shadow-lg rounded"
-                style="background: rgba(255, 255, 255, 0.50); backdrop-filter: blur(40px);">
+                style="background: rgba(255, 255, 255, 0.50); backdrop-filter: blur(5px);">
                 <div class="w-full flex justify-center pt-5">
                     <div class=" w-2/4 text-center">
                         <div class="border-b-4 border-[#C49A6C] pb-3">
@@ -54,7 +54,7 @@
                                     We specialize in generating high-precision hazard maps crucial for coastal planning
                                     and disaster preparedness:
                                 </p>
-                                <ul class="list-disc px-10 space-y-1 font-sans text-lg">
+                                <ul class="list-disc ml-16 space-y-1 font-sans text-lg">
                                     <li>Storm surge mapping using advanced modeling techniques</li>
                                     <li>Flood hazard assessment and visualization</li>
                                     <li>Risk analysis and vulnerability assessment</li>
@@ -75,7 +75,7 @@
                                 <p class="px-7 font-sans text-lg">
                                     Additive Manufacturing Equipment:
                                 </p>
-                                <ul class="list-disc px-12 space-y-1 font-sans text-lg">
+                                <ul class="list-disc ml-16 space-y-1 font-sans text-lg">
                                     <li>Flashforge Creator 3 Pro: Professional-grade dual-extruder 3D printer for complex designs</li>
                                     <li>Makerbot SKETCH: Educational-focused 3D printer ideal for prototypes and models</li>
                                     <li>BCN3D Sigma D25: Industrial-grade 3D printer for high-precision components</li>
@@ -83,7 +83,7 @@
                                 <p class="px-7 font-sans text-lg">
                                     Subtractive Manufacturing:
                                 </p>
-                                <ul class="list-disc px-12 space-y-1 font-sans text-lg">
+                                <ul class="list-disc ml-16 space-y-1 font-sans text-lg">
                                     <li>Professional laser cutting and engraving services</li>
                                     <li>Wooden milling machine for precise wooden component fabrication</li>
                                     <li>Custom prototype development and testing</li>
@@ -100,7 +100,7 @@
                                 <p class="px-5 font-sans text-lg">
                                     Access real-time and historical data from our network of monitoring stations across the Ilocos region:
                                 </p>
-                                <ul class="list-disc px-10 space-y-1 font-sans text-lg">
+                                <ul class="list-disc ml-16 space-y-1 font-sans text-lg">
                                     <li>Strategic monitoring stations at key coastal locations</li>
                                     <li>Bridge-mounted water level monitoring systems</li>
                                     <li>Comprehensive environmental data collection</li>
@@ -122,7 +122,7 @@
                                 <p class="px-7 font-sans text-lg">
                                     Advanced Buoy Systems:
                                 </p>
-                                <ul class="list-disc px-12 space-y-1 font-sans text-lg">
+                                <ul class="list-disc ml-16 space-y-1 font-sans text-lg">
                                     <li>Wave height measurement</li>
                                     <li>Wave period monitoring</li>
                                     <li>Tidal tracking</li>
@@ -132,7 +132,7 @@
                                 <p class="px-7 font-sans text-lg">
                                     Water Level Monitoring Systems:
                                 </p>
-                                <ul class="list-disc px-12 space-y-1 font-sans text-lg">
+                                <ul class="list-disc ml-16 space-y-1 font-sans text-lg">
                                     <li>Precise water level measurement</li>
                                     <li>Ambient temperature monitoring</li>
                                     <li>Humidity tracking</li>

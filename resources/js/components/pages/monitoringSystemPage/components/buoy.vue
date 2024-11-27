@@ -104,7 +104,6 @@ export default defineComponent({
                         tooltip: {
                             valueDecimals: 2
                         },
-                        threshold: 0,  // Set the threshold at 0 for negative values handling
                         fillColor: {
                             linearGradient: {
                                 x1: 0,
@@ -374,7 +373,6 @@ export default defineComponent({
         },
         onChangeType(e) {
             let existingObj = this;
-            console.log(existingObj.type);
             switch (existingObj.type) {
                 case '1':
                     break;
@@ -391,7 +389,6 @@ export default defineComponent({
         await axios
             .get(`/api/getBouy/${this.id}`)
             .then((response) => {
-                console.log('buoy: ', response.data);
                 for (let i = 0; i < response.data.data.length; i++) {
                     // Tide Chart
                     existingObj.chartOptions1.series[0].data[i] = [];
@@ -434,8 +431,6 @@ export default defineComponent({
             .catch(function (error) {
                 console.error(error);
             });
-
-        console.log('chart1: ', existingObj.chartOptions3);
     },
 });
 </script>

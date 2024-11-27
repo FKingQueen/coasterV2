@@ -1,7 +1,7 @@
 <template>
     <div class="w-full flex md:flex justify-center pt-3 bg-gradient-to-b from-[#002B5B]">
         <div class="w-full sm:w-5/6">
-            <Tabs type="card" :model-value="sample" >
+            <Tabs type="card" >
                 <TabPane label="Water Level Sensor" class="bg-white">
                     <div class="block sm:flex">
                         <div class="w-full sm:w-1/2 drop-shadow-lg p-1">
@@ -117,7 +117,6 @@ import WaterLevel from './components/waterLevel';
 import Buoy from './components/buoy';
 import WaLevLocation from './components/walevLocation';
 import buoyLocation from './components/buoyLocation';
-import sample from '../mapPage/map';
 export default defineComponent({
     components: {
         WaterLevel,
@@ -125,7 +124,6 @@ export default defineComponent({
         Buoy,
         WaLevLocation,
         buoyLocation,
-        sample
     },
     data() {
         return {

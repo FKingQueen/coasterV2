@@ -11,8 +11,14 @@
                 </Select>
             </div>
         </div>
-        <highcharts class="hc w-full" :constructor-type="'stockChart'" :options="chartOptions" ref="chart">
-        </highcharts>
+        <!-- <div v-if="loading" class="loading-spinner">
+            Loading...
+        </div> -->
+        <Skeleton :loading="loading" animated class="p-3 min-h-[400px]">
+            <highcharts v-if="!loading" class="hc w-full" :constructor-type="'stockChart'" :options="chartOptions">
+            </highcharts>
+        </Skeleton>
+        
     </div>
 </template>
 <script>
@@ -37,111 +43,53 @@ export default defineComponent({
                 }
             ],
             type: '',
+            loading: true,
             chartOptions: {
-                chart: {
-                    zoomType: 'x',
-                    type: "areaspline",
-                    scrollablePlotArea: {
-                        minWidth: 200,
-                        scrollPositionX: 1,
-                    },
-
-                },
-                credits: {
-                    text: '',
-                },
                 rangeSelector: {
-                    buttons: [{
-                        type: 'hour',
-                        count: 1,
-                        text: '1h'
-                    }, {
-                        type: 'day',
-                        count: 1,
-                        text: '1d'
-                    }, {
-                        type: 'week',
-                        count: 1,
-                        text: '1w'
-                    }, {
-                        type: 'month',
-                        count: 1,
-                        text: '1m'
-                    }, {
-                        type: 'year',
-                        count: 1,
-                        text: '1y'
-                    }, {
-                        type: 'all',
-                        text: 'All'
-                    }],
-                    inputEnabled: true, // it supports only days
-                    selected: 5 // all
+                    buttons: [
+                        { type: 'hour', count: 1, text: '1h' },
+                        { type: 'day', count: 1, text: '1d' },
+                        { type: 'week', count: 1, text: '1w' },
+                        { type: 'month', count: 1, text: '1m' },
+                        { type: 'year', count: 1, text: '1y' },
+                        { type: 'all', text: 'All' }
+                    ],
+                    selected: 2,
+                    inputEnabled: true,
                 },
-                xAxis: {
-                    type: "datetime",
-                    labels: {
-                        overflow: "justify",
-                    },
-                    // title: {
-                    //     text: 'DateTime'
-                    // },
-                },
-                yAxis: {
-                    title: {
-                        text: ''
-                    },
-                },
-                series: [
-                    {
-                        name: "WaterLevel",
-                        data: [],  // your data will be filled dynamically
-                        tooltip: {
-                            valueDecimals: 2
-                        },
-                        threshold: 0,  // Set the threshold at 0 for negative values handling
-                        fillColor: {
-                            linearGradient: {
-                                x1: 0,
-                                y1: 0,
-                                x2: 0,
-                                y2: 1
-                            },
-                            stops: [
-                                [0, Highcharts.getOptions().colors[0]], // Color at the top (positive values)
-                                [
-                                    1,
-                                    Highcharts.color(Highcharts.getOptions().colors[0])
-                                        .setOpacity(0)
-                                        .get('rgba') // Transparent at the bottom (negative values)
-                                ]
-                            ]
-                        },
-                        negativeFillColor: {
-                            linearGradient: {
-                                x1: 0,
-                                y1: 0,
-                                x2: 0,
-                                y2: 1
-                            },
-                            stops: [
-                                [0, Highcharts.getOptions().colors[1]], // Color at the top for negative values
-                                [
-                                    1,
-                                    Highcharts.color(Highcharts.getOptions().colors[1])
-                                        .setOpacity(0)
-                                        .get('rgba') // Transparent at the bottom for negative values
-                                ]
-                            ]
-                        },
-                    },
-                ],
+                // xAxis: {
+                //     events: {
+                //         afterSetExtremes: (e) => {
+                //             console.log('Range Selector Event:', e);
+                //             console.log(e.rangeSelectorButton.type);
+                //             if(e.rangeSelectorButton.type == 'year'){
+                //                 console.log(e.rangeSelectorButton.type);
+                //             }
+                //             if(e.rangeSelectorButton.type == 'all'){
+                //                 console.log(e.rangeSelectorButton.type);
+                //             }
+                //         }
+                //     }
+                // },
                 title: {
                     text: "",
                 },
                 subtitle: {
                     text: "",
                 },
+                yAxis: {
+                    title: {
+                        text: ''
+                    },
+                },
+                credits: {
+                    text: '',
+                },
+                series: [{
+                    name: 'AAPL Stock Price',
+                    data: [],
+                    type: 'areaspline',
+                }],
                 plotOptions: {
                     series: {
                         pointStart: Date.UTC(2010, 0, 1),
@@ -155,107 +103,99 @@ export default defineComponent({
                         }
                     },
                 },
-            },
+            }
+
         };
     },
-    watch: {
-        id: {
-            immediate: true, // Trigger the watcher immediately when the component is created
-            handler() {
-                this.fetchDataFromApi(); // Call a method to fetch data from the API with the new ID
-            }
-        }
+    async mounted() {
+        let thiss = this;
+        await axios
+            .get(`/api/getWaterLevel/${this.id}`)
+            .then((response) => {
+                console.log(response);
+                thiss.type = '1'
+                thiss.data = response.data
+                thiss.chartOptions.series[0].data = thiss.data.level
+                // Setting the Style of the Chart
+                thiss.setChartStyle();
+                thiss.loading = false
+            })
+            .catch(function (error) {
+                console.error(error);
+                thiss.loading = false
+            });
     },
     methods: {
-        async fetchDataFromApi() {
-            let existingObj = this;
-            
-            existingObj.chartOptions.series[0].data = [];
-            try {
-                await axios
-                    .get(`/api/getWaterLevel/${this.id}`)
-                    .then((response) => {
-                        if (response.data.data.length != 0) {
-                            for (let i = 0; i < response.data.data.length; i++) {
-                                existingObj.chartOptions.series[0].data[i] = [];
-                                existingObj.chartOptions.series[0].data[i][0] = Date.UTC(
-                                    response.data.data[i].date[0],
-                                    response.data.data[i].date[1] - 1,
-                                    response.data.data[i].date[2],
-                                    response.data.data[i].date[3],
-                                    response.data.data[i].date[4],
-                                    response.data.data[i].date[5],
-                                );
-                                if (existingObj.id == 1) {
-                                    existingObj.chartOptions.series[0].data[i][1] = Math.round((12.5 - response.data.data[i].level) * 100) / 100;
-                                }
-                                if (existingObj.id == 2) {
-                                    existingObj.chartOptions.series[0].data[i][1] = Math.round((26 - response.data.data[i].level) * 100) / 100;
-                                }
+        setChartStyle() {
+            let thiss = this;
 
-                            }
-                            existingObj.type = '1';
-                            existingObj.data = response.data.data;
-                        }
-                    })
-
-                    .catch(function (error) {
-                        console.error(error);
-                    });
-                    console.log('wlms:', existingObj.chartOptions);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                // Handle errors (e.g., display an error message)
+            thiss.chartOptions.series[0].type = "areaspline"
+            thiss.chartOptions.series[0].fillColor = {
+                linearGradient: {
+                    x1: 0,
+                    y1: 0,
+                    x2: 0,
+                    y2: 1
+                },
+                stops: [
+                    [0, Highcharts.getOptions().colors[0]], // Color at the top (positive values)
+                    [
+                        1,
+                        Highcharts.color(Highcharts.getOptions().colors[0])
+                            .setOpacity(0)
+                            .get('rgba') // Transparent at the bottom (negative values)
+                    ]
+                ]
             }
-        },
-        afterSetExtremes(e) {
-            const { chart } = e.target;
-            chart.showLoading('Loading data from server...');
-        },
-        onChangeType(e) {
-            let existingObj = this;
-            if (existingObj.chartOptions.series[0].data.length != 0) {
+            this.chartOptions.series[0].negativeFillColor = {
+                linearGradient: {
+                    x1: 0,
+                    y1: 0,
+                    x2: 0,
+                    y2: 1
+                },
+                stops: [
+                    [0, Highcharts.getOptions().colors[1]], // Color at the top for negative values
+                    [
+                        1,
+                        Highcharts.color(Highcharts.getOptions().colors[1])
+                            .setOpacity(0)
+                            .get('rgba') // Transparent at the bottom for negative values
+                    ]
+                ]
+            }
 
-                switch (existingObj.type) {
+            this.chartOptions.series[0].tooltip = {
+                valueDecimals: 2
+            }
+            this.chartOptions.series[0].name = "WaterLevel";
+        },
+        onChangeType() {
+            let thiss = this;
+
+            if (thiss.chartOptions.series[0].data.length != 0) {
+                switch (thiss.type) {
                     case '1':
-                        for (let i = 0; i < existingObj.data.length; i++) {
-                            if (existingObj.id == 1) {
-                                existingObj.chartOptions.series[0].data[i][1] = Math.round((13.5 - existingObj.data[i].level) * 100) / 100;
-                            }
-                            if (existingObj.id == 2) {
-                                existingObj.chartOptions.series[0].data[i][1] = Math.round((26 - existingObj.data[i].level) * 100) / 100;
-                            }
-
-                            existingObj.chartOptions.series[0].name = 'Water Level'
-                            existingObj.chartOptions.subtitle.text = 'Water Level'
-                            existingObj.chartOptions.yAxis.title.text = 'Height (Meter)'
-                        }
+                        thiss.chartOptions.series[0].data = thiss.data.level
+                        thiss.chartOptions.series[0].name = 'Water Level'
+                        thiss.chartOptions.subtitle.text = 'Water Level'
+                        thiss.chartOptions.yAxis.title.text = 'Height (Meter)'
                         break;
                     case '2':
-                        for (let i = 0; i < existingObj.data.length; i++) {
-                            existingObj.chartOptions.series[0].data[i][1] = Math.round((existingObj.data[i].temperature) * 100) / 100;
-                            existingObj.chartOptions.series[0].name = 'Temperature'
-                            existingObj.chartOptions.subtitle.text = 'Temperature'
-                            existingObj.chartOptions.yAxis.title.text = 'Temperature'
-                        }
+                        thiss.chartOptions.series[0].data = thiss.data.temperature
+                        thiss.chartOptions.series[0].name = 'Temperature'
+                        thiss.chartOptions.subtitle.text = 'Temperature'
+                        thiss.chartOptions.yAxis.title.text = 'Temperature'
                         break;
                     case '3':
-                        for (let i = 0; i < existingObj.data.length; i++) {
-                            existingObj.chartOptions.series[0].data[i][1] = Math.round((existingObj.data[i].humidity) * 100) / 100;
-                            existingObj.chartOptions.series[0].name = 'Humidity'
-                            existingObj.chartOptions.subtitle.text = 'Humidity'
-                            existingObj.chartOptions.yAxis.title.text = 'Humidity'
-                        }
+                        thiss.chartOptions.series[0].data = thiss.data.humidity
+                        thiss.chartOptions.series[0].name = 'Humidity'
+                        thiss.chartOptions.subtitle.text = 'Humidity'
+                        thiss.chartOptions.yAxis.title.text = 'Humidity'
                         break;
                 }
             }
-
-
         }
-    },
-
-    async mounted() {
-
-    },
+    }
 });
 </script>

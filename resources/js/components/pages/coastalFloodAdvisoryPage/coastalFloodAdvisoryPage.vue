@@ -1,8 +1,9 @@
 <template>
-    <div class="w-full">
+    <div class="w-full h-full">
         <iframe 
             src="https://mmsucoaster.xyz/coastervisualize/" 
-            width="100%" 
+            :style="minHeightStyle"
+            class="w-full"
             >
         </iframe>
     </div>
@@ -10,6 +11,19 @@
 
 <script>
 export default {
+    data() {
+        return {
+            screenHeight: window.innerHeight-100
+        };
+    },
+    computed: {
+        minHeightStyle() {
+            console.log(this.screenHeight);
+            return {
+                minHeight: `${this.screenHeight}px`
+            }
+        }
+    }
 };
 </script>
 

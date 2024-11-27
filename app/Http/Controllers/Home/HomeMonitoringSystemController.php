@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Bouy;
 use App\Models\WaterLevel;
+use Carbon\Carbon;
 
 class HomeMonitoringSystemController extends Controller
 {
@@ -26,37 +27,120 @@ class HomeMonitoringSystemController extends Controller
     public function getWaterLevel($id){
         // return $id;
         // Fetch water level data ordered by created_at in ascending order
-        $wmls = WaterLevel::where('wlms_id', $id)->orderBy('created_at', 'ASC')->get();
+        // $wmls = WaterLevel::where('wlms_id', $id)->orderBy('created_at', 'ASC')->get();
 
-        $data = [];
+        // $data = [];
+        // $counter = 0;
+
+        // // Iterate through the water level data
+        // for ($i = 1; $i < count($wmls); $i++) {
+        //     // Calculate the difference in level between consecutive records
+        //     if($wmls[$i]->level != 0 ){
+        //         $validated = $wmls[$i - 1]->level - $wmls[$i]->level;
+
+        //         // Check if the difference is within the range
+        //         if ($validated >= -0.50 && $validated <= 0.50) {
+        //             // Store valid data in the array
+    
+        //             // Format the created_at date
+        //             $parse = $wmls[$i]->created_at->format('Y:m:d:H:i:s');
+        //             $wmls[$i]->date = explode(':', $parse);
+    
+        //             // Increment counter
+        //             $data[$counter] = $wmls[$i];
+        //             $counter++;
+        //         }
+        //     }
+            
+        // }
+
+
+        $data = WaterLevel::where('wlms_id', $id)
+        ->orderBy('created_at', 'ASC')
+        ->get();
+
+
+        $validatedData = [];
         $counter = 0;
 
-        // Iterate through the water level data
-        for ($i = 1; $i < count($wmls); $i++) {
+        for ($i = 1; $i < count($data); $i++) {
+
+            $temperatureData[] = [
+                Carbon::parse($data[$i]->created_at)->valueOf(), // Converts to milliseconds
+                floatval(round($data[$i]->temperature * 100) / 100)
+            ];
+
+            $humidityData[] = [
+                Carbon::parse($data[$i]->created_at)->valueOf(), // Converts to milliseconds
+                floatval(round($data[$i]->humidity * 100) / 100)
+            ];
+
+            // Skip if current level is 0
+            if ($data[$i]->level == 0) continue;
+
             // Calculate the difference in level between consecutive records
-            if($wmls[$i]->level != 0 ){
-                $validated = $wmls[$i - 1]->level - $wmls[$i]->level;
+            $validated = $data[$i - 1]->level - $data[$i]->level;
 
-                // Check if the difference is within the range
-                if ($validated >= -0.50 && $validated <= 0.50) {
-                    // Store valid data in the array
-    
-                    // Format the created_at date
-                    $parse = $wmls[$i]->created_at->format('Y:m:d:H:i:s');
-                    $wmls[$i]->date = explode(':', $parse);
-    
-                    // Increment counter
-                    $data[$counter] = $wmls[$i];
-                    $counter++;
-                }
+            // Check if the difference is within the range
+            if ($validated >= -0.50 && $validated <= 0.50) {
+                // Convert to the format similar to your original code
+                $validatedLevelData[] = [
+                    Carbon::parse($data[$i]->created_at)->valueOf(), // Converts to milliseconds
+                    $id == 1 
+                        ? floatval(round((13.5 - $data[$i]->level) * 100) / 100)
+                        : ($id == 2 
+                            ? floatval(round((26 - $data[$i]->level) * 100) / 100)
+                            : floatval($data[$i]->level) // Default case if needed
+                        )
+                ];
             }
-            
         }
+            
 
-        // Return the filtered data as JSON
         return response()->json([
-            'data' => $data
+            'level' => $validatedLevelData,
+            'temperature' => $temperatureData,
+            'humidity' => $humidityData
         ]);
+        
+
+        // $data = WaterLevel::where('wlms_id', $id)
+        // ->orderBy('created_at', 'ASC')
+        // ->get();
+
+        // $validatedData = [];
+        // $counter = 0;
+
+        // for ($i = 1; $i < count($data); $i++) {
+        //     // Skip if current level is 0
+        //     if ($data[$i]->level == 0) continue;
+
+        //     // Calculate the difference in level between consecutive records
+        //     $validated = $data[$i - 1]->level - $data[$i]->level;
+
+        //     // Check if the difference is within the range
+        //     if ($validated >= -0.50 && $validated <= 0.50) {
+        //         // Convert to the format similar to your original code
+        //         $validatedData[] = [
+        //             Carbon::parse($data[$i]->created_at)->valueOf(), // Converts to milliseconds
+        //             $id == 1 
+        //                 ? floatval(round((13.5 - $data[$i]->level) * 100) / 100)
+        //                 : ($id == 2 
+        //                     ? floatval(round((26 - $data[$i]->level) * 100) / 100)
+        //                     : floatval($data[$i]->level) // Default case if needed
+        //                 )
+        //         ];
+        //     }
+        // }
+
+        // // return response()->json($validatedData);
+
+        // // Return the filtered data as JSON
+        // return response()->json([
+        //     'level' => $validatedLevelData,
+        //     'temperature' => $temperatureData,
+        //     'humidity' => $humidity
+        // ]);
     }
 
 }

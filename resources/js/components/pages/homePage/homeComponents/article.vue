@@ -15,11 +15,15 @@
                                     <img :alt="item.title" :src="`/img/uploads/${item.image}`"
                                         class="object-cover rounded-lg shadow-sm h-40 w-64" />
                                 </template>
-                                <a-list-item-meta :description="item.description">
+                                <a-list-item-meta>
                                     <template #title>
-                                        <a @click="gotoArticle(item)" class="line-clamp-1 font-semibold hover:text-blue-600 transition-colors">
+                                        <a @click="gotoArticle(item)"
+                                            class="line-clamp-1 font-semibold hover:text-blue-600 transition-colors">
                                             {{ item.title }}
                                         </a>
+                                    </template>
+                                    <template #description>        
+                                            <span>{{ item.date }} </span>
                                     </template>
                                 </a-list-item-meta>
                                 <p class="line-clamp-4 text-gray-600" v-html="item.article"></p>
@@ -33,7 +37,7 @@
                                     <img :alt="item.title" :src="`/img/uploads/${item.image}`"
                                         class="object-cover rounded-lg shadow-sm h-40 w-64" />
                                 </template>
-                                <a-list-item-meta :description="item.description">
+                                <a-list-item-meta :description="item.date">
                                     <template #title>
                                         <a class="line-clamp-1 font-semibold hover:text-blue-600 transition-colors">
                                             {{ item.title }}
@@ -98,7 +102,7 @@ export default defineComponent({
         const thiss = this
         await axios.get('/api/getArticles')
             .then(function (response) {
-                // console.log(response.data);
+                console.log(response.data);
                 thiss.moreArticles = response.data;
                 thiss.leftArticles = thiss.moreArticles.slice(0, 3);
                 thiss.moreArticles = response.data;
