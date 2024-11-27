@@ -466,7 +466,7 @@ export default defineComponent({
                     color: Highcharts.getOptions().colors[1],
                     lineWidth: 1.5,
                     data: [],
-                    vectorLength: 18,
+                    vectorLength: 15,
                     yOffset: -15,
                     tooltip: {
                         valueSuffix: 'Knots'
@@ -630,6 +630,7 @@ export default defineComponent({
             // Get the next 48 hours of data
             const hoursToShow = 24
             const hourly = data.hourly
+            console.log('wind direction: ',data.hourly);
 
             for (let i = 0; i < hoursToShow; i++) {
                 const timestamp = new Date(hourly.time[i]).getTime() + (8 * 60 * 60 * 1000);
@@ -655,13 +656,13 @@ export default defineComponent({
                 })
 
                 // Add wind data (every 2 hours to avoid crowding)
-                if (i % 2 === 0) {
+                // if (i % 1 === 0) {
                     thiss.chartOptions.series[3].data.push({
                         x: timestamp,
                         value: hourly.wind_speed_10m[i],
                         direction: hourly.wind_direction_10m[i]
                     })
-                }
+                // }
 
                 // Add pressure
                 thiss.chartOptions.series[2].data.push({

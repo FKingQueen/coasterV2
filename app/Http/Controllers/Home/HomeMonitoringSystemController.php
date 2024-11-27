@@ -12,15 +12,61 @@ class HomeMonitoringSystemController extends Controller
 {
     // Bouy
     public function getBouy($id){
-        $bouy = Bouy::where('bouy_id', $id)->orderBy('created_at', 'ASC')->get();
-        // return $bouy; z
-        for($i = 0; $i < count($bouy); $i++){
-            $parse = $bouy[$i]->created_at->format('Y:m:d:H:i:s');
-            $bouy[$i]->date = explode(':',$parse); 
-            // $bouy[$i]->date[0] = $parse;
+        // $bouy = Bouy::where('bouy_id', $id)->orderBy('created_at', 'ASC')->get();
+        // // return $bouy; z
+        // for($i = 0; $i < count($bouy); $i++){
+        //     $parse = $bouy[$i]->created_at->format('Y:m:d:H:i:s');
+        //     $bouy[$i]->date = explode(':',$parse); 
+        //     // $bouy[$i]->date[0] = $parse;
+            
+        // }
+
+        $data = Bouy::where('bouy_id', $id)->orderBy('created_at', 'ASC')->get();
+
+        $counter = 0;
+
+        for ($i = 1; $i < count($data); $i++) {
+
+            $tideData[] = [
+                Carbon::parse($data[$i]->created_at)->valueOf(), // Converts to milliseconds
+                floatval((round($data[$i]->altitude_pressure * 100) / 100) / 100)
+            ];
+
+            $airTempData[] = [
+                Carbon::parse($data[$i]->created_at)->valueOf(), // Converts to milliseconds
+                floatval(round($data[$i]->air_temperature * 100) / 100)
+            ];
+
+            $waterTempData[] = [
+                Carbon::parse($data[$i]->created_at)->valueOf(), // Converts to milliseconds
+                floatval(round($data[$i]->water_temperature * 100) / 100)
+            ];
+
+            $significantWaveHeightData[] = [
+                Carbon::parse($data[$i]->created_at)->valueOf(), // Converts to milliseconds
+                floatval(round($data[$i]->significant_wave_height * 100) / 100)
+            ];
+
+            $wavePeriodData[] = [
+                Carbon::parse($data[$i]->created_at)->valueOf(), // Converts to milliseconds
+                floatval(round($data[$i]->significant_wave_height * 100) / 100)
+            ]; 
+
+            $compassData[] = [
+                Carbon::parse($data[$i]->created_at)->valueOf(), // Converts to milliseconds
+                floatval(round($data[$i]->significant_wave_height * 100) / 100),
+                floatval(round($data[$i]->compass * 100) / 100)
+            ];
         }
+
         return response()->json([
-            'data'  =>  $bouy
+            'tide'  =>  $tideData,
+            'airTemp'  =>  $airTempData,
+            'waterTemp'  =>  $waterTempData,
+            'waveHeight'  =>  $significantWaveHeightData,
+            'waveHeight'  =>  $significantWaveHeightData,
+            'wavePeriod'  =>  $wavePeriodData,
+            'compass'  =>  $compassData,
         ]);
     }
     // Water Level
@@ -59,8 +105,6 @@ class HomeMonitoringSystemController extends Controller
         ->orderBy('created_at', 'ASC')
         ->get();
 
-
-        $validatedData = [];
         $counter = 0;
 
         for ($i = 1; $i < count($data); $i++) {

@@ -46,7 +46,7 @@ export default defineComponent({
             loading: true,
             chartOptions: {
                 chart: {
-                    backgroundColor: '#f4f4f4', // Light gray background
+                    backgroundColor: '#f7f7f7', // Light gray background
                     style: {
                         fontFamily: 'Arial, sans-serif', // Change the font
                     },
@@ -77,8 +77,22 @@ export default defineComponent({
                 //         }
                 //     }
                 // },
+                // xAxis: {
+                //     gridLineWidth: 5, // Add grid lines
+                //     gridLineColor: '#dddddd', // Grid line color
+                //     labels: {
+                //         style: {
+                //             color: '#666666', // Axis label color
+                //         },
+                //     },
+                //     type: 'datetime', // Time-based axis
+                // },
                 title: {
                     text: "",
+                    style: {
+                        color: '#333333', // Dark title text
+                        fontSize: '18px',
+                    },
                 },
                 subtitle: {
                     text: "",
@@ -92,7 +106,7 @@ export default defineComponent({
                     text: '',
                 },
                 series: [{
-                    name: 'AAPL Stock Price',
+                    name: '',
                     data: [],
                     type: 'areaspline',
                 }],
@@ -122,6 +136,7 @@ export default defineComponent({
                 thiss.type = '1'
                 thiss.data = response.data
                 thiss.chartOptions.series[0].data = thiss.data.level
+
                 // Setting the Style of the Chart
                 thiss.setChartStyle();
                 thiss.loading = false
@@ -136,8 +151,6 @@ export default defineComponent({
             let thiss = this;
 
             thiss.chartOptions.series[0].color = Highcharts.getOptions().colors[0]
-
-            thiss.chartOptions.series[0].type = "areaspline"
 
             thiss.chartOptions.series[0].fillColor = {
                 linearGradient: {
