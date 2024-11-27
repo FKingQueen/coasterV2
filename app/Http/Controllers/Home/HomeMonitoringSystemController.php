@@ -64,7 +64,6 @@ class HomeMonitoringSystemController extends Controller
             'airTemp'  =>  $airTempData,
             'waterTemp'  =>  $waterTempData,
             'waveHeight'  =>  $significantWaveHeightData,
-            'waveHeight'  =>  $significantWaveHeightData,
             'wavePeriod'  =>  $wavePeriodData,
             'compass'  =>  $compassData,
         ]);

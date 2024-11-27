@@ -121,18 +121,14 @@ export default defineComponent({
                         thiss.chartOptions1.series[1].data = thiss.data.waterTemp
                         break;
                     case '3':
-                        thiss.setChartStyleWave();
-                        thiss.chartOptions1.series[0].data = thiss.data.waveHeight
-                        thiss.chartOptions1.series[1].data = thiss.data.wavePeriod
-                        thiss.chartOptions1.series[2].data = thiss.data.compass
-                        // thiss.setChartStyle();
-                        // thiss.chartOptions1.series[0].data = thiss.data.humidity
-                        // thiss.chartOptions1.series[0].name = 'Humidity'
-                        // thiss.chartOptions1.subtitle.text = 'Humidity'
-                        // thiss.chartOptions1.yAxis.title.text = 'Humidity °C'
-                        // thiss.chartOptions1.series[0].tooltip = {
-                        //     valueSuffix: ' rh'
-                        // }
+                        thiss.$nextTick(() => {
+                            thiss.setChartStyleWave();
+                            thiss.chartOptions1.series[0].data = thiss.data.waveHeight
+                            thiss.chartOptions1.series[1].data = thiss.data.wavePeriod
+                            thiss.chartOptions1.series[2].data = thiss.data.compass
+
+                        });
+
                         break;
                 }
             }
@@ -228,41 +224,8 @@ export default defineComponent({
         },
         setChartStyleWave() {
             const thiss = this
-            // yAxis: [{ // Primary yAxis
-            //         labels: {
-            //             format: '{value} s',
-            //             style: { color: Highcharts.getOptions().colors[1] }
-            //         },
-            //         title: {
-            //             text: 'Wave Period',
-            //             style: { color: Highcharts.getOptions().colors[1] }
-            //         },
-            //         opposite: false // This keeps the primary axis on the left (default)
-            //     }, { // Secondary yAxis
-            //         title: {
-            //             text: 'Significant Wave Height',
-            //             style: { color: Highcharts.getOptions().colors[0] }
-            //         },
-            //         labels: {
-            //             format: '{value} m',
-            //             style: { color: Highcharts.getOptions().colors[0] }
-            //         },
-            //         opposite: true
-            //     }],
-
-            // series: [{
-
-            //         dataLabels: {
-            //             enabled: true,
-            //             useHTML: true,
-            //             align: 'center',  // Center-align the icon above the bar
-            //             verticalAlign: 'top',  // Position the icon at the top of the bar
-            //             y: -300  // Adjust the vertical position to place the icon above the top
-            //         }
-            //     }, {
-
             thiss.chartOptions1.rangeSelector.selected = 0
-            
+
             // Significant Wave Height
             thiss.chartOptions1.series[0].type = 'column'
             thiss.chartOptions1.series[0].name = 'Significant Wave Height'
@@ -275,11 +238,6 @@ export default defineComponent({
             thiss.chartOptions1.series[1].type = 'spline'
             thiss.chartOptions1.series[1].name = 'Wave Period'
             thiss.chartOptions1.series[1].tooltip = { valueSuffix: 's', valueDecimals: 2 }
-            //         name: 'Wave Period',
-            //         type: 'spline',
-            //         data: [],
-            //         tooltip: { valueSuffix: 's',valueDecimals: 2 }
-            //     }, {
 
             // compass
             thiss.chartOptions1.series[2].type = 'windbarb'
@@ -290,8 +248,8 @@ export default defineComponent({
             thiss.chartOptions1.series[2].vectorLength = 15
             thiss.chartOptions1.series[2].yOffset = -15
             thiss.chartOptions1.series[2].tooltip = {
-                    valueSuffix: 'Knots'
-                }
+                valueSuffix: 'Knots'
+            }
 
             //     name: 'Wind',
             //     type: 'windbarb',
@@ -320,45 +278,7 @@ export default defineComponent({
                 // Setting the Style of the Chart
                 thiss.setChartStyleTide();
                 thiss.loading = false
-                // for (let i = 0; i < response.data.data.length; i++) {
-                // Tide Chart
-                // existingObj.chartOptions1.series[0].data[i] = [];
-                // existingObj.chartOptions1.series[0].data[i][0] = Date.UTC(
-                //     response.data.data[i].date[0],
-                //     response.data.data[i].date[1] - 1,
-                //     response.data.data[i].date[2],
-                //     response.data.data[i].date[3],
-                //     response.data.data[i].date[4] - 1,
-                //     response.data.data[i].date[5],
-                // );
-
-                // existingObj.chartOptions1.series[0].data[i][1] = response.data.data[i].altitude_pressure;
-                // Tide Chart END
-
-                // // Temp Chart
-                // existingObj.chartOptions2.series[0].data[i] = [];
-                // existingObj.chartOptions2.series[1].data[i] = [];
-                // existingObj.chartOptions2.series[0].data[i][0]= existingObj.chartOptions1.series[0].data[i][0]
-                // existingObj.chartOptions2.series[0].data[i][1] = response.data.data[i].air_temperature;
-                // existingObj.chartOptions2.series[1].data[i][0]= existingObj.chartOptions1.series[0].data[i][0]
-                // existingObj.chartOptions2.series[1].data[i][1] = response.data.data[i].water_temperature;
-                // // Temp Chart END
-
-                // // Wave Chart
-                // existingObj.chartOptions3.series[0].data[i] = [];
-                // existingObj.chartOptions3.series[1].data[i] = [];
-                // existingObj.chartOptions3.series[0].data[i][0]= existingObj.chartOptions1.series[0].data[i][0]
-                // existingObj.chartOptions3.series[0].data[i][1] = response.data.data[i].significant_wave_height;
-                // existingObj.chartOptions3.series[1].data[i][0]= existingObj.chartOptions1.series[0].data[i][0]
-                // existingObj.chartOptions3.series[1].data[i][1] = response.data.data[i].wave_period;
-                // // Wave Chart END
-                // }
-                // existingObj.type = '1';
-                // existingObj.data = response.data.data;
-
             })
-
-
             .catch(function (error) {
                 console.error(error);
             });
