@@ -18,7 +18,7 @@
             <highcharts v-if="!loading" class="hc w-full" :constructor-type="'stockChart'" :options="chartOptions">
             </highcharts>
         </Skeleton>
-        
+
     </div>
 </template>
 <script>
@@ -45,6 +45,12 @@ export default defineComponent({
             type: '',
             loading: true,
             chartOptions: {
+                chart: {
+                    backgroundColor: '#f4f4f4', // Light gray background
+                    style: {
+                        fontFamily: 'Arial, sans-serif', // Change the font
+                    },
+                },
                 rangeSelector: {
                     buttons: [
                         { type: 'hour', count: 1, text: '1h' },
@@ -129,7 +135,10 @@ export default defineComponent({
         setChartStyle() {
             let thiss = this;
 
+            thiss.chartOptions.series[0].color = Highcharts.getOptions().colors[0]
+
             thiss.chartOptions.series[0].type = "areaspline"
+
             thiss.chartOptions.series[0].fillColor = {
                 linearGradient: {
                     x1: 0,
@@ -147,6 +156,7 @@ export default defineComponent({
                     ]
                 ]
             }
+
             this.chartOptions.series[0].negativeFillColor = {
                 linearGradient: {
                     x1: 0,
@@ -168,7 +178,6 @@ export default defineComponent({
             this.chartOptions.series[0].tooltip = {
                 valueDecimals: 2
             }
-            this.chartOptions.series[0].name = "WaterLevel";
         },
         onChangeType() {
             let thiss = this;
@@ -176,22 +185,70 @@ export default defineComponent({
             if (thiss.chartOptions.series[0].data.length != 0) {
                 switch (thiss.type) {
                     case '1':
+                        thiss.setChartStyle();
                         thiss.chartOptions.series[0].data = thiss.data.level
                         thiss.chartOptions.series[0].name = 'Water Level'
                         thiss.chartOptions.subtitle.text = 'Water Level'
                         thiss.chartOptions.yAxis.title.text = 'Height (Meter)'
+                        thiss.chartOptions.series[0].tooltip = {
+                            valueSuffix: ' m'
+                        }
                         break;
                     case '2':
                         thiss.chartOptions.series[0].data = thiss.data.temperature
                         thiss.chartOptions.series[0].name = 'Temperature'
+                        thiss.chartOptions.series[0].name = 'Temperature'
                         thiss.chartOptions.subtitle.text = 'Temperature'
-                        thiss.chartOptions.yAxis.title.text = 'Temperature'
+                        thiss.chartOptions.yAxis.title.text = 'Temperature °C'
+                        thiss.chartOptions.series[0].color = 'red'
+                        thiss.chartOptions.series[0].tooltip = {
+                            valueSuffix: ' °C'
+                        }
+                        thiss.chartOptions.series[0].fillColor = {
+                            linearGradient: {
+                                x1: 0,
+                                y1: 0,
+                                x2: 0,
+                                y2: 1
+                            },
+                            stops: [
+                                [0, 'red'], // Color at the top (positive values)
+                                [
+                                    1,
+                                    Highcharts.color(Highcharts.getOptions().colors[0])
+                                        .setOpacity(0)
+                                        .get('rgba') // Transparent at the bottom (negative values)
+                                ]
+                            ]
+                        }
+
+                        this.chartOptions.series[0].negativeFillColor = {
+                            linearGradient: {
+                                x1: 0,
+                                y1: 0,
+                                x2: 0,
+                                y2: 1
+                            },
+                            stops: [
+                                [0, Highcharts.getOptions().colors[1]], // Color at the top for negative values
+                                [
+                                    1,
+                                    Highcharts.color(Highcharts.getOptions().colors[1])
+                                        .setOpacity(0)
+                                        .get('rgba') // Transparent at the bottom for negative values
+                                ]
+                            ]
+                        }
                         break;
                     case '3':
+                        thiss.setChartStyle();
                         thiss.chartOptions.series[0].data = thiss.data.humidity
                         thiss.chartOptions.series[0].name = 'Humidity'
                         thiss.chartOptions.subtitle.text = 'Humidity'
-                        thiss.chartOptions.yAxis.title.text = 'Humidity'
+                        thiss.chartOptions.yAxis.title.text = 'Humidity °C'
+                        thiss.chartOptions.series[0].tooltip = {
+                            valueSuffix: ' rh'
+                        }
                         break;
                 }
             }
