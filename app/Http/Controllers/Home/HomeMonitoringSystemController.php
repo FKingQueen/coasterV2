@@ -49,7 +49,7 @@ class HomeMonitoringSystemController extends Controller
 
             $wavePeriodData[] = [
                 Carbon::parse($data[$i]->created_at)->valueOf(), // Converts to milliseconds
-                floatval(round($data[$i]->significant_wave_height * 100) / 100)
+                floatval(round($data[$i]->wave_period * 100) / 100)
             ]; 
 
             $compassData[] = [

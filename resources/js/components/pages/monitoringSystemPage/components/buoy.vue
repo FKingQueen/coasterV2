@@ -253,7 +253,6 @@ export default defineComponent({
             thiss.chartOptions1.series[2].color = 'white'
             thiss.chartOptions1.series[2].lineWidth = 1.5
             thiss.chartOptions1.series[2].vectorLength = 15
-            thiss.chartOptions1.series[2].yOffset = -15
             thiss.chartOptions1.series[2].tooltip = {
                 valueSuffix: 'Knots'
             }
