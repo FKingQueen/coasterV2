@@ -29,7 +29,7 @@ class HomeArticleController extends Controller
 
         $article[0]->date = Carbon::createFromFormat('Y-m-d H:i:s', $article[0]->created_at)->format('F d, Y');
 
-        $articles =  Article::with('articleprojects.project')->with('type')->get();
+        $articles =  Article::with('articleprojects.project')->with('type')->orderBy('created_at', 'DESC')->get();
         
         foreach($articles as $key => $arti)
         {

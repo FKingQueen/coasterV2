@@ -2387,6 +2387,10 @@ video {
     width: 83.333333%;
   }
 
+  .laptop\:w-3\/5 {
+    width: 60%;
+  }
+
   .laptop\:columns-7 {
     -moz-columns: 7;
          columns: 7;

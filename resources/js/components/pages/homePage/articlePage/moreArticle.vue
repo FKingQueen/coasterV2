@@ -91,7 +91,7 @@ export default defineComponent({
         await axios.get('/api/getArticles')
             .then(function (response) {
                 thiss.moreArticles = response.data;
-                console.log(thiss.moreArticles);
+                console.log('more: ',thiss.moreArticles);
             })
             .catch(function (error) {
                 console.log(error)

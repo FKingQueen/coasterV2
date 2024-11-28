@@ -2,7 +2,7 @@
     <div class="absolute w-full bg-gradient-to-b from-[#002B5B]"></div>
     <div class="w-full py-5">
         <div class="w-full flex justify-center">
-            <div class="w-3/5 space-y-5">
+            <div class="laptop:w-3/5  w-11/12 space-y-5">
                 <div class="border-2 drop-shadow-lg bg-white p-5">
                     <img class="object-cover w-full" :src="`/img/uploads/${this.article.image}`">
                     <div class=" grid grid-cols-1 divide-y divide-sky-400">
