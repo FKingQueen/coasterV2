@@ -25,7 +25,7 @@
                                 <tbody>
                                     <tr class="border-b">
                                         <td class="py-1 text-xs">Tide</td>
-                                        <td class="py-1 text-xs">{{ parseFloat(stationData.buoyData1.altitude_pressure).toFixed(2) }}</td>
+                                        <td class="py-1 text-xs">{{ parseFloat(stationData.buoyData1.altitude_pressure / 100).toFixed(2) }}</td>
                                         <td class="py-1 text-xs">m</td>
                                     </tr>
                                     <tr class="border-b">
@@ -71,7 +71,7 @@
                                 <tbody>
                                     <tr class="border-b">
                                         <td class="py-1 text-xs">Tide</td>
-                                        <td class="py-1 text-xs">{{  parseFloat(stationData.buoyData1.altitude_pressure).toFixed(2) }}</td>
+                                        <td class="py-1 text-xs">{{  parseFloat(stationData.buoyData1.altitude_pressure / 100).toFixed(2) }}</td>
                                         <td class="py-1 text-xs">m</td>
                                     </tr>
                                     <tr class="border-b">
