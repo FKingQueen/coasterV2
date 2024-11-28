@@ -9,8 +9,7 @@
                 <!-- <Select :change="onChangeType()" size="small" v-model="type" style="width:200px">
                     <Option v-for="item in typeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                 </Select> -->
-                <a-select ref="select" v-model:value="type" style="width: 120px"
-                    @change="onChangeType()">
+                <a-select ref="select" v-model:value="type" style="width: 120px" @change="onChangeType()">
                     <a-select-option value="1">Tide</a-select-option>
                     <a-select-option value="2">Temperature</a-select-option>
                     <a-select-option value="3">Wave Characteristics</a-select-option>
@@ -245,23 +244,25 @@ export default defineComponent({
             // console.log('test:', thiss.chartOptions1.series);
             // Remove
             thiss.chartOptions1.series[0].data = {
-                        name: "",
-                        data: [],  // your data will be filled dynamically
-                        type: '',
-                    };
+                name: "",
+                data: [],  // your data will be filled dynamically
+                type: '',
+            };
             thiss.chartOptions1.series[1].data = {
-                        name: "",
-                        data: [],  // your data will be filled dynamically
-                        type: '',
-                    };
+                name: "",
+                data: [],  // your data will be filled dynamically
+                type: '',
+            };
             thiss.chartOptions1.series[2].data = {
-                        name: "",
-                        data: [],  // your data will be filled dynamically
-                        type: '',
-                    };
-            
+                name: "",
+                data: [],  // your data will be filled dynamically
+                type: '',
+            };
+
 
             thiss.chartOptions1.rangeSelector.selected = 0
+
+
 
             // Significant Wave Height
             thiss.chartOptions1.series[0].type = 'column'
@@ -271,21 +272,23 @@ export default defineComponent({
                 valueSuffix: 'm'
             }
 
-            // Wave Period 
-            thiss.chartOptions1.series[1].type = 'spline'
-            thiss.chartOptions1.series[1].name = 'Wave Period'
-            thiss.chartOptions1.series[1].tooltip = { valueSuffix: 's', valueDecimals: 2 }
-
             // compass
-            thiss.chartOptions1.series[2].type = 'windbarb'
-            thiss.chartOptions1.series[2].name = 'Wind Direction'
-            thiss.chartOptions1.series[2].id = 'windbarbs'
-            thiss.chartOptions1.series[2].color = 'white'
-            thiss.chartOptions1.series[2].lineWidth = 1.5
-            thiss.chartOptions1.series[2].vectorLength = 15
-            thiss.chartOptions1.series[2].tooltip = {
+            thiss.chartOptions1.series[1].type = 'windbarb'
+            thiss.chartOptions1.series[1].name = 'Wind Direction'
+            thiss.chartOptions1.series[1].id = 'windbarbs'
+            thiss.chartOptions1.series[1].color = 'white'
+            thiss.chartOptions1.series[1].lineWidth = 1.5
+            thiss.chartOptions1.series[1].vectorLength = 15
+            thiss.chartOptions1.series[1].tooltip = {
                 valueSuffix: 'Knots'
             }
+
+            // Wave Period 
+            thiss.chartOptions1.series[2].type = 'spline'
+            thiss.chartOptions1.series[2].name = 'Wave Period'
+            thiss.chartOptions1.series[2].tooltip = { valueSuffix: 's', valueDecimals: 2 }
+
+
 
             // thiss.chartOptions1.series[2] = thiss.sampleSeries
             console.log('test: ', thiss.chartOptions1);
