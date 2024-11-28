@@ -288,7 +288,7 @@ export default defineComponent({
             //     valueSuffix: 'Knots'
             // }
 
-            thiss.chartOptions1.series[2] = thiss.sampleSeries
+            // thiss.chartOptions1.series[2] = thiss.sampleSeries
             console.log('test: ', thiss.chartOptions1);
 
             //     name: 'Wind',
