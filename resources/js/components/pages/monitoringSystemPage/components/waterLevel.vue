@@ -204,6 +204,7 @@ export default defineComponent({
                         thiss.chartOptions.subtitle.text = 'Water Level'
                         thiss.chartOptions.yAxis.title.text = 'Height (Meter)'
                         thiss.chartOptions.series[0].tooltip = {
+                            valueDecimals: 2,
                             valueSuffix: ' m'
                         }
                         break;
@@ -215,6 +216,7 @@ export default defineComponent({
                         thiss.chartOptions.yAxis.title.text = 'Temperature °C'
                         thiss.chartOptions.series[0].color = 'red'
                         thiss.chartOptions.series[0].tooltip = {
+                            valueDecimals: 2,
                             valueSuffix: ' °C'
                         }
                         thiss.chartOptions.series[0].fillColor = {
@@ -260,6 +262,7 @@ export default defineComponent({
                         thiss.chartOptions.subtitle.text = 'Humidity'
                         thiss.chartOptions.yAxis.title.text = 'Humidity °C'
                         thiss.chartOptions.series[0].tooltip = {
+                            valueDecimals: 2,
                             valueSuffix: ' rh'
                         }
                         break;

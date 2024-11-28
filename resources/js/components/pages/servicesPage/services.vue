@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="p-10 w-full flex justify-center">
-                    <div class="w-1/2 font-serif p-2 text-slate-700 text-right text-6xl italic">
+                    <div class="w-1/2 font-serif p-2 text-slate-700 text-right text-6xl italic " style="text-shadow: 2px 2px 4px rgba(230, 230, 230, 10)">
                         <p>
                             Coastal Engineering
                         </p>
