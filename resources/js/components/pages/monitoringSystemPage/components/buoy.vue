@@ -18,7 +18,7 @@
         </div>
 
         <Skeleton :loading="loading" animated class="p-3 min-h-[400px]">
-            <highcharts v-if="!loading" class="hc w-full" :constructor-type="'stockChart'" :options="chartOptions1"
+            <highcharts v-if="!loading" class="hc w-full"  :options="chartOptions1"
                 ref="chart">
             </highcharts>
         </Skeleton>
