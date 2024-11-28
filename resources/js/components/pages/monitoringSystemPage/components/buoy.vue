@@ -6,9 +6,15 @@
                 <p v-if="this.id == 2" class="font-medium">Ilocos Sur</p>
             </div>
             <div class="flex justify-center items-center">
-                <Select :change="onChangeType()" size="small" v-model="type" style="width:200px">
+                <!-- <Select :change="onChangeType()" size="small" v-model="type" style="width:200px">
                     <Option v-for="item in typeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-                </Select>
+                </Select> -->
+                <a-select ref="select" v-model:value="type" style="width: 120px"
+                    @change="onChangeType()">
+                    <a-select-option value="1">Tide</a-select-option>
+                    <a-select-option value="2">Temperature</a-select-option>
+                    <a-select-option value="3">Wave Characteristics</a-select-option>
+                </a-select>
             </div>
         </div>
 
@@ -124,7 +130,7 @@ export default defineComponent({
     methods: {
         onChangeType(e) {
             let thiss = this;
-
+            console.log(thiss.type);
             if (thiss.chartOptions1.series[0].data.length != 0) {
                 switch (thiss.type) {
                     case '1':
@@ -138,7 +144,7 @@ export default defineComponent({
                         thiss.chartOptions1.series[1].data = thiss.data.waterTemp
                         break;
                     case '3':
-                        // thiss.setChartStyleWave();
+                        thiss.setChartStyleWave();
                         thiss.chartOptions1.series[0].data = thiss.data.waveHeight
                         thiss.chartOptions1.series[1].data = thiss.data.wavePeriod
                         thiss.chartOptions1.series[2].data = thiss.data.compass
@@ -237,6 +243,25 @@ export default defineComponent({
         },
         setChartStyleWave() {
             const thiss = this
+            // console.log('test:', thiss.chartOptions1.series);
+            // Remove
+            thiss.chartOptions1.series[0].data = {
+                        name: "",
+                        data: [],  // your data will be filled dynamically
+                        type: '',
+                    };
+            thiss.chartOptions1.series[1].data = {
+                        name: "",
+                        data: [],  // your data will be filled dynamically
+                        type: '',
+                    };
+            thiss.chartOptions1.series[2].data = {
+                        name: "",
+                        data: [],  // your data will be filled dynamically
+                        type: '',
+                    };
+            
+
             thiss.chartOptions1.rangeSelector.selected = 0
 
             // Significant Wave Height
@@ -264,6 +289,7 @@ export default defineComponent({
             // }
 
             thiss.chartOptions1.series[2] = thiss.sampleSeries
+            console.log('test: ', thiss.chartOptions1);
 
             //     name: 'Wind',
             //     type: 'windbarb',
