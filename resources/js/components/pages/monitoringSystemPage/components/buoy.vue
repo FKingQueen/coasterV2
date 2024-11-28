@@ -9,8 +9,7 @@
                 <!-- <Select :change="onChangeType()" size="small" v-model="type" style="width:200px">
                     <Option v-for="item in typeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                 </Select> -->
-                <a-select ref="select" v-model:value="type" style="width: 120px"
-                    @change="onChangeType()">
+                <a-select ref="select" v-model:value="type" style="width: 120px" @change="onChangeType()">
                     <a-select-option value="1">Tide</a-select-option>
                     <a-select-option value="2">Temperature</a-select-option>
                     <a-select-option value="3">Wave Characteristics</a-select-option>
@@ -144,9 +143,9 @@ export default defineComponent({
                         break;
                     case '3':
                         thiss.setChartStyleWave();
-                        thiss.chartOptions1.series[0].data = thiss.data.waveHeight
-                        thiss.chartOptions1.series[1].data = thiss.data.wavePeriod
-                        thiss.chartOptions1.series[2].data = thiss.data.compass
+                        // thiss.chartOptions1.series[0].data = thiss.data.waveHeight
+                        // thiss.chartOptions1.series[1].data = thiss.data.wavePeriod
+                        // thiss.chartOptions1.series[2].data = thiss.data.compass
                         break;
                 }
             }
@@ -156,6 +155,7 @@ export default defineComponent({
 
             // Remove
             thiss.chartOptions1.series[1].data = [];
+            thiss.chartOptions1.series[2].data = [];
 
             thiss.chartOptions1.series[0].type = 'areaspline'
             thiss.chartOptions1.rangeSelector.selected = 1
@@ -210,6 +210,21 @@ export default defineComponent({
         },
         setChartStyleTemp() {
             const thiss = this
+            thiss.chartOptions1.series[0] = {
+                name: "",
+                data: [],  // your data will be filled dynamically
+                type: '',
+            };
+            thiss.chartOptions1.series[1] = {
+                name: "",
+                data: [],  // your data will be filled dynamically
+                type: '',
+            };
+            thiss.chartOptions1.series[2] = {
+                name: "",
+                data: [],  // your data will be filled dynamically
+                type: '',
+            };
 
             // Remove
             delete thiss.chartOptions1.series[0].fillColor;
@@ -238,70 +253,62 @@ export default defineComponent({
                 valueSuffix: '°C'
             }
             thiss.chartOptions1.series[1].color = '#FF774F'
-            console.log(thiss.chartOptions1);
+            console.log('test2: ', thiss.chartOptions1);
+
         },
         setChartStyleWave() {
-            const thiss = this
-            // console.log('test:', thiss.chartOptions1.series);
-            // Remove
-            thiss.chartOptions1.series[0].data = {
-                        name: "",
-                        data: [],  // your data will be filled dynamically
-                        type: '',
-                    };
-            thiss.chartOptions1.series[1].data = {
-                        name: "",
-                        data: [],  // your data will be filled dynamically
-                        type: '',
-                    };
-            thiss.chartOptions1.series[2].data = {
-                        name: "",
-                        data: [],  // your data will be filled dynamically
-                        type: '',
-                    };
-            
+            const thiss = this;
 
-            thiss.chartOptions1.rangeSelector.selected = 0
+            // Ensure series array has at least 3 elements
+            while (thiss.chartOptions1.series.length < 3) {
+                thiss.chartOptions1.series.push({
+                    name: "",
+                    data: [],
+                    type: '',
+                });
+            }
+
+            thiss.chartOptions1.rangeSelector.selected = 0;
 
             // Significant Wave Height
-            thiss.chartOptions1.series[0].type = 'column'
-            thiss.chartOptions1.series[0].name = 'Significant Wave Height'
-            thiss.chartOptions1.series[0].tooltip = {
-                valueDecimals: 2,
-                valueSuffix: 'm'
-            }
+            thiss.chartOptions1.series[0] = {
+                type: 'column',
+                name: 'Significant Wave Height',
+                data: thiss.data.waveHeight,
+                tooltip: {
+                    valueDecimals: 2,
+                    valueSuffix: 'm'
+                }
+            };
 
             // Wave Period 
-            thiss.chartOptions1.series[1].type = 'spline'
-            thiss.chartOptions1.series[1].name = 'Wave Period'
-            thiss.chartOptions1.series[1].tooltip = { valueSuffix: 's', valueDecimals: 2 }
+            thiss.chartOptions1.series[1] = {
+                type: 'spline',
+                name: 'Wave Period',
+                data: thiss.data.wavePeriod,
+                tooltip: {
+                    valueSuffix: 's',
+                    valueDecimals: 2
+                }
+            };
 
             // compass
-            thiss.chartOptions1.series[2].type = 'windbarb'
-            thiss.chartOptions1.series[2].name = 'Wind Direction'
-            thiss.chartOptions1.series[2].id = 'windbarbs'
-            thiss.chartOptions1.series[2].color = 'white'
-            thiss.chartOptions1.series[2].lineWidth = 1.5
-            thiss.chartOptions1.series[2].vectorLength = 15
-            thiss.chartOptions1.series[2].tooltip = {
-                valueSuffix: 'Knots'
-            }
+            thiss.chartOptions1.series[2] = {
+                type: 'windbarb',
+                name: 'Wind Direction',
+                id: 'windbarbs',
+                color: 'black',
+                lineWidth: 1.5,
+                vectorLength: 15,
+                data: thiss.data.compass,
+                tooltip: {
+                    valueSuffix: 'Knots'
+                }
+            };
 
-            // thiss.chartOptions1.series[2] = thiss.sampleSeries
-            console.log('test: ', thiss.chartOptions1);
-
-            //     name: 'Wind',
-            //     type: 'windbarb',
-            //     id: 'windbarbs',
-            //     color: Highcharts.getOptions().colors[1],
-            //     lineWidth: 1.5,
-            //     data: [],
-            //     vectorLength: 15,
-            //     yOffset: -15,
-            //     tooltip: {
-            //         valueSuffix: 'Knots'
-            //     }
-            // }]
+            // Update chart subtitle and y-axis title
+            thiss.chartOptions1.subtitle.text = 'Wave Characteristics';
+            thiss.chartOptions1.yAxis.title.text = 'Wave Parameters';
         }
     },
     async mounted() {
