@@ -29,6 +29,16 @@ export default defineComponent({
     props: ["id"],
     data() {
         return {
+            sampleSeries: {
+                type: 'windbarb',
+                name: 'Wind Direction',
+                color: 'white',
+                lineWidth: 1.5,
+                vectorLength: 15,
+                tooltip: {
+                    valueSuffix: 'Knots'
+                }
+            },
             data: [],
             typeList: [
                 {
@@ -48,12 +58,12 @@ export default defineComponent({
             type: '',
             loading: true,
             series: [
-                    {
-                        name: "",
-                        data: [],  // your data will be filled dynamically
-                        type: '',
-                    }
-                ],
+                {
+                    name: "",
+                    data: [],  // your data will be filled dynamically
+                    type: '',
+                }
+            ],
             chartOptions1: {
                 chart: {
                     backgroundColor: '#f7f7f7', // Light gray background
@@ -128,14 +138,10 @@ export default defineComponent({
                         thiss.chartOptions1.series[1].data = thiss.data.waterTemp
                         break;
                     case '3':
-                        thiss.$nextTick(() => {
-                            thiss.setChartStyleWave();
-                            thiss.chartOptions1.series[0].data = thiss.data.waveHeight
-                            thiss.chartOptions1.series[1].data = thiss.data.wavePeriod
-                            thiss.chartOptions1.series[2].data = thiss.data.compass
-
-                        });
-
+                        thiss.setChartStyleWave();
+                        thiss.chartOptions1.series[0].data = thiss.data.waveHeight
+                        thiss.chartOptions1.series[1].data = thiss.data.wavePeriod
+                        thiss.chartOptions1.series[2].data = thiss.data.compass
                         break;
                 }
             }
@@ -247,15 +253,17 @@ export default defineComponent({
             thiss.chartOptions1.series[1].tooltip = { valueSuffix: 's', valueDecimals: 2 }
 
             // compass
-            thiss.chartOptions1.series[2].type = 'windbarb'
-            thiss.chartOptions1.series[2].name = 'Wind Direction'
-            thiss.chartOptions1.series[2].id = 'windbarbs'
-            thiss.chartOptions1.series[2].color = 'white'
-            thiss.chartOptions1.series[2].lineWidth = 1.5
-            thiss.chartOptions1.series[2].vectorLength = 15
-            thiss.chartOptions1.series[2].tooltip = {
-                valueSuffix: 'Knots'
-            }
+            // thiss.chartOptions1.series[2].type = 'windbarb'
+            // thiss.chartOptions1.series[2].name = 'Wind Direction'
+            // // thiss.chartOptions1.series[2].id = 'windbarbs'
+            // thiss.chartOptions1.series[2].color = 'white'
+            // thiss.chartOptions1.series[2].lineWidth = 1.5
+            // thiss.chartOptions1.series[2].vectorLength = 15
+            // thiss.chartOptions1.series[2].tooltip = {
+            //     valueSuffix: 'Knots'
+            // }
+
+            thiss.chartOptions1.series[2] = thiss.sampleSeries
 
             //     name: 'Wind',
             //     type: 'windbarb',
@@ -281,6 +289,7 @@ export default defineComponent({
                 thiss.type = '1'
                 thiss.data = response.data
                 thiss.chartOptions1.series[0].data = thiss.data.tide
+
                 // Setting the Style of the Chart
                 thiss.setChartStyleTide();
                 thiss.loading = false
