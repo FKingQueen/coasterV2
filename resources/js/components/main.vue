@@ -106,8 +106,8 @@
                 </button>
                 <!-- /Search Bar -->
                 <Drawer placement="left" :closable="false" v-model="sideBarDrawer" :styles="{ padding: '0' }">
-                    <div class="flex justify-center pb-5">
-                        <div class="text-center grid divide-[#C49A6C]/75 divide-y-4">
+                    <div class="flex justify-center pb-2">
+                        <div class="text-center grid divide-[#C49A6C]/75 divide-y-4 p-3">
                             <div>
                                 <p
                                     class="text-3xl font-serif font-semibold bg-gradient-to-r from-[#002B5B] to-[#C49A6C] text-transparent bg-clip-text">
@@ -142,6 +142,12 @@
                                     <Icon type="ios-water" />
                                 </template>
                                 Monitoring System
+                            </a-menu-item>
+                            <a-menu-item key="4">
+                                <template #icon>
+                                    <Icon type="ios-water" />
+                                </template>
+                                Coastal Flooding Advisory
                             </a-menu-item>
                             <a-sub-menu key="sub1">
                                 <template #icon>
@@ -454,6 +460,9 @@ export default defineComponent({
             }
             else if (event.key == 3) {
                 this.$router.push({ path: '/monitoringSystem' })
+            }
+            else if (event.key == 4) {
+                this.$router.push({ path: '/coastalfloodadvisory' })
             }
             else if (event.key == 5) {
                 this.$router.push({ path: '/projects/project1' })

@@ -825,6 +825,9 @@ video {
 .h-\[250px\] {
   height: 250px;
 }
+.h-\[2px\] {
+  height: 2px;
+}
 .min-h-\[400px\] {
   min-height: 400px;
 }
