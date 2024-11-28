@@ -10,6 +10,8 @@ import CKEditor from '@ckeditor/ckeditor5-vue';
 import Highcharts from "highcharts";
 import HighchartsVue from 'highcharts-vue';
 import StockModule from "highcharts/modules/stock";
+import windbarb from 'highcharts/modules/windbarb'
+windbarb(Highcharts)
 
 import DataTable from 'datatables.net-vue3'
 

@@ -28,8 +28,7 @@
 <script>
 import { defineComponent, ref } from "vue";
 import Highcharts from "highcharts"
-// import windbarb from 'highcharts/modules/windbarb'
-// windbarb(Highcharts)
+
 
 export default defineComponent({
     props: ["id"],
@@ -278,15 +277,15 @@ export default defineComponent({
             thiss.chartOptions1.series[1].tooltip = { valueSuffix: 's', valueDecimals: 2 }
 
             // compass
-            // thiss.chartOptions1.series[2].type = 'windbarb'
-            // thiss.chartOptions1.series[2].name = 'Wind Direction'
-            // // thiss.chartOptions1.series[2].id = 'windbarbs'
-            // thiss.chartOptions1.series[2].color = 'white'
-            // thiss.chartOptions1.series[2].lineWidth = 1.5
-            // thiss.chartOptions1.series[2].vectorLength = 15
-            // thiss.chartOptions1.series[2].tooltip = {
-            //     valueSuffix: 'Knots'
-            // }
+            thiss.chartOptions1.series[2].type = 'windbarb'
+            thiss.chartOptions1.series[2].name = 'Wind Direction'
+            thiss.chartOptions1.series[2].id = 'windbarbs'
+            thiss.chartOptions1.series[2].color = 'white'
+            thiss.chartOptions1.series[2].lineWidth = 1.5
+            thiss.chartOptions1.series[2].vectorLength = 15
+            thiss.chartOptions1.series[2].tooltip = {
+                valueSuffix: 'Knots'
+            }
 
             // thiss.chartOptions1.series[2] = thiss.sampleSeries
             console.log('test: ', thiss.chartOptions1);
