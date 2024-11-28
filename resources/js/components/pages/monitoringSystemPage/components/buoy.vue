@@ -144,8 +144,8 @@ export default defineComponent({
                     case '3':
                         thiss.setChartStyleWave();
                         thiss.chartOptions1.series[0].data = thiss.data.waveHeight
-                        thiss.chartOptions1.series[1].data = thiss.data.wavePeriod
-                        thiss.chartOptions1.series[2].data = thiss.data.compass
+                        thiss.chartOptions1.series[1].data = thiss.data.compass
+                        thiss.chartOptions1.series[2].data = thiss.data.wavePeriod
                         break;
                 }
             }
