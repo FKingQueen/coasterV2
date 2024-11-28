@@ -138,7 +138,7 @@ export default defineComponent({
                         thiss.chartOptions1.series[1].data = thiss.data.waterTemp
                         break;
                     case '3':
-                        thiss.setChartStyleWave();
+                        // thiss.setChartStyleWave();
                         thiss.chartOptions1.series[0].data = thiss.data.waveHeight
                         thiss.chartOptions1.series[1].data = thiss.data.wavePeriod
                         thiss.chartOptions1.series[2].data = thiss.data.compass
