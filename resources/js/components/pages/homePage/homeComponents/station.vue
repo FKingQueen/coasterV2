@@ -115,7 +115,7 @@
                                 <tbody>
                                     <tr class="border-b">
                                         <td class="py-1 text-xs">Water Level</td>
-                                        <td class="py-1 text-xs">{{ parseFloat(stationData.wlmsData1.level).toFixed(2) }}</td>
+                                        <td class="py-1 text-xs">{{ parseFloat((Math.round((13.5 - stationData.wlmsData1.level) * 100) / 100)).toFixed(2) }}</td>
                                         <td class="py-1 text-xs">m</td>
                                     </tr>
                                     <tr class="border-b">
@@ -145,7 +145,7 @@
                                 <tbody>
                                     <tr class="border-b">
                                         <td class="py-1 text-xs">Water Level</td>
-                                        <td class="py-1 text-xs">{{ parseFloat(stationData.wlmsData2.level).toFixed(2) }}</td>
+                                        <td class="py-1 text-xs">{{ parseFloat(Math.round((26  - stationData.wlmsData2.level) * 100) / 100).toFixed(2) }}</td>
                                         <td class="py-1 text-xs">m</td>
                                     </tr>
                                     <tr class="border-b">
