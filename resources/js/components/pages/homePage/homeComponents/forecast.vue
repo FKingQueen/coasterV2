@@ -4,14 +4,14 @@
             <p class="text-base font-Roboto drop-shadow-lg lg:pl-0 pl-1">7-Day Weather Forecast</p>
         </div>
         <div class="flex items-center w-full justify-center justify-center pb-3">
-            <div class="laptop:columns-7 columns-4 space-y-5 monitor:w-5/6 w-full">
+            <div class="laptop:columns-7 columns-4 space-y-1 monitor:w-5/6 w-full">
                 <div v-for="(dailyData, index) in this.dailyWeatherData.month" class="bg-sky-950 py-1 px-2 text-white">
                     <div v-if="index == 0" class="flex justify-between">
                         <p class="text-xs">
                             Today
                         </p>
                         <p class="text-xs">
-                            {{ dailyData }}/{{ this.dailyWeatherData.dayOfMonth[index] }}
+                            {{ dailyData+1 }}/{{ this.dailyWeatherData.dayOfMonth[index] }}
                         </p>
                     </div>
                     <div v-else class="flex justify-between">
@@ -19,7 +19,7 @@
                             {{ this.dailyWeatherData.dayOfWeek[index] }}
                         </p>
                         <p class="text-xs">
-                            {{ dailyData }}/{{ this.dailyWeatherData.dayOfMonth[index] }}
+                            {{ dailyData+1 }}/{{ this.dailyWeatherData.dayOfMonth[index] }}
                         </p>
                     </div>
                     <div class="flex justify-center items-center">
@@ -532,7 +532,7 @@ export default defineComponent({
                 const url2 = `https://api.open-meteo.com/v1/forecast?latitude=${this.forecastLatitude}&longitude=${this.forecastLongitude}&current=temperature_2m,relative_humidity_2m,rain,surface_pressure,wind_speed_10m,wind_direction_10m,weather_code,cloud_cover&hourly=temperature_2m,relative_humidity_2m,rain,weather_code,wind_speed_10m,pressure_msl,wind_direction_10m&wind_speed_unit=kn&daily=weather_code,temperature_2m_max,temperature_2m_min,rain_sum&timezone=auto&models=jma_seamless`
                 const response2 = await fetch(url2)
                 const data2 = await response2.json()
-
+                console.log('api: ', data2 );
                 // 7-Day Weather Forecast
                 this.daysWeather(data2);
                 // Current Weather

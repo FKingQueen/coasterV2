@@ -25,28 +25,28 @@
                                 <tbody>
                                     <tr class="border-b">
                                         <td class="py-1 text-xs">Tide</td>
-                                        <td class="py-1 text-xs">{{ stationData.buoyData1.altitude_pressure }}</td>
+                                        <td class="py-1 text-xs">{{ parseFloat(stationData.buoyData1.altitude_pressure).toFixed(2) }}</td>
                                         <td class="py-1 text-xs">m</td>
                                     </tr>
                                     <tr class="border-b">
                                         <td class="py-1 text-xs">Air Temperature</td>
-                                        <td class="py-1 text-xs">{{ stationData.buoyData1.water_temperature }}</td>
+                                        <td class="py-1 text-xs">{{ parseFloat(stationData.buoyData1.water_temperature).toFixed(2) }}</td>
                                         <td class="py-1 text-xs">°C</td>
                                     </tr>
                                     <tr class="border-b">
                                         <td class="py-1 text-xs">Water Temperature</td>
-                                        <td class="py-1 text-xs">{{ stationData.buoyData1.barometric_temperature }}</td>
+                                        <td class="py-1 text-xs">{{ parseFloat(stationData.buoyData1.barometric_temperature).toFixed(2) }}</td>
                                         <td class="py-1 text-xs">°C</td>
                                     </tr>
                                     <tr class="border-b">
                                         <td class="py-1 text-xs">Significant Wave Height</td>
-                                        <td class="py-1 text-xs">{{ stationData.buoyData1.significant_wave_height }}
+                                        <td class="py-1 text-xs">{{ parseFloat(stationData.buoyData1.significant_wave_height).toFixed(2) }}
                                         </td>
                                         <td class="py-1 text-xs">m</td>
                                     </tr>
                                     <tr class="border-b">
                                         <td class="py-1 text-xs">Wave Period</td>
-                                        <td class="py-1 text-xs">{{ stationData.buoyData1.wave_period }}</td>
+                                        <td class="py-1 text-xs">{{ parseFloat(stationData.buoyData1.wave_period).toFixed(2) }}</td>
                                         <td class="py-1 text-xs">secs</td>
                                     </tr>
                                 </tbody>
@@ -71,28 +71,28 @@
                                 <tbody>
                                     <tr class="border-b">
                                         <td class="py-1 text-xs">Tide</td>
-                                        <td class="py-1 text-xs">{{ stationData.buoyData1.altitude_pressure }}</td>
+                                        <td class="py-1 text-xs">{{  parseFloat(stationData.buoyData1.altitude_pressure).toFixed(2) }}</td>
                                         <td class="py-1 text-xs">m</td>
                                     </tr>
                                     <tr class="border-b">
                                         <td class="py-1 text-xs">Air Temperature</td>
-                                        <td class="py-1 text-xs">{{ stationData.buoyData1.water_temperature }}</td>
+                                        <td class="py-1 text-xs">{{  parseFloat(stationData.buoyData1.water_temperature).toFixed(2) }}</td>
                                         <td class="py-1 text-xs">°C</td>
                                     </tr>
                                     <tr class="border-b">
                                         <td class="py-1 text-xs">Water Temperature</td>
-                                        <td class="py-1 text-xs">{{ stationData.buoyData1.barometric_temperature }}</td>
+                                        <td class="py-1 text-xs">{{ parseFloat(stationData.buoyData1.barometric_temperature).toFixed(2) }}</td>
                                         <td class="py-1 text-xs">°C</td>
                                     </tr>
                                     <tr class="border-b">
                                         <td class="py-1 text-xs">Significant Wave Height</td>
-                                        <td class="py-1 text-xs">{{ stationData.buoyData1.significant_wave_height }}
+                                        <td class="py-1 text-xs">{{ parseFloat(stationData.buoyData1.significant_wave_height).toFixed(2) }}
                                         </td>
                                         <td class="py-1 text-xs">m</td>
                                     </tr>
                                     <tr class="border-b">
                                         <td class="py-1 text-xs">Wave Period</td>
-                                        <td class="py-1 text-xs">{{ stationData.buoyData1.wave_period }}</td>
+                                        <td class="py-1 text-xs">{{ parseFloat(stationData.buoyData1.wave_period).toFixed(2) }}</td>
                                         <td class="py-1 text-xs">secs</td>
                                     </tr>
                                 </tbody>
@@ -115,17 +115,17 @@
                                 <tbody>
                                     <tr class="border-b">
                                         <td class="py-1 text-xs">Water Level</td>
-                                        <td class="py-1 text-xs">{{ stationData.wlmsData1.level }}</td>
+                                        <td class="py-1 text-xs">{{ parseFloat(stationData.wlmsData1.level).toFixed(2) }}</td>
                                         <td class="py-1 text-xs">m</td>
                                     </tr>
                                     <tr class="border-b">
                                         <td class="py-1 text-xs">Temperature</td>
-                                        <td class="py-1 text-xs">{{ stationData.wlmsData1.temperature }}</td>
+                                        <td class="py-1 text-xs">{{ parseFloat(stationData.wlmsData1.temperature).toFixed(2) }}</td>
                                         <td class="py-1 text-xs">°C</td>
                                     </tr>
                                     <tr class="border-b">
                                         <td class="py-1 text-xs">Humidity</td>
-                                        <td class="py-1 text-xs">{{ stationData.wlmsData1.humidity }}</td>
+                                        <td class="py-1 text-xs">{{ parseFloat(stationData.wlmsData1.humidity).toFixed(2) }}</td>
                                         <td class="py-1 text-xs">%</td>
                                     </tr>
                                 </tbody>
@@ -145,17 +145,17 @@
                                 <tbody>
                                     <tr class="border-b">
                                         <td class="py-1 text-xs">Water Level</td>
-                                        <td class="py-1 text-xs">{{ stationData.wlmsData2.level }}</td>
+                                        <td class="py-1 text-xs">{{ parseFloat(stationData.wlmsData2.level).toFixed(2) }}</td>
                                         <td class="py-1 text-xs">m</td>
                                     </tr>
                                     <tr class="border-b">
                                         <td class="py-1 text-xs">Temperature</td>
-                                        <td class="py-1 text-xs">{{ stationData.wlmsData2.temperature }}</td>
+                                        <td class="py-1 text-xs">{{ parseFloat(stationData.wlmsData2.temperature).toFixed(2) }}</td>
                                         <td class="py-1 text-xs">°C</td>
                                     </tr>
                                     <tr class="border-b">
                                         <td class="py-1 text-xs">Humidity</td>
-                                        <td class="py-1 text-xs">{{ stationData.wlmsData2.humidity }}</td>
+                                        <td class="py-1 text-xs">{{ parseFloat(stationData.wlmsData2.humidity).toFixed(2) }}</td>
                                         <td class="py-1 text-xs">%</td>
                                     </tr>
                                 </tbody>
