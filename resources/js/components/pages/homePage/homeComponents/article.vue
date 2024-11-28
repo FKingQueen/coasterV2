@@ -1,5 +1,5 @@
 <template>
-    <div class="p-5 space-y-5">
+    <div class="laptop:p-5 p-1 space-y-5">
         <div>
             <div class="w-fit">
                 <p class="text-2xl text-bold cursor-pointer hover:underline" @click="$router.push('/morearticle')">
@@ -13,7 +13,7 @@
                             <a-list-item :key="item.title">
                                 <template #extra>
                                     <img :alt="item.title" :src="`/img/uploads/${item.image}`"
-                                        class="object-cover rounded-lg shadow-sm h-40 w-64" />
+                                        class="object-cover laptop:flex hidden rounded-lg shadow-sm h-40 w-64" />
                                 </template>
                                 <a-list-item-meta>
                                     <template #title>
@@ -35,11 +35,11 @@
                             <a-list-item :key="item.title">
                                 <template #extra>
                                     <img :alt="item.title" :src="`/img/uploads/${item.image}`"
-                                        class="object-cover rounded-lg shadow-sm h-40 w-64" />
+                                        class="object-cover laptop:flex hidden rounded-lg shadow-sm h-40 w-64" />
                                 </template>
                                 <a-list-item-meta :description="item.date">
                                     <template #title>
-                                        <a class="line-clamp-1 font-semibold hover:text-blue-600 transition-colors">
+                                        <a class="line-clamp-1  font-semibold hover:text-blue-600 transition-colors">
                                             {{ item.title }}
                                         </a>
                                     </template>
@@ -54,14 +54,14 @@
         </div>
         <div>
             <p class="text-2xl text-bold">Videos</p>
-            <div class="grid grid-cols-1 md:grid-cols-1">
-                <div class="lg:flex justify-around lg:space-y-0 space-y-2">
-                    <iframe width="640" height="360" src="https://www.youtube.com/embed/C7ZEzkKpxZs?rel=0"
+            <div class="w-full">
+                <div class="laptop:flex justify-around lg:space-y-0 space-y-2 lg:space-x-2 space-x-0">
+                    <iframe :width="innerWidth" class="laptop:h-[360px] h-[250px]" src="https://www.youtube.com/embed/C7ZEzkKpxZs?rel=0"
                         title="MMSU COASTER" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
                     </iframe>
-                    <iframe width="640" height="360" src="https://www.youtube.com/embed/fre6VqZIYxk?rel=0"
+                    <iframe :width="innerWidth" class="laptop:h-[360px] h-[250px]" src="https://www.youtube.com/embed/fre6VqZIYxk?rel=0"
                         title="Coastal Engineering and Management Research and Development Center - MMSU"
                         frameborder="0"
                         allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -85,6 +85,7 @@ export default defineComponent({
             leftArticles: [],
             rightArticles: [],
             moreArticles: [],
+            innerWidth: window.innerWidth - 10,
         }
     },
     methods: {
@@ -100,6 +101,7 @@ export default defineComponent({
     },
     async created() {
         const thiss = this
+        console.log(innerWidth);
         await axios.get('/api/getArticles')
             .then(function (response) {
                 console.log(response.data);

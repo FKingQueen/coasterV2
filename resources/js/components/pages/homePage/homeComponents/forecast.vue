@@ -4,12 +4,46 @@
             <p class="text-base font-Roboto drop-shadow-lg lg:pl-0 pl-1">7-Day Weather Forecast</p>
         </div>
         <div class="flex items-center w-full justify-center justify-center pb-3">
-            <a-row class="w-full flex justify-center" :gutter="5">
+            <div class="laptop:columns-7 columns-4 space-y-5 monitor:w-5/6 w-full">
+                <div v-for="(dailyData, index) in this.dailyWeatherData.month" class="bg-sky-950 py-1 px-2 text-white">
+                    <div v-if="index == 0" class="flex justify-between">
+                        <p class="text-xs">
+                            Today
+                        </p>
+                        <p class="text-xs">
+                            {{ dailyData }}/{{ this.dailyWeatherData.dayOfMonth[index] }}
+                        </p>
+                    </div>
+                    <div v-else class="flex justify-between">
+                        <p class="text-xs">
+                            {{ this.dailyWeatherData.dayOfWeek[index] }}
+                        </p>
+                        <p class="text-xs">
+                            {{ dailyData }}/{{ this.dailyWeatherData.dayOfMonth[index] }}
+                        </p>
+                    </div>
+                    <div class="flex justify-center items-center">
+                        <div>
+                            <img class="h-16" :src="this.dailyWeatherData.dailyWeatherImgURL[index]">
+                        </div>
+                    </div>
+                    <div class="flex justify-center">
+                        <p class="text-xs">
+                            <span class="text-sm text-bold text-red-400">{{
+                                this.dailyWeatherData.temperature_2m_max[index] }}</span>/{{
+                                    this.dailyWeatherData.temperature_2m_min[index] }} °C
+                        </p>
+                    </div>
+                    <div class="flex justify-center">
+                        <p class="text-xs">
+                            {{ this.dailyWeatherData.rain_sum[index] }} mm
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- <a-row class="w-full flex justify-center" :gutter="5">
                 <a-col :span="3" v-for="(dailyData, index) in this.dailyWeatherData.month" class="">
                     <div class="bg-sky-950 py-1 px-2 text-white">
-                        <!-- <p class="text-sm ">
-                            {{ dailyData }} {{ this.dailyWeatherData.dayOfMonth[index] }}
-                        </p> -->
                         <div v-if="index == 0" class="flex justify-between">
                             <p class="text-xs">
                                 Today
@@ -26,12 +60,6 @@
                                 {{ dailyData }}/{{ this.dailyWeatherData.dayOfMonth[index] }}
                             </p>
                         </div>
-                        <!-- <p v-if="index == 0" class="text-xs text-between">
-                            Today
-                        </p>
-                        <p v-else class="text-xs">
-                            {{ this.dailyWeatherData.dayOfWeek[index] }} {{ dailyData }}/{{ this.dailyWeatherData.dayOfMonth[index] }}
-                        </p> -->
                         <div class="flex justify-center items-center">
                             <div>
                                 <img class="h-16" :src="this.dailyWeatherData.dailyWeatherImgURL[index]">
@@ -51,7 +79,7 @@
                         </div>
                     </div>
                 </a-col>
-            </a-row>
+            </a-row> -->
 
         </div>
         <div class="w-full ">
@@ -63,8 +91,8 @@
                         </p>
                     </div>
                     <div>
-                        <a-select v-model:value="selectedModel" :options="options" size="small" style="width: 200px"
-                            @change="selectedArea()"></a-select>
+                        <a-select v-model:value="selectedModel" :options="options" size="small"
+                            class="laptop:w-[200px] w-[100px]" @change="selectedArea()"></a-select>
                     </div>
                 </div>
                 <div>
@@ -81,7 +109,8 @@
                             <div class="items-center flex">
                                 <div>
                                     <p>{{ currentWeatherData.currentWeatherCodeText }}</p>
-                                    <p class="text-4xl">{{ currentWeatherData.currentWeatherTemperature }} °C</p>
+                                    <p class="laptop:text-4xl text-2xl">{{ currentWeatherData.currentWeatherTemperature
+                                        }} °C</p>
                                     <p>Rainfall: <span>{{ currentWeatherData.currentWeatherRainfall }} mm</span></p>
                                 </div>
                             </div>
@@ -630,7 +659,7 @@ export default defineComponent({
             // Get the next 48 hours of data
             const hoursToShow = 24
             const hourly = data.hourly
-            console.log('wind direction: ',data.hourly);
+            console.log('wind direction: ', data.hourly);
 
             for (let i = 0; i < hoursToShow; i++) {
                 const timestamp = new Date(hourly.time[i]).getTime() + (8 * 60 * 60 * 1000);
@@ -657,11 +686,11 @@ export default defineComponent({
 
                 // Add wind data (every 2 hours to avoid crowding)
                 // if (i % 1 === 0) {
-                    thiss.chartOptions.series[3].data.push({
-                        x: timestamp,
-                        value: hourly.wind_speed_10m[i],
-                        direction: hourly.wind_direction_10m[i]
-                    })
+                thiss.chartOptions.series[3].data.push({
+                    x: timestamp,
+                    value: hourly.wind_speed_10m[i],
+                    direction: hourly.wind_direction_10m[i]
+                })
                 // }
 
                 // Add pressure

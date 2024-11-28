@@ -5,7 +5,7 @@
             <img src="/img/background/building_location.jpg" class="object-cover w-full " alt="#">
         </div>
         <div class="w-full  py-5 flex md:flex justify-center">
-            <div class="bg-white w-3/4 border-black drop-shadow-lg rounded"
+            <div class="bg-white laptop:w-3/4 w-full border-black drop-shadow-lg rounded"
                 style="background: rgba(255, 255, 255, 0.50); backdrop-filter: blur(5px);">
                 <div class="w-full flex justify-center pt-5">
                     <div class=" w-2/4 text-center">
@@ -17,8 +17,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="p-10 w-full flex justify-center">
-                    <div class="w-1/2 font-serif p-2 text-slate-700 text-right text-6xl italic " style="text-shadow: 2px 2px 4px rgba(230, 230, 230, 10)">
+                <div class="laptop:p-10  w-full laptop:flex justify-center">
+                    <div class="laptop:w-1/2 w-full font-serif p-2 text-slate-700 laptop:text-right text-center laptop:text-6xl text-4xl italic " style="text-shadow: 2px 2px 4px rgba(230, 230, 230, 10)">
+                        <p>
+                            Coastal Engineering and Management Research and Development Center
+                        </p>
+<!-- 
                         <p>
                             Coastal Engineering
                         </p>
@@ -27,10 +31,10 @@
                         </p>
                         <p>
                             Development Center
-                        </p>
+                        </p> -->
                     </div>
-                    <div class="w-1/2 p-2 flex items-center">
-                        <p class="text-2xl text-slate-700 text-left font-serif">
+                    <div class="laptop:w-1/2 w-full p-2 flex items-center">
+                        <p class="laptop:text-2xl text-lg text-slate-700 laptop:text-left text-center font-serif">
                             At COASTER, we are dedicated to advancing coastal engineering and management solutions
                             through
                             cutting-edge technology, research, and development. Our services are tailored to meet the

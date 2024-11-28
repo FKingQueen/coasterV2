@@ -1,8 +1,8 @@
 <template>
-    <div class="p-5 space-y-5 w-full">
+    <div class="laptop:p-5 p-0 space-y-5 w-full">
         <div class="w-full">
             <div class="border-2 rounded drop-shadow-lg w-full">
-                <div class="p-3 w-full border lg:flex space-x-2">
+                <div class="p-3 w-full border lg:flex laptop:space-x-2">
                     <div class="lg:w-2/4 w-full">
                         <!-- <img src="/gif/flood_hazard.gif" alt="" class="w-full"> -->
                         <transition name="fade" mode="out-in">

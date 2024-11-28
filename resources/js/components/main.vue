@@ -533,7 +533,6 @@ export default defineComponent({
     },
     computed: {
         minHeightStyle() {
-            console.log(this.screenHeight);
             return {
                 minHeight: `${this.screenHeight}px`
             }
