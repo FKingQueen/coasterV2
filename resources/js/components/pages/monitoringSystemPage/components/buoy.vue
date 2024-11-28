@@ -143,8 +143,8 @@ export default defineComponent({
                         break;
                     case '3':
                         thiss.setChartStyleWave();
-                        // thiss.chartOptions1.series[0].data = thiss.data.waveHeight
-                        // thiss.chartOptions1.series[1].data = thiss.data.wavePeriod
+                        thiss.chartOptions1.series[0].data = thiss.data.waveHeight
+                        thiss.chartOptions1.series[1].data = thiss.data.wavePeriod
                         // thiss.chartOptions1.series[2].data = thiss.data.compass
                         break;
                 }
@@ -272,6 +272,7 @@ export default defineComponent({
 
             // Significant Wave Height
             thiss.chartOptions1.series[0] = {
+                color: Highcharts.getOptions().colors[0],
                 type: 'column',
                 name: 'Significant Wave Height',
                 data: thiss.data.waveHeight,
@@ -283,6 +284,7 @@ export default defineComponent({
 
             // Wave Period 
             thiss.chartOptions1.series[1] = {
+                color: Highcharts.getOptions().colors[0],
                 type: 'spline',
                 name: 'Wave Period',
                 data: thiss.data.wavePeriod,
@@ -293,18 +295,19 @@ export default defineComponent({
             };
 
             // compass
-            thiss.chartOptions1.series[2] = {
-                type: 'windbarb',
-                name: 'Wind Direction',
-                id: 'windbarbs',
-                color: 'black',
-                lineWidth: 1.5,
-                vectorLength: 15,
-                data: thiss.data.compass,
-                tooltip: {
-                    valueSuffix: 'Knots'
-                }
-            };
+            // thiss.chartOptions1.series[2] = {
+            //     type: 'windbarb',
+            //     name: 'Wind Direction',
+            //     id: 'windbarbs',
+            //     color: 'black',
+            //     lineWidth: 1.5,
+            //     vectorLength: 15,
+            //     data: thiss.data.compass,
+            //     tooltip: {
+            //         valueDecimals: 2,
+            //         valueSuffix: 'Knots'
+            //     }
+            // };
 
             // Update chart subtitle and y-axis title
             thiss.chartOptions1.subtitle.text = 'Wave Characteristics';
