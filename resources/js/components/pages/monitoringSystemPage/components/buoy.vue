@@ -143,9 +143,10 @@ export default defineComponent({
                         break;
                     case '3':
                         thiss.setChartStyleWave();
-                        thiss.chartOptions1.series[0].data = thiss.data.waveHeight
-                        thiss.chartOptions1.series[1].data = thiss.data.compass
-                        thiss.chartOptions1.series[2].data = thiss.data.wavePeriod
+                        thiss.chartOptions1.series[0].data = thiss.data.compass
+                        // thiss.chartOptions1.series[0].data = thiss.data.waveHeight
+                        // thiss.chartOptions1.series[1].data = thiss.data.compass
+                        // thiss.chartOptions1.series[2].data = thiss.data.wavePeriod
                         break;
                 }
             }
@@ -265,28 +266,28 @@ export default defineComponent({
 
 
             // Significant Wave Height
-            thiss.chartOptions1.series[0].type = 'column'
-            thiss.chartOptions1.series[0].name = 'Significant Wave Height'
-            thiss.chartOptions1.series[0].tooltip = {
-                valueDecimals: 2,
-                valueSuffix: 'm'
-            }
+            // thiss.chartOptions1.series[0].type = 'column'
+            // thiss.chartOptions1.series[0].name = 'Significant Wave Height'
+            // thiss.chartOptions1.series[0].tooltip = {
+            //     valueDecimals: 2,
+            //     valueSuffix: 'm'
+            // }
 
             // compass
-            thiss.chartOptions1.series[1].type = 'windbarb'
-            thiss.chartOptions1.series[1].name = 'Wind Direction'
-            thiss.chartOptions1.series[1].id = 'windbarbs'
-            thiss.chartOptions1.series[1].color = 'white'
-            thiss.chartOptions1.series[1].lineWidth = 1.5
-            thiss.chartOptions1.series[1].vectorLength = 15
-            thiss.chartOptions1.series[1].tooltip = {
+            thiss.chartOptions1.series[0].type = 'windbarb'
+            thiss.chartOptions1.series[0].name = 'Wind Direction'
+            thiss.chartOptions1.series[0].id = 'windbarbs'
+            thiss.chartOptions1.series[0].color = 'black'
+            thiss.chartOptions1.series[0].lineWidth = 1.5
+            thiss.chartOptions1.series[0].vectorLength = 15
+            thiss.chartOptions1.series[0].tooltip = {
                 valueSuffix: 'Knots'
             }
 
             // Wave Period 
-            thiss.chartOptions1.series[2].type = 'spline'
-            thiss.chartOptions1.series[2].name = 'Wave Period'
-            thiss.chartOptions1.series[2].tooltip = { valueSuffix: 's', valueDecimals: 2 }
+            // thiss.chartOptions1.series[2].type = 'spline'
+            // thiss.chartOptions1.series[2].name = 'Wave Period'
+            // thiss.chartOptions1.series[2].tooltip = { valueSuffix: 's', valueDecimals: 2 }
 
 
 
