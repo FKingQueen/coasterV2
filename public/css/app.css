@@ -2396,6 +2396,14 @@ video {
          columns: 7;
   }
 
+  .laptop\:justify-end {
+    justify-content: flex-end;
+  }
+
+  .laptop\:justify-center {
+    justify-content: center;
+  }
+
   .laptop\:space-x-2 > :not([hidden]) ~ :not([hidden]) {
     --tw-space-x-reverse: 0;
     margin-right: calc(0.5rem * var(--tw-space-x-reverse));

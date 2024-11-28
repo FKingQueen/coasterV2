@@ -480,20 +480,7 @@ export default defineComponent({
                 this.$router.push({ path: '/about' })
             }
         },
-        gotoProject(id) {
-            let existingObj = this;
-            if (id == 1) {
-                existingObj.selectedProject = 'Coastal Erosion Trends and Management Strategies for Region 1'
-            } else if (id == 2) {
-                existingObj.selectedProject = 'Assesment Monitoring, and Prediction of Coastal Flooding of Selected Municipalities in Region 1'
-            } else if (id == 3) {
-                existingObj.selectedProject = 'Development of Science-based Engineering Approach to Coastal Prediction in Region 1'
-            } else if (id == 4) {
-                existingObj.selectedProject = 'Enhancing Coastal Design and Infrastructure Intervention through the Establishment of Wave Testing Facility'
-            }
-            const project = existingObj.selectedProject
-            this.$router.push({ name: 'projects', params: { project, id } })
-        },
+
         // zeroPadding(num, digit) {
         //     var zero = '';
         //     for (var i = 0; i < digit; i++) {

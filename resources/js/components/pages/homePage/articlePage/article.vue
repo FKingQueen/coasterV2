@@ -7,7 +7,7 @@
                     <img class="object-cover w-full" :src="`/img/uploads/${this.article.image}`">
                     <div class=" grid grid-cols-1 divide-y divide-sky-400">
                         <div>
-                            <div class="flex justify-end pb-3">
+                            <div class="flex laptop:justify-end justify-center py-2">
                                 <div v-for="project in this.article.projects">
                                     <a-tag @click="gotoProject(project.project_id)" class="cursor-pointer"
                                         color="blue">Project {{ project.project_id }}</a-tag>
@@ -57,7 +57,8 @@
                                     </template>
                                     <a-list-item-meta :description="item.date">
                                         <template #title>
-                                            <a @click="gotoArticle(item)" class="line-clamp-1 font-semibold hover:text-blue-600 transition-colors">
+                                            <a @click="gotoArticle(item)"
+                                                class="line-clamp-1 font-semibold hover:text-blue-600 transition-colors">
                                                 {{ item.title }}
                                             </a>
                                         </template>
@@ -127,6 +128,20 @@ export default defineComponent({
             const id = article.id
             const title = article.title
             this.$router.push({ name: 'article', params: { title, id } })
+        },
+        gotoProject(id) {
+            if (id == 1) {
+                this.$router.push({ path: '/projects/project1' })
+            }
+            else if (id == 2) {
+                this.$router.push({ path: '/projects/project2' })
+            }
+            else if (id == 3) {
+                this.$router.push({ path: '/projects/project3' })
+            }
+            else if (id == 4) {
+                this.$router.push({ path: '/projects/project4' })
+            }
         },
     },
     async created() {
