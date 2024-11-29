@@ -1,12 +1,13 @@
 <template>
+
     <div class="w-full flex">
-        <!-- <div class="w-2/5 border-[30px] border-[#146C94] h-[90vh]">
+        <div class="w-2/5 border-[30px] border-[#146C94] h-[90vh]">
             <p class="text-4xl py-3 font-serif text-center font-semibold text-[#146C94] blur-none antialiased">
                 COASTER
             </p>
-            <Default v-if="this.layerName == null"/>
-            <CEHM v-if="this.layerName == 'epr' || this.layerName == 'nsm'"/>
-        </div> -->
+            <Default v-if="this.layerName == null" />
+            <CEHM v-if="this.layerName == 'epr' || this.layerName == 'nsm'" />
+        </div>
 
         <div ref="map" class="full-screen-map h-[90vh]">
             <!-- Filter Option -->
@@ -50,7 +51,7 @@
                                     @on-change="handleProvinceNameChange()">
                                     <Option v-for="item in provOptions" :value="item.value" :key="item.value">{{
                                         item.label
-                                        }}</Option>
+                                    }}</Option>
                                 </Select>
                             </div>
                             <div class="text-black text-blue-800 pl-5">
@@ -69,7 +70,7 @@
                                     placeholder="Select Municipality/City Name" @on-change="handleMuniNameChange()">
                                     <Option v-for="item in muniOptions" :value="item.value" :key="item.value">{{
                                         item.label
-                                        }}</Option>
+                                    }}</Option>
                                 </Select>
                             </div>
                             <div class="text-black text-blue-800 pl-5">
@@ -87,7 +88,7 @@
                                     placeholder="Select Barangay Name" @on-change="handleBrgyNameChange()">
                                     <Option v-for="item in brgyOptions" :value="item.value" :key="item.value">{{
                                         item.label
-                                        }}</Option>
+                                    }}</Option>
                                 </Select>
                             </div>
                             <div class="text-black text-blue-800 pl-5">
@@ -121,11 +122,13 @@
                         <div v-if="resultLoading == false && errorResult == false">
                             <highcharts :options="this.chartOptions"></highcharts>
                             <div class="flex w-full justify-between">
-                                <p class="opacity-75 text-blue-800 cursor-pointer" @click="modalVisibleData = true">Show Raw
+                                <p class="opacity-75 text-blue-800 cursor-pointer" @click="modalVisibleData = true">Show
+                                    Raw
                                     Data</p>
-                                <p class="opacity-75 text-blue-800 cursor-pointer" @click="modalVisibleDownload = true">Request Download</p>
+                                <p class="opacity-75 text-blue-800 cursor-pointer" @click="modalVisibleDownload = true">
+                                    Request Download</p>
                             </div>
-                            
+
                         </div>
                     </div>
                     <div v-if="errorResult" class="">
@@ -204,10 +207,6 @@
 import { defineComponent, ref, nextTick, h } from 'vue';
 // OpenLayers Libraries
 import {
-    HomeOutlined,
-    SettingFilled,
-    SmileOutlined,
-    SyncOutlined,
     LoadingOutlined,
 } from '@ant-design/icons-vue';
 
