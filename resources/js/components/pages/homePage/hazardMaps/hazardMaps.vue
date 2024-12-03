@@ -51,6 +51,7 @@ import LayerGroup from "ol/layer/Group";
 import VectorTileLayer from 'ol/layer/VectorTile'
 import VectorTileSource from 'ol/source/VectorTile'
 import MVT from 'ol/format/MVT'
+import TileWMS from 'ol/source/TileWMS';
 
 
 
@@ -129,7 +130,7 @@ export default defineComponent({
                     url: "https://api.mapbox.com/styles/v1/pcborja/clt6utkbc00g801raamfl71ab/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicGNib3JqYSIsImEiOiJjbG5sZm9weGIxYzg4MmxtbmpqYjd2YXIxIn0.LmH0x1Rn3NDzJdzq3J6Ayg",
                 }),
                 visible: true,
-                title: 'basemap1'
+                title: 'basemap1',
             });
 
             // Define GeoJSON layers
@@ -174,31 +175,58 @@ export default defineComponent({
             //     })
             // });
 
-            const mapboxLayer = new VectorTileLayer({
-                source: new VectorTileSource({
-                    url: `https://api.mapbox.com/v4/pcborja.8nqhny0h/{z}/{x}/{y}.mvt?access_token=pk.eyJ1IjoicGNib3JqYSIsImEiOiJjbG5sZm9weGIxYzg4MmxtbmpqYjd2YXIxIn0.LmH0x1Rn3NDzJdzq3J6Ayg`,
-                    format: new MVT(),
-                    // tileLoadFunction: (tile, src) => {
-                    //     console.log('Tile Loading:', src);
-                    //     fetch(src)
-                    //         .then(response => {
-                    //             if (!response.ok) {
-                    //                 console.error('Tile Load Error:', response.status, response.statusText);
-                    //                 return response.text();
-                    //             }
-                    //             return response.blob();
-                    //         })
-                    //         .then(data => {
-                    //             console.log('Tile Load Response:', data);
-                    //             tile.getImage().src = URL.createObjectURL(data);
-                    //         })
-                    //         .catch(error => {
-                    //             console.error('Tile Load Fetch Error:', error);
-                    //         });
-                    // }
-                }),
-                visible: true,
-                title: 'Mapbox Custom Vector Tileset'
+            // const mapboxLayer = new VectorTileLayer({
+            //     source: new VectorTileSource({
+            //         // url: `https://api.mapbox.com/v4/pcborja.8nqhny0h/{z}/{x}/{y}.mvt?access_token=pk.eyJ1IjoicGNib3JqYSIsImEiOiJjbG5sZm9weGIxYzg4MmxtbmpqYjd2YXIxIn0.LmH0x1Rn3NDzJdzq3J6Ayg`,
+            //         // url: `http://127.0.0.1:5500/{z}/{x}/{y}.pbf`,
+            //         url: 'http://localhost:3650/api/tiles/IlocosNorte_EPR/{z}/{x}/{y}',
+            //         format: new MVT(),
+            //     }),
+            //     visible: true,
+            //     title: 'Mapbox Custom Vector Tileset'
+            // })
+
+            // const mapboxLayer = new VectorTileLayer({
+            //     source: new VectorTileSource({
+            //         url: 'http://localhost:3650/api/tiles/IlocosNorte_EPR/{z}/{x}/{y}',
+            //         // url: `shapefile/PBF/IlocosNorteEPR/{z}/{x}/{y}.pbf`,
+            //         format: new MVT(),
+            //     }),
+            //     visible: true,
+            //     style: (feature) => {
+            //         const Value = feature.get('EPR_trend');
+            //         let propertyValue = Value.replace(/^\S+\s/, '');
+
+            //         const fillColor = propertyValue === 'stable' ? '#407f3e'
+            //             : (propertyValue === 'erosion' ? '#f94449' : '#1260cc');
+            //         const strokeColor = propertyValue === 'stable' ? '#407f3e'
+            //             : (propertyValue === 'erosion' ? '#f94449' : '#1260cc');
+            //         return new Style({
+            //             fill: new Fill({
+            //                 color: fillColor,
+            //             }),
+            //             stroke: new Stroke({
+            //                 color: strokeColor,
+            //                 width: 3,
+            //             }),
+            //         });
+            //     },
+            // })
+
+            // console.log('Layer object:', mapboxLayer);
+
+            // Create the TileLayer with the WMS source
+            const wmsLayer = new TileLayer({
+                source: new TileWMS({
+                    url: 'http://localhost:3655/geoserver/ne/wms',
+                    params: {
+                        'LAYERS': 'ne:Ilocos_Norte_EPR_1977-2022',
+                        'TILED': true,
+                        'FORMAT': 'image/png'
+                    },
+                    serverType: 'geoserver',
+                    transition: 0
+                })
             })
 
             // EPR Region 1
@@ -222,7 +250,7 @@ export default defineComponent({
 
             // Create a group layer
             this.groupLayer = new LayerGroup({
-                layers: [satelliteLayer, this.eprLayer, mapboxLayer],
+                layers: [satelliteLayer, this.eprLayer, wmsLayer],
             });
 
             // Initialize the map
@@ -251,7 +279,37 @@ export default defineComponent({
             // Add a click event to show the popup
             this.map.on("click", (event) => {
                 let featureFound = false;
+
+                const viewResolution = this.map.getView().getResolution();
+                const projection = this.map.getView().getProjection();
+
+                const url = wmsLayer.getSource().getFeatureInfoUrl(
+                    event.coordinate,
+                    viewResolution,
+                    projection,
+                    {
+                        'INFO_FORMAT': 'application/json', // Use JSON for easier parsing
+                        // 'FEATURE_COUNT': 10 // Adjust as needed
+                        'propertyName': 'EPR_trend,EPR'
+                    }
+                );
+                console.log(url);
+                if (url) {
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Feature Info:', data);
+                            // Process the returned features
+                        })
+                        .catch(error => {
+                            console.error('Error fetching feature info:', error);
+                        });
+                }
+
                 this.map.forEachFeatureAtPixel(event.pixel, (feature, layer) => {
+                    console.log(feature.getProperties());
+
+
                     const properties = feature.getProperties();
                     console.log('properties: ', properties);
                     const layerTitle = layer.get('title');
@@ -267,8 +325,8 @@ export default defineComponent({
                     this.data = formattedData;
 
                     overlayTitle.innerHTML = `Layer Name: ` + layerTitle
-
                     let coordinate = event.coordinate;
+                    // let coordinate = event.coordinate;
                     // console.log(properties);
                     this.overlayLayer.setPosition(coordinate);
                     featureFound = true;
