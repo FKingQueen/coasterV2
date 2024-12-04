@@ -213,21 +213,32 @@ export default defineComponent({
             //     },
             // })
 
-            // console.log('Layer object:', mapboxLayer);
 
-            // Create the TileLayer with the WMS source
-            const wmsLayer = new TileLayer({
-                source: new TileWMS({
-                    url: 'http://localhost:3655/geoserver/ne/wms',
-                    params: {
-                        'LAYERS': 'ne:Ilocos_Norte_EPR_1977-2022',
-                        'TILED': true,
-                        'FORMAT': 'image/png'
-                    },
-                    serverType: 'geoserver',
-                    transition: 0
-                })
+            const mvtLayer = new VectorTileLayer({
+                source: new VectorTileSource({
+                    format: new MVT(),
+                    // url: 'http://localhost:3655/geoserver/gwc/service/tms/1.0.0/ne:Ilocos_Norte_EPR_1977-2022@pbf/7/107/57.pbf',
+                    url: 'http://localhost:3655/geoserver/gwc/service/tms/1.0.0/ne:Ilocos_Norte_3857@pbf/{z}/{x}/{y}.pbf',
+                    projection: 'EPSG:3857',
+                }),
+                
+                // Optional: Style your MVT layer
+                style: (feature) => {
+                    // Customize styling based on feature properties
+                    return [
+                        new ol.style.Style({
+                            stroke: new ol.style.Stroke({
+                                color: 'blue',
+                                width: 2
+                            }),
+                            fill: new ol.style.Fill({
+                                color: 'rgba(0, 0, 255, 0.1)'
+                            })
+                        })
+                    ]
+                }
             })
+
 
             // EPR Region 1
             this.eprLayer = new VectorLayer({
@@ -250,7 +261,7 @@ export default defineComponent({
 
             // Create a group layer
             this.groupLayer = new LayerGroup({
-                layers: [satelliteLayer, this.eprLayer, wmsLayer],
+                layers: [satelliteLayer, this.eprLayer, mvtLayer],
             });
 
             // Initialize the map
@@ -279,32 +290,6 @@ export default defineComponent({
             // Add a click event to show the popup
             this.map.on("click", (event) => {
                 let featureFound = false;
-
-                const viewResolution = this.map.getView().getResolution();
-                const projection = this.map.getView().getProjection();
-
-                const url = wmsLayer.getSource().getFeatureInfoUrl(
-                    event.coordinate,
-                    viewResolution,
-                    projection,
-                    {
-                        'INFO_FORMAT': 'application/json', // Use JSON for easier parsing
-                        // 'FEATURE_COUNT': 10 // Adjust as needed
-                        'propertyName': 'EPR_trend,EPR'
-                    }
-                );
-                console.log(url);
-                if (url) {
-                    fetch(url)
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log('Feature Info:', data);
-                            // Process the returned features
-                        })
-                        .catch(error => {
-                            console.error('Error fetching feature info:', error);
-                        });
-                }
 
                 this.map.forEachFeatureAtPixel(event.pixel, (feature, layer) => {
                     console.log(feature.getProperties());

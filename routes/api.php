@@ -16,6 +16,7 @@ use App\Http\Controllers\Home\HomeMonitoringSystemController;
 use App\Http\Controllers\Home\MapController;  
 use App\Http\Controllers\Home\HomeDownloadController;  
 use App\Http\Controllers\Home\HomeStationController;  
+use App\Http\Controllers\Home\GeoServerController;  
 use App\Http\Controllers\IOT\DeviceApiController;  
 
 
@@ -109,3 +110,7 @@ Route::post('/storeDownload', [HomeDownloadController::class, 'storeDownload']);
 
 // Test API
 Route::get('/getMsg', [StorageController::class, 'getMsg']);
+
+// GeoServer
+Route::post('/getGeoserverData', [GeoServerController::class, 'getGeoserverData']);
+Route::get('/mvt/{z}/{x}/{y}.pbf', [GeoServerController::class, 'proxyMVT']);
