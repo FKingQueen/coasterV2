@@ -214,29 +214,31 @@ export default defineComponent({
             // })
 
 
-            const mvtLayer = new VectorTileLayer({
+            const mapboxLayer = new VectorTileLayer({
                 source: new VectorTileSource({
+                    // url: 'http://localhost:3650/api/tiles/IlocosNorte_EPR/{z}/{x}/{y}',
+                    // url: `shapefile/PBF/IlocosNorteEPR/{z}/{x}/{y}.pbf`,
+                    url: `http://localhost:8080/data/IN_EPR/{z}/{x}/{y}.pbf`,
                     format: new MVT(),
-                    // url: 'http://localhost:3655/geoserver/gwc/service/tms/1.0.0/ne:Ilocos_Norte_EPR_1977-2022@pbf/7/107/57.pbf',
-                    url: 'http://localhost:3655/geoserver/gwc/service/tms/1.0.0/ne:Ilocos_Norte_3857@pbf/{z}/{x}/{y}.pbf',
-                    projection: 'EPSG:3857',
                 }),
-                
-                // Optional: Style your MVT layer
+                visible: true,
                 style: (feature) => {
-                    // Customize styling based on feature properties
-                    return [
-                        new ol.style.Style({
-                            stroke: new ol.style.Stroke({
-                                color: 'blue',
-                                width: 2
-                            }),
-                            fill: new ol.style.Fill({
-                                color: 'rgba(0, 0, 255, 0.1)'
-                            })
-                        })
-                    ]
-                }
+                    let propertyValue = feature.get('EPR_trend');
+
+                    const fillColor = propertyValue === 'stable' ? '#407f3e'
+                        : (propertyValue === 'erosion' ? '#f94449' : '#1260cc');
+                    const strokeColor = propertyValue === 'stable' ? '#407f3e'
+                        : (propertyValue === 'erosion' ? '#f94449' : '#1260cc');
+                    return new Style({
+                        fill: new Fill({
+                            color: fillColor,
+                        }),
+                        stroke: new Stroke({
+                            color: strokeColor,
+                            width: 3,
+                        }),
+                    });
+                },
             })
 
 
@@ -261,7 +263,7 @@ export default defineComponent({
 
             // Create a group layer
             this.groupLayer = new LayerGroup({
-                layers: [satelliteLayer, this.eprLayer, mvtLayer],
+                layers: [satelliteLayer, this.eprLayer, mapboxLayer],
             });
 
             // Initialize the map
