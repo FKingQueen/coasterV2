@@ -1,13 +1,46 @@
 <template>
 
     <div class="w-full flex">
-        <a-checkbox-group
-            v-model:value="checkedValues"
-            @change="onCheck()"
-            :options="plainOptions"
-            class="vertical-checkbox-group space-y-2"
-        />
-        <div ref="map" class="full-screen-map w-full"></div>
+        <div ref="map" class="full-screen-map w-full">
+            <div class="filter-option w-[500px]">
+                <div class="text-sm bg-white px-2 py-2 space-y-3 ">
+                    <div class="tracking-wide blur-none leading-loose">
+                        <p class="bg-[#ffb703] py-1 px-2">
+                            Layer Selection
+                        </p>
+
+                    </div>
+                    <!-- Layer Name -->
+                    <div class="h-48 overflow-auto space-y-2">
+                        <div class="flex items-center space-x-1 cursor-pointer" v-for="option in Options.slice(1)"
+                            @click="addToLayer(option)">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="size-5">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+
+                            <p class="hover:underline w-full">
+                                {{ option.title }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white px-2 py-2">
+                    <p class="bg-[#ffb703] py-1 px-2">Layers</p>
+                    <div class="h-48 overflow-auto">
+                        <div class="w-full flex items-center justify-between px-5" v-for="addedLayer in addedLayers">
+                            <a-checkbox  @change="(value) => onChangeCheckBox(addedLayer.visibility, addedLayer.title)" v-model:checked="addedLayer.visibility">{{ addedLayer.title }}</a-checkbox>
+                            <a-slider v-model:value="addedLayer.opacity"
+                                @change="(value) => onChangeOpacity(value, addedLayer.title)" :step="10" class="w-1/4"
+                                :tip-formatter="formatter" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Filter Option -->
+
+        </div>
         <div class="overlay-container p-1" id="popup">
             <span id="feature-additional-info"></span>
             <div class="flex justify-between w-full items-center">
@@ -15,12 +48,7 @@
                 <button @click="closePopup()" class="capitalize">x</button>
             </div>
             <div class="flex justify-center">
-                <Table
-                    height="200"
-                    :columns="columns"
-                    :data="data"
-                    class="w-full"
-                ></Table>
+                <Table height="250" :columns="columns" :data="data" class="w-full"></Table>
             </div>
         </div>
     </div>
@@ -59,25 +87,12 @@ import VectorTileLayer from "ol/layer/VectorTile";
 import VectorTileSource from "ol/source/VectorTile";
 import MVT from "ol/format/MVT";
 import TileWMS from "ol/source/TileWMS";
+import { transformExtent } from 'ol/proj';
+import { get as getProjection } from 'ol/proj'
 
 export default defineComponent({
     components: {
         DataTable,
-    },
-    setup() {
-        const visible = ref(false);
-        const plainOptions = [
-            "End point Rate (m/yr) of Region 1, Philippines",
-            "Net shorline movement (m) of Region 1, Philippines",
-        ];
-
-        const checkedValues = ref([]);
-        return {
-            visible,
-            popup: null,
-            plainOptions,
-            checkedValues,
-        };
     },
     data() {
         return {
@@ -96,184 +111,286 @@ export default defineComponent({
             nsmLayer: null,
             eprLayer: null,
             groupLayer: null,
+            Options: [],
+            addedLayers: [],
+            opacityLevel: ref(100)
         };
     },
     async mounted() {
         this.initializeMap();
     },
     methods: {
-        onCheck() {
-            // console.log(this.checkedValues);
-            // console.log(this.nsmLayer.get('title') );
-            // console.log(this.groupLayer);
-            const layers = this.groupLayer.getLayers();
+        onChangeCheckBox (value, layerTitle) {
 
-            // Convert layers to an array if it's not already
-            const layersArray = layers.getArray();
+            // Find the layer by title and set its opacity
+            const layers = this.map.getLayers().getArray();
+            const layer = layers.find((layer) => layer.get('title') === layerTitle);
+             if (layer) {
+                layer.setVisible(value);
+            }
+        },
+        onChangeOpacity(value, layerTitle) {
 
-            // Iterate through layers
-            layersArray.forEach((layer) => {
-                // Get the layer's title
-                const layerTitle = layer.get("title");
-                // Check if the layer's title is in the checked values
-                if (layerTitle != "basemap1") {
-                    const isVisible = this.checkedValues.includes(layerTitle);
-                    // Set layer visibility
-                    layer.setVisible(isVisible);
+            // Find the layer by title and set its opacity
+            const layers = this.map.getLayers().getArray();
+            const layer = layers.find((layer) => layer.get('title') === layerTitle);
+
+            if (layer) {
+                const opacity = value / 100; // Convert slider value to a range of 0 to 1
+                layer.setOpacity(opacity);
+            }
+        },
+        formatter(value) {
+            return `${value}%`; // Format the tooltip display
+        },
+        addToLayer(option) {
+            const exists = this.addedLayers.find(layer => layer.id === option.id || layer.title === option.title);
+            if (!exists) {
+                this.addedLayers.push(option);
+
+                const layers = this.map.getLayers().getArray();
+                const layer = layers.find(l => l.get('title') === option.title);
+                if (layer) {
+                    layer.setVisible(true);
+
+                    const extent = layer.getExtent ? layer.getExtent() : null;
+
+                    if (extent) {
+                        this.map.getView().fit(extent, { duration: 1000 });
+                    }
                 }
-            });
+            } else {
+                console.log('Layer already exists');
+            }
+        },
+        handleClickFeature(coordinate, viewResolution) {
+
+            const visibleWmsLayers = this.groupLayer.getLayers().getArray()
+                .filter(layer =>
+                    layer.getVisible() &&
+                    layer.getSource() instanceof TileWMS
+                )
+
+            const overlayTitle = document.getElementById("layerTitle");
+
+            for (let layer of visibleWmsLayers) {
+                try {
+                    const url = layer.getSource().getFeatureInfoUrl(
+                        coordinate,
+                        viewResolution,
+                        this.map.getView().getProjection(),
+                        {
+                            'INFO_FORMAT': 'application/json',
+                            'FEATURE_COUNT': 10
+                        }
+                    )
+
+                    if (url) {
+
+                        axios.get(url)
+                            .then(response => {
+                                // console.log(response.data.features.length);
+                                // for (let i = 0; i < response.data.features.length; i++) {
+                                //     console.log(response.data.features[i].properties); // Access the response data
+                                // }
+                                // console.log(response.data.features.properties); // Access the response data
+
+                                this.data = Object.entries(response.data.features[response.data.features.length - 1].properties)
+                                    .map(([key, value]) => ({
+                                        attribute: key,
+                                        value: value,
+                                    }));
+
+                                const title = response.data.features[response.data.features.length - 1].id;
+                                overlayTitle.innerHTML = `Layer Name: ` + title.replace(/\.[^.\s]+/, "");
+
+                                this.overlayLayer.setPosition(coordinate);
+
+                                this.map.getView().animate({
+                                    center: coordinate,
+                                    duration: 500, // Optional: smooth animation duration
+                                });
+                            })
+                            .catch(error => {
+                                console.error('Error fetching data:', error);
+                            });
+
+                    }
+                } catch (error) {
+                }
+            }
         },
         initializeMap() {
-            // Define the tile layers
-            // mapbox://styles/pcborja/clt6v3fh3003d01r58rcg2h8p
-            // mapbox://styles/pcborja/clt6utkbc00g801raamfl71ab
-            // mapbox://styles/pcborja/clt6utkbc00g801raamfl71ab
             const basemap1 = new TileLayer({
                 source: new XYZ({
-                    url: "https://api.mapbox.com/styles/v1/pcborja/clt6utkbc00g801raamfl71ab/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicGNib3JqYSIsImEiOiJjbG5sZm9weGIxYzg4MmxtbmpqYjd2YXIxIn0.LmH0x1Rn3NDzJdzq3J6Ayg",
+                    url: "https://api.mapbox.com/styles/v1/pcborja/cm4gd7ukq002c01rf9l0z2qb6/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicGNib3JqYSIsImEiOiJjbG5sZm9weGIxYzg4MmxtbmpqYjd2YXIxIn0.LmH0x1Rn3NDzJdzq3J6Ayg",
                 }),
                 visible: true,
                 title: "basemap1",
             });
 
-            // Define GeoJSON layers
-            // NSM Region 1
-            // this.nsmLayer = new VectorLayer({
-            //     source: new VectorSource({
-            //         url: "/shapefile/Region1_NSM.geojson",
-            //         format: new GeoJSON(),
-            //     }),
-            //     style: new Style({
-            //         stroke: new Stroke({
-            //             color: "green",
-            //             width: 2,
-            //         }),
-            //         fill: new Fill({
-            //             color: "rgba(0, 255, 0, 0.1)",
-            //         }),
-            //     }),
-            //     visible: false,
-            //     title: 'Net shorline movement (m) of Region 1, Philippines'
-            // });\
-
-            // mapbox://styles/pcborja/clt6utkbc00g801raamfl71ab
-            // pcborja.a5uw2fn2
-
-            // this.nsmLayer = new TileLayer({
-            //     source: new XYZ({
-            //         url: "https://studio.mapbox.com/tilesets/pcborja.a5uw2fn2",
-            //     }),
-            //     visible: true,
-            //     title: 'basemap1'
-            // });
-
-            // new TileLayer({
-            //     source: new XYZ({
-            //         url: 'https://api.mapbox.com/styles/v1/pcborja.a5uw2fn2/tiles/{z}/{x}/{y}?access_token=sk.eyJ1IjoicGNib3JqYSIsImEiOiJjbTQzdDExa2swZTlzMmxxd2MwNGh2dGQ3In0._gs5QpMmULskjPvReidlUA',
-            //         tileSize: 512,
-            //         maxZoom: 18,
-            //         visible: true,
-
-            //     })
-            // });
-
-            // const mapboxLayer = new VectorTileLayer({
-            //     source: new VectorTileSource({
-            //         // url: `https://api.mapbox.com/v4/pcborja.8nqhny0h/{z}/{x}/{y}.mvt?access_token=pk.eyJ1IjoicGNib3JqYSIsImEiOiJjbG5sZm9weGIxYzg4MmxtbmpqYjd2YXIxIn0.LmH0x1Rn3NDzJdzq3J6Ayg`,
-            //         // url: `http://127.0.0.1:5500/{z}/{x}/{y}.pbf`,
-            //         url: 'http://localhost:3650/api/tiles/IlocosNorte_EPR/{z}/{x}/{y}',
-            //         format: new MVT(),
-            //     }),
-            //     visible: true,
-            //     title: 'Mapbox Custom Vector Tileset'
-            // })
-
-            // const mapboxLayer = new VectorTileLayer({
-            //     source: new VectorTileSource({
-            //         url: 'http://localhost:3650/api/tiles/IlocosNorte_EPR/{z}/{x}/{y}',
-            //         // url: `shapefile/PBF/IlocosNorteEPR/{z}/{x}/{y}.pbf`,
-            //         format: new MVT(),
-            //     }),
-            //     visible: true,
-            //     style: (feature) => {
-            //         const Value = feature.get('EPR_trend');
-            //         let propertyValue = Value.replace(/^\S+\s/, '');
-
-            //         const fillColor = propertyValue === 'stable' ? '#407f3e'
-            //             : (propertyValue === 'erosion' ? '#f94449' : '#1260cc');
-            //         const strokeColor = propertyValue === 'stable' ? '#407f3e'
-            //             : (propertyValue === 'erosion' ? '#f94449' : '#1260cc');
-            //         return new Style({
-            //             fill: new Fill({
-            //                 color: fillColor,
-            //             }),
-            //             stroke: new Stroke({
-            //                 color: strokeColor,
-            //                 width: 3,
-            //             }),
-            //         });
-            //     },
-            // })
-
-            const mapboxLayer = new VectorTileLayer({
-                source: new VectorTileSource({
-                    // url: 'http://localhost:3650/api/tiles/IlocosNorte_EPR/{z}/{x}/{y}',
-                    // url: `shapefile/PBF/IlocosNorteEPR/{z}/{x}/{y}.pbf`,
-                    url: `http://localhost:3650/api/tiles/100yrs/{z}/{x}/{y}`,
-                    format: new MVT(),
-                }),
-                visible: true,
-                style: (feature) => {
-
-                    let propertyValue = feature.get("6D0DB100 ");
-
-                    const fillColor =
-                        propertyValue === "Low"
-                            ? "#FFFF00"
-                            : propertyValue === "Medium"
-                            ? "#FFA500"
-                            : "#FF0000";
-                    const strokeColor =
-                        propertyValue === "Low"
-                            ? "#FFFF00"
-                            : propertyValue === "Medium"
-                            ? "#FFA500"
-                            : "#FF0000";
-                    return new Style({
-                        fill: new Fill({
-                            color: fillColor,
-                        }),
-                        stroke: new Stroke({
-                            color: strokeColor,
-                            width: 3,
-                        }),
-                    });
-                },
-            });
-
-            // EPR Region 1
-            this.eprLayer = new VectorLayer({
-                source: new VectorSource({
-                    url: "/shapefile/Region1_EPR.geojson",
-                    format: new GeoJSON(),
-                }),
-                style: new Style({
-                    stroke: new Stroke({
-                        color: "green",
-                        width: 2,
-                    }),
-                    fill: new Fill({
-                        color: "rgba(0, 255, 0, 0.1)",
-                    }),
+            const padsanRiver100Yrs = new TileLayer({
+                source: new TileWMS({
+                    url: 'http://localhost:3655/geoserver/ne/wms',
+                    params: {
+                        'LAYERS': 'ne:Padsan River 100 yrs',
+                        'TILED': true,
+                        'FORMAT': 'image/png',
+                        'SRS': 'EPSG:32651'
+                    },
+                    serverType: 'geoserver'
                 }),
                 visible: false,
-                title: "End point Rate (m/yr) of Region 1, Philippines",
-            });
+                title: 'Padsan River 100yrs',
+                extent: transformExtent([120.51769320066239, 18.179295968103457, 120.59307783662878, 18.20989103880793], 'EPSG:4326', 'EPSG:3857')
+            })
+
+
+            const ilocos_Norte_EPR_1977_2022 = new TileLayer({
+                source: new TileWMS({
+                    url: 'http://localhost:3655/geoserver/ne/wms',
+                    params: {
+                        'LAYERS': 'ne:Ilocos_Norte_EPR_1977_2022',
+                        'TILED': true,
+                        'FORMAT': 'image/png',
+                        'SRS': 'EPSG:32651'
+                    },
+                    serverType: 'geoserver'
+                }),
+                visible: false,
+                title: 'Ilocos Norte EPR 1977-2022',
+                extent: transformExtent([120.41818359729491, 17.90143379782558, 120.9716765175055, 18.652416013413312], 'EPSG:4326', 'EPSG:3857')
+            })
+
+            const ilocos_Norte_NSM_1977_2022 = new TileLayer({
+                source: new TileWMS({
+                    url: 'http://localhost:3655/geoserver/ne/wms',
+                    params: {
+                        'LAYERS': 'ne:Ilocos_Norte_NSM_1977_2022',
+                        'TILED': true,
+                        'FORMAT': 'image/png',
+                        'SRS': 'EPSG:32651'
+                    },
+                    serverType: 'geoserver'
+                }),
+                visible: false,
+                title: 'Ilocos Norte NSM 1977-2022',
+                extent: transformExtent([120.41818359729491, 17.90143379782558, 120.9716765175055, 18.652416013413312], 'EPSG:4326', 'EPSG:3857')
+            })
+
+            const ilocos_Sur_EPR_1977_2022 = new TileLayer({
+                source: new TileWMS({
+                    url: 'http://localhost:3655/geoserver/ne/wms',
+                    params: {
+                        'LAYERS': 'ne:Ilocos_Sur_EPR_1977_2022',
+                        'TILED': true,
+                        'FORMAT': 'image/png',
+                        'SRS': 'EPSG:32651'
+                    },
+                    serverType: 'geoserver'
+                }),
+                visible: false,
+                title: 'Ilocos Sur EPR 1977-2022',
+                extent: transformExtent([120.33311300640369, 16.92223405502681, 120.47011946679432, 17.902835762517046], 'EPSG:4326', 'EPSG:3857')
+            })
+
+            const ilocos_Sur_NSM_1977_2022 = new TileLayer({
+                source: new TileWMS({
+                    url: 'http://localhost:3655/geoserver/ne/wms',
+                    params: {
+                        'LAYERS': 'ne:Ilocos_Sur_NSM_1977_2022',
+                        'TILED': true,
+                        'FORMAT': 'image/png',
+                        'SRS': 'EPSG:32651'
+                    },
+                    serverType: 'geoserver'
+                }),
+                visible: false,
+                title: 'Ilocos Sur NSM 1977-2022',
+                extent: transformExtent([120.33311300640369, 16.92223405502681, 120.47011946679432, 17.902835762517046], 'EPSG:4326', 'EPSG:3857')
+            })
+
+            const la_Union_EPR_1977_2022 = new TileLayer({
+                source: new TileWMS({
+                    url: 'http://localhost:3655/geoserver/ne/wms',
+                    params: {
+                        'LAYERS': 'ne:La_Union_EPR_1977_2022',
+                        'TILED': true,
+                        'FORMAT': 'image/png',
+                        'SRS': 'EPSG:32651'
+                    },
+                    serverType: 'geoserver'
+                }),
+                visible: false,
+                title: 'La Union EPR 1977-2022',
+                extent: transformExtent([120.27361207663644, 16.206629015536805, 120.41852212717214, 16.9171909257348], 'EPSG:4326', 'EPSG:3857')
+            })
+
+            const la_Union_NSM_1977_2022 = new TileLayer({
+                source: new TileWMS({
+                    url: 'http://localhost:3655/geoserver/ne/wms',
+                    params: {
+                        'LAYERS': 'ne:La_Union_NSM_1977_2022',
+                        'TILED': true,
+                        'FORMAT': 'image/png',
+                        'SRS': 'EPSG:32651'
+                    },
+                    serverType: 'geoserver'
+                }),
+                visible: false,
+                title: 'La Union NSM 1977-2022',
+                extent: transformExtent([120.27361207663644, 16.206629015536805, 120.41852212717214, 16.9171909257348], 'EPSG:4326', 'EPSG:3857')
+            })
+
+            const pangasinan_EPR_1977_2022 = new TileLayer({
+                source: new TileWMS({
+                    url: 'http://localhost:3655/geoserver/ne/wms',
+                    params: {
+                        'LAYERS': 'ne:Pangasinan_EPR_1977_2022',
+                        'TILED': true,
+                        'FORMAT': 'image/png',
+                        'SRS': 'EPSG:32651'
+                    },
+                    serverType: 'geoserver'
+                }),
+                visible: false,
+                title: 'Pangasinan Union EPR 1977-2022',
+                extent: transformExtent([119.74269731224621, 15.81182175139877, 120.43011115764864, 16.399918522447717], 'EPSG:4326', 'EPSG:3857')
+            })
+
+
+            const pangasinan_NSM_1977_2022 = new TileLayer({
+                source: new TileWMS({
+                    url: 'http://localhost:3655/geoserver/ne/wms',
+                    params: {
+                        'LAYERS': 'ne:Pangasinan_NSM_1977_2022',
+                        'TILED': true,
+                        'FORMAT': 'image/png',
+                        'SRS': 'EPSG:32651'
+                    },
+                    serverType: 'geoserver'
+                }),
+                visible: false,
+                title: 'Pangasinan Union NSM 1977-2022',
+                extent: transformExtent([119.74269731224621, 15.81182175139877, 120.43011115764864, 16.399918522447717], 'EPSG:4326', 'EPSG:3857')
+            })
+
 
             // Create a group layer
             this.groupLayer = new LayerGroup({
-                layers: [basemap1, mapboxLayer],
+                layers: [basemap1, padsanRiver100Yrs, ilocos_Norte_EPR_1977_2022, ilocos_Norte_NSM_1977_2022, ilocos_Sur_EPR_1977_2022, ilocos_Sur_NSM_1977_2022, la_Union_EPR_1977_2022, la_Union_NSM_1977_2022, pangasinan_EPR_1977_2022, pangasinan_NSM_1977_2022],
             });
+
+            this.Options = this.groupLayer.getLayers().getArray().map((layer, index) => {
+                return {
+                    id: index,  // Generate an id using the index or create a unique id as needed
+                    title: layer.get('title'),
+                    opacity: this.opacityLevel,
+                    visibility: true,
+                };
+            });
+
+            // console.log(this.Options);
 
             // Initialize the map
             this.map = new Map({
@@ -296,44 +413,48 @@ export default defineComponent({
 
             this.map.addOverlay(this.overlayLayer);
 
-            const overlayTitle = document.getElementById("layerTitle");
+
 
             // Add a click event to show the popup
             this.map.on("click", (event) => {
                 let featureFound = false;
 
-                this.map.forEachFeatureAtPixel(
-                    event.pixel,
-                    (feature, layer) => {
-                        console.log(feature.getProperties());
+                // Coordinate where the user clicked
+                const coordinate = event.coordinate;
 
-                        const properties = feature.getProperties();
-                        console.log("properties: ", properties);
-                        const layerTitle = layer.get("title");
+                // Construct GetFeatureInfo request
+                const viewResolution = this.map.getView().getResolution();
 
-                        const formattedData = Object.entries(properties)
-                            .filter(([key]) => key !== "geometry") // Exclude geometry
-                            .map(([key, value]) => ({
-                                attribute: key,
-                                value: value,
-                            }));
+                this.handleClickFeature(coordinate, viewResolution)
 
-                        // Populate the data array
-                        this.data = formattedData;
 
-                        overlayTitle.innerHTML = `Layer Name: ` + layerTitle;
-                        let coordinate = event.coordinate;
-                        // let coordinate = event.coordinate;
-                        // console.log(properties);
-                        this.overlayLayer.setPosition(coordinate);
-                        featureFound = true;
+                // this.map.forEachFeatureAtPixel(
+                //     event.pixel,
+                //     (feature, layer) => {
+                //         console.log(feature.getProperties());
 
-                        this.map.getView().animate({
-                            center: coordinate,
-                            duration: 500, // Optional: smooth animation duration
-                        });
-                    }
-                );
+                //         const properties = feature.getProperties();
+                //         console.log("properties: ", properties);
+                //         const layerTitle = layer.get("title");
+
+                //         this.data = Object.entries(properties)
+                //             .filter(([key]) => key !== "geometry") // Exclude geometry
+                //             .map(([key, value]) => ({
+                //                 attribute: key,
+                //                 value: value,
+                //             }));
+
+                //         overlayTitle.innerHTML = `Layer Name: ` + layerTitle;
+                //         let coordinate = event.coordinate;
+                //         this.overlayLayer.setPosition(coordinate);
+                //         featureFound = true;
+
+                //         this.map.getView().animate({
+                //             center: coordinate,
+                //             duration: 500, // Optional: smooth animation duration
+                //         });
+                //     }
+                // );
 
                 // Hide the popup if no feature was found
                 if (!featureFound) {
@@ -354,6 +475,13 @@ export default defineComponent({
 .full-screen-map {
     position: relative;
     width: 100%;
+}
+
+.filter-option {
+    z-index: 10;
+    position: absolute;
+    top: 5px;
+    left: 0px;
 }
 
 .overlay-container {
