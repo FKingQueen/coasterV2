@@ -301,7 +301,7 @@ export default defineComponent({
             const padsanRiver100Yrs = new TileLayer({
             
                 source: new TileWMS({
-                    url: 'http://10.10.56.6:3655/geoserver/ne/wms',
+                    url: 'http://10.10.56.5:3655/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:Padsan River 100 yrs',
                         'TILED': true,
@@ -318,7 +318,7 @@ export default defineComponent({
 
             const ilocos_Norte_EPR_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'http://10.10.56.6:3655/geoserver/ne/wms',
+                    url: 'http://10.10.56.5:3655/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:Ilocos_Norte_EPR_1977_2022',
                         'TILED': true,
@@ -334,7 +334,7 @@ export default defineComponent({
 
             const ilocos_Norte_NSM_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'http://10.10.56.6:3655/geoserver/ne/wms',
+                    url: 'http://10.10.56.5:3655/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:Ilocos_Norte_NSM_1977_2022',
                         'TILED': true,
@@ -350,7 +350,7 @@ export default defineComponent({
 
             const ilocos_Sur_EPR_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'http://10.10.56.6:3655/geoserver/ne/wms',
+                    url: 'http://10.10.56.5:3655/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:Ilocos_Sur_EPR_1977_2022',
                         'TILED': true,
@@ -366,7 +366,7 @@ export default defineComponent({
 
             const ilocos_Sur_NSM_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'http://10.10.56.6:3655/geoserver/ne/wms',
+                    url: 'http://10.10.56.5:3655/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:Ilocos_Sur_NSM_1977_2022',
                         'TILED': true,
@@ -382,7 +382,7 @@ export default defineComponent({
 
             const la_Union_EPR_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'http://10.10.56.6:3655/geoserver/ne/wms',
+                    url: 'http://10.10.56.5:3655/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:La_Union_EPR_1977_2022',
                         'TILED': true,
@@ -398,7 +398,7 @@ export default defineComponent({
 
             const la_Union_NSM_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'http://10.10.56.6:3655/geoserver/ne/wms',
+                    url: 'http://10.10.56.5:3655/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:La_Union_NSM_1977_2022',
                         'TILED': true,
@@ -414,7 +414,7 @@ export default defineComponent({
 
             const pangasinan_EPR_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'http://10.10.56.6:3655/geoserver/ne/wms',
+                    url: 'http://10.10.56.5:3655/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:Pangasinan_EPR_1977_2022',
                         'TILED': true,
@@ -431,7 +431,7 @@ export default defineComponent({
 
             const pangasinan_NSM_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'http://10.10.56.6:3655/geoserver/ne/wms',
+                    url: 'http://10.10.56.5:3655/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:Pangasinan_NSM_1977_2022',
                         'TILED': true,
