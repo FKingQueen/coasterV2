@@ -298,8 +298,10 @@ export default defineComponent({
                 visible: true,
                 title: "basemap1",
             });
+
+            // http://10.10.56.5:3655/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
+            // http://10.10.56.5:3655/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
             const padsanRiver100Yrs = new TileLayer({
-            
                 source: new TileWMS({
                     url: 'http://10.10.56.5:3655/geoserver/ne/wms',
                     params: {

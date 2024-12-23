@@ -535,13 +535,13 @@ export default defineComponent({
         },
         showFooter() {
             // Return true if the route is not "/hazardmaps"
-            if(this.$route.path !== "/hazardmaps"){
+            if(this.$route.path == "/hazardmaps"){
                 return false;
             }
-            if(this.$route.path !== "/coastalfloodadvisory"){
+            if(this.$route.path == "/coastalfloodadvisory"){
                 return false;
             }
-            
+            return true;
         }
     }
 });
