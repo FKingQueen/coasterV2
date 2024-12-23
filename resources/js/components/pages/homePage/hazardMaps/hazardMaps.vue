@@ -2,50 +2,105 @@
 
     <div class="w-full flex">
         <div ref="map" class="full-screen-map w-full">
-            <div class="filter-option w-[500px]">
-                <div class="text-sm bg-white px-2 py-2 space-y-3 ">
-                    <div class="tracking-wide blur-none leading-loose">
-                        <p class="bg-[#ffb703] py-1 px-2">
-                            Layer Selection
-                        </p>
-
-                    </div>
-                    <!-- Layer Name -->
-                    <div class="h-48 overflow-auto space-y-2">
-                        <div class="flex items-center space-x-1 cursor-pointer" v-for="option in Options.slice(1)"
-                            @click="addToLayer(option)">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="size-5">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                            </svg>
-
-                            <p class="hover:underline w-full">
-                                {{ option.title }}
+            <div class="filter-option w-[400px] flex">
+                <div v-if="isTabVisible" class="w-full">
+                    <div class="text-sm bg-white space-y-3 ">
+                        <div class="bg-[#ffb703] tracking-wide blur-none leading-loose">
+                            <p class=" py-1 px-2">
+                                Layer Selection
                             </p>
+                        </div>
+                        <!-- Layer Name -->
+                        <div class="h-48 overflow-auto space-y-2 px-2 space-y-1">
+                            <div class="flex items-center space-x-1 cursor-pointer hover:bg-slate-50 py-1"
+                                v-for="option in Options.slice(1)" @click="addToLayer(option)">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                </svg>
+
+                                <p class="hover:underline w-full">
+                                    {{ option.title }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white py-2">
+                        <div class="bg-[#ffb703] tracking-wide blur-none leading-loose">
+                            <p class=" py-1 px-2">
+                                Layers
+                            </p>
+                        </div>
+                        <div class="h-72 overflow-auto space-y-1  px-2">
+                            <div class="w-full flex items-center justify-between py-1 hover:bg-slate-50"
+                                v-for="addedLayer in addedLayers">
+                                <a-checkbox
+                                    @change="(value) => onChangeCheckBox(addedLayer.visibility, addedLayer.title)"
+                                    v-model:checked="addedLayer.visibility">{{ addedLayer.title }}</a-checkbox>
+
+                                <div class="w-2/6 flex items-center space-x-2">
+                                    <a-slider v-model:value="addedLayer.opacity"
+                                        @change="(value) => onChangeOpacity(value, addedLayer.title)" :step="10"
+                                        :tip-formatter="formatter" class="w-4/5" />
+                                    <span class="border cursor-pointer"
+                                        @click="removeLayer(addedLayer.id, addedLayer.title)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M6 18 18 6M6 6l12 12" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="bg-white px-2 py-2">
-                    <p class="bg-[#ffb703] py-1 px-2">Layers</p>
-                    <div class="h-48 overflow-auto">
-                        <div class="w-full flex items-center justify-between px-5" v-for="addedLayer in addedLayers">
-                            <a-checkbox  @change="(value) => onChangeCheckBox(addedLayer.visibility, addedLayer.title)" v-model:checked="addedLayer.visibility">{{ addedLayer.title }}</a-checkbox>
-                            <a-slider v-model:value="addedLayer.opacity"
-                                @change="(value) => onChangeOpacity(value, addedLayer.title)" :step="10" class="w-1/4"
-                                :tip-formatter="formatter" />
-                        </div>
+                <div>
+                    <div @click="minimize()" class="bg-white border-y border-r py-4 cursor-pointer hover:bg-slate-50">
+                        <svg v-if="isTabVisible" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5" />
+                        </svg>
+                        <svg v-if="!isTabVisible" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
+                        </svg>
+
                     </div>
                 </div>
             </div>
             <!-- /Filter Option -->
-
+            <div class="navButtons space-y-3">
+                <div class="bg-[#ffb703] p-1 cursor-pointer opacity-85 hover:opacity-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                    </svg>
+                </div>
+                <div class="bg-[#ffb703] p-1 cursor-pointer opacity-85 hover:opacity-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25" />
+                    </svg>
+                </div>
+                <div class="bg-[#ffb703] p-1 cursor-pointer opacity-85 hover:opacity-50 text-center">
+                    <p class="text-bold">XY</p>
+                </div>
+            </div>
         </div>
         <div class="overlay-container p-1" id="popup">
             <span id="feature-additional-info"></span>
             <div class="flex justify-between w-full items-center">
                 <p class="capitalize" id="layerTitle"></p>
-                <button @click="closePopup()" class="capitalize">x</button>
+                <button @click="closePopup()" class="capitalize"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg></button>
             </div>
             <div class="flex justify-center">
                 <Table height="250" :columns="columns" :data="data" class="w-full"></Table>
@@ -113,19 +168,32 @@ export default defineComponent({
             groupLayer: null,
             Options: [],
             addedLayers: [],
-            opacityLevel: ref(100)
+            opacityLevel: ref(100),
+            isTabVisible: true,
         };
     },
     async mounted() {
         this.initializeMap();
     },
     methods: {
-        onChangeCheckBox (value, layerTitle) {
+        minimize() {
+            this.isTabVisible = !this.isTabVisible;
+        },
+        removeLayer(id, layerTitle) {
+            this.addedLayers = this.addedLayers.filter(item => item.id !== id);
+
+            const layers = this.map.getLayers().getArray();
+            const layer = layers.find((layer) => layer.get('title') === layerTitle);
+            if (layer) {
+                layer.setVisible(false);
+            }
+        },
+        onChangeCheckBox(value, layerTitle) {
 
             // Find the layer by title and set its opacity
             const layers = this.map.getLayers().getArray();
             const layer = layers.find((layer) => layer.get('title') === layerTitle);
-             if (layer) {
+            if (layer) {
                 layer.setVisible(value);
             }
         },
@@ -144,6 +212,7 @@ export default defineComponent({
             return `${value}%`; // Format the tooltip display
         },
         addToLayer(option) {
+            this.overlayLayer.setPosition(undefined);
             const exists = this.addedLayers.find(layer => layer.id === option.id || layer.title === option.title);
             if (!exists) {
                 this.addedLayers.push(option);
@@ -159,8 +228,6 @@ export default defineComponent({
                         this.map.getView().fit(extent, { duration: 1000 });
                     }
                 }
-            } else {
-                console.log('Layer already exists');
             }
         },
         handleClickFeature(coordinate, viewResolution) {
@@ -220,6 +287,9 @@ export default defineComponent({
                 }
             }
         },
+        onMouseDrag() {
+            this.overlayLayer.setPosition(undefined);
+        },
         initializeMap() {
             const basemap1 = new TileLayer({
                 source: new XYZ({
@@ -228,10 +298,10 @@ export default defineComponent({
                 visible: true,
                 title: "basemap1",
             });
-
             const padsanRiver100Yrs = new TileLayer({
+            
                 source: new TileWMS({
-                    url: 'http://localhost:3655/geoserver/ne/wms',
+                    url: 'http://10.10.56.6:3655/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:Padsan River 100 yrs',
                         'TILED': true,
@@ -248,7 +318,7 @@ export default defineComponent({
 
             const ilocos_Norte_EPR_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'http://localhost:3655/geoserver/ne/wms',
+                    url: 'http://10.10.56.6:3655/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:Ilocos_Norte_EPR_1977_2022',
                         'TILED': true,
@@ -264,7 +334,7 @@ export default defineComponent({
 
             const ilocos_Norte_NSM_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'http://localhost:3655/geoserver/ne/wms',
+                    url: 'http://10.10.56.6:3655/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:Ilocos_Norte_NSM_1977_2022',
                         'TILED': true,
@@ -280,7 +350,7 @@ export default defineComponent({
 
             const ilocos_Sur_EPR_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'http://localhost:3655/geoserver/ne/wms',
+                    url: 'http://10.10.56.6:3655/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:Ilocos_Sur_EPR_1977_2022',
                         'TILED': true,
@@ -296,7 +366,7 @@ export default defineComponent({
 
             const ilocos_Sur_NSM_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'http://localhost:3655/geoserver/ne/wms',
+                    url: 'http://10.10.56.6:3655/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:Ilocos_Sur_NSM_1977_2022',
                         'TILED': true,
@@ -312,7 +382,7 @@ export default defineComponent({
 
             const la_Union_EPR_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'http://localhost:3655/geoserver/ne/wms',
+                    url: 'http://10.10.56.6:3655/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:La_Union_EPR_1977_2022',
                         'TILED': true,
@@ -328,7 +398,7 @@ export default defineComponent({
 
             const la_Union_NSM_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'http://localhost:3655/geoserver/ne/wms',
+                    url: 'http://10.10.56.6:3655/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:La_Union_NSM_1977_2022',
                         'TILED': true,
@@ -344,7 +414,7 @@ export default defineComponent({
 
             const pangasinan_EPR_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'http://localhost:3655/geoserver/ne/wms',
+                    url: 'http://10.10.56.6:3655/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:Pangasinan_EPR_1977_2022',
                         'TILED': true,
@@ -361,7 +431,7 @@ export default defineComponent({
 
             const pangasinan_NSM_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'http://localhost:3655/geoserver/ne/wms',
+                    url: 'http://10.10.56.6:3655/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:Pangasinan_NSM_1977_2022',
                         'TILED': true,
@@ -427,41 +497,14 @@ export default defineComponent({
 
                 this.handleClickFeature(coordinate, viewResolution)
 
-
-                // this.map.forEachFeatureAtPixel(
-                //     event.pixel,
-                //     (feature, layer) => {
-                //         console.log(feature.getProperties());
-
-                //         const properties = feature.getProperties();
-                //         console.log("properties: ", properties);
-                //         const layerTitle = layer.get("title");
-
-                //         this.data = Object.entries(properties)
-                //             .filter(([key]) => key !== "geometry") // Exclude geometry
-                //             .map(([key, value]) => ({
-                //                 attribute: key,
-                //                 value: value,
-                //             }));
-
-                //         overlayTitle.innerHTML = `Layer Name: ` + layerTitle;
-                //         let coordinate = event.coordinate;
-                //         this.overlayLayer.setPosition(coordinate);
-                //         featureFound = true;
-
-                //         this.map.getView().animate({
-                //             center: coordinate,
-                //             duration: 500, // Optional: smooth animation duration
-                //         });
-                //     }
-                // );
-
                 // Hide the popup if no feature was found
                 if (!featureFound) {
                     this.data = [];
                     this.overlayLayer.setPosition(undefined);
                 }
             });
+
+            this.map.on('pointerdrag', this.onMouseDrag); // Fires during drag
         },
         closePopup() {
             this.overlayLayer.setPosition(undefined);
@@ -482,6 +525,13 @@ export default defineComponent({
     position: absolute;
     top: 5px;
     left: 0px;
+}
+
+.navButtons {
+    z-index: 10;
+    position: absolute;
+    top: 50px;
+    right: 20px;
 }
 
 .overlay-container {

@@ -84,7 +84,7 @@
                             </p>
                             <p>{{
                                 this.time
-                            }}
+                                }}
                             </p>
                             <p>
                                 {{ this.date }}
@@ -321,7 +321,7 @@
         <router-view :key="$route.fullPath" :style="minHeightStyle"></router-view>
 
         <!-- Footer -->
-        <footer class="bg-white dark:bg-gray-800">
+        <footer v-if="showFooter" class="bg-white dark:bg-gray-800">
             <div id="contact" class="max-w-screen-xl mx-auto lg:py-5 md:p-8 lg:p-10">
                 <div class="lg:flex lg:justify-between items-center ">
                     <div class="lg:w-4/12">
@@ -418,7 +418,7 @@ export default defineComponent({
             isShowNav: ref(false),
             isSearch: ref(false),
             downloadsModal: ref(false),
-            screenHeight: window.innerHeight-100
+            screenHeight: window.innerHeight - 100
         };
     },
     setup() {
@@ -530,8 +530,18 @@ export default defineComponent({
     computed: {
         minHeightStyle() {
             return {
-                minHeight: `${this.screenHeight}px`
+                minHeight: `${this.screenHeight+11}px`
             }
+        },
+        showFooter() {
+            // Return true if the route is not "/hazardmaps"
+            if(this.$route.path !== "/hazardmaps"){
+                return false;
+            }
+            if(this.$route.path !== "/coastalfloodadvisory"){
+                return false;
+            }
+            
         }
     }
 });

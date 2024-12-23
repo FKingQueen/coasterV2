@@ -20,7 +20,7 @@ export default {
         minHeightStyle() {
             console.log(this.screenHeight);
             return {
-                minHeight: `${this.screenHeight}px`
+                minHeight: `${this.screenHeight+11}px`
             }
         }
     }
