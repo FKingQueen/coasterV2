@@ -35,5 +35,4 @@ Route::post('/storeDataWLMS', function(Request $request) {
 
 Route::get('/{any}', function () {
     return view('main');
-})->where('any', '.*');
-
+})->where('any', '^(?!geoserver).*');
