@@ -1,21 +1,40 @@
-<IfModule mod_rewrite.c>
-    <IfModule mod_negotiation.c>
-        Options -MultiViews -Indexes
-    </IfModule>
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <system.webServer>
+        <rewrite>
+            <rules>
+                <!-- Simplified GeoServer Rule -->
+                <rule name="GeoServer Reverse Proxy" stopProcessing="true">
+                    <match url="^geoserver/(.*)" />
+                    <action type="Rewrite" url="http://localhost:3655/geoserver/{R:1}" />
+                </rule>
 
-    RewriteEngine On
-
-    # Handle Authorization Header
-    RewriteCond %{HTTP:Authorization} .
-    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-
-    # Redirect Trailing Slashes If Not A Folder...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} (.+)/$
-    RewriteRule ^ %1 [L,R=301]
-
-    # Send Requests To Front Controller...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php [L]
-</IfModule>
+                <!-- Your existing Laravel rules -->
+                <rule name="Imported Rule 1" stopProcessing="true">
+                    <match url="^" ignoreCase="false" />
+                    <conditions logicalGrouping="MatchAll">
+                        <add input="{HTTP_AUTHORIZATION}" ignoreCase="false" />
+                        <add input="{REQUEST_FILENAME}" matchType="IsDirectory" ignoreCase="false" negate="true" />
+                        <add input="{URL}" pattern="(.+)/$" ignoreCase="false" />
+                    </conditions>
+                    <action type="Redirect" url="{C:1}" redirectType="Permanent" />
+                </rule>
+                <rule name="Imported Rule 2" stopProcessing="true">
+                    <match url="^" ignoreCase="false" />
+                    <conditions logicalGrouping="MatchAll">
+                        <add input="{REQUEST_FILENAME}" matchType="IsDirectory" ignoreCase="false" negate="true" />
+                        <add input="{REQUEST_FILENAME}" matchType="IsFile" ignoreCase="false" negate="true" />
+                    </conditions>
+                    <action type="Rewrite" url="index.php" />
+                </rule>
+            </rules>
+        </rewrite>
+        <httpProtocol>
+            <customHeaders>
+                <add name="Access-Control-Allow-Origin" value="https://mmsucoaster.xyz" />
+                <add name="Access-Control-Allow-Methods" value="GET, POST, PUT, DELETE, OPTIONS" />
+                <add name="Access-Control-Allow-Headers" value="Content-Type, Accept" />
+            </customHeaders>
+        </httpProtocol>
+    </system.webServer>
+</configuration>

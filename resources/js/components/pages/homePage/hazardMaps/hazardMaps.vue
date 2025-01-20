@@ -303,7 +303,7 @@ export default defineComponent({
             // https://coaster.mmsu.edu.ph//geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
             const padsanRiver100Yrs = new TileLayer({
                 source: new TileWMS({
-                    url: 'https://coaster.mmsu.edu.ph//geoserver/ne/wms',
+                    url: 'https://coaster.mmsu.edu.ph/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:Padsan River 100 yrs',
                         'TILED': true,
@@ -320,7 +320,7 @@ export default defineComponent({
 
             const ilocos_Norte_EPR_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'https://coaster.mmsu.edu.ph//geoserver/ne/wms',
+                    url: 'https://coaster.mmsu.edu.ph/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:Ilocos_Norte_EPR_1977_2022',
                         'TILED': true,
@@ -336,7 +336,7 @@ export default defineComponent({
 
             const ilocos_Norte_NSM_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'https://coaster.mmsu.edu.ph//geoserver/ne/wms',
+                    url: 'https://coaster.mmsu.edu.ph/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:Ilocos_Norte_NSM_1977_2022',
                         'TILED': true,
@@ -352,7 +352,7 @@ export default defineComponent({
 
             const ilocos_Sur_EPR_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'https://coaster.mmsu.edu.ph//geoserver/ne/wms',
+                    url: 'https://coaster.mmsu.edu.ph/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:Ilocos_Sur_EPR_1977_2022',
                         'TILED': true,
@@ -368,7 +368,7 @@ export default defineComponent({
 
             const ilocos_Sur_NSM_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'https://coaster.mmsu.edu.ph//geoserver/ne/wms',
+                    url: 'https://coaster.mmsu.edu.ph/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:Ilocos_Sur_NSM_1977_2022',
                         'TILED': true,
@@ -384,7 +384,7 @@ export default defineComponent({
 
             const la_Union_EPR_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'https://coaster.mmsu.edu.ph//geoserver/ne/wms',
+                    url: 'https://coaster.mmsu.edu.ph/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:La_Union_EPR_1977_2022',
                         'TILED': true,
@@ -400,7 +400,7 @@ export default defineComponent({
 
             const la_Union_NSM_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'https://coaster.mmsu.edu.ph//geoserver/ne/wms',
+                    url: 'https://coaster.mmsu.edu.ph/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:La_Union_NSM_1977_2022',
                         'TILED': true,
@@ -416,7 +416,7 @@ export default defineComponent({
 
             const pangasinan_EPR_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'https://coaster.mmsu.edu.ph//geoserver/ne/wms',
+                    url: 'https://coaster.mmsu.edu.ph/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:Pangasinan_EPR_1977_2022',
                         'TILED': true,
@@ -433,7 +433,7 @@ export default defineComponent({
 
             const pangasinan_NSM_1977_2022 = new TileLayer({
                 source: new TileWMS({
-                    url: 'https://coaster.mmsu.edu.ph//geoserver/ne/wms',
+                    url: 'https://coaster.mmsu.edu.ph/geoserver/ne/wms',
                     params: {
                         'LAYERS': 'ne:Pangasinan_NSM_1977_2022',
                         'TILED': true,
