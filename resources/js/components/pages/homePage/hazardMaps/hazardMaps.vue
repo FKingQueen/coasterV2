@@ -251,6 +251,7 @@ export default defineComponent({
                             'FEATURE_COUNT': 10
                         }
                     )
+                    console.log(url);
 
                     if (url) {
 
@@ -305,7 +306,7 @@ export default defineComponent({
                 source: new TileWMS({
                     url: 'https://coaster.mmsu.edu.ph/geoserver/ne/wms',
                     params: {
-                        'LAYERS': 'ne:Padsan River 100 yrs',
+                        'LAYERS': 'ne:PadsanRiver100yrs',
                         'TILED': true,
                         'FORMAT': 'image/png',
                         'SRS': 'EPSG:32651'
