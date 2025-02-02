@@ -8,11 +8,6 @@
                 <Station class="w-full" />
             </div>
         </div>
-        <!-- <div class="w-full flex justify-center space-x-2">
-            <div class="font-norwester w-3/4  p-3">
-                <p class="text-2xl font-black">Hazard Maps</p>
-            </div>
-        </div> -->
         <div class="mt-5 w-full bg-gradient-to-l from-sky-950  flex justify-center py-4">
             <div class="lg:w-3/4 w-full lg:pl-0 pl-1">
                 <p class="text-2xl text-semibold">Hazard Maps</p>

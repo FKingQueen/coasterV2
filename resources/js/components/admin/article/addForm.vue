@@ -53,7 +53,7 @@
                             </Upload>
                             <!-- src="/img/slides/Slide3Mobile.png" -->
                             <ImagePreview v-model="visiblePreview"
-                                
+
                                 :preview-list="[`/img/uploads/${formValidate.image}`]" />
                             <div v-if="formValidate.image" class="demo-upload-list">
                                 <Image :src="`/img/uploads/${formValidate.image}`" fit="cover" width="100%"

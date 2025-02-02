@@ -41,46 +41,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <a-row class="w-full flex justify-center" :gutter="5">
-                <a-col :span="3" v-for="(dailyData, index) in this.dailyWeatherData.month" class="">
-                    <div class="bg-sky-950 py-1 px-2 text-white">
-                        <div v-if="index == 0" class="flex justify-between">
-                            <p class="text-xs">
-                                Today
-                            </p>
-                            <p class="text-xs">
-                                {{ dailyData }}/{{ this.dailyWeatherData.dayOfMonth[index] }}
-                            </p>
-                        </div>
-                        <div v-else class="flex justify-between">
-                            <p class="text-xs">
-                                {{ this.dailyWeatherData.dayOfWeek[index] }}
-                            </p>
-                            <p class="text-xs">
-                                {{ dailyData }}/{{ this.dailyWeatherData.dayOfMonth[index] }}
-                            </p>
-                        </div>
-                        <div class="flex justify-center items-center">
-                            <div>
-                                <img class="h-16" :src="this.dailyWeatherData.dailyWeatherImgURL[index]">
-                            </div>
-                        </div>
-                        <div class="flex justify-center">
-                            <p class="text-xs">
-                                <span class="text-sm text-bold text-red-400">{{
-                                    this.dailyWeatherData.temperature_2m_max[index] }}</span>/{{
-                                        this.dailyWeatherData.temperature_2m_min[index] }} °C
-                            </p>
-                        </div>
-                        <div class="flex justify-center">
-                            <p class="text-xs">
-                                {{ this.dailyWeatherData.rain_sum[index] }} mm
-                            </p>
-                        </div>
-                    </div>
-                </a-col>
-            </a-row> -->
-
         </div>
         <div class="w-full ">
             <div class="border-b flex w-full px-3 py-2 justify-between ">

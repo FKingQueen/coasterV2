@@ -34,15 +34,15 @@
                             <div class="w-full p-2">
                                 <p class="w-full tracking-wide blur-none indent-8 leading-loose text-justify">
                                     The project aims to establish a more rigorous and comprehensive evaluation and analysis to address the
-                                    problem of coastal erosion and shoreline retreat and provide a baseline in the conduct of design and 
-                                    other pre-construction activities for coastal infrastructure projects. Decision-support framework will 
-                                    be created to guide LGUs in selecting the type of structure, design (structural, geometry), orientation, 
-                                    and materials to be used in construction. Site-specific designs will be recommended to concerned LGUs. 
-                                    SMSS coupling model will be used for the coastal flooding and surge simulations. The models are coupled 
-                                    by including wave radiation stress terms based on the SWAN calculations into the CH3D model and by passing 
-                                    the water level and currents from CH3D to SWAN. On the other hand, HEC-HMS and GeoHECRAS will be used for 
-                                    the flood routing to model flood due to river swelling. The boundary conditions will be extracted from the 
-                                    flood model and will be interacted with SMSS to create a novel model of ocean-river flood inundation interaction. 
+                                    problem of coastal erosion and shoreline retreat and provide a baseline in the conduct of design and
+                                    other pre-construction activities for coastal infrastructure projects. Decision-support framework will
+                                    be created to guide LGUs in selecting the type of structure, design (structural, geometry), orientation,
+                                    and materials to be used in construction. Site-specific designs will be recommended to concerned LGUs.
+                                    SMSS coupling model will be used for the coastal flooding and surge simulations. The models are coupled
+                                    by including wave radiation stress terms based on the SWAN calculations into the CH3D model and by passing
+                                    the water level and currents from CH3D to SWAN. On the other hand, HEC-HMS and GeoHECRAS will be used for
+                                    the flood routing to model flood due to river swelling. The boundary conditions will be extracted from the
+                                    flood model and will be interacted with SMSS to create a novel model of ocean-river flood inundation interaction.
                                 </p>
                             </div>
                         </div>
@@ -70,16 +70,16 @@
                                 </p>
                                 <div class="pl-5">
                                     <p class="w-full tracking-wide blur-none pt-2 text-justify">
-                                        a. conduct inventory and assess existing coastal flood control infrastructures in region I; 
+                                        a. conduct inventory and assess existing coastal flood control infrastructures in region I;
                                     </p>
 
                                     <p class="w-full tracking-wide blur-none pt-2 text-justify">
-                                        b. establish a coastal engineering laboratory; and develop, test, and evaluate coastal flood infrastructure design that could be recommended to the LGU. 
+                                        b. establish a coastal engineering laboratory; and develop, test, and evaluate coastal flood infrastructure design that could be recommended to the LGU.
                                     </p>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="w-full ">
                             <p class="p-1 font-semibold mt-3 blur-none text-lg">Activities & Accomplishments</p>
                         </div>
@@ -91,13 +91,13 @@
                                 </div>
                                 <div class="lg:w-2/5 flex justify-start items-center">
                                     <p class="w-full tracking-wide blur-none indent-8 leading-loose text-justify px-5">
-                                        Selection of the study sites were based on the vulnerability of the study sites to storm surge and rivers swelling, 
-                                        the number of people and properties that will be affected, the availability of data needed, and the proximity of the 
-                                        area to the project base station. For the past years, storm surge and river swelling caused by tropical storms and 
-                                        typhoons had caused severe flooding affecting 220,000 people that live within the coastal municipalities of the Laoag 
-                                        River basin including Laoag City, Bacarra, and Paoay, Ilocos Norte. These resulted in millions worth of flood control 
-                                        damages within the Laoag River basin. On the other hand, heavy downpour caused the Abra River to swell and caused flooding 
-                                        in low-lying areas of Ilocos Sur. Areas that are frequently affected include Vigan City, Caoayan, Bantay, and Santa, Ilocos Sur. 
+                                        Selection of the study sites were based on the vulnerability of the study sites to storm surge and rivers swelling,
+                                        the number of people and properties that will be affected, the availability of data needed, and the proximity of the
+                                        area to the project base station. For the past years, storm surge and river swelling caused by tropical storms and
+                                        typhoons had caused severe flooding affecting 220,000 people that live within the coastal municipalities of the Laoag
+                                        River basin including Laoag City, Bacarra, and Paoay, Ilocos Norte. These resulted in millions worth of flood control
+                                        damages within the Laoag River basin. On the other hand, heavy downpour caused the Abra River to swell and caused flooding
+                                        in low-lying areas of Ilocos Sur. Areas that are frequently affected include Vigan City, Caoayan, Bantay, and Santa, Ilocos Sur.
                                     </p>
                                 </div>
                             </div>
@@ -231,7 +231,7 @@
                                 <p class="w-full text-center font-light blur-none">
                                     Project staff assessed the different structures recording physical properties and some notable features present in the
                                     structures. Photos show documentation of assessment and field validation by the    project staff and some notable features
-                                    on the structures to be further analyzed. 
+                                    on the structures to be further analyzed.
                                 </p>
                             </div>
                         </div>
@@ -283,12 +283,12 @@
                                 <p class="w-full text-center font-light blur-none">
                                     Project staff assessed the different structures recording physical properties and some notable features present in the
                                     structures. Photos show documentation of assessment and field validation by the    project staff and some notable features
-                                    on the structures to be further analyzed. 
+                                    on the structures to be further analyzed.
                                 </p>
                             </div>
                         </div>
 
-                        
+
                         <div class="w-full ">
                             <p class="p-1 font-semibold mt-3 blur-none text-lg">Acknowledgement</p>
                         </div>
@@ -296,8 +296,8 @@
                         <div class="w-full ">
                             <div class="w-full p-2">
                                 <p class="w-full tracking-wide blur-none indent-8 leading-loose text-justify">
-                                    Our utmost gratitude to the Department of Science and Technology (DOST) for generously funding the program entitled 
-                                    "Establishment of Coastal Engineering and Management Research and Development Center (COASTER) 
+                                    Our utmost gratitude to the Department of Science and Technology (DOST) for generously funding the program entitled
+                                    "Establishment of Coastal Engineering and Management Research and Development Center (COASTER)
                                 </p>
                             </div>
                         </div>
@@ -305,7 +305,7 @@
                     </div>
                 </div>
             </div>
-            <div class="lg:w-2/12 w-full lg:pt-10 pt-5 px-2 z-40">
+            <div class="lg:w-2/12 w-full lg:pt-10 pt-5 px-2 z-30">
                 <p class="text-center text-2xl border-b-2 blur-none antialiased bg-white py-1">
                     Other <span class="text-sky-800 ">Projects</span>
                 </p>

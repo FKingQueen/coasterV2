@@ -9,11 +9,6 @@
                     </div>
                     <div>
                         <div class="text-start grid text-white">
-                            <!-- <div>
-                                <p class="text-2xl text-blue-50 font-serif font-semibold blur-none antialiased ">
-                                    COASTER
-                                </p>
-                            </div> -->
                             <div
                                 class="font-serif w-full h-[5rem] text-xs blur-none antialiased text-blue-50 flex items-center">
                                 <div class="">
@@ -51,7 +46,7 @@
                                 cursor-pointer transition-colors duration-300 " style="float:left;">
                             <button
                                 class="text-blue-50  text-xs font-roboto blur-none tracking-wide antialiased">PROJECT</button>
-                            <div class="dropdown-content p-1 w-[23rem] font-normal z-40 mt-4" style="left:0;">
+                            <div class="dropdown-content p-1 w-[23rem] font-normal z-50 mt-4" style="left:0;">
                                 <a @click="this.$router.push('/projects/project1')"
                                     class="antialiased text-blue-50 text-justify text-xs  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Coastal
                                     Erosion Trends and Management Strategies for Region 1</a>
@@ -185,143 +180,10 @@
 
         </div>
 
-
-
-        <!-- <div class="w-full flex">
-            <div class="w-3/12 h-[6rem] p-1 bg-[#002B5B] border-b-4 border-cyan-900 border-r-1">
-                <div class="w-full  flex items-center h-full space-x-2 justify-center">
-                    <div class="flex items-center ">
-                        <img src="/img/logo/COASTER.png" class="blur-none antialiased cursor-pointer object-fill h-20 "
-                            alt="#">
-                    </div>
-                    <div>
-                        <div class="text-center grid divide-[#C49A6C]/75 divide-y-2 text-white">
-                            <div>
-                                <p class="text-3xl  font-serif font-semibold blur-none antialiased ">
-                                    COASTER
-                                </p>
-                            </div>
-                            <div class="text-center font-sans text-xs blur-none antialiased">
-                                <p>
-                                    Coastal Engineering and Management
-                                </p>
-                                <p>
-                                    Research and Development Center
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="w-full">
-                <div class="h-[2rem] flex items-center justify-between w-full ">
-                    <div class="flex justify-start w-8/12">
-                        <div class="overflow-hidden  w-full">
-                            <div class="animate-scroll hover:animate-paused w-full max-w-md mx-auto ">
-                                <span>
-                                    The COASTER STAFF will participate in the ICCIARD 2024... For more info. <a
-                                        href="">Click Here!!!</a>
-                                    The COASTER STAFF will participate in the ICCIARD 2024... For more info.
-                                    The COASTER STAFF will participate in the ICCIARD 2024... For more info.
-                                    The COASTER STAFF will participate in the ICCIARD 2024... For more info.
-                                    The COASTER STAFF will participate in the ICCIARD 2024... For more info.
-                                    The COASTER STAFF will participate in the ICCIARD 2024... For more info.
-                                    The COASTER STAFF will participate in the ICCIARD 2024... For more info.
-                                    The COASTER STAFF will participate in the ICCIARD 2024... For more info.
-                                    The COASTER STAFF will participate in the ICCIARD 2024... For more info.
-                                    The COASTER STAFF will participate in the ICCIARD 2024... For more info.
-                                    The COASTER STAFF will participate in the ICCIARD 2024... For more info.
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="">
-                        <div class="flex space-x-2 bg-[#FFD700] px-2 py-3 text-white">
-                            <p class="font-semibold">
-                                Official DateTime:
-                            </p>
-                            <p>{{
-                                this.digitalTime.hour
-                            }}:{{ this.digitalTime.min }}:{{ this.digitalTime.sec }}</p>
-                            <p>{{ this.digitalTime.date
-                                }} /
-                                {{ this.digitalTime.day }} / 20{{ this.digitalTime.year }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-full flex items-end  h-[4rem]">
-                    <div class="z-30 flex justify-between w-full bg-[#002B5B] border-y-4 border-cyan-900 ">
-                        <div class="flex">
-                            <router-link to="/" class="py-4 px-4 ml-2 flex text-white font-semibold hover:bg-sky-700
-                                    cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm ">
-                                HOME
-                            </router-link>
-                            <router-link to="/services" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700
-                                    cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm">
-                                    SERVICES
-                                </router-link>
-                            <router-link to="/monitoringSystem" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700
-                                    cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm">
-                                MONITORING SYSTEM
-                            </router-link>
-                            <router-link to="/coastalfloodadvisory" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700
-                                    cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm">
-                                COASTAL FLOOD ADVISORY
-                            </router-link>
-                            <div class="dropdown z-40  px-4 flex text-white font-semibold hover:bg-sky-700
-                                cursor-pointer transition-colors duration-300 " style="float:left;">
-                                <button class="dropdown py-4  blur-none tracking-wide antialiased">PROJECT</button>
-                                <div class="dropdown-content p-1 w-[23rem] font-normal " style="left:0;">
-                                    <a @click="this.$router.push('/projects/project1')"
-                                        class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Coastal
-                                        Erosion Trends and Management Strategies for Region 1</a>
-                                    <a @click="this.$router.push('/projects/project2')"
-                                        class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Assesment
-                                        Monitoring, and Prediction of Coastal Flooding of Selected Municipalities in
-                                        Region
-                                        1</a>
-                                    <a @click="this.$router.push('/projects/project3')"
-                                        class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Development
-                                        of Science-based Engineering Approach to Coastal Prediction in Region 1</a>
-                                    <a @click="this.$router.push('/projects/project4')"
-                                        class="antialiased text-white text-justify  hover:shadow-[inset_23rem_0_0_0] hover:shadow-cyan-700 duration-[400ms,700ms] transition-[color,box-shadow]">Enhancing
-                                        Coastal Design and Infrastructure Intervention through the Establishment of
-                                        Wave
-                                        Testing Facility</a>
-                                </div>
-                            </div>
-                            <router-link to="/about" class="py-4 px-4 flex text-white font-semibold hover:bg-sky-700
-                                    cursor-pointer blur-none tracking-wide antialiased font-roboto text-sm">
-                                ABOUT
-                            </router-link>
-                        </div>
-                        <div class="flex items-center w-3/12 px-3 space-x-2 justify-around">
-                            <input ref="searchFocus" @keyup.enter="this.handleSubmitSearch($event.target.value)"
-                                required
-                                class="bg-transparent w-full leading-tight focus:outline-none text-white border-b-2 border-sky-800"
-                                type="text" placeholder="Search News, Announcement, Events">
-                            <button type="button" @click="Search()"
-                                class="lg:block hidden text-2xl text-white hover:text-gray-200 ">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor"
-                                    class="w-6 h-6 focus:outline outline-offset-2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div> -->
-
-
-
         <router-view :key="$route.fullPath" :style="minHeightStyle"></router-view>
 
         <!-- Footer -->
-        <footer v-if="showFooter" class="bg-white dark:bg-gray-800">
+        <footer v-if="showFooter" class=" bg-gray-800">
             <div id="contact" class="max-w-screen-xl mx-auto lg:py-5 md:p-8 lg:p-10">
                 <div class="lg:flex lg:justify-between items-center ">
                     <div class="lg:w-4/12">
@@ -335,7 +197,7 @@
                     </div>
                     <div class="">
                         <h3 class="lg:pb-4 py-3 text-base text-gray-400  text-center block">CONNECT WITH US</h3>
-                        <ul class="text-gray-500 dark:text-gray-400 pl-5 lg:pl-0  justify-end">
+                        <ul class="text-gray-500 text-gray-400 pl-5 lg:pl-0  justify-end">
                             <li class="mb-4">
                                 <div class="flex block">
                                     <Icon size="20" type="md-flag" />
@@ -345,14 +207,14 @@
                             <li class="mb-4">
                                 <div class="flex block">
                                     <Icon size="20" type="logo-google" />
-                                    <a class="text-gray-500 dark:text-gray-400 "
+                                    <a class="text-gray-500 text-gray-400 "
                                         href="mailto:coaster@mmsu.edu.ph">coaster@mmsu.edu.ph</a>
                                 </div>
                             </li>
                             <li class="mb-4">
                                 <div class="flex block">
                                     <Icon size="20" type="logo-facebook" />
-                                    <a class="text-gray-500 dark:text-gray-400 "
+                                    <a class="text-gray-500 text-gray-400 "
                                         href="https://www.facebook.com/people/MMSU-Coaster/100088362841925/">www.facebook.com/people/MMSU-Coaster</a>
                                 </div>
                             </li>
@@ -360,7 +222,7 @@
                     </div>
                     <div class="">
                         <h3 class="lg:pb-4 py-3 text-center text-base text-gray-400  block">QUICK LINK</h3>
-                        <ul class="text-gray-500 dark:text-gray-400 pl-5 lg:pl-0 justify-end">
+                        <ul class="text-gray-500 text-gray-400 pl-5 lg:pl-0 justify-end">
                             <li class="lg:mb-4 mb-2">
                                 <div class="flex block">
                                     <a href="https://www.dost.gov.ph/">DOST</a>
@@ -379,9 +241,9 @@
                         </ul>
                     </div>
                 </div>
-                <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-1">
+                <hr class="my-6 border-gray-200 sm:mx-auto border-gray-700 lg:my-1">
                 <div class="text-center">
-                    <span class="block text-sm text-center text-gray-500 dark:text-gray-400">© 2022-2023 COASTER.
+                    <span class="block text-sm text-center text-gray-500 text-gray-400">© 2022-2023 COASTER.
                         All
                         Rights Reserved.
                     </span>
@@ -480,24 +342,6 @@ export default defineComponent({
                 this.$router.push({ path: '/about' })
             }
         },
-
-        // zeroPadding(num, digit) {
-        //     var zero = '';
-        //     for (var i = 0; i < digit; i++) {
-        //         zero += '0';
-        //     }
-        //     return (zero + num).slice(-digit);
-        // },
-        // updateTime() {
-        //     var cd = new Date();
-        //     this.digitalTime.year = this.zeroPadding(cd.getYear(), 2);
-        //     this.digitalTime.currentMonth = this.digitalTime.month[cd.getMonth()];
-        //     this.digitalTime.day = this.zeroPadding(cd.getDate(), 2);
-        //     this.digitalTime.date = this.digitalTime.week[cd.getDay()];
-        //     this.digitalTime.hour = this.zeroPadding(cd.getHours(), 2);
-        //     this.digitalTime.min = this.zeroPadding(cd.getMinutes(), 2);
-        //     this.digitalTime.sec = this.zeroPadding(cd.getSeconds(), 2);
-        // }
         updateTime() {
             const cd = new Date();
 

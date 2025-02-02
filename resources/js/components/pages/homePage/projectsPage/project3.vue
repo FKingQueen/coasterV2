@@ -32,14 +32,14 @@
                             </div>
                             <div class="w-full p-2">
                                 <p class="w-full tracking-wide blur-none indent-8 leading-loose text-justify">
-                                    Many coastal protection structures fail either because they were not properly designed or the materials used for 
-                                    construction were not suitable for coastal conditions, or both. There is a need to improve the properties of 
-                                    concrete to withstand the harsh conditions along the coastline. One of the most important mechanical properties 
-                                    of concrete, aside from compressive strength, is durability. Durability is important especially when concrete 
-                                    structures are subjected to harsh environments such as seas and oceans. In this proposed project, concrete materials 
-                                    with bio-based additives formed in different artificial reef designs and breakwaters will be observed for their 
-                                    biological, physical and mechanical performance on the natural coastal parameters and constraints such as 
-                                    fluctuation on moisture, salinity, biological and cultural activities, waves, and undercurrents. 
+                                    Many coastal protection structures fail either because they were not properly designed or the materials used for
+                                    construction were not suitable for coastal conditions, or both. There is a need to improve the properties of
+                                    concrete to withstand the harsh conditions along the coastline. One of the most important mechanical properties
+                                    of concrete, aside from compressive strength, is durability. Durability is important especially when concrete
+                                    structures are subjected to harsh environments such as seas and oceans. In this proposed project, concrete materials
+                                    with bio-based additives formed in different artificial reef designs and breakwaters will be observed for their
+                                    biological, physical and mechanical performance on the natural coastal parameters and constraints such as
+                                    fluctuation on moisture, salinity, biological and cultural activities, waves, and undercurrents.
                                 </p>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                                 </p>
                                 <div class="lg:pl-5">
                                     <p class="w-full tracking-wide blur-none pt-2 text-justify">
-                                        This study aims to establish strategies for coastal protection and climate change mitigation using science-based engineering solutions. 
+                                        This study aims to establish strategies for coastal protection and climate change mitigation using science-based engineering solutions.
                                     </p>
                                 </div>
                                 <p class="font-semibold blur-none">
@@ -67,29 +67,29 @@
                                 </p>
                                 <div class="lg:pl-5">
                                     <p class="w-full tracking-wide blur-none pt-2 text-justify">
-                                        a. integrate appropriate bio-engineering and “sustainable” smart concrete technology for coastal protection structures considering the following criteria: 
+                                        a. integrate appropriate bio-engineering and “sustainable” smart concrete technology for coastal protection structures considering the following criteria:
                                     </p>
                                         <div class="pl-5">
                                             <p class="w-full tracking-wide blur-none pt-2 text-justify">
-                                                1. Strength 
+                                                1. Strength
                                             </p>
                                             <p class="w-full tracking-wide blur-none pt-2 text-justify">
-                                                2. Durability 
+                                                2. Durability
                                             </p>
                                             <p class="w-full tracking-wide blur-none pt-2 text-justify">
-                                                3. Permeability 
+                                                3. Permeability
                                             </p>
                                         </div>
 
                                     <p class="w-full tracking-wide blur-none pt-2 text-justify">
-                                        b. develop bio-engineered artificial reef considering the following criteria: 
+                                        b. develop bio-engineered artificial reef considering the following criteria:
                                     </p>
                                         <div class="pl-5">
                                             <p class="w-full tracking-wide blur-none pt-2 text-justify">
-                                                1. Wave Reduction 
+                                                1. Wave Reduction
                                             </p>
                                             <p class="w-full tracking-wide blur-none pt-2 text-justify">
-                                                2. Structural Strength  
+                                                2. Structural Strength
                                             </p>
                                             <p class="w-full tracking-wide blur-none pt-2 text-justify">
                                                 3. Biological and Environmental Function
@@ -106,8 +106,8 @@
                         <div class="w-full drop-shadow-md flex justify-center">
                             <div class="lg:w-3/5 flex justify-center py-3">
                                 <div class="w-3/4">
-                                    <img src="/img/Project3/rationale/rationale2.png" class="object-cover " alt="#">  
-                                    <p class="text-center">Study pilot sites were as follows: DMMMSU—FRTI, Balaoan, Bacnotan, and Luna, La Union</p>  
+                                    <img src="/img/Project3/rationale/rationale2.png" class="object-cover " alt="#">
+                                    <p class="text-center">Study pilot sites were as follows: DMMMSU—FRTI, Balaoan, Bacnotan, and Luna, La Union</p>
                                 </div>
                             </div>
                         </div>
@@ -356,7 +356,7 @@
                             </div>
                             <div>
                                 <p class="w-full text-center font-light blur-none">
-                                    Paraoir Beach located at Brgy. Paraoir, Balaoan, La Union as one of the pilot site for the deployment of artificial reef. 
+                                    Paraoir Beach located at Brgy. Paraoir, Balaoan, La Union as one of the pilot site for the deployment of artificial reef.
                                 </p>
                             </div>
                         </div>
@@ -397,7 +397,7 @@
                             </swiper>
                             <div>
                                 <p class="w-full text-center font-light blur-none">
-                                    Deployed concrete cylinder samples with varying percentages of admixtures and type of cement. 
+                                    Deployed concrete cylinder samples with varying percentages of admixtures and type of cement.
                                 </p>
                             </div>
                         </div>
@@ -409,8 +409,8 @@
                         <div class="w-full ">
                             <div class="w-full p-2">
                                 <p class="w-full tracking-wide blur-none indent-8 leading-loose text-justify">
-                                    Our utmost gratitude to the Department of Science and Technology (DOST) for generously funding the program entitled 
-                                    "Establishment of Coastal Engineering and Management Research and Development Center (COASTER) 
+                                    Our utmost gratitude to the Department of Science and Technology (DOST) for generously funding the program entitled
+                                    "Establishment of Coastal Engineering and Management Research and Development Center (COASTER)
                                 </p>
                             </div>
                         </div>
@@ -418,7 +418,7 @@
                     </div>
                 </div>
             </div>
-            <div class="lg:w-2/12 w-full lg:pt-10 pt-5 px-2 z-40">
+            <div class="lg:w-2/12 w-full lg:pt-10 pt-5 px-2 z-30">
                 <p class="text-center text-2xl border-b-2 blur-none antialiased bg-white py-1">
                     Other <span class="text-sky-800 ">Projects</span>
                 </p>

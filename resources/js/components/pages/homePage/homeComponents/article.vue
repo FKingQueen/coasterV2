@@ -22,8 +22,8 @@
                                             {{ item.title }}
                                         </a>
                                     </template>
-                                    <template #description>        
-                                            <span>{{ item.date }} </span>
+                                    <template #description>
+                                        <span>{{ item.date }} </span>
                                     </template>
                                 </a-list-item-meta>
                                 <p class="line-clamp-4 text-gray-600" v-html="item.article"></p>
@@ -52,22 +52,20 @@
             </div>
 
         </div>
-        <div>
+        <div class="w-full">
             <p class="text-2xl text-bold">Videos</p>
-            <div class="w-full">
-                <div class="laptop:flex justify-around lg:space-y-0 space-y-2 lg:space-x-2 space-x-0">
-                    <iframe :width="innerWidth" class="laptop:h-[360px] h-[250px]" src="https://www.youtube.com/embed/C7ZEzkKpxZs?rel=0"
-                        title="MMSU COASTER" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-                    </iframe>
-                    <iframe :width="innerWidth" class="laptop:h-[360px] h-[250px]" src="https://www.youtube.com/embed/fre6VqZIYxk?rel=0"
-                        title="Coastal Engineering and Management Research and Development Center - MMSU"
-                        frameborder="0"
-                        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-                    </iframe>
-                </div>
+            <div class="sm:flex  justify-around lg:space-y-0 space-y-2 lg:space-x-2 space-x-0">
+                <iframe :width="innerWidth" class="laptop:h-[360px] h-[250px] w-screen"
+                    src="https://www.youtube.com/embed/C7ZEzkKpxZs?rel=0" title="MMSU COASTER" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                </iframe>
+                <iframe :width="innerWidth" class="laptop:h-[360px] h-[250px] w-screen"
+                    src="https://www.youtube.com/embed/fre6VqZIYxk?rel=0"
+                    title="Coastal Engineering and Management Research and Development Center - MMSU" frameborder="0"
+                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                </iframe>
             </div>
         </div>
     </div>

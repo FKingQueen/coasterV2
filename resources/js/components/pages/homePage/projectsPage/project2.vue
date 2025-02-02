@@ -32,14 +32,14 @@
                             </div>
                             <div class="w-full p-2">
                                 <p class="w-full tracking-wide blur-none indent-8 leading-loose text-justify">
-                                    One of the major purposes of this project is to propose a new model by integrating storm surge with 
-                                    the effect of river swelling. This model would improve the result       because the interaction of 
-                                    storm surge and river swelling is what is actually happening in coastal municipalities. CH3D and SWAN 
-                                    or the SMSS coupling model will be used for the coastal flooding and surge simulations. The models are 
-                                    coupled by including wave radiation stress terms based on the SWAN calculations into the CH3D model and 
-                                    by passing the water level and currents from CH3D to SWAN. On the other hand, HEC-HMS and GeoHECRAS will 
-                                    be used for the flood routing to model flood due to river swelling. The boundary conditions will be extracted 
-                                    from the flood model and will be interacted with SMSS to create a novel model of ocean-river flood inundation interaction. 
+                                    One of the major purposes of this project is to propose a new model by integrating storm surge with
+                                    the effect of river swelling. This model would improve the result       because the interaction of
+                                    storm surge and river swelling is what is actually happening in coastal municipalities. CH3D and SWAN
+                                    or the SMSS coupling model will be used for the coastal flooding and surge simulations. The models are
+                                    coupled by including wave radiation stress terms based on the SWAN calculations into the CH3D model and
+                                    by passing the water level and currents from CH3D to SWAN. On the other hand, HEC-HMS and GeoHECRAS will
+                                    be used for the flood routing to model flood due to river swelling. The boundary conditions will be extracted
+                                    from the flood model and will be interacted with SMSS to create a novel model of ocean-river flood inundation interaction.
                                 </p>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                                 </p>
                                 <div class="pl-5">
                                     <p class="w-full tracking-wide blur-none pt-2 text-justify">
-                                        To develop an integrated model to assess and predict coastal flooding due to the combined effects of river swelling and storm surges which will serve as a basis for sustainable and integrated coastal flood management. 
+                                        To develop an integrated model to assess and predict coastal flooding due to the combined effects of river swelling and storm surges which will serve as a basis for sustainable and integrated coastal flood management.
                                     </p>
                                 </div>
                                 <p class="font-semibold blur-none">
@@ -67,16 +67,16 @@
                                 </p>
                                 <div class="pl-5">
                                     <p class="w-full tracking-wide blur-none pt-2 text-justify">
-                                        a. assess coastal hazards of selected municipalities due to river swelling and storm surge; 
+                                        a. assess coastal hazards of selected municipalities due to river swelling and storm surge;
                                     </p>
                                     <p class="w-full tracking-wide blur-none pt-2 text-justify">
-                                        b. design, develop and deploy wave, tidal gauge, and water level monitoring system for real-time monitoring of coastal environments; 
+                                        b. design, develop and deploy wave, tidal gauge, and water level monitoring system for real-time monitoring of coastal environments;
                                     </p>
                                     <p class="w-full tracking-wide blur-none pt-2 text-justify">
-                                        c. predict coastal flood inundation of the selected study sites and evaluate menu of engineering and non-engineering interventions using the calibrated integrated model; and 
+                                        c. predict coastal flood inundation of the selected study sites and evaluate menu of engineering and non-engineering interventions using the calibrated integrated model; and
                                     </p>
                                     <p class="w-full tracking-wide blur-none pt-2 text-justify">
-                                        d. develop a web-based portal for real-time monitoring of wave and tidal height. 
+                                        d. develop a web-based portal for real-time monitoring of wave and tidal height.
 
                                     </p>
                                 </div>
@@ -89,13 +89,13 @@
                         <div class="w-full ">
                             <div class="w-full p-2">
                                 <p class="w-full tracking-wide blur-none indent-8 leading-loose text-justify">
-                                    Selection of the study sites were based on the vulnerability of the study sites to storm surge and rivers swelling, 
-                                    the number of people and properties that will be affected, the availability of data needed, and the proximity of the 
-                                    area to the project base station. For the past years, storm surge and river swelling caused by tropical storms and 
-                                    typhoons had caused severe flooding affecting 220,000 people that live within the coastal municipalities of the Laoag 
-                                    River basin including Laoag City, Bacarra, and Paoay, Ilocos Norte. These resulted in millions worth of flood control 
-                                    damages within the Laoag River basin. On the other hand, heavy downpour caused the Abra River to swell and caused flooding 
-                                    in low-lying areas of Ilocos Sur. Areas that are frequently affected include Vigan City, Caoayan, Bantay, and Santa, Ilocos Sur. 
+                                    Selection of the study sites were based on the vulnerability of the study sites to storm surge and rivers swelling,
+                                    the number of people and properties that will be affected, the availability of data needed, and the proximity of the
+                                    area to the project base station. For the past years, storm surge and river swelling caused by tropical storms and
+                                    typhoons had caused severe flooding affecting 220,000 people that live within the coastal municipalities of the Laoag
+                                    River basin including Laoag City, Bacarra, and Paoay, Ilocos Norte. These resulted in millions worth of flood control
+                                    damages within the Laoag River basin. On the other hand, heavy downpour caused the Abra River to swell and caused flooding
+                                    in low-lying areas of Ilocos Sur. Areas that are frequently affected include Vigan City, Caoayan, Bantay, and Santa, Ilocos Sur.
                                 </p>
                             </div>
 
@@ -230,10 +230,10 @@
                                 </div>
                                 <div class="w-full p-2">
                                     <p class="w-full tracking-wide blur-none indent-8 leading-loose text-justify">
-                                        Identified and established linkages to the LGUs-coastal areas where to conduct Focus Group Discussion 
-                                        (FGD) for the preliminary assessment on historical flood events caused by strong winds and extreme flooding. 
-                                        The gathered information served as a preliminary basis for the development of program maps and models. 
-                                        Organized the Focus Group Discussions (FGDs) between the identified coastal barangays, and DRRMOs, and 
+                                        Identified and established linkages to the LGUs-coastal areas where to conduct Focus Group Discussion
+                                        (FGD) for the preliminary assessment on historical flood events caused by strong winds and extreme flooding.
+                                        The gathered information served as a preliminary basis for the development of program maps and models.
+                                        Organized the Focus Group Discussions (FGDs) between the identified coastal barangays, and DRRMOs, and
                                         conducted Problem Tree Analysis, and the Strengths, Weaknesses, Threats, and Opportunities (SWOT) Analysis.
                                     </p>
                                 </div>
@@ -289,7 +289,7 @@
                                     </swiper>
                                 </div>
 
-                                
+
                             </div>
 
                             <div class="w-full ">
@@ -299,8 +299,8 @@
                             <div class="w-full ">
                                 <div class="w-full p-2">
                                     <p class="w-full tracking-wide blur-none indent-8 leading-loose text-justify">
-                                        Our utmost gratitude to the Department of Science and Technology (DOST) for generously funding the program entitled 
-                                        "Establishment of Coastal Engineering and Management Research and Development Center (COASTER) 
+                                        Our utmost gratitude to the Department of Science and Technology (DOST) for generously funding the program entitled
+                                        "Establishment of Coastal Engineering and Management Research and Development Center (COASTER)
                                     </p>
                                 </div>
                             </div>
@@ -309,7 +309,7 @@
                     </div>
                 </div>
             </div>
-            <div class="lg:w-2/12 w-full lg:pt-10 pt-5 px-2 z-40">
+            <div class="lg:w-2/12 w-full lg:pt-10 pt-5 px-2 z-30">
                 <p class="text-center text-2xl border-b-2 blur-none antialiased bg-white py-1">
                     Other <span class="text-sky-800 ">Projects</span>
                 </p>

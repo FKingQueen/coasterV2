@@ -50,14 +50,14 @@ export default defineComponent({
                 layers: [
                     new TileLayer({
                         source: new XYZ({
-                            url: "https://api.mapbox.com/styles/v1/pcborja/clt6utkbc00g801raamfl71ab/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicGNib3JqYSIsImEiOiJjbG5sZm9weGIxYzg4MmxtbmpqYjd2YXIxIn0.LmH0x1Rn3NDzJdzq3J6Ayg",
+                            url: "https://api.mapbox.com/styles/v1/pcborja/cm4gd7ukq002c01rf9l0z2qb6/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicGNib3JqYSIsImEiOiJjbG5sZm9weGIxYzg4MmxtbmpqYjd2YXIxIn0.LmH0x1Rn3NDzJdzq3J6Ayg",
                         }),
                     }),
                     this.vectorLayer,
                 ],
                 view: new View({
                     // center: fromLonLat([0, 0]),
-                    center: thiss.id === 1 ? fromLonLat([120.571584, 18.200961]) : fromLonLat([120.466835, 17.557391]), 
+                    center: thiss.id === 1 ? fromLonLat([120.571584, 18.200961]) : fromLonLat([120.466835, 17.557391]),
                     zoom: 12,
                 }),
                 controls: [new FullScreen()],
