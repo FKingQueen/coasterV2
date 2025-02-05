@@ -415,21 +415,21 @@ export default defineComponent({
                 layers: [],
             });
 
-            const baseMap_Basic = new TileLayer({
-                source: new XYZ({
-                    url: "https://api.mapbox.com/styles/v1/pcborja/cm4gd7ukq002c01rf9l0z2qb6/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicGNib3JqYSIsImEiOiJjbG5sZm9weGIxYzg4MmxtbmpqYjd2YXIxIn0.LmH0x1Rn3NDzJdzq3J6Ayg",
-                }),
-                visible: true,
-                title: "baseMap_Basic",
-            });
-
-
-            // const baseMap_OSM = new TileLayer({
+            // const baseMap_Basic = new TileLayer({
             //     source: new XYZ({
-            //         url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            //         attributions: '© OpenStreetMap contributors'
-            //     })
-            // })
+            //         url: "https://api.mapbox.com/styles/v1/pcborja/cm4gd7ukq002c01rf9l0z2qb6/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicGNib3JqYSIsImEiOiJjbG5sZm9weGIxYzg4MmxtbmpqYjd2YXIxIn0.LmH0x1Rn3NDzJdzq3J6Ayg",
+            //     }),
+            //     visible: true,
+            //     title: "baseMap_Basic",
+            // });
+
+
+            const baseMap_OSM = new TileLayer({
+                source: new XYZ({
+                    url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    attributions: '© OpenStreetMap contributors'
+                })
+            })
 
             // thiss.groupLayer.getLayers().push(baseMap_Basic);
             thiss.groupLayer.getLayers().push(baseMap_OSM);
