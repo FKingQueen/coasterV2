@@ -13,7 +13,7 @@
                         <!-- Layer Name -->
                         <div class="h-48 overflow-auto space-y-2 space-y-1">
                             <div class="flex items-center space-x-1 cursor-pointer hover:bg-gray-500 py-1"
-                                v-for="option in Options.slice(1)" @click="addToLayer(option)">
+                                v-for="option in optionLayers.slice(1)" @click="addToLayer(option)">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-6">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -157,6 +157,8 @@ import TileWMS from "ol/source/TileWMS";
 import { transformExtent } from 'ol/proj';
 import { get as getProjection } from 'ol/proj'
 
+import OSM from 'ol/source/OSM';
+
 export default defineComponent({
     components: {
         DataTable,
@@ -176,7 +178,7 @@ export default defineComponent({
             data: [],
             overlayLayer: null,
             groupLayer: null,
-            Options: [],
+            optionLayers: [],
             addedLayers: [],
             opacityLevel: ref(100),
             isTabVisible: true,
@@ -413,10 +415,26 @@ export default defineComponent({
                 layers: [],
             });
 
-            thiss.layerInfo.forEach(info => {
-                console.log('Layer Name:', info.name);
-                console.log('Extent:', info.extent);
+            const baseMap_Basic = new TileLayer({
+                source: new XYZ({
+                    url: "https://api.mapbox.com/styles/v1/pcborja/cm4gd7ukq002c01rf9l0z2qb6/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicGNib3JqYSIsImEiOiJjbG5sZm9weGIxYzg4MmxtbmpqYjd2YXIxIn0.LmH0x1Rn3NDzJdzq3J6Ayg",
+                }),
+                visible: true,
+                title: "baseMap_Basic",
+            });
 
+
+            // const baseMap_OSM = new TileLayer({
+            //     source: new XYZ({
+            //         url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            //         attributions: '© OpenStreetMap contributors'
+            //     })
+            // })
+
+            // thiss.groupLayer.getLayers().push(baseMap_Basic);
+            thiss.groupLayer.getLayers().push(baseMap_OSM);
+
+            thiss.layerInfo.forEach(info => {
                 // Create the new layer
                 const newLayer = new TileLayer({
                     source: new TileWMS({
@@ -438,15 +456,7 @@ export default defineComponent({
                 thiss.groupLayer.getLayers().push(newLayer);
             });
 
-            // Log the group layer after all layers are added
-            console.log('Group Layer:', this.groupLayer);
-
-            // Create a group layer
-            // this.groupLayer = new LayerGroup({
-            //     layers: [padsanRiver100Yrs, ilocos_Norte_EPR_1977_2022, ilocos_Norte_NSM_1977_2022, ilocos_Sur_EPR_1977_2022, ilocos_Sur_NSM_1977_2022, la_Union_EPR_1977_2022, la_Union_NSM_1977_2022, pangasinan_EPR_1977_2022, pangasinan_NSM_1977_2022],
-            // });
-
-            this.Options = this.groupLayer.getLayers().getArray().map((layer, index) => {
+            this.optionLayers = this.groupLayer.getLayers().getArray().map((layer, index) => {
                 return {
                     id: index,  // Generate an id using the index or create a unique id as needed
                     title: layer.get('title'),
@@ -455,7 +465,17 @@ export default defineComponent({
                 };
             });
 
-            // console.log(this.Options);
+            // Log the group layer after all layers are added
+
+
+            // Create a group layer
+            // this.groupLayer = new LayerGroup({
+            //     layers: [padsanRiver100Yrs, ilocos_Norte_EPR_1977_2022, ilocos_Norte_NSM_1977_2022, ilocos_Sur_EPR_1977_2022, ilocos_Sur_NSM_1977_2022, la_Union_EPR_1977_2022, la_Union_NSM_1977_2022, pangasinan_EPR_1977_2022, pangasinan_NSM_1977_2022],
+            // });
+
+
+
+            // console.log(this.optionLayers);
 
             // Initialize the map
             this.map = new Map({
@@ -516,7 +536,7 @@ export default defineComponent({
 .filter-option {
     z-index: 10;
     position: absolute;
-    top: 5px;
+    top: 1px;
     left: 0px;
 }
 
