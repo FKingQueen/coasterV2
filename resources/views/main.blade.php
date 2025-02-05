@@ -12,6 +12,29 @@
         <script src="https://code.highcharts.com/stock/highstock.js"></script>
         <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
 
+        <style>
+        /* width */
+        ::-webkit-scrollbar {
+        width: 12px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+        background: #134B70; 
+        }
+        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background:  #EEEEEE; 
+            border-radius: 3px; /* Roundness */
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #201E43; 
+        }
+</style>
+
     </head>
     <body class="antialiased">
         <div id="app">
