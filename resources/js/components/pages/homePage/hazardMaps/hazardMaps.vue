@@ -186,7 +186,7 @@ export default defineComponent({
     async mounted() {
         const thiss = this;
 
-        // fetch('http://localhost:3655/geoserver/ne/wms?service=WMS&request=GetCapabilities')
+        // fetch('https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&request=GetCapabilities')
         //     .then(response => response.text())
         //     .then(text => {
         //         const parser = new DOMParser();
@@ -209,7 +209,7 @@ export default defineComponent({
 
 
         // Get Request Information to Operate the Map Layers from Geoserver
-        fetch('http://localhost:3655/geoserver/ne/wms?service=WMS&request=GetCapabilities')
+        fetch('https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&request=GetCapabilities')
             .then(response => response.text())
             .then(text => {
                 const parser = new DOMParser();
@@ -292,7 +292,7 @@ export default defineComponent({
         addToLayer(option) {
             console.log('Option: ', option);
 
-            // const wfsUrl = 'http://localhost:3655/geoserver/ne/wms' + '?' +
+            // const wfsUrl = 'https://coaster.mmsu.edu.ph/geoserver/ne/wms' + '?' +
             //     'service=WFS&' +
             //     'version=1.1.0&' +
             //     'request=GetFeature&' +
@@ -420,7 +420,7 @@ export default defineComponent({
                 // Create the new layer
                 const newLayer = new TileLayer({
                     source: new TileWMS({
-                        url: 'http://localhost:3655/geoserver/ne/wms',
+                        url: 'https://coaster.mmsu.edu.ph/geoserver/ne/wms',
                         params: {
                             'LAYERS': `ne:${info.name}`,
                             'TILED': true,
