@@ -136,6 +136,7 @@ export default defineComponent({
                 thiss.type = '1'
                 thiss.data = response.data
                 thiss.chartOptions.series[0].data = thiss.data.level
+                thiss.chartOptions.series[0].data = thiss.data.level
 
                 // Setting the Style of the Chart
                 thiss.setChartStyle();

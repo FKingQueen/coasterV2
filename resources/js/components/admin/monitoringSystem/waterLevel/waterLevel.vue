@@ -155,6 +155,7 @@ export default defineComponent({
                                 }
 
                             }
+                            console.log(existingObj.chartOptions.series[0].data);
                             existingObj.type = '1';
                             existingObj.data = response.data.data;
                         }

@@ -13,7 +13,7 @@
                         <!-- Layer Name -->
                         <div class="h-48 overflow-auto space-y-2 space-y-1">
                             <div class="flex items-center space-x-1 cursor-pointer hover:bg-gray-500 py-1"
-                                v-for="option in optionLayers.slice(1)" @click="addToLayer(option)">
+                                v-for="option in optionLayers" @click="addToLayer(option)">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-6">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -26,7 +26,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bg-gray-800 py-2">
+                    <div class="bg-gray-800">
                         <div class="bg-[#134B70] tracking-wide blur-none leading-loose">
                             <p class=" py-1 px-2 text-[#EEEEEE]">
                                 Layers
@@ -42,7 +42,7 @@
                                         <a-slider v-model:value="addedLayer.opacity"
                                             @change="(value) => onChangeOpacity(value, addedLayer.title)" :step="10"
                                             :tip-formatter="formatter" class="w-4/5" />
-                                        <span class="text-[#EEEEEE]  cursor-pointer"
+                                        <!-- <span class="text-[#EEEEEE]  cursor-pointer"
                                             @click="removeLayer(addedLayer.id, addedLayer.title)">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -52,7 +52,7 @@
                                                     d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
                                             </svg>
 
-                                        </span>
+                                        </span> -->
                                         <span class="text-[#EEEEEE] cursor-pointer"
                                             @click="removeLayer(addedLayer.id, addedLayer.title)">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -85,6 +85,7 @@
                 </div>
             </div>
             <!-- /Filter Option -->
+            <!-- Navigation buttons right side -->
             <div class="navButtons space-y-3 text-[#EEEEEE]">
                 <div class="bg-[#134B70] p-1 cursor-pointer opacity-85 hover:opacity-50">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -93,7 +94,8 @@
                             d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
                     </svg>
                 </div>
-                <div class="bg-[#134B70] p-1 cursor-pointer opacity-85 hover:opacity-50">
+                <div @click="isbasemapOptionVisible = !isbasemapOptionVisible"
+                    class="bg-[#134B70] p-1 cursor-pointer opacity-85 hover:opacity-50">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -104,6 +106,30 @@
                     <p class="text-bold">XY</p>
                 </div>
             </div>
+
+            <!-- Change Base map -->
+            <div v-if="isbasemapOptionVisible" class="basemap-option bg-gray-800 w-[200px] py-2 px-3">
+                <div class="text-[#EEEEEE] space-y-2">
+                    <div>
+                        <p>
+                            Select Base Map
+                        </p>
+                    </div>
+                    <a-select ref="select" v-model:value="selectedBaseMap" style="width: 100%" @change="onSelectBaseMap">
+                        <a-select-option value="baseMap_OSM">Open Street Map (OSM)</a-select-option>
+                        <a-select-option value="baseMap_Basic">Basic</a-select-option>
+                    </a-select>
+                    <div class="text-justify">
+                        <p>
+                            <span class="font-bold">Note: </span>
+                            Please be advised that there may be discrepancies in the basemaps provided. Users are
+                            encouraged to exercise caution when using them, especially for applications requiring
+                            precise spatial accuracy.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="overlay-container p-1" id="popup">
             <span id="feature-additional-info"></span>
@@ -182,13 +208,16 @@ export default defineComponent({
             addedLayers: [],
             opacityLevel: ref(100),
             isTabVisible: true,
-            layerInfo: []
+            layerInfo: [],
+            // BaseMap Option
+            isbasemapOptionVisible: false,
+            selectedBaseMap: 'baseMap_OSM',
         };
     },
     async mounted() {
         const thiss = this;
 
-        // fetch('https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&request=GetCapabilities')
+        // fetch('http://localhost:3655/geoserver/ne/wms?service=WMS&request=GetCapabilities')
         //     .then(response => response.text())
         //     .then(text => {
         //         const parser = new DOMParser();
@@ -211,7 +240,7 @@ export default defineComponent({
 
 
         // Get Request Information to Operate the Map Layers from Geoserver
-        fetch('https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&request=GetCapabilities')
+        fetch('http://localhost:3655/geoserver/ne/wms?service=WMS&request=GetCapabilities')
             .then(response => response.text())
             .then(text => {
                 const parser = new DOMParser();
@@ -256,6 +285,19 @@ export default defineComponent({
             });
     },
     methods: {
+        onSelectBaseMap() {
+            const thiss = this
+            const basemapList = [
+                'baseMap_OSM',
+                'baseMap_Basic',
+            ];
+            const layers = this.map.getLayers().getArray();
+            layers.forEach(layer => {
+                if (basemapList.includes(layer.get('title'))) {
+                    layer.setVisible(layer.get('title') === thiss.selectedBaseMap);
+                }
+            });
+        },
         minimize() {
             this.isTabVisible = !this.isTabVisible;
         },
@@ -292,41 +334,40 @@ export default defineComponent({
             return `${value}%`; // Format the tooltip display
         },
         addToLayer(option) {
-            console.log('Option: ', option);
+            console.log(option.title);
+            const wfsUrl = 'http://localhost:3655/geoserver/ne/wms' + '?' +
+                'service=WFS&' +
+                'version=1.1.0&' +
+                'request=GetFeature&' +
+                `typeName=ne:${option.title}&` +
+                'outputFormat=application/json';
+            fetch(wfsUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (!data.features) {
+                        throw new Error('No features found in the response');
+                    }
 
-            // const wfsUrl = 'https://coaster.mmsu.edu.ph/geoserver/ne/wms' + '?' +
-            //     'service=WFS&' +
-            //     'version=1.1.0&' +
-            //     'request=GetFeature&' +
-            //     `typeName=ne:Ilocos_Norte_EPR_1977_2022&` +
-            //     'outputFormat=application/json';
-            // fetch(wfsUrl)
-            //     .then(response => {
-            //         if (!response.ok) {
-            //             throw new Error(`HTTP error! status: ${response.status}`);
-            //         }
-            //         return response.json();
-            //     })
-            //     .then(data => {
-            //         if (!data.features) {
-            //             throw new Error('No features found in the response');
-            //         }
+                    const geoJsonFormat = new GeoJSON();
+                    const features = geoJsonFormat.readFeatures(data);
 
-            //         const geoJsonFormat = new GeoJSON();
-            //         const features = geoJsonFormat.readFeatures(data);
-
-            //         // Extract attributes from features
-            //         const attributes = features.map(feature => {
-            //             const props = feature.getProperties();
-            //             delete props.geometry;  // Remove geometry from attributes
-            //             return props;
-            //         });
-            //         console.log('attributes', attributes);
-            //     })
-            //     .catch(error => {
-            //         console.error('Error fetching layer attributes from MMSU GeoServer:', error);
-            //         throw error;
-            //     });
+                    // Extract attributes from features
+                    const attributes = features.map(feature => {
+                        const props = feature.getProperties();
+                        delete props.geometry;  // Remove geometry from attributes
+                        return props;
+                    });
+                    console.log('attributes', attributes);
+                })
+                .catch(error => {
+                    console.error('Error fetching layer attributes from MMSU GeoServer:', error);
+                    throw error;
+                });
 
             this.overlayLayer.setPosition(undefined);
             const exists = this.addedLayers.find(layer => layer.id === option.id || layer.title === option.title);
@@ -407,38 +448,40 @@ export default defineComponent({
             this.overlayLayer.setPosition(undefined);
         },
         initializeMap() {
-            // https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
-            // https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
+            // http://localhost:3655/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
+            // http://localhost:3655/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
             const thiss = this;
 
             this.groupLayer = new LayerGroup({
                 layers: [],
             });
 
-            // const baseMap_Basic = new TileLayer({
-            //     source: new XYZ({
-            //         url: "https://api.mapbox.com/styles/v1/pcborja/cm4gd7ukq002c01rf9l0z2qb6/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicGNib3JqYSIsImEiOiJjbG5sZm9weGIxYzg4MmxtbmpqYjd2YXIxIn0.LmH0x1Rn3NDzJdzq3J6Ayg",
-            //     }),
-            //     visible: true,
-            //     title: "baseMap_Basic",
-            // });
+            const baseMap_Basic = new TileLayer({
+                source: new XYZ({
+                    url: "https://api.mapbox.com/styles/v1/pcborja/cm4gd7ukq002c01rf9l0z2qb6/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicGNib3JqYSIsImEiOiJjbG5sZm9weGIxYzg4MmxtbmpqYjd2YXIxIn0.LmH0x1Rn3NDzJdzq3J6Ayg",
+                }),
+                visible: false,
+                title: "baseMap_Basic",
+            });
 
 
             const baseMap_OSM = new TileLayer({
                 source: new XYZ({
                     url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                     attributions: '© OpenStreetMap contributors'
-                })
+                }),
+                visible: true,
+                title: "baseMap_OSM",
             })
 
-            // thiss.groupLayer.getLayers().push(baseMap_Basic);
+            thiss.groupLayer.getLayers().push(baseMap_Basic);
             thiss.groupLayer.getLayers().push(baseMap_OSM);
 
-            thiss.layerInfo.forEach(info => {
+            thiss.layerInfo.forEach((info, index) => {
                 // Create the new layer
                 const newLayer = new TileLayer({
                     source: new TileWMS({
-                        url: 'https://coaster.mmsu.edu.ph/geoserver/ne/wms',
+                        url: 'http://localhost:3655/geoserver/ne/wms',
                         params: {
                             'LAYERS': `ne:${info.name}`,
                             'TILED': true,
@@ -454,16 +497,24 @@ export default defineComponent({
 
                 // Add the layer to the group
                 thiss.groupLayer.getLayers().push(newLayer);
+
+                // Add the layer to the optionLayers array
+                thiss.optionLayers.push({
+                    id: index,
+                    title: newLayer.get('title'),
+                    opacity: thiss.opacityLevel,
+                    visibility: true,
+                });
             });
 
-            this.optionLayers = this.groupLayer.getLayers().getArray().map((layer, index) => {
-                return {
-                    id: index,  // Generate an id using the index or create a unique id as needed
-                    title: layer.get('title'),
-                    opacity: this.opacityLevel,
-                    visibility: true,
-                };
-            });
+            // this.optionLayers = this.groupLayer.getLayers().getArray().map((layer, index) => {
+            //     return {
+            //         id: index,  // Generate an id using the index or create a unique id as needed
+            //         title: layer.get('title'),
+            //         opacity: this.opacityLevel,
+            //         visibility: true,
+            //     };
+            // });
 
             // Log the group layer after all layers are added
 
@@ -545,6 +596,13 @@ export default defineComponent({
     position: absolute;
     top: 50px;
     right: 20px;
+}
+
+.basemap-option {
+    z-index: 10;
+    position: absolute;
+    top: 94px;
+    right: 60px;
 }
 
 .overlay-container {
