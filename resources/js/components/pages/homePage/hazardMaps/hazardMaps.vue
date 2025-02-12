@@ -42,8 +42,8 @@
                                         <a-slider v-model:value="addedLayer.opacity"
                                             @change="(value) => onChangeOpacity(value, addedLayer.title)" :step="10"
                                             :tip-formatter="formatter" class="w-4/5" />
-                                        <!-- <span class="text-[#EEEEEE]  cursor-pointer"
-                                            @click="removeLayer(addedLayer.id, addedLayer.title)">
+                                        <span class="text-[#EEEEEE]  cursor-pointer"
+                                            @click="resultChart(addedLayer)">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="size-6">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -52,7 +52,7 @@
                                                     d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
                                             </svg>
 
-                                        </span> -->
+                                        </span>
                                         <span class="text-[#EEEEEE] cursor-pointer"
                                             @click="removeLayer(addedLayer.id, addedLayer.title)">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -115,7 +115,8 @@
                             Select Base Map
                         </p>
                     </div>
-                    <a-select ref="select" v-model:value="selectedBaseMap" style="width: 100%" @change="onSelectBaseMap">
+                    <a-select ref="select" v-model:value="selectedBaseMap" style="width: 100%"
+                        @change="onSelectBaseMap">
                         <a-select-option value="baseMap_OSM">Open Street Map (OSM)</a-select-option>
                         <a-select-option value="baseMap_Basic">Basic</a-select-option>
                     </a-select>
@@ -129,7 +130,24 @@
                     </div>
                 </div>
             </div>
+            <!-- Change Base map -->
 
+            <!-- Result -->
+            <div v-if="isResultChartVisible" class="result bg-gray-800 w-[300px] "
+                style="background: rgba(31, 41, 55, 0.50); backdrop-filter: blur(5px);">
+                <div @click="isResultChartVisible = false" class="text-[#EEEEEE] w-full justify-end flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-5 cursor-pointer">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </div>
+
+                <div class="text-[#EEEEEE] py-2 px-3">
+                    <highcharts :options="resultChartOptions"></highcharts>
+                </div>
+
+            </div>
+            <!-- Result -->
         </div>
         <div class="overlay-container p-1" id="popup">
             <span id="feature-additional-info"></span>
@@ -158,32 +176,18 @@ import View from "ol/View";
 import TileLayer from "ol/layer/Tile";
 import FullScreen from "ol/control/FullScreen";
 import { fromLonLat } from "ol/proj";
-import { Fill, Style, Stroke } from "ol/style";
-// import VectorLayer from "ol/layer/Vector"; // Correct import statement
-// import VectorSource from "ol/source/Vector"; // Add VectorSource import
 import XYZ from "ol/source/XYZ";
-// import GeoJSON from 'ol/format/GeoJSON';
 
 // Datatables
 import { DataTable } from "datatables.net-vue3";
-import Select from "datatables.net-select";
 // Components
 
 // Overview Component
 import Overlay from "ol/Overlay";
-import VectorLayer from "ol/layer/Vector";
-import VectorSource from "ol/source/Vector";
 import GeoJSON from "ol/format/GeoJSON";
 import LayerGroup from "ol/layer/Group";
-
-import VectorTileLayer from "ol/layer/VectorTile";
-import VectorTileSource from "ol/source/VectorTile";
-import MVT from "ol/format/MVT";
 import TileWMS from "ol/source/TileWMS";
 import { transformExtent } from 'ol/proj';
-import { get as getProjection } from 'ol/proj'
-
-import OSM from 'ol/source/OSM';
 
 export default defineComponent({
     components: {
@@ -212,35 +216,66 @@ export default defineComponent({
             // BaseMap Option
             isbasemapOptionVisible: false,
             selectedBaseMap: 'baseMap_OSM',
+
+            isResultChartVisible: false,
+            resultChartOptions: {
+                chart: {
+                    backgroundColor: 'transparent', // Can be a color name, hex code, or rgba value
+                    style: {
+                        color: '#EEEEEE'
+                    },
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                credits: {
+                    text: '',
+                },
+                title: {
+                    text: '',
+                    style: {
+                        color: '#EEEEEE'
+                    },
+                },
+                plotOptions: {
+
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    },
+                    series: {
+                        animation: true
+                    }
+                },
+                legend: {
+                    itemStyle: {
+                        color: '#EEEEEE'
+                    }
+                },
+                colors: [],
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                series: [
+                    {
+                        name: 'Percentage',
+                        colorByPoint: true,
+                        data: []
+                    }
+                ]
+            },
         };
     },
     async mounted() {
         const thiss = this;
 
-        // fetch('https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&request=GetCapabilities')
-        //     .then(response => response.text())
-        //     .then(text => {
-        //         const parser = new DOMParser();
-        //         const xmlDoc = parser.parseFromString(text, 'application/xml');
-        //         const layers = xmlDoc.getElementsByTagName('Layer');
-
-        //         // Collect layer names into an array
-        //         const layerNames = [];
-        //         for (let i = 1; i < layers.length; i++) { // Skip the first layer, which is a container
-        //             const layerName = layers[i].getElementsByTagName('Name')[0]?.textContent;
-        //             if (layerName) layerNames.push(layerName);
-        //         }
-
-        //         // Sort layer names alphabetically
-        //         layerNames.sort();
-
-        //         // Log the sorted layer names
-        //         layerNames.forEach(name => console.log('Layer Name:', name));
-        //     });
-
-
         // Get Request Information to Operate the Map Layers from Geoserver
-        fetch('https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&request=GetCapabilities')
+        fetch('d/geoserver/ne/wms?service=WMS&request=GetCapabilities')
             .then(response => response.text())
             .then(text => {
                 const parser = new DOMParser();
@@ -333,9 +368,38 @@ export default defineComponent({
         formatter(value) {
             return `${value}%`; // Format the tooltip display
         },
-        addToLayer(option) {
-            console.log(option.title);
-            const wfsUrl = 'https://coaster.mmsu.edu.ph/geoserver/ne/wms' + '?' +
+        resultChart(option) {
+            // Result Chart
+            const thiss = this
+            let attributeData = []
+            let attributeStyle = []
+
+            const legendUrl = 'd/geoserver/ne/wms' + '?' +
+                'service=WMS&' +
+                'version=1.1.0&' +
+                'request=GetLegendGraphic&' +
+                `layer=ne:${option.title}&` +
+                'format=application/json';
+
+            fetch(legendUrl)
+                .then(response => response.json())  // Parse as JSON instead of text
+                .then(data => {
+                    // Extract fill colors with their corresponding EPR trends
+                    attributeStyle = data.Legend[0].rules.map(rule => ({
+                        name: rule.filter.match(/\'(.*?)\'/)[1],  // Extract value between quotes
+                        color: rule.symbolizers[0].Polygon.fill
+                    }));
+
+                    console.log('attributeStyle:', attributeStyle);
+
+                    // Match attributeData with attributeStyle and set the color
+
+                })
+                .catch(error => {
+                    console.error('Error getting style:', error);
+                });
+
+            const wfsUrl = 'd/geoserver/ne/wms' + '?' +
                 'service=WFS&' +
                 'version=1.1.0&' +
                 'request=GetFeature&' +
@@ -359,16 +423,56 @@ export default defineComponent({
                     // Extract attributes from features
                     const attributes = features.map(feature => {
                         const props = feature.getProperties();
-                        delete props.geometry;  // Remove geometry from attributes
-                        return props;
+                        return {
+                            Graph: props.Graph,
+                            color: props.color,
+                            stroke: props.stroke,
+                            // any other properties you need
+                        };
                     });
-                    console.log('attributes', attributes);
+
+                    // Step 1: Count occurrences
+                    const counts = attributes.reduce((acc, obj) => {
+                        const key = obj.Graph;
+                        acc[key] = (acc[key] || 0) + 1;
+                        return acc;
+                    }, {});
+
+                    // Step 2: Calculate percentages
+                    const total = attributes.length;
+                    attributeData = Object.entries(counts).map(([key, count]) => ({
+                        name: key,
+                        y: parseFloat(((count / total) * 100).toFixed(2)),
+                    }));
+                    console.log('attributeData:', attributeData);
+
+
+                    attributeData.forEach(attrData => {
+                        const style = attributeStyle.find(attrStyle => attrStyle.name === attrData.name);
+                        if (style) {
+                            attrData.color = style.color;
+                        }
+                    });
+
+                    // Update the chart options with the new data and colors
+                    thiss.resultChartOptions.title.text = option.title
+                    thiss.resultChartOptions.series[0].data = attributeData;
+                    thiss.resultChartOptions.colors = attributeData.map(attr => attr.color);
+                    console.log(attributeData);
+
+                    // Time for Result Chart to dissapear
+                    thiss.isResultChartVisible = true;
+                    
                 })
                 .catch(error => {
                     console.error('Error fetching layer attributes from MMSU GeoServer:', error);
                     throw error;
                 });
 
+        },
+        addToLayer(option) {
+            console.log();
+            const thiss = this
             this.overlayLayer.setPosition(undefined);
             const exists = this.addedLayers.find(layer => layer.id === option.id || layer.title === option.title);
             if (!exists) {
@@ -384,6 +488,8 @@ export default defineComponent({
                     if (extent) {
                         this.map.getView().fit(extent, { duration: 1000 });
                     }
+
+                    thiss.resultChart(option)
                 }
             }
         },
@@ -420,6 +526,7 @@ export default defineComponent({
                                 // console.log(response.data.features.properties); // Access the response data
 
                                 this.data = Object.entries(response.data.features[response.data.features.length - 1].properties)
+                                    .filter(([key, value]) => key !== 'Graph')
                                     .map(([key, value]) => ({
                                         attribute: key,
                                         value: value,
@@ -448,8 +555,8 @@ export default defineComponent({
             this.overlayLayer.setPosition(undefined);
         },
         initializeMap() {
-            // https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
-            // https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
+            // d/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
+            // d/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
             const thiss = this;
 
             this.groupLayer = new LayerGroup({
@@ -481,7 +588,7 @@ export default defineComponent({
                 // Create the new layer
                 const newLayer = new TileLayer({
                     source: new TileWMS({
-                        url: 'https://coaster.mmsu.edu.ph/geoserver/ne/wms',
+                        url: 'd/geoserver/ne/wms',
                         params: {
                             'LAYERS': `ne:${info.name}`,
                             'TILED': true,
@@ -507,26 +614,6 @@ export default defineComponent({
                 });
             });
 
-            // this.optionLayers = this.groupLayer.getLayers().getArray().map((layer, index) => {
-            //     return {
-            //         id: index,  // Generate an id using the index or create a unique id as needed
-            //         title: layer.get('title'),
-            //         opacity: this.opacityLevel,
-            //         visibility: true,
-            //     };
-            // });
-
-            // Log the group layer after all layers are added
-
-
-            // Create a group layer
-            // this.groupLayer = new LayerGroup({
-            //     layers: [padsanRiver100Yrs, ilocos_Norte_EPR_1977_2022, ilocos_Norte_NSM_1977_2022, ilocos_Sur_EPR_1977_2022, ilocos_Sur_NSM_1977_2022, la_Union_EPR_1977_2022, la_Union_NSM_1977_2022, pangasinan_EPR_1977_2022, pangasinan_NSM_1977_2022],
-            // });
-
-
-
-            // console.log(this.optionLayers);
 
             // Initialize the map
             this.map = new Map({
@@ -602,6 +689,14 @@ export default defineComponent({
     z-index: 10;
     position: absolute;
     top: 94px;
+    right: 60px;
+}
+
+.result {
+    z-index: 5;
+    position: absolute;
+    top: 200px;
+    bottom: 5px;
     right: 60px;
 }
 
