@@ -125,7 +125,7 @@ export default defineComponent({
                 thiss.loading = false
             });
 
-        this.intervalId = setInterval(this.fetchData, 30000); // Fetch data every 5 seconds
+        this.intervalId = setInterval(this.fetchData, 300000); // Fetch data every 5 seconds
     },
     beforeUnmount() {
         clearInterval(this.intervalId); // Clean up interval when component unmounts
