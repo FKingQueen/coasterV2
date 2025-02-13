@@ -123,4 +123,48 @@ class HomeMonitoringSystemController extends Controller
         ]);
     }
 
+    public function getWaterLevelLatest($id){
+
+        $data = WaterLevel::where('wlms_id', $id)
+        ->orderBy('created_at', 'DESC')
+        ->first();
+        
+        $temperatureData = null;
+        $humidityData = null;
+        $validatedLevelData = null;
+
+        if ($data) {
+            $datetime = new \DateTime($data->created_at->format('Y-m-d H:i:s'), new \DateTimeZone('UTC'));
+            $milliseconds = $datetime->getTimestamp() * 1000;
+
+            $temperatureData = [
+            $milliseconds, // Converts to milliseconds
+            floatval(round($data->temperature * 100) / 100)
+            ];
+
+            $humidityData = [
+            $milliseconds, // Converts to milliseconds
+            floatval(round($data->humidity * 100) / 100)
+            ];
+
+            if ($data->level != 0) {
+            $validatedLevelData = [
+                $milliseconds, // Converts to milliseconds
+                $id == 1 
+                ? floatval(round((13.5 - $data->level) * 100) / 100)
+                : ($id == 2 
+                ? floatval(round((26 - $data->level) * 100) / 100)
+                : floatval($data->level) // Default case if needed
+                )
+            ];
+            }
+        }
+
+        return response()->json([
+            'level' => $validatedLevelData,
+            'temperature' => $temperatureData,
+            'humidity' => $humidityData
+        ]);
+    }
+
 }

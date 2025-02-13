@@ -724,10 +724,6 @@ video {
   width: 1.5rem;
   height: 1.5rem;
 }
-.size-3 {
-  width: 0.75rem;
-  height: 0.75rem;
-}
 .h-11 {
   height: 2.75rem;
 }
@@ -920,6 +916,9 @@ video {
 .w-\[23rem\] {
   width: 23rem;
 }
+.w-\[300px\] {
+  width: 300px;
+}
 .w-\[500px\] {
   width: 500px;
 }
@@ -935,12 +934,6 @@ video {
 }
 .w-screen {
   width: 100vw;
-}
-.w-\[20px\] {
-  width: 20px;
-}
-.w-\[300px\] {
-  width: 300px;
 }
 .max-w-md {
   max-width: 28rem;
@@ -1325,9 +1318,6 @@ video {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
-}
-.bg-transparent {
-  background-color: transparent;
 }
 .bg-gradient-to-b {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));

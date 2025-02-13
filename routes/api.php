@@ -98,6 +98,7 @@ Route::get('/getStationCurrentData', [HomeStationController::class, 'getStationC
 Route::get('/getProject/{id}', [ProjectController::class, 'getProject']);
 Route::get('/getRelatedArticle/{id}', [ProjectController::class, 'getRelatedArticle']);
 // Monitoring System
+Route::get('/getWaterLevelLatest/{id}', [HomeMonitoringSystemController::class, 'getWaterLevelLatest']);
 Route::get('/getWaterLevel/{id}', [HomeMonitoringSystemController::class, 'getWaterLevel']);
 Route::get('/getBouy/{id}', [HomeMonitoringSystemController::class, 'getBouy']);
 // Map

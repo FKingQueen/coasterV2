@@ -123,7 +123,9 @@ export default defineComponent({
                         }
                     },
                 },
-            }
+            },
+
+            intervalId: null,
 
         };
     },
@@ -146,6 +148,11 @@ export default defineComponent({
                 console.error(error);
                 thiss.loading = false
             });
+
+        this.intervalId = setInterval(this.fetchData, 300000); // Fetch data every 5 seconds
+    },
+    beforeUnmount() {
+        clearInterval(this.intervalId); // Clean up interval when component unmounts
     },
     methods: {
         setChartStyle() {
@@ -194,7 +201,7 @@ export default defineComponent({
             }
         },
         onChangeType() {
-            let thiss = this;
+            const thiss = this;
 
             if (thiss.chartOptions.series[0].data.length != 0) {
                 switch (thiss.type) {
@@ -269,7 +276,25 @@ export default defineComponent({
                         break;
                 }
             }
-        }
+        },
+        async fetchData() {
+            const thiss = this
+            try {
+                await axios
+                    .get(`/api/getWaterLevelLatest/${this.id}`)
+                    .then((response) => {
+                        console.log('latest: ', response);
+                        thiss.data.level.push(response.data.level);
+                        thiss.data.temperature.push(response.data.temperature);
+                        thiss.data.humidity.push(response.data.humidity);
+                    })
+                    .catch(function (error) {
+                        console.error(error);
+                    });
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        },
     }
 });
 </script>
