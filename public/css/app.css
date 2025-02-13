@@ -502,6 +502,12 @@ video {
 .container {
   width: 100%;
 }
+@media (min-width: 400px) {
+
+  .container {
+    max-width: 400px;
+  }
+}
 @media (min-width: 640px) {
 
   .container {
@@ -526,10 +532,10 @@ video {
     max-width: 1280px;
   }
 }
-@media (min-width: 1500px) {
+@media (min-width: 1400px) {
 
   .container {
-    max-width: 1500px;
+    max-width: 1400px;
   }
 }
 @media (min-width: 1536px) {
@@ -984,12 +990,11 @@ video {
   -moz-columns: 3;
        columns: 3;
 }
-.columns-4 {
-  -moz-columns: 4;
-       columns: 4;
-}
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .flex-row {
   flex-direction: row;
@@ -2309,10 +2314,18 @@ video {
 }
 
 
-@media (min-width: 1500px) {
+@media (min-width: 1400px) {
 
   .laptop\:flex {
     display: flex;
+  }
+
+  .laptop\:grid {
+    display: grid;
+  }
+
+  .laptop\:hidden {
+    display: none;
   }
 
   .laptop\:h-\[360px\] {
@@ -2335,9 +2348,8 @@ video {
     width: 200px;
   }
 
-  .laptop\:columns-7 {
-    -moz-columns: 7;
-         columns: 7;
+  .laptop\:grid-cols-7 {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
   }
 
   .laptop\:justify-end {
@@ -2389,6 +2401,10 @@ video {
 
 
 @media (min-width: 1900px) {
+
+  .monitor\:hidden {
+    display: none;
+  }
 
   .monitor\:w-5\/6 {
     width: 83.333333%;

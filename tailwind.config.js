@@ -15,7 +15,9 @@ module.exports = {
         // Add any other fonts here
       },
       screens: {
-        'laptop': '1500px',
+        'mobile': '400px',  // Mobile devices
+        'tablet': '768px',  // Tablets
+        'laptop': '1400px', 
         'monitor': '1900px',
       },
     },
