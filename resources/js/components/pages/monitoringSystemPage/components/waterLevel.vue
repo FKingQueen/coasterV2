@@ -63,30 +63,6 @@ export default defineComponent({
                     selected: 2,
                     inputEnabled: true,
                 },
-                // xAxis: {
-                //     events: {
-                //         afterSetExtremes: (e) => {
-                //             console.log('Range Selector Event:', e);
-                //             console.log(e.rangeSelectorButton.type);
-                //             if(e.rangeSelectorButton.type == 'year'){
-                //                 console.log(e.rangeSelectorButton.type);
-                //             }
-                //             if(e.rangeSelectorButton.type == 'all'){
-                //                 console.log(e.rangeSelectorButton.type);
-                //             }
-                //         }
-                //     }
-                // },
-                // xAxis: {
-                //     gridLineWidth: 5, // Add grid lines
-                //     gridLineColor: '#dddddd', // Grid line color
-                //     labels: {
-                //         style: {
-                //             color: '#666666', // Axis label color
-                //         },
-                //     },
-                //     type: 'datetime', // Time-based axis
-                // },
                 title: {
                     text: "",
                     style: {
@@ -149,7 +125,7 @@ export default defineComponent({
                 thiss.loading = false
             });
 
-        this.intervalId = setInterval(this.fetchData, 300000); // Fetch data every 5 seconds
+        this.intervalId = setInterval(this.fetchData, 30000); // Fetch data every 5 seconds
     },
     beforeUnmount() {
         clearInterval(this.intervalId); // Clean up interval when component unmounts
@@ -284,9 +260,20 @@ export default defineComponent({
                     .get(`/api/getWaterLevelLatest/${this.id}`)
                     .then((response) => {
                         console.log('latest: ', response);
-                        thiss.data.level.push(response.data.level);
-                        thiss.data.temperature.push(response.data.temperature);
-                        thiss.data.humidity.push(response.data.humidity);
+                        switch (thiss.type) {
+                            case '1':
+                                thiss.data.level.push(response.data.level);
+                                thiss.chartOptions.series[0].data.push(response.data.level);
+                                break;
+                            case '2':
+                                thiss.data.temperature.push(response.data.temperature);
+                                thiss.chartOptions.series[0].data.push(response.data.temperature);
+                                break;
+                            case '3':
+                                thiss.data.humidity.push(response.data.humidity);
+                                thiss.chartOptions.series[0].data.push(response.data.humidity);
+                                break;
+                        }
                     })
                     .catch(function (error) {
                         console.error(error);
