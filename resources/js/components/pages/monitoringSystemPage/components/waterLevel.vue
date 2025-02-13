@@ -264,16 +264,20 @@ export default defineComponent({
                             case '1':
                                 thiss.data.level.push(response.data.level);
                                 thiss.chartOptions.series[0].data.push(response.data.level);
+                                console.log('type: ',thiss.type);
                                 break;
                             case '2':
                                 thiss.data.temperature.push(response.data.temperature);
                                 thiss.chartOptions.series[0].data.push(response.data.temperature);
+                                console.log('type: ',thiss.type);
                                 break;
                             case '3':
                                 thiss.data.humidity.push(response.data.humidity);
                                 thiss.chartOptions.series[0].data.push(response.data.humidity);
+                                console.log('type: ',thiss.type);
                                 break;
                         }
+                        console.log('chart: ',thiss.chartOptions.series[0].data);
                     })
                     .catch(function (error) {
                         console.error(error);
