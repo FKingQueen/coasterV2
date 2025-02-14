@@ -51,21 +51,21 @@ export default defineComponent({
                         fontFamily: 'Arial, sans-serif', // Change the font
                     },
                     events: {
-                        load: function () {
+                        load: () => {
                             const chart = this;
-                            const series = this.series[0];
+                            const series = chart.chartOptions.series[0];
                             setInterval(function () {
-                                axios
-                                    .get(`/api/getWaterLevelLatest/${this.id}`)
+                                axios.get(`/api/getWaterLevelLatest/${chart.id}`)
                                     .then((response) => {
-                                        if(chart.subtitle.textStr == 'Water Level'){
-                                            series.addPoint(response.level, true, true);
+                                        console.log('latest: ', response);
+                                        if(chart.chartOptions.subtitle.textStr == 'Water Level'){
+                                            series.addPoint(response.data.level, true, true);
                                         }
-                                        if(chart.subtitle.textStr == 'Temperature'){
-                                            series.addPoint(response.temperature, true, true);
+                                        if(chart.chartOptions.subtitle.textStr == 'Temperature'){
+                                            series.addPoint(response.data.temperature, true, true);
                                         }
-                                        if(chart.subtitle.textStr == 'Humidity'){
-                                            series.addPoint(response.humidity, true, true);
+                                        if(chart.chartOptions.subtitle.textStr == 'Humidity'){
+                                            series.addPoint(response.data.humidity, true, true);
                                         }
                                     })
                                     .catch(function (error) {
@@ -134,6 +134,7 @@ export default defineComponent({
         await axios
             .get(`/api/getWaterLevel/${this.id}`)
             .then((response) => {
+                console.log(response);
                 thiss.type = '1'
                 thiss.data = response.data
                 thiss.chartOptions.series[0].data = thiss.data.level
