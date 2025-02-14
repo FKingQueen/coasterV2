@@ -53,6 +53,7 @@ export default defineComponent({
                     events: {
                         load: function () {
                             const chart = this;
+                            const series = this.series[0];
                             setInterval(function () {
                                 axios
                                     .get(`/api/getWaterLevelLatest/${chart.options.chart.id}`)
@@ -70,7 +71,7 @@ export default defineComponent({
                                     .catch(function (error) {
                                         console.error(error);
                                     });
-                            }, 300000);
+                            }, 5000);
                         }
                     }
                 },
