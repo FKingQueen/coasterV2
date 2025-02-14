@@ -56,7 +56,7 @@ export default defineComponent({
                             const series = this.series[0];
                             setInterval(function () {
                                 axios
-                                    .get(`/api/getWaterLevelLatest/${chart.options.chart.id}`)
+                                    .get(`/api/getWaterLevelLatest/${this.id}`)
                                     .then((response) => {
                                         if(chart.subtitle.textStr == 'Water Level'){
                                             series.addPoint(response.level, true, true);
