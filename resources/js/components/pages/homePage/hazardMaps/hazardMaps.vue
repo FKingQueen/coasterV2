@@ -133,7 +133,7 @@
             <!-- Change Base map -->
 
             <!-- Result -->
-            <div v-if="isResultChartVisible" class="result bg-gray-800 w-[300px] "
+            <div v-if="isResultChartVisible" class="result bg-gray-800 w-[400px] "
                 style="background: rgba(31, 41, 55, 0.50); backdrop-filter: blur(5px);">
                 <div @click="isResultChartVisible = false" class="text-[#EEEEEE] w-full justify-end flex">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
