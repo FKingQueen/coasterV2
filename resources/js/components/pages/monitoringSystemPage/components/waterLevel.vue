@@ -50,6 +50,29 @@ export default defineComponent({
                     style: {
                         fontFamily: 'Arial, sans-serif', // Change the font
                     },
+                    events: {
+                        load: function () {
+                            const chart = this;
+                            setInterval(function () {
+                                axios
+                                    .get(`/api/getWaterLevelLatest/${chart.options.chart.id}`)
+                                    .then((response) => {
+                                        if(chart.subtitle.textStr == 'Water Level'){
+                                            series.addPoint(response.level, true, true);
+                                        }
+                                        if(chart.subtitle.textStr == 'Temperature'){
+                                            series.addPoint(response.temperature, true, true);
+                                        }
+                                        if(chart.subtitle.textStr == 'Humidity'){
+                                            series.addPoint(response.humidity, true, true);
+                                        }
+                                    })
+                                    .catch(function (error) {
+                                        console.error(error);
+                                    });
+                            }, 300000);
+                        }
+                    }
                 },
                 rangeSelector: {
                     buttons: [
@@ -101,7 +124,7 @@ export default defineComponent({
                 },
             },
 
-            intervalId: null,
+            // intervalId: null,
 
         };
     },
@@ -110,7 +133,6 @@ export default defineComponent({
         await axios
             .get(`/api/getWaterLevel/${this.id}`)
             .then((response) => {
-                console.log(response);
                 thiss.type = '1'
                 thiss.data = response.data
                 thiss.chartOptions.series[0].data = thiss.data.level
@@ -125,11 +147,11 @@ export default defineComponent({
                 thiss.loading = false
             });
 
-        this.intervalId = setInterval(this.fetchData, 300000); // Fetch data every 5 seconds
+        // this.intervalId = setInterval(this.fetchData, 300000); // Fetch data every 5 seconds
     },
-    beforeUnmount() {
-        clearInterval(this.intervalId); // Clean up interval when component unmounts
-    },
+    // beforeUnmount() {
+    //     clearInterval(this.intervalId); // Clean up interval when component unmounts
+    // },
     methods: {
         setChartStyle() {
             let thiss = this;
@@ -253,39 +275,39 @@ export default defineComponent({
                 }
             }
         },
-        async fetchData() {
-            const thiss = this
-            try {
-                await axios
-                    .get(`/api/getWaterLevelLatest/${this.id}`)
-                    .then((response) => {
-                        console.log('latest: ', response);
-                        switch (thiss.type) {
-                            case '1':
-                                thiss.data.level.push(response.data.level);
-                                thiss.chartOptions.series[0].data.push(response.data.level);
-                                console.log('type: ',thiss.type);
-                                break;
-                            case '2':
-                                thiss.data.temperature.push(response.data.temperature);
-                                thiss.chartOptions.series[0].data.push(response.data.temperature);
-                                console.log('type: ',thiss.type);
-                                break;
-                            case '3':
-                                thiss.data.humidity.push(response.data.humidity);
-                                thiss.chartOptions.series[0].data.push(response.data.humidity);
-                                console.log('type: ',thiss.type);
-                                break;
-                        }
-                        console.log('chart: ',thiss.chartOptions.series[0].data);
-                    })
-                    .catch(function (error) {
-                        console.error(error);
-                    });
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        },
+        // async fetchData() {
+        //     const thiss = this
+        //     try {
+        //         await axios
+        //             .get(`/api/getWaterLevelLatest/${this.id}`)
+        //             .then((response) => {
+        //                 console.log('latest: ', response);
+        //                 switch (thiss.type) {
+        //                     case '1':
+        //                         thiss.data.level.push(response.data.level);
+        //                         thiss.chartOptions.series[0].data.push(response.data.level);
+        //                         console.log('type: ',thiss.type);
+        //                         break;
+        //                     case '2':
+        //                         thiss.data.temperature.push(response.data.temperature);
+        //                         thiss.chartOptions.series[0].data.push(response.data.temperature);
+        //                         console.log('type: ',thiss.type);
+        //                         break;
+        //                     case '3':
+        //                         thiss.data.humidity.push(response.data.humidity);
+        //                         thiss.chartOptions.series[0].data.push(response.data.humidity);
+        //                         console.log('type: ',thiss.type);
+        //                         break;
+        //                 }
+        //                 console.log('chart: ',thiss.chartOptions.series[0].data);
+        //             })
+        //             .catch(function (error) {
+        //                 console.error(error);
+        //             });
+        //     } catch (error) {
+        //         console.error("Error fetching data:", error);
+        //     }
+        // },
     }
 });
 </script>

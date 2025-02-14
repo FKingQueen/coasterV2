@@ -128,7 +128,6 @@ export default defineComponent({
     methods: {
         onChangeType(e) {
             let thiss = this;
-            console.log(thiss.type);
             if (thiss.chartOptions1.series[0].data.length != 0) {
                 switch (thiss.type) {
                     case '1':
@@ -253,7 +252,6 @@ export default defineComponent({
                 valueSuffix: '°C'
             }
             thiss.chartOptions1.series[1].color = '#FF774F'
-            console.log('test2: ', thiss.chartOptions1);
 
         },
         setChartStyleWave() {
@@ -320,7 +318,6 @@ export default defineComponent({
         await axios
             .get(`/api/getBouy/${this.id}`)
             .then((response) => {
-                console.log('buoy1: ', response);
                 thiss.type = '1'
                 thiss.data = response.data
                 thiss.chartOptions1.series[0].data = thiss.data.tide
