@@ -44,6 +44,7 @@ export default defineComponent({
             ],
             type: '',
             loading: true,
+
             chartOptions: {
                 chart: {
                     backgroundColor: '#f7f7f7', // Light gray background
@@ -51,21 +52,28 @@ export default defineComponent({
                         fontFamily: 'Arial, sans-serif', // Change the font
                     },
                     events: {
-                        load: () => {
-                            const chart = this;
-                            const series = chart.chartOptions.series[0];
+                        load: function () {
+                            const thiss = this
+                            const series = thiss.series[0];
                             setInterval(function () {
-                                axios.get(`/api/getWaterLevelLatest/${chart.id}`)
+                                const id = thiss.userOptions.custom.id;
+                                const type = thiss.userOptions.custom.type;
+                                axios
+                                    .get(`/api/getWaterLevelLatest/${id}`)
                                     .then((response) => {
-                                        console.log('latest: ', response);
-                                        if(chart.chartOptions.subtitle.textStr == 'Water Level'){
-                                            series.addPoint(response.data.level, true, true);
-                                        }
-                                        if(chart.chartOptions.subtitle.textStr == 'Temperature'){
-                                            series.addPoint(response.data.temperature, true, true);
-                                        }
-                                        if(chart.chartOptions.subtitle.textStr == 'Humidity'){
-                                            series.addPoint(response.data.humidity, true, true);
+                                        switch (type) {
+                                            case '1':
+                                                series.addPoint(response.data.level, true, true);
+                                                console.log(response.data.level);
+                                                break;
+                                            case '2':
+                                                series.addPoint(response.data.temperature, true, true);
+                                                console.log(response.data.temperature);
+                                                break;
+                                            case '3':
+                                                series.addPoint(response.data.humidity, true, true);
+                                                console.log(response.data.humidity);
+                                                break;
                                         }
                                     })
                                     .catch(function (error) {
@@ -74,6 +82,11 @@ export default defineComponent({
                             }, 300000);
                         }
                     }
+                },
+                // Store component reference and id in custom options
+                custom: {
+                    id: null,
+                    type: null
                 },
                 rangeSelector: {
                     buttons: [
@@ -131,11 +144,16 @@ export default defineComponent({
     },
     async mounted() {
         let thiss = this;
+
+        // this.chartOptions.custom.component = this;
+        this.chartOptions.custom.id = this.id;
+
         await axios
             .get(`/api/getWaterLevel/${this.id}`)
             .then((response) => {
                 console.log(response);
                 thiss.type = '1'
+                thiss.chartOptions.custom.type = '1'
                 thiss.data = response.data
                 thiss.chartOptions.series[0].data = thiss.data.level
                 thiss.chartOptions.series[0].data = thiss.data.level
@@ -202,7 +220,7 @@ export default defineComponent({
         },
         onChangeType() {
             const thiss = this;
-
+            thiss.chartOptions.custom.type = thiss.type
             if (thiss.chartOptions.series[0].data.length != 0) {
                 switch (thiss.type) {
                     case '1':
