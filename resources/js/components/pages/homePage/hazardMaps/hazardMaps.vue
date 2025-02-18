@@ -108,14 +108,21 @@
             </div>
 
             <!-- Change Base map -->
-            <div v-if="isbasemapOptionVisible" class="basemap-option bg-gray-800 w-[200px] py-2 px-3">
+            <div v-if="isbasemapOptionVisible" class="basemap-option bg-gray-800 w-[200px] py-2">
                 <div class="text-[#EEEEEE] space-y-2">
-                    <div>
-                        <p>
-                            Select Base Map
-                        </p>
+                    <div @click="isbasemapOptionVisible = false" class="text-[#EEEEEE] w-full justify-between flex px-1">
+                        <div>
+                            <p>
+                                Select Base Map
+                            </p>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-5 cursor-pointer">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
                     </div>
-                    <a-select ref="select" v-model:value="selectedBaseMap" style="width: 100%"
+                    <div class="px-3">
+                        <a-select ref="select" v-model:value="selectedBaseMap" style="width: 100%"
                         @change="onSelectBaseMap">
                         <a-select-option value="baseMap_OSM">Open Street Map (OSM)</a-select-option>
                         <a-select-option value="baseMap_Basic">Basic</a-select-option>
@@ -128,12 +135,14 @@
                             precise spatial accuracy.
                         </p>
                     </div>
+                    </div>
+                    
                 </div>
             </div>
             <!-- Change Base map -->
 
             <!-- Result -->
-            <div v-if="isResultChartVisible" class="result bg-gray-800 w-[400px] h-[500px] "
+            <div v-if="isResultChartVisible" class="result bg-gray-800 w-[300px]"
                 style="background: rgba(31, 41, 55, 0.50); backdrop-filter: blur(5px);">
                 <div @click="isResultChartVisible = false" class="text-[#EEEEEE] w-full justify-end flex">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -166,8 +175,10 @@
 </template>
 
 <script>
+
 // Vue Libraries
 import { defineComponent, ref, nextTick, h } from "vue";
+
 // OpenLayers Libraries
 
 import "ol/ol.css";
@@ -180,7 +191,6 @@ import XYZ from "ol/source/XYZ";
 
 // Datatables
 import { DataTable } from "datatables.net-vue3";
-// Components
 
 // Overview Component
 import Overlay from "ol/Overlay";
@@ -390,8 +400,6 @@ export default defineComponent({
                         color: rule.symbolizers[0].Polygon.fill
                     }));
 
-                    console.log('attributeStyle:', attributeStyle);
-
                     // Match attributeData with attributeStyle and set the color
 
                 })
@@ -444,7 +452,6 @@ export default defineComponent({
                         name: key,
                         y: parseFloat(((count / total) * 100).toFixed(2)),
                     }));
-                    console.log('attributeData:', attributeData);
 
 
                     attributeData.forEach(attrData => {
@@ -458,11 +465,9 @@ export default defineComponent({
                     thiss.resultChartOptions.title.text = option.title
                     thiss.resultChartOptions.series[0].data = attributeData;
                     thiss.resultChartOptions.colors = attributeData.map(attr => attr.color);
-                    console.log(attributeData);
-
                     // Time for Result Chart to dissapear
                     thiss.isResultChartVisible = true;
-                    
+
                 })
                 .catch(error => {
                     console.error('Error fetching layer attributes from MMSU GeoServer:', error);
@@ -470,9 +475,11 @@ export default defineComponent({
                 });
 
         },
-        showResultChart(option){
+        showResultChart(option) {
             const thiss = this
-            if(thiss.resultChartOptions.title.text != option.title){
+            if (thiss.resultChartOptions.title.text != option.title) {
+                thiss.resultChart(option)
+            } else if (thiss.isResultChartVisible == false) {
                 thiss.resultChart(option)
             }
         },
@@ -701,7 +708,7 @@ export default defineComponent({
 .result {
     z-index: 5;
     position: absolute;
-    bottom: 5px;
+    top: 138px;
     right: 60px;
 }
 

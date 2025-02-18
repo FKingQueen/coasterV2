@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <div class="w-full flex justify-end">
-                                <a-button @click="$router.push('/hazardmaps')" type="primary">Visualize hazard maps on the map</a-button>
+                                <a-button @click="$router.push('/hazardmaps')" type="primary">Open Hazard Map</a-button>
                         </div>
                     </div>
                 </div>
