@@ -95,13 +95,6 @@
             <!-- /Filter Option -->
             <!-- Navigation buttons right side -->
             <div class="navButtons space-y-3 text-[#EEEEEE]">
-                <!-- <div class="bg-[#134B70] p-1 cursor-pointer opacity-85 hover:opacity-50">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
-                    </svg>
-                </div> -->
                 <div @click="isbasemapOptionVisible = !isbasemapOptionVisible"
                     class="bg-[#134B70] p-1 cursor-pointer opacity-85 hover:opacity-50">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -302,7 +295,7 @@ export default defineComponent({
         const thiss = this;
 
         // Get Request Information to Operate the Map Layers from Geoserver
-        fetch('http://localhost:3655/geoserver/ne/wms?service=WMS&request=GetCapabilities')
+        fetch('https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&request=GetCapabilities')
             .then(response => response.text())
             .then(text => {
                 const parser = new DOMParser();
@@ -401,7 +394,7 @@ export default defineComponent({
             let attributeData = []
             let attributeStyle = []
 
-            const legendUrl = 'http://localhost:3655/geoserver/ne/wms' + '?' +
+            const legendUrl = 'https://coaster.mmsu.edu.ph/geoserver/ne/wms' + '?' +
                 'service=WMS&' +
                 'version=1.1.0&' +
                 'request=GetLegendGraphic&' +
@@ -424,7 +417,7 @@ export default defineComponent({
                     console.error('Error getting style:', error);
                 });
 
-            const wfsUrl = 'http://localhost:3655/geoserver/ne/wms' + '?' +
+            const wfsUrl = 'https://coaster.mmsu.edu.ph/geoserver/ne/wms' + '?' +
                 'service=WFS&' +
                 'version=1.1.0&' +
                 'request=GetFeature&' +
@@ -580,8 +573,8 @@ export default defineComponent({
             this.isbasemapOptionVisible = false;
         },
         initializeMap() {
-            // http://localhost:3655/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
-            // http://localhost:3655/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
+            // https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
+            // https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
             const thiss = this;
 
             this.groupLayer = new LayerGroup({
@@ -613,7 +606,7 @@ export default defineComponent({
                 // Create the new layer
                 const newLayer = new TileLayer({
                     source: new TileWMS({
-                        url: 'http://localhost:3655/geoserver/ne/wms',
+                        url: 'https://coaster.mmsu.edu.ph/geoserver/ne/wms',
                         params: {
                             'LAYERS': `ne:${info.name}`,
                             'TILED': true,
