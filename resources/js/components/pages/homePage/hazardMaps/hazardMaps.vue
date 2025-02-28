@@ -3,15 +3,16 @@
     <div class="w-full flex">
         <div ref="map" class="full-screen-map w-full">
             <div class="filter-option w-[300px] flex ">
-                <div v-if="isTabVisible" class="w-full" :style="minHeightStyle">
-                    <div class="bg-[#201E43] h-2/4">
-                        <div class="bg-[#134B70] tracking-wide blur-none leading-loose">
+                <div v-if="isTabVisible" class="w-full" :style="{ minHeight: minHeightStyle + 'px' }">
+                    <div class="bg-[#201E43] h-full border-b-4 border-blue-900">
+                        <!-- Layer Name -->
+                        <div class="border-b h-fit border-blue-900 tracking-wide blur-none leading-loose">
                             <p class=" py-1 px-2 text-[#EEEEEE] text-[13px]">
                                 Layer Selection
                             </p>
                         </div>
-                        <!-- Layer Name -->
-                        <div class="h-[271px] overflow-auto space-y-2 space-y-1">
+                        <div :style="{ height: minHeightStyle / 2.3 + 'px' }"
+                            class="border-b border-blue-900 overflow-auto  space-y-2 space-y-1">
                             <div class="flex items-center space-x-1 cursor-pointer hover:bg-gray-500 py-1"
                                 v-for="option in optionLayers" @click="addToLayer(option)">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -27,21 +28,21 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="h-2/4 bg-gray-800 w-full">
-                        <div class="bg-[#134B70] tracking-wide blur-none leading-loose">
+                        <div class="border-b border-blue-900 tracking-wide blur-none leading-loose">
                             <p class=" py-1 px-2 text-[#EEEEEE] text-[13px] ">
                                 Layers
                             </p>
                         </div>
-                        <div class="h-[271px] w-full overflow-auto">
+                        <div :style="{ height: minHeightStyle / 2.3 + 'px' }"
+                            class=" h-3/6 overflow-auto space-y-2 space-y-1">
+
                             <div class="w-full py-1 hover:bg-gray-500 " v-for="addedLayer in addedLayers">
                                 <div class="w-full flex items-center justify-evenly">
                                     <div class="w-3/6">
-                                        <a-checkbox  class="text-[#EEEEEE] text-[12px] "
+                                        <a-checkbox class="text-[#EEEEEE] text-[12px] "
                                             @change="(value) => onChangeCheckBox(addedLayer.visibility, addedLayer.title)"
                                             v-model:checked="addedLayer.visibility">{{ addedLayer.title }}</a-checkbox>
-                                            
+
                                     </div>
                                     <div class="w-2/6">
                                         <a-slider v-model:value="addedLayer.opacity"
@@ -76,7 +77,7 @@
                     </div>
                 </div>
                 <div>
-                    <div @click="minimize()" class="bg-[#508C9B] py-4 cursor-pointer">
+                    <div @click="minimize()" class="bg-amber-100 rounded-r-lg py-4 cursor-pointer text-blue-900">
                         <svg v-if="isTabVisible" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -87,14 +88,13 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
                         </svg>
-
                     </div>
                 </div>
-
             </div>
             <!-- /Filter Option -->
             <!-- Navigation buttons right side -->
             <div class="navButtons space-y-3 text-[#EEEEEE]">
+
                 <div @click="isbasemapOptionVisible = !isbasemapOptionVisible"
                     class="bg-[#134B70] p-1 cursor-pointer opacity-85 hover:opacity-50">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -110,16 +110,15 @@
 
             <!-- Change Base map -->
             <div v-if="isbasemapOptionVisible" class="basemap-option bg-gray-800 w-[200px] py-2">
-                <div class="text-[#EEEEEE] space-y-2">
-                    <div @click="isbasemapOptionVisible = false"
-                        class="text-[#EEEEEE] w-full justify-between flex px-1">
+                <div class="text-[#EEEEEE]/70 text-[13px] space-y-2">
+                    <div class="text-[#EEEEEE]/50 text-[13px] w-full justify-between flex px-1">
                         <div>
                             <p>
                                 Select Base Map
                             </p>
                         </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-5 cursor-pointer">
+                        <svg @click="isbasemapOptionVisible = false" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 cursor-pointer">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                         </svg>
                     </div>
@@ -142,6 +141,33 @@
                 </div>
             </div>
             <!-- Change Base map -->
+
+            <!-- Details and Instructions -->
+            <div v-if="isDetailsInstructions" class="details-instruction text-[#EEEEEE]/50 text-[13px] w-[400px] bg-gray-800 rounded-sm">
+                <div class="p-5 space-y-3">
+                    <p class="text-justify">
+                        <span class=" text-[#EEEEEE]/80 text-[13px] tracking-wide">Details:</span> The data presented here is
+                        based on
+                        research and analysis conducted by the CoastEr Program.
+                        It may not conform to the standards or quality control procedures associated with official
+                        government or industry data sources.
+                    </p>
+                    <p class="text-justify">
+                        <span class=" text-[#EEEEEE]/80 text-[13px] tracking-wide">Instruction:</span> You can select different
+                        layers
+                        to display them on the map. Clicking on a layer will
+                        allow you to visualize its raw data. Once a layer is added, you can navigate by adjusting
+                        its
+                        opacity, displaying its graph, and exploring other visualization options. Additionally, you
+                        can
+                        change the basemap using the Basemap icon and navigate to specific coordinates using the XY
+                        icon. <span @click="isDetailsInstructions = false" class="text-[#EEEEEE]/80 text-[13px] tracking-wide underline cursor-pointer">
+                            Close
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <!-- Details and Instructions -->
 
             <!-- Result -->
             <div v-if="isResultChartVisible" class="result bg-gray-800 w-[300px]"
@@ -230,6 +256,7 @@ export default defineComponent({
             isbasemapOptionVisible: false,
             selectedBaseMap: 'baseMap_OSM',
 
+            isDetailsInstructions: true,
             isResultChartVisible: false,
             resultChartOptions: {
                 chart: {
@@ -286,16 +313,14 @@ export default defineComponent({
     },
     computed: {
         minHeightStyle() {
-            return {
-                minHeight: `${this.screenHeight + 11}px`
-            }
+            return this.screenHeight + 11;
         },
     },
     async mounted() {
         const thiss = this;
 
         // Get Request Information to Operate the Map Layers from Geoserver
-        fetch('https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&request=GetCapabilities')
+        fetch('http://localhost:3655/geoserver/ne/wms?service=WMS&request=GetCapabilities')
             .then(response => response.text())
             .then(text => {
                 const parser = new DOMParser();
@@ -394,7 +419,7 @@ export default defineComponent({
             let attributeData = []
             let attributeStyle = []
 
-            const legendUrl = 'https://coaster.mmsu.edu.ph/geoserver/ne/wms' + '?' +
+            const legendUrl = 'http://localhost:3655/geoserver/ne/wms' + '?' +
                 'service=WMS&' +
                 'version=1.1.0&' +
                 'request=GetLegendGraphic&' +
@@ -417,7 +442,7 @@ export default defineComponent({
                     console.error('Error getting style:', error);
                 });
 
-            const wfsUrl = 'https://coaster.mmsu.edu.ph/geoserver/ne/wms' + '?' +
+            const wfsUrl = 'http://localhost:3655/geoserver/ne/wms' + '?' +
                 'service=WFS&' +
                 'version=1.1.0&' +
                 'request=GetFeature&' +
@@ -509,7 +534,7 @@ export default defineComponent({
                     const extent = layer.getExtent ? layer.getExtent() : null;
 
                     if (extent) {
-                        this.map.getView().fit(extent, { duration: 1000 });
+                        this.map.getView().fit(extent, { duration: 1000, padding: [50, 50, 50, 50]} );
                     }
 
                     thiss.resultChart(option)
@@ -571,10 +596,16 @@ export default defineComponent({
         onMouseDrag() {
             this.overlayLayer.setPosition(undefined);
             this.isbasemapOptionVisible = false;
+            this.isDetailsInstructions = false;
+            // this.isResultChartVisible = false;
+        },
+        onDrag(){
+            this.isDetailsInstructions = false;
+            this.isResultChartVisible = false;
         },
         initializeMap() {
-            // https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
-            // https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
+            // http://localhost:3655/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
+            // http://localhost:3655/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
             const thiss = this;
 
             this.groupLayer = new LayerGroup({
@@ -606,7 +637,7 @@ export default defineComponent({
                 // Create the new layer
                 const newLayer = new TileLayer({
                     source: new TileWMS({
-                        url: 'https://coaster.mmsu.edu.ph/geoserver/ne/wms',
+                        url: 'http://localhost:3655/geoserver/ne/wms',
                         params: {
                             'LAYERS': `ne:${info.name}`,
                             'TILED': true,
@@ -638,8 +669,8 @@ export default defineComponent({
                 target: this.$refs.map,
                 layers: this.groupLayer,
                 view: new View({
-                    center: fromLonLat([121.007046, 17.156009]),
-                    zoom: 8,
+                    center: fromLonLat([125.74482, 12.37834]),
+                    zoom: 5.7,
                 }),
                 controls: [new FullScreen()],
             });
@@ -674,6 +705,7 @@ export default defineComponent({
             });
 
             thiss.map.getView().on('change:resolution', this.onMouseDrag); // Fires during drag
+            thiss.map.on('pointerdrag', this.onDrag);
         },
         closePopup() {
             this.overlayLayer.setPosition(undefined);
@@ -716,6 +748,13 @@ export default defineComponent({
     right: 55px;
 }
 
+.details-instruction {
+    z-index: 10;
+    position: absolute;
+    top: 170px;
+    right: 230px;
+}
+
 .result {
     z-index: 5;
     position: absolute;
@@ -753,5 +792,4 @@ export default defineComponent({
     display: flex;
     flex-direction: column;
 }
-
 </style>
