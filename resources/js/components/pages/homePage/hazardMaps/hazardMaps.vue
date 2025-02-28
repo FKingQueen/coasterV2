@@ -2,7 +2,7 @@
 
     <div class="w-full flex">
         <div ref="map" class="full-screen-map w-full">
-            <div class="filter-option w-[300px] flex ">
+            <div class="filter-option w-[320px] flex ">
                 <div v-if="isTabVisible" class="w-full" :style="{ minHeight: minHeightStyle + 'px' }">
                     <div class="bg-[#201E43] h-full border-b-4 border-blue-900">
                         <!-- Layer Name -->
@@ -77,7 +77,8 @@
                     </div>
                 </div>
                 <div>
-                    <div @click="minimize()" class="bg-amber-100 rounded-r-lg py-4 cursor-pointer text-blue-900">
+                    <div @click="isTabVisible = !this.isTabVisible"
+                        class="bg-[#EEEEEE] rounded-r-lg py-4 cursor-pointer text-blue-900">
                         <svg v-if="isTabVisible" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -90,22 +91,91 @@
                         </svg>
                     </div>
                 </div>
+                <div class="pt-32 space-y-0.5 text-blue-900 ">
+                    <a-tooltip placement="right" :arrow="mergedArrow" :mouseEnterDelay=".8">
+                        <template #title>
+                            <span>Zoom In</span>
+                        </template>
+                        <div
+                            class="rounded-t-lg bg-[#EEEEEE] p-1 cursor-pointer opacity-85 hover:opacity-50 text-center">
+                            <svg @click="zoomLevel(1)" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6" />
+                            </svg>
+                        </div>
+                    </a-tooltip>
+                    <a-tooltip placement="right" :arrow="mergedArrow" :mouseEnterDelay=".8">
+                        <template #title>
+                            <span>Reset Zoom</span>
+                        </template>
+                        <div class="bg-[#EEEEEE] p-1 cursor-pointer opacity-85 hover:opacity-50 text-center">
+                            <svg @click="zoomLevel(2)" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M7.5 3.75H6A2.25 2.25 0 0 0 3.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0 1 20.25 6v1.5m0 9V18A2.25 2.25 0 0 1 18 20.25h-1.5m-9 0H6A2.25 2.25 0 0 1 3.75 18v-1.5M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            </svg>
+                        </div>
+                    </a-tooltip>
+                    <a-tooltip placement="right" :arrow="mergedArrow" :mouseEnterDelay=".8">
+                        <template #title>
+                            <span>Zoom Out</span>
+                        </template>
+                        <div
+                            class="rounded-b-lg bg-[#EEEEEE] p-1 cursor-pointer opacity-85 hover:opacity-50 text-center">
+                            <svg @click="zoomLevel(3)" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM13.5 10.5h-6" />
+                            </svg>
+                        </div>
+                    </a-tooltip>
+
+                </div>
             </div>
             <!-- /Filter Option -->
             <!-- Navigation buttons right side -->
-            <div class="navButtons space-y-3 text-[#EEEEEE]">
-
-                <div @click="isbasemapOptionVisible = !isbasemapOptionVisible"
-                    class="bg-[#134B70] p-1 cursor-pointer opacity-85 hover:opacity-50">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25" />
-                    </svg>
-                </div>
-                <div class="bg-[#134B70] p-1 cursor-pointer opacity-85 hover:opacity-50 text-center">
-                    <p class="text-bold">XY</p>
-                </div>
+            <div class="navButtons space-y-2 text-blue-900">
+                <a-tooltip placement="left" :arrow="mergedArrow" :mouseEnterDelay=".8">
+                    <template #title>
+                        <span>Reset</span>
+                    </template>
+                    <div @click="isbasemapOptionVisible = !isbasemapOptionVisible"
+                        class="bg-[#EEEEEE] p-1 cursor-pointer opacity-85 hover:opacity-50">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                        </svg>
+                    </div>
+                </a-tooltip>
+                <a-tooltip placement="left" :arrow="mergedArrow" :mouseEnterDelay=".8">
+                    <template #title>
+                        <span>Basemap</span>
+                    </template>
+                    <div @click="isbasemapOptionVisible = !isbasemapOptionVisible"
+                        class="bg-[#EEEEEE] p-1 cursor-pointer opacity-85 hover:opacity-50">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25" />
+                        </svg>
+                    </div>
+                </a-tooltip>
+                <a-tooltip placement="left" :arrow="mergedArrow" :mouseEnterDelay=".8">
+                    <template #title>
+                        <span>XY Location</span>
+                    </template>
+                    <div class="bg-[#EEEEEE] p-1 cursor-pointer opacity-85 hover:opacity-50 text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                        </svg>
+                    </div>
+                </a-tooltip>
             </div>
 
             <!-- Change Base map -->
@@ -143,17 +213,20 @@
             <!-- Change Base map -->
 
             <!-- Details and Instructions -->
-            <div v-if="isDetailsInstructions" class="details-instruction text-[#EEEEEE]/50 text-[13px] w-[400px] bg-gray-800 rounded-sm">
+            <div v-if="isDetailsInstructions"
+                class="details-instruction text-[#EEEEEE]/50 text-[13px] w-[400px] bg-gray-800 rounded-sm">
                 <div class="p-5 space-y-3">
                     <p class="text-justify">
-                        <span class=" text-[#EEEEEE]/80 text-[13px] tracking-wide">Details:</span> The data presented here is
+                        <span class=" text-[#EEEEEE]/80 text-[13px] tracking-wide">Details:</span> The data presented
+                        here is
                         based on
                         research and analysis conducted by the CoastEr Program.
                         It may not conform to the standards or quality control procedures associated with official
                         government or industry data sources.
                     </p>
                     <p class="text-justify">
-                        <span class=" text-[#EEEEEE]/80 text-[13px] tracking-wide">Instruction:</span> You can select different
+                        <span class=" text-[#EEEEEE]/80 text-[13px] tracking-wide">Instruction:</span> You can select
+                        different
                         layers
                         to display them on the map. Clicking on a layer will
                         allow you to visualize its raw data. Once a layer is added, you can navigate by adjusting
@@ -161,7 +234,8 @@
                         opacity, displaying its graph, and exploring other visualization options. Additionally, you
                         can
                         change the basemap using the Basemap icon and navigate to specific coordinates using the XY
-                        icon. <span @click="isDetailsInstructions = false" class="text-[#EEEEEE]/80 text-[13px] tracking-wide underline cursor-pointer">
+                        icon. <span @click="isDetailsInstructions = false"
+                            class="text-[#EEEEEE]/80 text-[13px] tracking-wide underline cursor-pointer">
                             Close
                         </span>
                     </p>
@@ -278,6 +352,12 @@ export default defineComponent({
                         color: '#EEEEEE'
                     },
                 },
+                subtitle: {
+                    text: 'Sample',
+                    style: {
+                        color: '#EEEEEE'
+                    },
+                },
                 plotOptions: {
 
                     pie: {
@@ -320,7 +400,7 @@ export default defineComponent({
         const thiss = this;
 
         // Get Request Information to Operate the Map Layers from Geoserver
-        fetch('https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&request=GetCapabilities')
+        fetch('http://localhost:3655/geoserver/ne/wms?service=WMS&request=GetCapabilities')
             .then(response => response.text())
             .then(text => {
                 const parser = new DOMParser();
@@ -419,7 +499,7 @@ export default defineComponent({
             let attributeData = []
             let attributeStyle = []
 
-            const legendUrl = 'https://coaster.mmsu.edu.ph/geoserver/ne/wms' + '?' +
+            const legendUrl = 'http://localhost:3655/geoserver/ne/wms' + '?' +
                 'service=WMS&' +
                 'version=1.1.0&' +
                 'request=GetLegendGraphic&' +
@@ -442,7 +522,7 @@ export default defineComponent({
                     console.error('Error getting style:', error);
                 });
 
-            const wfsUrl = 'https://coaster.mmsu.edu.ph/geoserver/ne/wms' + '?' +
+            const wfsUrl = 'http://localhost:3655/geoserver/ne/wms' + '?' +
                 'service=WFS&' +
                 'version=1.1.0&' +
                 'request=GetFeature&' +
@@ -496,8 +576,25 @@ export default defineComponent({
                         }
                     });
 
+                    const feature = features[0];
+                    const attributesForSubTitle = feature.getProperties();
+
+                    // Get the Graph value
+                    const graphValue = attributesForSubTitle.Graph;
+
+                    let subTitle = null;
+
+                    // Check which attribute matches Graph
+                    for (const key in attributesForSubTitle) {
+                        if (attributesForSubTitle[key] === graphValue && key !== 'Graph') {
+                            subTitle = key.replace(/_/g, " ");
+                            break;  // Stop at the first match
+                        }
+                    }
+
                     // Update the chart options with the new data and colors
                     thiss.resultChartOptions.title.text = option.title
+                    thiss.resultChartOptions.subtitle.text = subTitle
                     thiss.resultChartOptions.series[0].data = attributeData;
                     thiss.resultChartOptions.colors = attributeData.map(attr => attr.color);
                     // Time for Result Chart to dissapear
@@ -534,7 +631,7 @@ export default defineComponent({
                     const extent = layer.getExtent ? layer.getExtent() : null;
 
                     if (extent) {
-                        this.map.getView().fit(extent, { duration: 1000, padding: [50, 50, 50, 50]} );
+                        this.map.getView().fit(extent, { duration: 1000, padding: [50, 50, 50, 50] });
                     }
 
                     thiss.resultChart(option)
@@ -599,13 +696,30 @@ export default defineComponent({
             this.isDetailsInstructions = false;
             // this.isResultChartVisible = false;
         },
-        onDrag(){
+        onDrag() {
             this.isDetailsInstructions = false;
             this.isResultChartVisible = false;
         },
+        zoomLevel(level) {
+            const thiss = this
+
+            const view = thiss.map.getView();
+            const zoom = view.getZoom();
+
+            if (level == 1) {
+                view.setZoom(zoom + 0.5); // Increase zoom level
+            }
+            if (level == 2) {
+                view.setCenter(fromLonLat([125.74482, 12.37834])); // Reset center
+                view.setZoom(5.7); // Reset zoom level
+            }
+            if (level == 3) {
+                view.setZoom(zoom - 0.5); // Increase zoom level
+            }
+        },
         initializeMap() {
-            // https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
-            // https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
+            // http://localhost:3655/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
+            // http://localhost:3655/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
             const thiss = this;
 
             this.groupLayer = new LayerGroup({
@@ -637,7 +751,7 @@ export default defineComponent({
                 // Create the new layer
                 const newLayer = new TileLayer({
                     source: new TileWMS({
-                        url: 'https://coaster.mmsu.edu.ph/geoserver/ne/wms',
+                        url: 'http://localhost:3655/geoserver/ne/wms',
                         params: {
                             'LAYERS': `ne:${info.name}`,
                             'TILED': true,
