@@ -92,7 +92,7 @@
                     </div>
                 </div>
                 <div class="pt-32 space-y-0.5 text-blue-900 ">
-                    <a-tooltip placement="right" :arrow="mergedArrow" :mouseEnterDelay=".8">
+                    <a-tooltip placement="left" :arrow="mergedArrow" :mouseEnterDelay=".8">
                         <template #title>
                             <span>Zoom In</span>
                         </template>
@@ -105,7 +105,7 @@
                             </svg>
                         </div>
                     </a-tooltip>
-                    <a-tooltip placement="right" :arrow="mergedArrow" :mouseEnterDelay=".8">
+                    <a-tooltip placement="left" :arrow="mergedArrow" :mouseEnterDelay=".8">
                         <template #title>
                             <span>Reset Zoom</span>
                         </template>
@@ -117,7 +117,7 @@
                             </svg>
                         </div>
                     </a-tooltip>
-                    <a-tooltip placement="right" :arrow="mergedArrow" :mouseEnterDelay=".8">
+                    <a-tooltip placement="left" :arrow="mergedArrow" :mouseEnterDelay=".8">
                         <template #title>
                             <span>Zoom Out</span>
                         </template>
@@ -135,7 +135,7 @@
             </div>
             <!-- /Filter Option -->
             <!-- Navigation buttons right side -->
-            <div class="navButtons space-y-2 text-blue-900">
+            <div class="navButtons space-y-3 text-blue-900">
                 <a-tooltip placement="left" :arrow="mergedArrow" :mouseEnterDelay=".8">
                     <template #title>
                         <span>Reset</span>
