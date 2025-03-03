@@ -92,7 +92,7 @@
                     </div>
                 </div>
                 <div class="pt-32 space-y-0.5 text-blue-900 ">
-                    <a-tooltip placement="left" :arrow="mergedArrow" :mouseEnterDelay=".8">
+                    <a-tooltip placement="right" :mouseEnterDelay=".8">
                         <template #title>
                             <span>Zoom In</span>
                         </template>
@@ -105,19 +105,20 @@
                             </svg>
                         </div>
                     </a-tooltip>
-                    <a-tooltip placement="left" :arrow="mergedArrow" :mouseEnterDelay=".8">
+                    <a-tooltip placement="right" :mouseEnterDelay=".8">
                         <template #title>
-                            <span>Reset Zoom</span>
+                            <span>Full Extent</span>
                         </template>
                         <div class="bg-[#EEEEEE] p-1 cursor-pointer opacity-85 hover:opacity-50 text-center">
                             <svg @click="zoomLevel(2)" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M7.5 3.75H6A2.25 2.25 0 0 0 3.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0 1 20.25 6v1.5m0 9V18A2.25 2.25 0 0 1 18 20.25h-1.5m-9 0H6A2.25 2.25 0 0 1 3.75 18v-1.5M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                    d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
                             </svg>
+
                         </div>
                     </a-tooltip>
-                    <a-tooltip placement="left" :arrow="mergedArrow" :mouseEnterDelay=".8">
+                    <a-tooltip placement="right" :mouseEnterDelay=".8">
                         <template #title>
                             <span>Zoom Out</span>
                         </template>
@@ -134,14 +135,14 @@
                 </div>
             </div>
             <!-- /Filter Option -->
+
             <!-- Navigation buttons right side -->
-            <div class="navButtons space-y-3 text-blue-900">
-                <a-tooltip placement="left" :arrow="mergedArrow" :mouseEnterDelay=".8">
+            <div class="navButtons space-y-1 text-blue-900">
+                <a-tooltip placement="left" :mouseEnterDelay=".8">
                     <template #title>
                         <span>Reset</span>
                     </template>
-                    <div @click="isbasemapOptionVisible = !isbasemapOptionVisible"
-                        class="bg-[#EEEEEE] p-1 cursor-pointer opacity-85 hover:opacity-50">
+                    <div @click="resetAll()" class="bg-[#EEEEEE] p-1 cursor-pointer opacity-85 hover:opacity-50">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -149,7 +150,7 @@
                         </svg>
                     </div>
                 </a-tooltip>
-                <a-tooltip placement="left" :arrow="mergedArrow" :mouseEnterDelay=".8">
+                <a-tooltip placement="left" :mouseEnterDelay=".8">
                     <template #title>
                         <span>Basemap</span>
                     </template>
@@ -162,11 +163,12 @@
                         </svg>
                     </div>
                 </a-tooltip>
-                <a-tooltip placement="left" :arrow="mergedArrow" :mouseEnterDelay=".8">
+                <a-tooltip placement="left" :mouseEnterDelay=".8">
                     <template #title>
                         <span>XY Location</span>
                     </template>
-                    <div class="bg-[#EEEEEE] p-1 cursor-pointer opacity-85 hover:opacity-50 text-center">
+                    <div @click="isGotoLocationVisible = !isGotoLocationVisible"
+                        class="bg-[#EEEEEE] p-1 cursor-pointer opacity-85 hover:opacity-50 text-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -179,10 +181,10 @@
             </div>
 
             <!-- Change Base map -->
-            <div v-if="isbasemapOptionVisible" class="basemap-option bg-gray-800 w-[200px] py-2">
+            <div v-if="isbasemapOptionVisible" class="basemap-option bg-gray-800 w-[200px]">
                 <div class="text-[#EEEEEE]/70 text-[13px] space-y-2">
                     <div class="text-[#EEEEEE]/50 text-[13px] w-full justify-between flex px-1">
-                        <div>
+                        <div class="pt-1 pl-2">
                             <p>
                                 Select Base Map
                             </p>
@@ -192,7 +194,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                         </svg>
                     </div>
-                    <div class="px-3">
+                    <div class="px-3 pb-2">
                         <a-select ref="select" v-model:value="selectedBaseMap" style="width: 100%"
                             @change="onSelectBaseMap">
                             <a-select-option value="baseMap_OSM">Open Street Map (OSM)</a-select-option>
@@ -212,12 +214,57 @@
             </div>
             <!-- Change Base map -->
 
+            <!-- Goto Location -->
+            <div v-if="isGotoLocationVisible" class="goto-location bg-gray-800 w-[200px] ">
+                <div class="text-[#EEEEEE]/70 text-[13px] space-y-2">
+                    <div class="text-[#EEEEEE]/50 text-[13px] w-full justify-between flex">
+                        <div class="pt-1 pl-2">
+                            <p>
+                                Go to Location
+                            </p>
+                        </div>
+                        <svg @click="isGotoLocationVisible = false" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 cursor-pointer">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
+                    </div>
+                    <div class="px-3 pb-2">
+                        <div class="text-justify space-y-1">
+                            <p>
+                                <span class="font-bold">Enter Coordinates:</span>
+                            </p>
+                            <Space direction="vertical" size="small">
+                                <Space>
+                                    <p style="width: 60px">
+                                        Latitude：
+                                    </p>
+                                    
+                                    <Input v-model="value3" size="small" placeholder="Latitude"  />
+                                </Space>
+                                <Space>
+                                    <p style="width: 60px">
+                                        Longitude：
+                                    </p>
+                                    
+                                    <Input v-model="value3" size="small" placeholder="Longitude"  />
+                                </Space>
+                            </Space>
+                            <div class="w-full">
+                                Enter
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Goto Location -->
+
             <!-- Details and Instructions -->
             <div v-if="isDetailsInstructions"
-                class="details-instruction text-[#EEEEEE]/50 text-[13px] w-[400px] bg-gray-800 rounded-sm">
+                class="details-instruction text-blue-900 text-[13px] w-[400px] bg-[#EEEEEE]/40 rounded-sm">
                 <div class="p-5 space-y-3">
                     <p class="text-justify">
-                        <span class=" text-[#EEEEEE]/80 text-[13px] tracking-wide">Details:</span> The data presented
+                        <span class=" text-blue-900 text-[13px] tracking-wide">Details:</span> The data presented
                         here is
                         based on
                         research and analysis conducted by the CoastEr Program.
@@ -225,7 +272,7 @@
                         government or industry data sources.
                     </p>
                     <p class="text-justify">
-                        <span class=" text-[#EEEEEE]/80 text-[13px] tracking-wide">Instruction:</span> You can select
+                        <span class=" text-blue-900 text-[13px] tracking-wide">Instruction:</span> You can select
                         different
                         layers
                         to display them on the map. Clicking on a layer will
@@ -235,7 +282,7 @@
                         can
                         change the basemap using the Basemap icon and navigate to specific coordinates using the XY
                         icon. <span @click="isDetailsInstructions = false"
-                            class="text-[#EEEEEE]/80 text-[13px] tracking-wide underline cursor-pointer">
+                            class="text-blue-900 text-[13px] tracking-wide underline cursor-pointer">
                             Close
                         </span>
                     </p>
@@ -253,7 +300,7 @@
                     </svg>
                 </div>
 
-                <div class="text-[#EEEEEE] py-2 px-3">
+                <div class="text-[#EEEEEE] px-3">
                     <highcharts :options="resultChartOptions"></highcharts>
                 </div>
 
@@ -328,6 +375,7 @@ export default defineComponent({
             layerInfo: [],
             // BaseMap Option
             isbasemapOptionVisible: false,
+            isGotoLocationVisible: false,
             selectedBaseMap: 'baseMap_OSM',
 
             isDetailsInstructions: true,
@@ -400,7 +448,7 @@ export default defineComponent({
         const thiss = this;
 
         // Get Request Information to Operate the Map Layers from Geoserver
-        fetch('https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&request=GetCapabilities')
+        fetch('http://localhost:3655/geoserver/ne/wms?service=WMS&request=GetCapabilities')
             .then(response => response.text())
             .then(text => {
                 const parser = new DOMParser();
@@ -499,7 +547,7 @@ export default defineComponent({
             let attributeData = []
             let attributeStyle = []
 
-            const legendUrl = 'https://coaster.mmsu.edu.ph/geoserver/ne/wms' + '?' +
+            const legendUrl = 'http://localhost:3655/geoserver/ne/wms' + '?' +
                 'service=WMS&' +
                 'version=1.1.0&' +
                 'request=GetLegendGraphic&' +
@@ -522,7 +570,7 @@ export default defineComponent({
                     console.error('Error getting style:', error);
                 });
 
-            const wfsUrl = 'https://coaster.mmsu.edu.ph/geoserver/ne/wms' + '?' +
+            const wfsUrl = 'http://localhost:3655/geoserver/ne/wms' + '?' +
                 'service=WFS&' +
                 'version=1.1.0&' +
                 'request=GetFeature&' +
@@ -717,9 +765,24 @@ export default defineComponent({
                 view.setZoom(zoom - 0.5); // Increase zoom level
             }
         },
+        resetAll() {
+            const thiss = this
+
+            // Map
+            const view = thiss.map.getView();
+            view.setCenter(fromLonLat([125.74482, 12.37834])); // Reset center
+            view.setZoom(5.7); // Reset zoom level
+
+            thiss.isDetailsInstructions = true;
+            thiss.isResultChartVisible = false;
+            thiss.isbasemapOptionVisible = false;
+            thiss.overlayLayer.setPosition(undefined);
+
+            thiss.addedLayers = [];
+        },
         initializeMap() {
-            // https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
-            // https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
+            // http://localhost:3655/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
+            // http://localhost:3655/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
             const thiss = this;
 
             this.groupLayer = new LayerGroup({
@@ -751,7 +814,7 @@ export default defineComponent({
                 // Create the new layer
                 const newLayer = new TileLayer({
                     source: new TileWMS({
-                        url: 'https://coaster.mmsu.edu.ph/geoserver/ne/wms',
+                        url: 'http://localhost:3655/geoserver/ne/wms',
                         params: {
                             'LAYERS': `ne:${info.name}`,
                             'TILED': true,
@@ -858,12 +921,19 @@ export default defineComponent({
 .basemap-option {
     z-index: 10;
     position: absolute;
-    top: 50px;
+    top: 86px;
+    right: 55px;
+}
+
+.goto-location {
+    z-index: 10;
+    position: absolute;
+    top: 122px;
     right: 55px;
 }
 
 .details-instruction {
-    z-index: 10;
+    z-index: 9;
     position: absolute;
     top: 170px;
     right: 230px;
