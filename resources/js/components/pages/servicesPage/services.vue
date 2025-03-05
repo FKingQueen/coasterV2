@@ -22,7 +22,7 @@
                         <p>
                             Coastal Engineering and Management Research and Development Center
                         </p>
-<!-- 
+<!--
                         <p>
                             Coastal Engineering
                         </p>
@@ -102,7 +102,7 @@
                             </div>
                             <div class="space-y-2 p-3">
                                 <p class="px-5 font-sans text-lg">
-                                    Access real-time and historical data from our network of monitoring stations across the Ilocos region:
+                                    Targeted environmental monitoring at key locations:
                                 </p>
                                 <ul class="list-disc ml-16 space-y-1 font-sans text-lg">
                                     <li>Strategic monitoring stations at key coastal locations</li>
@@ -150,6 +150,14 @@
                                 <div class="w-full pl-5">
                                     <p class="font-serif italic text-2xl text-semibold">Professional Training Programs</p>
                                 </div>
+                            </div>
+                            <div class="space-y-2 p-3">
+                                <ul class="list-disc ml-16 space-y-1 font-sans text-lg">
+                                    <li>Advanced Training in DELFT3D Modeling Software</li>
+                                    <li>Advanced Training HECRAS Modeling Software</li>
+                                    <li>Advanced Training SWAN Wave Modeling Software   </li>
+                                    <li>Professional Wave Flume Operation and Experimental Techniques</li>
+                                </ul>
                             </div>
                         </div>
                     </div>

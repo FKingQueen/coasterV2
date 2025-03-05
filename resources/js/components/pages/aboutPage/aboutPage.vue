@@ -93,7 +93,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-white drop-shadow-lg text-black p-5 rounded"
+                <!-- <div class="bg-white drop-shadow-lg text-black p-5 rounded"
                     style="background: rgba(255, 255, 255, 0.50); backdrop-filter: blur(3px);">
                     <div class="flex justify-center">
                         <div class="lg:w-1/4 w-2/4 text-center grid divide-[#C49A6C]/75 divide-y-4">
@@ -111,7 +111,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="bg-white drop-shadow-lg text-black p-5 rounded"
                     style="background: rgba(255, 255, 255, 0.50); backdrop-filter: blur(3px);">
                     <div class="flex justify-center">

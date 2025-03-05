@@ -28,7 +28,7 @@
                                 </p>
                                 <WaLevLocation class="w-full" :id="2" />
                                 <p class="text-center font-thin text-xs">
-                                    Santa, Ilocos Norte
+                                    Santa, Ilocos Sur
                                 </p>
                             </div>
                         </div>
