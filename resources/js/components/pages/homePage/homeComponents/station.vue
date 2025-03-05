@@ -12,51 +12,6 @@
             </div>
             <div class="w-full p-2">
                 <p class="py-1 text-xs">Buoy Monitoring System</p>
-                <div class=" flex w-full p-3 space-x-2 justify-between">
-                    <div class="flex items-center w-1/4">
-                        <div>
-                            <img src="/img/icons/buoy.png" class="blur-none antialiased h-20 " alt="#">
-                            <p class="text-xs text-center">Laoag City</p>
-                        </div>
-                    </div>
-                    <div class="w-3/4 flex items-center">
-                        <div class="w-full">
-                            <table class="w-full border-none">
-                                <tbody>
-                                    <tr class="border-b">
-                                        <td class="py-1 text-xs">Tide</td>
-                                        <td class="py-1 text-xs">{{ parseFloat(stationData.buoyData1.altitude_pressure / 100).toFixed(2) }}</td>
-                                        <td class="py-1 text-xs">m</td>
-                                    </tr>
-                                    <tr class="border-b">
-                                        <td class="py-1 text-xs">Air Temperature</td>
-                                        <td class="py-1 text-xs">{{ parseFloat(stationData.buoyData1.water_temperature).toFixed(2) }}</td>
-                                        <td class="py-1 text-xs">°C</td>
-                                    </tr>
-                                    <tr class="border-b">
-                                        <td class="py-1 text-xs">Water Temperature</td>
-                                        <td class="py-1 text-xs">{{ parseFloat(stationData.buoyData1.barometric_temperature).toFixed(2) }}</td>
-                                        <td class="py-1 text-xs">°C</td>
-                                    </tr>
-                                    <tr class="border-b">
-                                        <td class="py-1 text-xs">Significant Wave Height</td>
-                                        <td class="py-1 text-xs">{{ parseFloat(stationData.buoyData1.significant_wave_height).toFixed(2) }}
-                                        </td>
-                                        <td class="py-1 text-xs">m</td>
-                                    </tr>
-                                    <tr class="border-b">
-                                        <td class="py-1 text-xs">Wave Period</td>
-                                        <td class="py-1 text-xs">{{ parseFloat(stationData.buoyData1.wave_period).toFixed(2) }}</td>
-                                        <td class="py-1 text-xs">secs</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <p class="text-end text-xs">
-                                {{ stationData.buoyData1.formatted_date }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
                 <div class="border-b flex w-full p-3 space-x-2 justify-between">
                     <div class="flex items-center w-1/4">
                         <div>
