@@ -595,7 +595,6 @@ export default defineComponent({
                 const url2 = `https://api.open-meteo.com/v1/forecast?latitude=${this.forecastLatitude}&longitude=${this.forecastLongitude}&current=temperature_2m,relative_humidity_2m,rain,surface_pressure,wind_speed_10m,wind_direction_10m,weather_code,cloud_cover&hourly=temperature_2m,relative_humidity_2m,rain,weather_code,wind_speed_10m,pressure_msl,wind_direction_10m&wind_speed_unit=kn&daily=weather_code,temperature_2m_max,temperature_2m_min,rain_sum&timezone=auto&models=jma_seamless`
                 const response2 = await fetch(url2)
                 const data2 = await response2.json()
-                console.log('api: ', data2);
                 // 7-Day Weather Forecast
                 this.daysWeather(data2);
                 // Current Weather
@@ -610,7 +609,6 @@ export default defineComponent({
         currentWeather(data) {
 
             const thiss = this;
-            // console.log(data);
             const weatherInfo = WEATHER_CODES[data.current.weather_code]
 
             // Add weather symbol
@@ -657,7 +655,6 @@ export default defineComponent({
             thiss.currentWeatherData.currentWeatherSurfacePressure = data.current.surface_pressure
 
             thiss.currentWeatherLoading = false;
-            // console.log(thiss.currentWeatherData);
         },
         daysWeather(data) {
             const thiss = this
@@ -707,7 +704,6 @@ export default defineComponent({
                 data.daily.dailyWeatherImgURL.push(`https://nrkno.github.io/yr-weather-symbols/symbols/darkmode/${icon}.svg`);
             }
             thiss.dailyWeatherData = data.daily
-            // console.log(thiss.dailyWeatherData); // "November, 5 Tuesday"
 
         },
         async parseMeteoData(data) {
@@ -722,7 +718,6 @@ export default defineComponent({
             // Get the next 48 hours of data
             const hoursToShow = 24
             const hourly = data.hourly
-            console.log('wind direction: ', data.hourly);
 
             for (let i = 0; i < hoursToShow; i++) {
                 const timestamp = new Date(hourly.time[i]).getTime() + (8 * 60 * 60 * 1000);

@@ -91,7 +91,6 @@ export default defineComponent({
             this.$router.push({ name: 'moreArticle' })
         },
         gotoArticle(article) {
-            console.log('article: ', article);
             const id = article.id
             const title = article.title
             this.$router.push({ name: 'article', params: { title, id } })
@@ -99,10 +98,8 @@ export default defineComponent({
     },
     async created() {
         const thiss = this
-        console.log(innerWidth);
         await axios.get('/api/getArticles')
             .then(function (response) {
-                console.log(response.data);
                 thiss.moreArticles = response.data;
                 thiss.leftArticles = thiss.moreArticles.slice(0, 3);
                 thiss.moreArticles = response.data;
