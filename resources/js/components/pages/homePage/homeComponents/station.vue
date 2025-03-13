@@ -201,7 +201,7 @@ export default defineComponent({
 
         // Set up interval to fetch data every 5 minutes (300000 milliseconds)
         this.intervalId = setInterval(async () => {
-            await this.fetchStationData();
+            await this.fetchData();
         }, 300000);
     },
     methods: {
