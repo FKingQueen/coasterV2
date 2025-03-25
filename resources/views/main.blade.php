@@ -13,26 +13,6 @@
         <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
 
         <style>
-        /* width */
-        ::-webkit-scrollbar {
-        width: 12px;
-        }
-
-        /* Track */
-        ::-webkit-scrollbar-track {
-        background: #134B70; 
-        }
-        
-        /* Handle */
-        ::-webkit-scrollbar-thumb {
-            background:  #EEEEEE; 
-            border-radius: 1px; /* Roundness */
-        }
-
-        /* Handle on hover */
-        ::-webkit-scrollbar-thumb:hover {
-            background: #201E43; 
-        }
 </style>
 
     </head>

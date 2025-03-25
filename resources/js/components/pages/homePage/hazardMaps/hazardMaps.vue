@@ -237,22 +237,23 @@
                                     <p style="width: 60px">
                                         Latitude：
                                     </p>
-                                    
-                                    <Input v-model="goLocationLat" size="small" placeholder="Latitude"  />
+
+                                    <Input v-model="goLocationLat" size="small" placeholder="Latitude" />
                                 </Space>
                                 <Space>
                                     <p style="width: 60px">
                                         Longitude：
                                     </p>
-                                    
-                                    <Input v-model="goLocationLon" size="small" placeholder="Longitude"  />
+
+                                    <Input v-model="goLocationLon" size="small" placeholder="Longitude" />
                                 </Space>
                             </Space>
                             <div class="w-full flex justify-center">
-                                <div @click="goToLocation()" class="w-2/4 bg-[#EEEEEE] text-blue-900 text-center cursor-pointer hover:bg-gray-500">
+                                <div @click="goToLocation()"
+                                    class="w-2/4 bg-[#EEEEEE] text-blue-900 text-center cursor-pointer hover:bg-gray-500">
                                     Enter
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -318,8 +319,34 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                     </svg></button>
             </div>
-            <div class="flex justify-center">
-                <Table height="250" :columns="columns" :data="data" class="w-full"></Table>
+            <div class="w-full">
+                <!-- <Table height="250" :columns="columns" :data="tableData" class="w-full"></Table>
+                <img class="object-cover w-full" :src="`${this.data.file_path}.png`"> -->
+                <!-- <img class="object-cover w-full" :src="`/inventory_images/${this.data.Coastal_ID}.png`"> -->
+                <div style="max-height: 250px; overflow-y: auto; width: 392px;">
+                    <table class="w-full border-collapse border border-gray-400">
+                        <thead>
+                            <tr>
+                                <th class="border border-gray-300">Attribute</th>
+                                <th class="border border-gray-300">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="row in tableData">
+                                <td class="border border-gray-300">{{ row.attribute }}</td>
+                                <td class="border border-gray-300">{{ row.value }}</td>
+                            </tr>
+                            <tr v-if="this.data.file_path">
+                                <td class="border border-gray-300">Image</td>
+                                <td class="border border-gray-300">
+                                    <a-image style="height: 100px" :src="`/inventory_images/${this.data.Barangay}.png`" :preview="{
+                                        src: `/inventory_images/${this.data.Barangay}.png`,
+                                    }" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -368,6 +395,7 @@ export default defineComponent({
                 },
             ],
             data: [],
+            tableData: [],
             overlayLayer: null,
             groupLayer: null,
             optionLayers: [],
@@ -454,7 +482,7 @@ export default defineComponent({
         const thiss = this;
 
         // Get Request Information to Operate the Map Layers from Geoserver
-        fetch('https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&request=GetCapabilities')
+        fetch('https://coaster.mmsu.edu.ph/geoserver/coaster/wms?service=WMS&request=GetCapabilities')
             .then(response => response.text())
             .then(text => {
                 const parser = new DOMParser();
@@ -553,7 +581,7 @@ export default defineComponent({
             let attributeData = []
             let attributeStyle = []
 
-            const legendUrl = 'https://coaster.mmsu.edu.ph/geoserver/ne/wms' + '?' +
+            const legendUrl = 'https://coaster.mmsu.edu.ph/geoserver/coaster/wms' + '?' +
                 'service=WMS&' +
                 'version=1.1.0&' +
                 'request=GetLegendGraphic&' +
@@ -563,11 +591,22 @@ export default defineComponent({
             fetch(legendUrl)
                 .then(response => response.json())  // Parse as JSON instead of text
                 .then(data => {
+                    console.log('style: ', data);
                     // Extract fill colors with their corresponding EPR trends
-                    attributeStyle = data.Legend[0].rules.map(rule => ({
-                        name: rule.filter.match(/\'(.*?)\'/)[1],  // Extract value between quotes
-                        color: rule.symbolizers[0].Polygon.fill
-                    }));
+                    attributeStyle = data.Legend[0].rules.map(rule => {
+                        let color;
+                        if (rule.symbolizers[0].Polygon) {
+                            color = rule.symbolizers[0].Polygon.fill;
+                        } else if (rule.symbolizers[0].Point) {
+                            color = rule.symbolizers[0].Point.graphics[0].fill;
+                        } else if (rule.symbolizers[0].Line) {
+                            color = rule.symbolizers[0].Line.stroke;
+                        }
+                        return {
+                            name: rule.filter.match(/\'(.*?)\'/)[1],  // Extract value between quotes
+                            color: color
+                        };
+                    });
 
                     // Match attributeData with attributeStyle and set the color
 
@@ -576,7 +615,7 @@ export default defineComponent({
                     console.error('Error getting style:', error);
                 });
 
-            const wfsUrl = 'https://coaster.mmsu.edu.ph/geoserver/ne/wms' + '?' +
+            const wfsUrl = 'https://coaster.mmsu.edu.ph/geoserver/coaster/wms' + '?' +
                 'service=WFS&' +
                 'version=1.1.0&' +
                 'request=GetFeature&' +
@@ -718,13 +757,15 @@ export default defineComponent({
 
                         axios.get(url)
                             .then(response => {
-                                this.data = Object.entries(response.data.features[response.data.features.length - 1].properties)
-                                    .filter(([key, value]) => key !== 'Graph')
+                                this.data = response.data.features[response.data.features.length - 1].properties;
+                                console.log(this.data);
+                                this.tableData = Object.entries(response.data.features[response.data.features.length - 1].properties)
+                                    .filter(([key, value]) => key !== 'Graph' && key !== 'file_path')
                                     .map(([key, value]) => ({
                                         attribute: key,
                                         value: value,
                                     }));
-
+                        
                                 const title = response.data.features[response.data.features.length - 1].id;
                                 overlayTitle.innerHTML = `Layer Name: ` + title.replace(/\.[^.\s]+/, "");
 
@@ -801,8 +842,8 @@ export default defineComponent({
             thiss.addedLayers = [];
         },
         initializeMap() {
-            // https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
-            // https://coaster.mmsu.edu.ph/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
+            // https://coaster.mmsu.edu.ph/geoserver/coaster/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
+            // https://coaster.mmsu.edu.ph/geoserver/coaster/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
             const thiss = this;
 
             this.groupLayer = new LayerGroup({
@@ -834,7 +875,7 @@ export default defineComponent({
                 // Create the new layer
                 const newLayer = new TileLayer({
                     source: new TileWMS({
-                        url: 'https://coaster.mmsu.edu.ph/geoserver/ne/wms',
+                        url: 'https://coaster.mmsu.edu.ph/geoserver/coaster/wms',
                         params: {
                             'LAYERS': `ne:${info.name}`,
                             'TILED': true,
@@ -896,7 +937,7 @@ export default defineComponent({
 
                 // Hide the popup if no feature was found
                 if (!featureFound) {
-                    this.data = [];
+                    this.tableData = [];
                     this.overlayLayer.setPosition(undefined);
                 }
             });
@@ -967,9 +1008,9 @@ export default defineComponent({
 }
 
 .overlay-container {
-    background-color: #555;
+    background-color: #ffffff;
     /* width: 500px; */
-    color: #fff;
+    color: #000000;
     text-align: center;
     width: 400px;
     border-radius: 1px;
