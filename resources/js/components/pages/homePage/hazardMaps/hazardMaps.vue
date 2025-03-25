@@ -585,7 +585,7 @@ export default defineComponent({
                 'service=WMS&' +
                 'version=1.1.0&' +
                 'request=GetLegendGraphic&' +
-                `layer=ne:${option.title}&` +
+                `layer=coaster:${option.title}&` +
                 'format=application/json';
 
             fetch(legendUrl)
@@ -619,7 +619,7 @@ export default defineComponent({
                 'service=WFS&' +
                 'version=1.1.0&' +
                 'request=GetFeature&' +
-                `typeName=ne:${option.title}&` +
+                `typeName=coaster:${option.title}&` +
                 'outputFormat=application/json';
             fetch(wfsUrl)
                 .then(response => {
@@ -877,7 +877,7 @@ export default defineComponent({
                     source: new TileWMS({
                         url: 'https://coaster.mmsu.edu.ph/geoserver/coaster/wms',
                         params: {
-                            'LAYERS': `ne:${info.name}`,
+                            'LAYERS': `coaster:${info.name}`,
                             'TILED': true,
                             'FORMAT': 'image/png',
                             'SRS': 'EPSG:32651'
