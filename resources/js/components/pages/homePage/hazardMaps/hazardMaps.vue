@@ -768,11 +768,11 @@ export default defineComponent({
                                     console.log('zoom:', this.map.getView().getZoom()); 
                                 this.map.getView().animate({
                                     center: [coordinate[0], coordinate[1] + 
-                                        (this.map.getView().getZoom() > 11 ? 200 :
-                                        this.map.getView().getZoom() >= 9 ? 1500 :
-                                        this.map.getView().getZoom() >= 7 ? 20000 :
-                                        this.map.getView().getZoom() >= 5 ? 35000 :
-                                        this.map.getView().getZoom() >= 3 ? 55000 : 60000)],
+                                        (this.map.getView().getZoom() > 11 ? 400 :
+                                        this.map.getView().getZoom() >= 9 ? 1700 :
+                                        this.map.getView().getZoom() >= 7 ? 22000 :
+                                        this.map.getView().getZoom() >= 5 ? 38000 :
+                                        this.map.getView().getZoom() >= 3 ? 58000 : 63000)],
                                     duration: 500, // Optional: smooth animation duration
                                 });
                             })
