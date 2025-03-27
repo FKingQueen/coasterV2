@@ -1,7 +1,7 @@
 <template>
     <div class="w-full flex">
         <div ref="map" class="full-screen-map w-full">
-            <div class="filter-option w-[320px] flex ">
+            <div class="filter-option w-[500px] flex ">
                 <div v-if="isTabVisible" class="w-full" :style="{ minHeight: minHeightStyle + 'px' }">
                     <div class="bg-[#201E43] h-full border-b-4 border-blue-900">
                         <!-- Layer Name -->
@@ -320,33 +320,29 @@
                     </svg></button>
             </div>
             <div class="w-full">
-                <!-- <Table height="250" :columns="columns" :data="tableData" class="w-full"></Table>
-                <img class="object-cover w-full" :src="`${this.data.file_path}.png`"> -->
-                <!-- <img class="object-cover w-full" :src="`/inventory_images/${this.data.Coastal_ID}.png`"> -->
-                <div style="max-height: 250px; overflow-y: auto; width: 392px;">
-                    <table class="w-full border-collapse border border-gray-400">
-                        <thead>
-                            <tr>
-                                <th class="border border-gray-300">Attribute</th>
-                                <th class="border border-gray-300">Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="row in tableData">
-                                <td class="border border-gray-300">{{ row.attribute }}</td>
-                                <td class="border border-gray-300">{{ row.value }}</td>
-                            </tr>
-                            <tr v-if="this.data.file_path">
-                                <td class="border border-gray-300">Image</td>
-                                <td class="border border-gray-300">
-                                    <a-image style="height: 100px" :src="`/inventory_images/${this.data.Barangay}.png`" :preview="{
+                <table class="text-left w-full">
+                    <thead class="bg-[#201E43] flex text-white w-full">
+                        <tr class="flex w-full">
+                            <th class="p-2 w-2/4">Attribute</th>
+                            <th class="p-2 w-2/4">Value</th>
+                        </tr>
+                    </thead>
+                    <tbody style="max-height: 250px;" class="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full">
+                        <tr class="flex w-full" v-for="row in tableData">
+                            <td class="p-2 w-2/4 border">{{ row.attribute }}</td>
+                            <td class="p-2 w-2/4 border">{{ row.value }}</td>
+                        </tr>
+                        <tr class="flex w-full" v-if="this.data.file_path">
+                            <td class="p-2 w-2/4 border">Image</td>
+                            <td class="p-2 w-2/4 border">
+                                <a-image style="height: 100px" :src="`/inventory_images/${this.data.Barangay}.png`"
+                                    :preview="{
                                         src: `/inventory_images/${this.data.Barangay}.png`,
                                     }" />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -482,7 +478,7 @@ export default defineComponent({
         const thiss = this;
 
         // Get Request Information to Operate the Map Layers from Geoserver
-        fetch('https://coaster.mmsu.edu.ph/geoserver/coaster/wms?service=WMS&request=GetCapabilities')
+        fetch('http://localhost:3655/geoserver/coaster/wms?service=WMS&request=GetCapabilities')
             .then(response => response.text())
             .then(text => {
                 const parser = new DOMParser();
@@ -581,7 +577,7 @@ export default defineComponent({
             let attributeData = []
             let attributeStyle = []
 
-            const legendUrl = 'https://coaster.mmsu.edu.ph/geoserver/coaster/wms' + '?' +
+            const legendUrl = 'http://localhost:3655/geoserver/coaster/wms' + '?' +
                 'service=WMS&' +
                 'version=1.1.0&' +
                 'request=GetLegendGraphic&' +
@@ -615,7 +611,7 @@ export default defineComponent({
                     console.error('Error getting style:', error);
                 });
 
-            const wfsUrl = 'https://coaster.mmsu.edu.ph/geoserver/coaster/wms' + '?' +
+            const wfsUrl = 'http://localhost:3655/geoserver/coaster/wms' + '?' +
                 'service=WFS&' +
                 'version=1.1.0&' +
                 'request=GetFeature&' +
@@ -732,7 +728,6 @@ export default defineComponent({
             }
         },
         handleClickFeature(coordinate, viewResolution) {
-
             const visibleWmsLayers = this.groupLayer.getLayers().getArray()
                 .filter(layer =>
                     layer.getVisible() &&
@@ -765,14 +760,19 @@ export default defineComponent({
                                         attribute: key,
                                         value: value,
                                     }));
-                        
+
                                 const title = response.data.features[response.data.features.length - 1].id;
                                 overlayTitle.innerHTML = `Layer Name: ` + title.replace(/\.[^.\s]+/, "");
 
                                 this.overlayLayer.setPosition(coordinate);
-
+                                    console.log('zoom:', this.map.getView().getZoom()); 
                                 this.map.getView().animate({
-                                    center: coordinate,
+                                    center: [coordinate[0], coordinate[1] + 
+                                        (this.map.getView().getZoom() > 11 ? 200 :
+                                        this.map.getView().getZoom() >= 9 ? 1500 :
+                                        this.map.getView().getZoom() >= 7 ? 20000 :
+                                        this.map.getView().getZoom() >= 5 ? 35000 :
+                                        this.map.getView().getZoom() >= 3 ? 55000 : 60000)],
                                     duration: 500, // Optional: smooth animation duration
                                 });
                             })
@@ -842,8 +842,8 @@ export default defineComponent({
             thiss.addedLayers = [];
         },
         initializeMap() {
-            // https://coaster.mmsu.edu.ph/geoserver/coaster/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
-            // https://coaster.mmsu.edu.ph/geoserver/coaster/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
+            // http://localhost:3655/geoserver/coaster/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
+            // http://localhost:3655/geoserver/coaster/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
             const thiss = this;
 
             this.groupLayer = new LayerGroup({
@@ -875,7 +875,7 @@ export default defineComponent({
                 // Create the new layer
                 const newLayer = new TileLayer({
                     source: new TileWMS({
-                        url: 'https://coaster.mmsu.edu.ph/geoserver/coaster/wms',
+                        url: 'http://localhost:3655/geoserver/coaster/wms',
                         params: {
                             'LAYERS': `coaster:${info.name}`,
                             'TILED': true,
