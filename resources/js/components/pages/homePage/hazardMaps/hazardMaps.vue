@@ -327,7 +327,8 @@
                             <th class="p-2 w-2/4">Value</th>
                         </tr>
                     </thead>
-                    <tbody style="max-height: 250px;" class="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full">
+                    <tbody style="max-height: 250px;"
+                        class="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full">
                         <tr class="flex w-full" v-for="row in tableData">
                             <td class="p-2 w-2/4 border">{{ row.attribute }}</td>
                             <td class="p-2 w-2/4 border">{{ row.value }}</td>
@@ -399,6 +400,7 @@ export default defineComponent({
             opacityLevel: ref(100),
             isTabVisible: true,
             layerInfo: [],
+            layerGroups: [],
             // BaseMap Option
             isbasemapOptionVisible: false,
             isGotoLocationVisible: false,
@@ -478,11 +480,12 @@ export default defineComponent({
         const thiss = this;
 
         // Get Request Information to Operate the Map Layers from Geoserver
-        fetch('https://coaster.mmsu.edu.ph/geoserver/coaster/wms?service=WMS&request=GetCapabilities')
+        fetch('http://localhost:3655/geoserver/coaster/wms?service=WMS&request=GetCapabilities')
             .then(response => response.text())
             .then(text => {
                 const parser = new DOMParser();
                 const xmlDoc = parser.parseFromString(text, 'application/xml');
+                console.log('xmlDoc: ', xmlDoc);
                 const layers = xmlDoc.getElementsByTagName('Layer');
 
                 // Collect layer information into an array
@@ -517,7 +520,6 @@ export default defineComponent({
 
                 // Sort layer information alphabetically by name
                 thiss.layerInfo.sort((a, b) => a.name.localeCompare(b.name));
-
                 // Initializa the Map
                 thiss.initializeMap();
             });
@@ -577,7 +579,7 @@ export default defineComponent({
             let attributeData = []
             let attributeStyle = []
 
-            const legendUrl = 'https://coaster.mmsu.edu.ph/geoserver/coaster/wms' + '?' +
+            const legendUrl = 'http://localhost:3655/geoserver/coaster/wms' + '?' +
                 'service=WMS&' +
                 'version=1.1.0&' +
                 'request=GetLegendGraphic&' +
@@ -611,7 +613,7 @@ export default defineComponent({
                     console.error('Error getting style:', error);
                 });
 
-            const wfsUrl = 'https://coaster.mmsu.edu.ph/geoserver/coaster/wms' + '?' +
+            const wfsUrl = 'http://localhost:3655/geoserver/coaster/wms' + '?' +
                 'service=WFS&' +
                 'version=1.1.0&' +
                 'request=GetFeature&' +
@@ -765,14 +767,14 @@ export default defineComponent({
                                 overlayTitle.innerHTML = `Layer Name: ` + title.replace(/\.[^.\s]+/, "");
 
                                 this.overlayLayer.setPosition(coordinate);
-                                    console.log('zoom:', this.map.getView().getZoom()); 
+                                console.log('zoom:', this.map.getView().getZoom());
                                 this.map.getView().animate({
-                                    center: [coordinate[0], coordinate[1] + 
+                                    center: [coordinate[0], coordinate[1] +
                                         (this.map.getView().getZoom() > 11 ? 400 :
-                                        this.map.getView().getZoom() >= 9 ? 1700 :
-                                        this.map.getView().getZoom() >= 7 ? 22000 :
-                                        this.map.getView().getZoom() >= 5 ? 38000 :
-                                        this.map.getView().getZoom() >= 3 ? 58000 : 63000)],
+                                            this.map.getView().getZoom() >= 9 ? 1700 :
+                                                this.map.getView().getZoom() >= 7 ? 22000 :
+                                                    this.map.getView().getZoom() >= 5 ? 38000 :
+                                                        this.map.getView().getZoom() >= 3 ? 58000 : 63000)],
                                     duration: 500, // Optional: smooth animation duration
                                 });
                             })
@@ -842,8 +844,8 @@ export default defineComponent({
             thiss.addedLayers = [];
         },
         initializeMap() {
-            // https://coaster.mmsu.edu.ph/geoserver/coaster/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
-            // https://coaster.mmsu.edu.ph/geoserver/coaster/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
+            // http://localhost:3655/geoserver/coaster/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
+            // http://localhost:3655/geoserver/coaster/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
             const thiss = this;
 
             this.groupLayer = new LayerGroup({
@@ -875,7 +877,7 @@ export default defineComponent({
                 // Create the new layer
                 const newLayer = new TileLayer({
                     source: new TileWMS({
-                        url: 'https://coaster.mmsu.edu.ph/geoserver/coaster/wms',
+                        url: 'http://localhost:3655/geoserver/coaster/wms',
                         params: {
                             'LAYERS': `coaster:${info.name}`,
                             'TILED': true,

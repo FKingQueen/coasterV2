@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Test;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Storage;
+use App\Models\Buoytesting;
 
 class StorageController extends Controller
 {
@@ -22,5 +23,11 @@ class StorageController extends Controller
 
     public function getMsg(){
         return Storage::latest()->first();
+    }
+
+    public function postBuoyTesting(Request $request){
+        $Buoytesting = new Buoytesting;
+        $Buoytesting->data = $request->data;
+        $Buoytesting->save();
     }
 }

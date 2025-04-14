@@ -115,3 +115,6 @@ Route::get('/getMsg', [StorageController::class, 'getMsg']);
 // GeoServer
 Route::post('/getGeoserverData', [GeoServerController::class, 'getGeoserverData']);
 Route::get('/mvt/{z}/{x}/{y}.pbf', [GeoServerController::class, 'proxyMVT']);
+
+// Buoy Testing Data
+Route::post('/postBuoyTesting', [StorageController::class, 'postBuoyTesting']);
