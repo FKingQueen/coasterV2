@@ -29,5 +29,7 @@ class StorageController extends Controller
         $Buoytesting = new Buoytesting;
         $Buoytesting->data = $request->data;
         $Buoytesting->save();
+
+        return "Success";
     }
 }
