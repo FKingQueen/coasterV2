@@ -11,6 +11,7 @@ class Buoytesting extends Model
 
     
     protected $fillable = [
+        'id',
         'data',
     ];
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Bouy;
 use App\Models\WaterLevel;
+use App\Models\Buoytesting;
 use Carbon\Carbon;
 
 class DeviceApiController extends Controller
@@ -39,44 +40,38 @@ class DeviceApiController extends Controller
         } else {
             return $request;
         }
-    
     }
 
     public function storeDataBMS(Request $request){
-
-        $newBuoyData = new Bouy;
+        $newBuoyData = new Buoytesting;
         $newBuoyData->bouy_id = $request->id;
-        $newBuoyData->air_temperature = $request->at;
-        $newBuoyData->water_temperature = $request->wt;
-        $newBuoyData->barometric_temperature = $request->bt;
-        $newBuoyData->ultrasonic = $request->th;
-        $newBuoyData->altitude_pressure = $request->ap;
-        $newBuoyData->compass = $request->hd;
-        $newBuoyData->significant_wave_height = $request->swh;
-        $newBuoyData->wave_period = $request->wp;
+        // Remove the dynamic part "T07:59Z" from $request->data
+        $data = $request->data;
+        $data = preg_replace('/T\d{2}:\d{2}Z/', '', $data);
+        $newBuoyData->data = $data;
+        $newBuoyData->save();
+        // $newBuoyData->water_temperature = $request->wt;
+        // $newBuoyData->barometric_temperature = $request->bt;
+        // $newBuoyData->ultrasonic = $request->th;
+        // $newBuoyData->altitude_pressure = $request->ap;
+        // $newBuoyData->compass = $request->hd;
+        // $newBuoyData->significant_wave_height = $request->swh;
+        // $newBuoyData->wave_period = $request->wp;
 
-        // Date Time
-        $datetimeString = $request->dateTime;
-        $datetimeString = substr($datetimeString, 0, 14); // '24/09/20,09:12'
+        // // Date Time
+        // $datetimeString = $request->dateTime;
+        // $datetimeString = substr($datetimeString, 0, 14); // '24/09/20,09:12'
 
-        $datetime = Carbon::createFromFormat('y/m/d,H:i', $datetimeString);
+        // $datetime = Carbon::createFromFormat('y/m/d,H:i', $datetimeString);
 
-        $newBuoyData->created_at = $datetime;
+        // $newBuoyData->created_at = $datetime;
 
         $newBuoyData->save();
 
         if($newBuoyData->save()){
             return response()->json([
                 'id' => $newBuoyData->bouy_id,
-                'air temperature' => $newBuoyData->air_temperature,
-                'water temperature' => $newBuoyData->water_temperature,
-                'barometric temperature' => $newBuoyData->barometric_temperature,
-                'ultrasonic' => $newBuoyData->ultrasonic,
-                'altitude' => $newBuoyData->altitude_pressure,
-                'compass' => $newBuoyData->compass,
-                'significant wave height' => $newBuoyData->significant_wave_height,
-                'wave period' => $newBuoyData->wave_period,
-                'date time' => $newBuoyData->created_at,
+                'air temperature' => $newBuoyData->data,
             ]);
         } else {
             return $request;
