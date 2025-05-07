@@ -46,7 +46,7 @@ class DeviceApiController extends Controller
     public function storeDataBMS(Request $request){
         return $request;
         // Example input from request
-        $rawData = $request->data; 
+        // $rawData = $request->data; 
         // e.g., "T25:07:45Z24:0.11,0.03,0.05,0.11,..."
 
         // Step 1: Parse timestamp part (e.g., T25:07:45)
