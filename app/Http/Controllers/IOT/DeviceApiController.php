@@ -60,9 +60,6 @@ class DeviceApiController extends Controller
         $startIndex = intval($matches[4]);          // Z24
         $valuesStr = $matches[5];                   // 0.11,0.03,...
 
-        // Step 2: Parse values
-        $values = array_map('floatval', explode(',', $valuesStr));
-
         // Step 3: Find or create the session
         $session = BuoySession::firstOrCreate([
             'year' => $year,
@@ -77,7 +74,7 @@ class DeviceApiController extends Controller
                 'start_index' => $startIndex,
             ],
             [
-                'values' => json_encode($values),
+                'values' => $valuesStr,
             ]
         );
 
