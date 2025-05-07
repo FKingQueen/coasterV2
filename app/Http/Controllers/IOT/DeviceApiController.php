@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Bouy;
 use App\Models\WaterLevel;
-use App\Models\Buoytesting;
+use App\Models\BuoySegment;
+use App\Models\BuoySession;
 use Carbon\Carbon;
 
 class DeviceApiController extends Controller
@@ -43,13 +44,45 @@ class DeviceApiController extends Controller
     }
 
     public function storeDataBMS(Request $request){
-        $newBuoyData = new Buoytesting;
-        $newBuoyData->bouy_id = $request->id;
-        // Remove the dynamic part "T07:59Z" from $request->data
-        $data = $request->data;
-        $data = preg_replace('/T\d{2}:\d{2}Z/', '', $data);
-        $newBuoyData->data = $data;
-        $newBuoyData->save();
+
+        // Example input from request
+        $rawData = $request->data; 
+        // e.g., "T25:07:45Z24:0.11,0.03,0.05,0.11,..."
+
+        // Step 1: Parse timestamp part (e.g., T25:07:45)
+        if (!preg_match('/T(\d+):(\d+):(\d+)Z(\d+):(.+)/', $rawData, $matches)) {
+            return response()->json(['error' => 'Invalid data format'], 400);
+        }
+
+        $year = 2000 + intval($matches[1]);         // T25 → 2025
+        $dayOfYear = intval($matches[2]);           // 07
+        $minuteOfDay = intval($matches[3]);         // 45
+        $startIndex = intval($matches[4]);          // Z24
+        $valuesStr = $matches[5];                   // 0.11,0.03,...
+
+        // Step 2: Parse values
+        $values = array_map('floatval', explode(',', $valuesStr));
+
+        // Step 3: Find or create the session
+        $session = BuoySession::firstOrCreate([
+            'year' => $year,
+            'day_of_year' => $dayOfYear,
+            'minute_of_day' => $minuteOfDay,
+        ]);
+
+        // Step 4: Insert segment (avoid duplicates)
+        $segment = BuoySegment::updateOrCreate(
+            [
+                'session_id' => $session->id,
+                'start_index' => $startIndex,
+            ],
+            [
+                'values' => json_encode($values),
+            ]
+        );
+
+        return response()->json(['message' => 'Data saved successfully']);
+
         // $newBuoyData->water_temperature = $request->wt;
         // $newBuoyData->barometric_temperature = $request->bt;
         // $newBuoyData->ultrasonic = $request->th;
@@ -66,16 +99,16 @@ class DeviceApiController extends Controller
 
         // $newBuoyData->created_at = $datetime;
 
-        $newBuoyData->save();
+        // $newBuoyData->save();
 
-        if($newBuoyData->save()){
-            return response()->json([
-                'id' => $newBuoyData->bouy_id,
-                'air temperature' => $newBuoyData->data,
-            ]);
-        } else {
-            return $request;
-        }
+        // if($newBuoyData->save()){
+        //     return response()->json([
+        //         'id' => $newBuoyData->bouy_id,
+        //         'air temperature' => $newBuoyData->data,
+        //     ]);
+        // } else {
+        //     return $request;
+        // }
 
         
     }

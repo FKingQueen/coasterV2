@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBuoytestingsTable extends Migration
+class CreateBuoySegmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateBuoytestingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('buoytestings', function (Blueprint $table) {
+        Schema::create('buoy_segments', function (Blueprint $table) {
             $table->id();
-            $table->text('data');
+            $table->integer('session_id')->nullable();
+            $table->integer('start_index');
+            $table->text('values');
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateBuoytestingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('buoytestings');
+        Schema::dropIfExists('buoy_segments');
     }
 }

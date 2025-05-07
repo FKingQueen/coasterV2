@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Buoytesting extends Model
+class BuoySegment extends Model
 {
     use HasFactory;
 
-    
     protected $fillable = [
         'id',
-        'data',
+        'session_id',
+        'start_index',
+        'values',
     ];
 }
