@@ -480,7 +480,7 @@ export default defineComponent({
         const thiss = this;
 
         // Get Request Information to Operate the Map Layers from Geoserver
-        fetch('http://10.10.56.5/geoserver/coaster/wms?service=WMS&request=GetCapabilities')
+        fetch('https://coaster.mmsu.edu.ph/geoserver/coaster/wms?service=WMS&request=GetCapabilities')
             .then(response => response.text())
             .then(text => {
                 const parser = new DOMParser();
@@ -581,7 +581,7 @@ export default defineComponent({
             let attributeData = []
             let attributeStyle = []
 
-            const legendUrl = 'http://10.10.56.5/geoserver/coaster/wms' + '?' +
+            const legendUrl = 'https://coaster.mmsu.edu.ph/geoserver/coaster/wms' + '?' +
                 'service=WMS&' +
                 'version=1.1.0&' +
                 'request=GetLegendGraphic&' +
@@ -615,7 +615,7 @@ export default defineComponent({
                     console.error('Error getting style:', error);
                 });
 
-            const wfsUrl = 'http://10.10.56.5/geoserver/coaster/wms' + '?' +
+            const wfsUrl = 'https://coaster.mmsu.edu.ph/geoserver/coaster/wms' + '?' +
                 'service=WFS&' +
                 'version=1.1.0&' +
                 'request=GetFeature&' +
@@ -845,8 +845,8 @@ export default defineComponent({
             thiss.addedLayers = [];
         },
         initializeMap() {
-            // http://10.10.56.5/geoserver/coaster/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
-            // http://10.10.56.5/geoserver/coaster/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
+            // https://coaster.mmsu.edu.ph/geoserver/coaster/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
+            // https://coaster.mmsu.edu.ph/geoserver/coaster/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3APadsan%20River%20100%20yrs&bbox=237461.16438149172%2C2011797.174981621%2C245396.3266869379%2C2015079.483242996&width=768&height=330&srs=EPSG%3A32651&styles=&format=application/openlayers
             const thiss = this;
 
             this.groupLayer = new LayerGroup({
@@ -878,7 +878,7 @@ export default defineComponent({
                 // Create the new layer
                 const newLayer = new TileLayer({
                     source: new TileWMS({
-                        url: 'http://10.10.56.5/geoserver/coaster/wms',
+                        url: 'https://coaster.mmsu.edu.ph/geoserver/coaster/wms',
                         params: {
                             'LAYERS': `coaster:${info.name}`,
                             'TILED': true,
