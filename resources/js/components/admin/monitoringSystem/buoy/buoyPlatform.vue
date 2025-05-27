@@ -1,10 +1,9 @@
 <template>
-    <div class="lg:p-2">
-        <div class="m-5 border-t-2 bg-white shadow-inner shadow-lg rounded lg:px-10 py-5">
-            <div class="flex justify-center lg:text-2xl text-lg">
-                Buoy Monitoring System
-            </div>
-
+    <div class="m-5">
+        <div class="flex justify-center lg:text-2xl text-lg pb-2">
+            BUOY MONITORING SYSTEM
+        </div>
+        <div class=" border-t-2 bg-white drop-shadow-md rounded lg:px-10 py-5">
             <div class="w-full flex justify-around ">
                 <div class="w-1/2 p-5">
                     <div class="w-full border">
@@ -23,18 +22,18 @@
                 <template #customFilterDropdown="{ setSelectedKeys, selectedKeys, confirm, clearFilters, column }">
                     <div style="padding: 8px">
                         <a-input ref="searchInput" :placeholder="`Search ${column.dataIndex}`" :value="selectedKeys[0]"
-                        style="width: 188px; margin-bottom: 8px; display: block"
-                        @change="e => setSelectedKeys(e.target.value ? [e.target.value] : [])"
-                        @pressEnter="handleSearch(selectedKeys, confirm, column.dataIndex)" />
+                            style="width: 188px; margin-bottom: 8px; display: block"
+                            @change="e => setSelectedKeys(e.target.value ? [e.target.value] : [])"
+                            @pressEnter="handleSearch(selectedKeys, confirm, column.dataIndex)" />
                         <a-button type="primary" size="small" style="width: 90px; margin-right: 8px"
-                        @click="handleSearch(selectedKeys, confirm, column.dataIndex)">
-                        <template #icon>
-                            <SearchOutlined />
-                        </template>
-                        Search
+                            @click="handleSearch(selectedKeys, confirm, column.dataIndex)">
+                            <template #icon>
+                                <SearchOutlined />
+                            </template>
+                            Search
                         </a-button>
                         <a-button size="small" style="width: 90px" @click="handleReset(clearFilters)">
-                        Reset
+                            Reset
                         </a-button>
                     </div>
                 </template>
@@ -45,19 +44,19 @@
                 <template #bodyCell="{ text, column, record, index }">
                     <span v-if="searchText && searchedColumn === column.dataIndex">
                         <template v-for="(fragment, i) in text
-                        .toString()
-                        .split(new RegExp(`(?<=${searchText})|(?=${searchText})`, 'i'))">
-                        <mark v-if="fragment.toLowerCase() === searchText.toLowerCase()" :key="i" class="highlight">
-                            {{ fragment }}
-                        </mark>
-                        <template v-else>{{ fragment }}</template>
+                            .toString()
+                            .split(new RegExp(`(?<=${searchText})|(?=${searchText})`, 'i'))">
+                            <mark v-if="fragment.toLowerCase() === searchText.toLowerCase()" :key="i" class="highlight">
+                                {{ fragment }}
+                            </mark>
+                            <template v-else>{{ fragment }}</template>
                         </template>
                     </span>
                     <template v-else-if="column.key === 'action'">
                         <span>
-                        <a-popconfirm title="Sure to delete?" @confirm="remove(index)">
-                            <a class="hover:text-red-500">Delete</a>
-                        </a-popconfirm>
+                            <a-popconfirm title="Sure to delete?" @confirm="remove(index)">
+                                <a class="hover:text-red-500">Delete</a>
+                            </a-popconfirm>
                         </span>
                     </template>
                 </template>
@@ -81,8 +80,8 @@ export default defineComponent({
     },
     setup() {
         const state = reactive({
-        searchText: '',
-        searchedColumn: '',
+            searchText: '',
+            searchedColumn: '',
         });
         const searchInput = ref();
         const columns = [
@@ -94,9 +93,9 @@ export default defineComponent({
                 onFilter: (value, record) => record.buoy_id.toString().toLowerCase().includes(value.toLowerCase()),
                 onFilterDropdownOpenChange: visible => {
                     if (visible) {
-                    setTimeout(() => {
-                        searchInput.value.focus();
-                    }, 100);
+                        setTimeout(() => {
+                            searchInput.value.focus();
+                        }, 100);
                     }
                 },
             }, {
@@ -107,9 +106,9 @@ export default defineComponent({
                 onFilter: (value, record) => record.wave_height.toString().toLowerCase().includes(value.toLowerCase()),
                 onFilterDropdownOpenChange: visible => {
                     if (visible) {
-                    setTimeout(() => {
-                        searchInput.value.focus();
-                    }, 100);
+                        setTimeout(() => {
+                            searchInput.value.focus();
+                        }, 100);
                     }
                 },
             }, {
@@ -120,9 +119,9 @@ export default defineComponent({
                 onFilter: (value, record) => record.tide_height.toString().toLowerCase().includes(value.toLowerCase()),
                 onFilterDropdownOpenChange: visible => {
                     if (visible) {
-                    setTimeout(() => {
-                        searchInput.value.focus();
-                    }, 100);
+                        setTimeout(() => {
+                            searchInput.value.focus();
+                        }, 100);
                     }
                 },
             }, {
@@ -133,9 +132,9 @@ export default defineComponent({
                 onFilter: (value, record) => record.wave_period.toString().toLowerCase().includes(value.toLowerCase()),
                 onFilterDropdownOpenChange: visible => {
                     if (visible) {
-                    setTimeout(() => {
-                        searchInput.value.focus();
-                    }, 100);
+                        setTimeout(() => {
+                            searchInput.value.focus();
+                        }, 100);
                     }
                 },
             }, {
@@ -146,9 +145,9 @@ export default defineComponent({
                 onFilter: (value, record) => record.wave_power.toString().toLowerCase().includes(value.toLowerCase()),
                 onFilterDropdownOpenChange: visible => {
                     if (visible) {
-                    setTimeout(() => {
-                        searchInput.value.focus();
-                    }, 100);
+                        setTimeout(() => {
+                            searchInput.value.focus();
+                        }, 100);
                     }
                 },
             }, {
@@ -159,9 +158,9 @@ export default defineComponent({
                 onFilter: (value, record) => record.wave_temperature.toString().toLowerCase().includes(value.toLowerCase()),
                 onFilterDropdownOpenChange: visible => {
                     if (visible) {
-                    setTimeout(() => {
-                        searchInput.value.focus();
-                    }, 100);
+                        setTimeout(() => {
+                            searchInput.value.focus();
+                        }, 100);
                     }
                 },
             }, {
@@ -172,9 +171,9 @@ export default defineComponent({
                 onFilter: (value, record) => record.air_temperature.toString().toLowerCase().includes(value.toLowerCase()),
                 onFilterDropdownOpenChange: visible => {
                     if (visible) {
-                    setTimeout(() => {
-                        searchInput.value.focus();
-                    }, 100);
+                        setTimeout(() => {
+                            searchInput.value.focus();
+                        }, 100);
                     }
                 },
             }, {
@@ -185,9 +184,9 @@ export default defineComponent({
                 onFilter: (value, record) => record.date.toString().toLowerCase().includes(value.toLowerCase()),
                 onFilterDropdownOpenChange: visible => {
                     if (visible) {
-                    setTimeout(() => {
-                        searchInput.value.focus();
-                    }, 100);
+                        setTimeout(() => {
+                            searchInput.value.focus();
+                        }, 100);
                     }
                 },
             }, {
@@ -218,22 +217,22 @@ export default defineComponent({
     },
     methods: {
         remove(key) {
-        const thiss = this
-        const headers = {
-            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-        };
-        axios.post(`/api/admin/deleteBMSData`, { id: thiss.buoyData[key].id }, { headers })
-            .then(function (response) {
-                thiss.buoyData.splice(key, 1);
-                notification.success({
-                    message: 'Notification',
-                    description: 'The Data is Successfully Deleted',
-                });
-            })
-            .catch(function (error) {
+            const thiss = this
+            const headers = {
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+            };
+            axios.post(`/api/admin/deleteBMSData`, { id: thiss.buoyData[key].id }, { headers })
+                .then(function (response) {
+                    thiss.buoyData.splice(key, 1);
+                    notification.success({
+                        message: 'Notification',
+                        description: 'The Data is Successfully Deleted',
+                    });
+                })
+                .catch(function (error) {
 
-            console.log(error);
-            });
+                    console.log(error);
+                });
         },
     },
 
@@ -249,12 +248,12 @@ export default defineComponent({
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         };
         await axios.get('/api/admin/getBMSData', { headers })
-        .then(function (response) {
-            // console.log(response.data);
-            existingObj.buoyData = response.data
-        })
-        .catch(function (error) {
-        });
+            .then(function (response) {
+                // console.log(response.data);
+                existingObj.buoyData = response.data
+            })
+            .catch(function (error) {
+            });
     }
 
 })

@@ -1,39 +1,45 @@
 <template>
-    <div class="p-2">
-        <div class="m-5 border-t-2 bg-white shadow-inner shadow-lg rounded px-10 py-5">
+    <div class="flex justify-center items-center ">
+        <div class="w-2/4 m-5">
             <div class="flex justify-center text-2xl">
-                User Account
+                USER ACCOUNT
             </div>
-            <div class="flex justify-center w-full">
-                <div class="w-6/12 border">
-                    <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="95" class="p-10">
-                        <FormItem label="Name" prop="name">
-                            <Input v-model="formValidate.name" placeholder="Enter your name"></Input>
-                        </FormItem>
-                        <FormItem label="E-mail" prop="email">
-                            <Input v-model="formValidate.email" placeholder="Enter your e-mail"></Input>
-                        </FormItem>
-                        <FormItem>
-                            <a-button type="primary" @click="showModal">Change Password</a-button>
-                            <a-modal v-model:open="visible" title="New Password" @ok="changePassword('formValidate')">
-                                <div class="ivu-form ivu-form-label-right">
-                                    <FormItem label="Password" prop="passwd">
-                                        <Input type="password" v-model="formValidate.passwd"></Input>
-                                    </FormItem>
-                                    <FormItem label="Confirm" prop="passwdCheck">
-                                        <Input type="password" v-model="formValidate.passwdCheck"></Input>
-                                    </FormItem>
-                                </div>
-                            </a-modal>
-                        </FormItem>
+            <div class="m-5 border-t-2 bg-white shadow-inner shadow-lg rounded px-10 py-5">
+                <div class="flex justify-center w-full">
+                    <div class="w-full">
+                        <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="95"
+                            class="p-10">
+                            <FormItem label="Name" prop="name">
+                                <Input v-model="formValidate.name" placeholder="Enter your name"></Input>
+                            </FormItem>
+                            <FormItem label="E-mail" prop="email">
+                                <Input v-model="formValidate.email" placeholder="Enter your e-mail"></Input>
+                            </FormItem>
+                            <FormItem>
+                                <a-button type="primary" @click="showModal">Change Password</a-button>
+                                <a-modal v-model:open="visible" title="New Password"
+                                    @ok="changePassword('formValidate')">
+                                    <div class="ivu-form ivu-form-label-right">
+                                        <FormItem label="Password" prop="passwd">
+                                            <Input type="password" v-model="formValidate.passwd"></Input>
+                                        </FormItem>
+                                        <FormItem label="Confirm" prop="passwdCheck">
+                                            <Input type="password" v-model="formValidate.passwdCheck"></Input>
+                                        </FormItem>
+                                    </div>
+                                </a-modal>
+                            </FormItem>
 
-                        <div class="flex justify-end">
-                            <a-button key="submit" type="primary" @click="handleSubmit('formValidate')">Submit</a-button>
-                        </div>
-                    </Form>
+                            <div class="flex justify-end">
+                                <a-button key="submit" type="primary"
+                                    @click="handleSubmit('formValidate')">Submit</a-button>
+                            </div>
+                        </Form>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
 </template>
 

@@ -1,13 +1,13 @@
 <template>
-    <div class="p-2">
-        <div class="m-5 border-t-2 bg-white shadow-inner shadow-lg rounded px-10 py-5">
-            <div class="flex justify-center text-2xl">
-                User Management
-            </div>
+    <div class="m-5">
+        <div class="flex justify-center lg:text-2xl text-lg pb-2">
+            USER MANAGEMENT
+        </div>
+        <div class=" border-t-2 bg-white drop-shadow-md rounded lg:px-10 py-5">
             <a-button type="primary" @click="this.$router.push('/admin/userPlatform/addForm')" class="mb-4">New
                 User</a-button>
 
-            <a-table :data-source="users" :columns="columns" size="small" class="drop-shadow-md">
+            <a-table :data-source="users" :columns="columns" size="small" class="drop-shadow">
                 <template #headerCell="{ column }">
                     <template v-if="column.key === 'name'">
                         <span style="color: #1890ff">Title</span>

@@ -1,17 +1,17 @@
 <template>
     <div>
-        <div class="p-2">
-            <div class="m-5 border-t-2 bg-white shadow-inner shadow-lg rounded px-10 py-5">
-                <div class="flex justify-center text-2xl">
-                    Article
-                </div>
+        <div class="m-5">
+            <div class="flex justify-center text-2xl pb-2">
+                ARTICLE PLATFORM
+            </div>
+            <div class="border-t-2 bg-white drop-shadow-md rounded px-10 py-5">
                 <div class="mb-4 flex justify-start gap-1">
                     <a-button type="primary" @click="this.$router.push('/admin/articlePlatform/addForm')">New
                         Article</a-button>
                 </div>
 
                 <a-table :data-source="articles" :loading="false" :columns="columns" size="small"
-                    class="drop-shadow-md">
+                    class="drop-shadow">
                     <template #headerCell="{ column }">
                         <template v-if="column.key === 'title'">
                             <span style="color: #1890ff">Title</span>
@@ -67,7 +67,8 @@
 
                                     <div>
                                         <div class="w-full text-right mt-4">
-                                            <a-tag v-for="project in articles[index].articleprojects" color="blue">Project
+                                            <a-tag v-for="project in articles[index].articleprojects"
+                                                color="blue">Project
                                                 {{ project.project_id }}</a-tag>
                                         </div>
                                         <p class="text-xl mt-2 font-semibold">{{ this.modalData.title }}</p>
@@ -91,7 +92,7 @@
                         <template v-else-if="column.key === 'project'">
                             <a-tag v-for="project in articles[index].articleprojects" color="blue">Project {{
                                 project.project_id
-                                }}</a-tag>
+                            }}</a-tag>
                         </template>
                         <template v-else-if="column.key === 'typ'">
                             <a-tag color="green">{{ articles[index].type.name }}</a-tag>
@@ -101,7 +102,7 @@
                             <p v-else>{{ articles[index].author }}</p>
                         </template>
                         <template v-else-if="column.key === 'image'">
-                            <a-image style="height: 35px" :src="`/img/uploads/${record.image}`"  />
+                            <a-image style="height: 35px" :src="`/img/uploads/${record.image}`" />
                         </template>
                     </template>
 

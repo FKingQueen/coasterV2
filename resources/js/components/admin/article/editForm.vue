@@ -1,15 +1,15 @@
 <template>
     <div>
-        <div class="p-2">
-            <div class="m-5 border-t-2 bg-white shadow-inner shadow-lg rounded px-10 py-5">
-                <div class="ml-2 flex justify-start gap-1">
+        <div class="m-5">
+            <div class="flex justify-center text-2xl pb-2">
+                EDIT ARTICLE FORM
+            </div>
+            <div class="m-5 border-t-2 bg-white drop-shadow-md rounded px-10 py-5">
+                <div class="ml-2 pb-2 flex justify-start gap-1">
                     <Breadcrumb separator=">">
                         <BreadcrumbItem to="/admin/articlePlatform">Article Management</BreadcrumbItem>
                         <BreadcrumbItem>Edit Article Form</BreadcrumbItem>
                     </Breadcrumb>
-                </div>
-                <div class="mb-2 flex justify-start gap-1">
-                    <a-button @click="this.$router.push('/admin/articlePlatform')" class="my-3">Back</a-button>
                 </div>
                 <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" label-position="top" class="">
                     <div class="w-full bg-[#abdcff]/80 lg:pb-0 pb-1 px-1 lg:px-0 pt-5">
@@ -76,7 +76,7 @@
         </div>
     </div>
 </template>
-  
+
 <script>
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { defineComponent, ref } from 'vue';
@@ -237,7 +237,7 @@ export default defineComponent({
     },
     async mounted() {
         let existingObj = this;
-        
+
         const headers = {
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         };
@@ -272,5 +272,5 @@ export default defineComponent({
     }
 })
 </script>
-  
+
 <style></style>

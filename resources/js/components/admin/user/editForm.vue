@@ -1,7 +1,9 @@
 <template>
-    <div class="p-2">
-
-        <div class="m-5 border-t-2 bg-white shadow-inner shadow-lg rounded px-20 py-5">
+    <div class="m-5">
+        <div class="flex justify-center text-2xl pb-2">
+            EDIT USER FORM
+        </div>
+        <div class="border-t-2 bg-white drop-shadow-md rounded px-10 py-5">
             <Breadcrumb separator=">">
                 <BreadcrumbItem to="/admin/userPlatform">User Management</BreadcrumbItem>
                 <BreadcrumbItem>Edit User Form</BreadcrumbItem>
@@ -15,8 +17,8 @@
                     <Input v-model="formValidate.email" placeholder="Enter your e-mail"></Input>
                 </FormItem>
                 <FormItem label="User Type" prop="userType">
-                    <a-select v-model:value="formValidate.userType" style="width: 100%" placeholder="Select your User Type"
-                        :options="userTypeOptions"></a-select>
+                    <a-select v-model:value="formValidate.userType" style="width: 100%"
+                        placeholder="Select your User Type" :options="userTypeOptions"></a-select>
                 </FormItem>
                 <FormItem>
                     <a-button type="primary" @click="showModal">Change Password</a-button>
@@ -39,7 +41,7 @@
         </div>
     </div>
 </template>
-  
+
 <script>
 import { UploadOutlined } from '@ant-design/icons-vue';
 import { defineComponent, ref } from 'vue';
@@ -198,7 +200,7 @@ export default defineComponent({
     }
 })
 </script>
-  
+
 <style>
 .demo-upload-list {
     display: inline-block;

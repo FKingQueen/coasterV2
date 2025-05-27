@@ -1,10 +1,13 @@
 <template>
     <div>
-        <div class="p-2">
-            <div class="m-5 border-t-2 bg-white shadow-inner shadow-lg rounded px-10 py-5">
+        <div class="m-5">
+            <div class="flex justify-center text-2xl pb-2">
+                NEW USER FORM
+            </div>
+            <div class="border-t-2 bg-white drop-shadow-md rounded px-10 py-5">
                 <div class=" ml-2 flex justify-start gap-1">
                     <Breadcrumb separator=">">
-                        <BreadcrumbItem to="/admin/userPlatform">User Management</BreadcrumbItem>
+                        <BreadcrumbItem to="/admin/userPlatform">USER MANAGEMENT</BreadcrumbItem>
                         <BreadcrumbItem>New User Form</BreadcrumbItem>
                     </Breadcrumb>
                 </div>

@@ -1,9 +1,9 @@
 <template>
-    <div class="lg:p-2">
-        <div class="m-5 border-t-2 bg-white shadow-inner shadow-lg rounded lg:px-10 py-5">
-            <div class="flex justify-center  lg:text-2xl text-lg">
-                Water Level Monitoring System
-            </div>
+    <div class="m-5">
+        <div class="flex justify-center lg:text-2xl text-lg pb-2">
+            WATER LEVEL MONITORING SYSTEM
+        </div>
+        <div class=" border-t-2 bg-white drop-shadow-md rounded lg:px-10 py-5">
 
             <div class="w-full flex justify-around ">
                 <div class="w-1/2 p-5">

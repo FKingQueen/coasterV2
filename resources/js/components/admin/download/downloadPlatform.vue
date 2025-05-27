@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div class="p-2">
-            <div class="m-5 border-t-2 bg-white shadow-inner shadow-lg rounded px-10 py-5">
-                <div class="flex justify-center text-2xl">
-                    Downloads
-                </div>
+        <div class="m-5">
+            <div class="flex justify-center lg:text-2xl text-lg pb-2">
+                DOWNLOADS
+            </div>
+            <div class=" border-t-2 bg-white drop-shadow-md rounded lg:px-10 py-5">
 
                 <a-table :data-source="download" :columns="columns" size="small" class="drop-shadow-md"
                     :expanded-row-keys="expandedRowKeys" @expand="onExpandRow">
@@ -292,7 +292,7 @@ export default defineComponent({
                             }
                         })
                         .catch(function (error) {
-                            
+
                         });
 
                 } else {
