@@ -45,7 +45,6 @@ export default defineComponent({
                         minWidth: 200,
                         scrollPositionX: 1,
                     },
-
                 },
                 rangeSelector: {
                     buttons: [{
@@ -71,9 +70,11 @@ export default defineComponent({
                     }, {
                         type: 'all',
                         text: 'All'
+
                     }],
                     inputEnabled: true, // it supports only days
-                    selected: 5 // all
+                    selected: 0 // all
+                                
                 },
                 xAxis: {
                     type: "datetime",
@@ -83,6 +84,7 @@ export default defineComponent({
                     title: {
                         text: 'DateTime'
                     },
+                    ordeals: true,
                 },
                 yAxis: {
                     title: {
@@ -127,8 +129,8 @@ export default defineComponent({
     },
     methods: {
         async fetchDataFromApi() {
-            let existingObj = this;
-            existingObj.chartOptions.series[0].data = [];
+            let thiss = this;
+            thiss.chartOptions.series[0].data = [];
             const headers = {
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             };
@@ -138,8 +140,9 @@ export default defineComponent({
                     .then((response) => {
                         if (response.data.data.length != 0) {
                             for (let i = 0; i < response.data.data.length; i++) {
-                                existingObj.chartOptions.series[0].data[i] = [];
-                                existingObj.chartOptions.series[0].data[i][0] = Date.UTC(
+
+                                thiss.chartOptions.series[0].data[i] = [];
+                                thiss.chartOptions.series[0].data[i][0] = Date.UTC(
                                     response.data.data[i].date[0],
                                     response.data.data[i].date[1] - 1,
                                     response.data.data[i].date[2],
@@ -147,20 +150,12 @@ export default defineComponent({
                                     response.data.data[i].date[4],
                                     response.data.data[i].date[5],
                                 );
-                                if (existingObj.id == 1) {
-                                    existingObj.chartOptions.series[0].data[i][1] = Math.round((12.5 - response.data.data[i].level) * 100) / 100;
-                                }
-                                if (existingObj.id == 2) {
-                                    existingObj.chartOptions.series[0].data[i][1] = Math.round((26 - response.data.data[i].level) * 100) / 100;
-                                }
-
                             }
-                            console.log(existingObj.chartOptions.series[0].data);
-                            existingObj.type = '1';
-                            existingObj.data = response.data.data;
+                            thiss.type = '1';
+                            thiss.data = response.data.data;
+                            // console.log(thiss.chartOptions.rangeSelector.selected = 0);
                         }
                     })
-
                     .catch(function (error) {
                         console.error(error);
                     });
@@ -169,43 +164,43 @@ export default defineComponent({
                 // Handle errors (e.g., display an error message)
             }
         },
-        afterSetExtremes(e) {
-            const { chart } = e.target;
-            chart.showLoading('Loading data from server...');
-        },
         onChangeType(e) {
-            let existingObj = this;
-            if (existingObj.chartOptions.series[0].data.length != 0) {
+            let thiss = this;
+            if (thiss.chartOptions.series[0].data.length != 0) {
 
-                switch (existingObj.type) {
+                switch (thiss.type) {
                     case '1':
-                        for (let i = 0; i < existingObj.data.length; i++) {
-                            if (existingObj.id == 1) {
-                                existingObj.chartOptions.series[0].data[i][1] = Math.round((13.5 - existingObj.data[i].level) * 100) / 100;
+                        for (let i = 0; i < thiss.data.length; i++) {
+                            if (thiss.id == 1) {
+                                thiss.chartOptions.series[0].data[i][1] = Math.round((13.5 - thiss.data[i].level) * 100) / 100;
                             }
-                            if (existingObj.id == 2) {
-                                existingObj.chartOptions.series[0].data[i][1] = Math.round((26 - existingObj.data[i].level) * 100) / 100;
+                            if (thiss.id == 2) {
+                                thiss.chartOptions.series[0].data[i][1] = Math.round((26 - thiss.data[i].level) * 100) / 100;
                             }
+                            // Ensure xAxis is an object and update properties reactively
+                            // thiss.xAxisMax = 1741083120000
+                            // thiss.xAxisMin = 1741083120000 - 1 * 60 * 60 * 1000
 
-                            existingObj.chartOptions.series[0].name = 'Water Level'
-                            existingObj.chartOptions.subtitle.text = 'Water Level'
-                            existingObj.chartOptions.yAxis.title.text = 'Height (Meter)'
+                           
+                            thiss.chartOptions.series[0].name = 'Water Level'
+                            thiss.chartOptions.subtitle.text = 'Water Level'
+                            thiss.chartOptions.yAxis.title.text = 'Height (Meter)'
                         }
                         break;
                     case '2':
-                        for (let i = 0; i < existingObj.data.length; i++) {
-                            existingObj.chartOptions.series[0].data[i][1] = Math.round((existingObj.data[i].temperature) * 100) / 100;
-                            existingObj.chartOptions.series[0].name = 'Temperature'
-                            existingObj.chartOptions.subtitle.text = 'Temperature'
-                            existingObj.chartOptions.yAxis.title.text = 'Temperature'
+                        for (let i = 0; i < thiss.data.length; i++) {
+                            thiss.chartOptions.series[0].data[i][1] = Math.round((thiss.data[i].temperature) * 100) / 100;
+                            thiss.chartOptions.series[0].name = 'Temperature'
+                            thiss.chartOptions.subtitle.text = 'Temperature'
+                            thiss.chartOptions.yAxis.title.text = 'Temperature'
                         }
                         break;
                     case '3':
-                        for (let i = 0; i < existingObj.data.length; i++) {
-                            existingObj.chartOptions.series[0].data[i][1] = Math.round((existingObj.data[i].humidity) * 100) / 100;
-                            existingObj.chartOptions.series[0].name = 'Humidity'
-                            existingObj.chartOptions.subtitle.text = 'Humidity'
-                            existingObj.chartOptions.yAxis.title.text = 'Humidity'
+                        for (let i = 0; i < thiss.data.length; i++) {
+                            thiss.chartOptions.series[0].data[i][1] = Math.round((thiss.data[i].humidity) * 100) / 100;
+                            thiss.chartOptions.series[0].name = 'Humidity'
+                            thiss.chartOptions.subtitle.text = 'Humidity'
+                            thiss.chartOptions.yAxis.title.text = 'Humidity'
                         }
                         break;
                 }

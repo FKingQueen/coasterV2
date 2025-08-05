@@ -580,13 +580,15 @@ export default defineComponent({
             const thiss = this
             let attributeData = []
             let attributeStyle = []
-
+            console.log('option: ', option.title);
             const legendUrl = 'https://coaster.mmsu.edu.ph/geoserver/coaster/wms' + '?' +
                 'service=WMS&' +
                 'version=1.1.0&' +
                 'request=GetLegendGraphic&' +
-                `layer=coaster:${option.title}& ` +
-                'format=application/json';
+                `layer=coaster:${option.title}&` +
+                'format=application/json&' +
+                'LEGEND_OPTIONS=forceLabels:on';
+
 
             fetch(legendUrl)
                 .then(response => response.json())  // Parse as JSON instead of text
@@ -660,7 +662,8 @@ export default defineComponent({
                         name: key,
                         y: parseFloat(((count / total) * 100).toFixed(2)),
                     }));
-
+                    console.log('Attibute Data: ', attributeData);
+                    console.log('Attribute Style: ', attributeStyle);
 
                     attributeData.forEach(attrData => {
                         const style = attributeStyle.find(attrStyle => attrStyle.name === attrData.name);
