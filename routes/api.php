@@ -79,6 +79,7 @@ Route::group(['prefix' => 'admin','middleware' => 'auth:sanctum'], function() {
         // IOT Devices API
         Route::post('/storeDataWLMS', [DeviceApiController::class, 'storeDataWLMS']);
         Route::post('/storeDataBMS', [DeviceApiController::class, 'storeDataBMS']);
+        Route::post('/storeTideData', [DeviceApiController::class, 'storeTideData']);
 
         // Download
         Route::get('/getDownload', [DownloadController::class, 'getDownload']);
@@ -101,13 +102,14 @@ Route::get('/getRelatedArticle/{id}', [ProjectController::class, 'getRelatedArti
 Route::get('/getWaterLevelLatest/{id}', [HomeMonitoringSystemController::class, 'getWaterLevelLatest']);
 Route::get('/getWaterLevel/{id}', [HomeMonitoringSystemController::class, 'getWaterLevel']);
 Route::get('/getBouy/{id}', [HomeMonitoringSystemController::class, 'getBouy']);
+Route::get('/getBuoyLatest/{id}', [HomeMonitoringSystemController::class, 'getBuoyLatest']);
 // Map
 Route::post('/getLayerData', [MapController::class, 'getLayerData']);
 Route::post('/getProvinceData', [MapController::class, 'getProvinceData']);
 Route::post('/getMunicipalitiesData', [MapController::class, 'getMunicipalitiesData']);
 Route::post('/getBarangaysData', [MapController::class, 'getBarangaysData']);
 // Download
-Route::post('/storeDownload', [HomeDownloadController::class, 'storeDownload']);
+Route::post('/submitDownload', [HomeDownloadController::class, 'submitDownload']);
 
 // Test API
 Route::get('/getMsg', [StorageController::class, 'getMsg']);

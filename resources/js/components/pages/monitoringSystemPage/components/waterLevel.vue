@@ -64,22 +64,22 @@ export default defineComponent({
                                         switch (type) {
                                             case '1':
                                                 series.addPoint(response.data.level, true, true);
-                                                console.log(response.data.level);
+                                                console.log("wlms: ", response.data.level);
                                                 break;
                                             case '2':
                                                 series.addPoint(response.data.temperature, true, true);
-                                                console.log(response.data.temperature);
+                                                console.log("wlms: ", response.data.temperature);
                                                 break;
                                             case '3':
                                                 series.addPoint(response.data.humidity, true, true);
-                                                console.log(response.data.humidity);
+                                                console.log("wlms: ", response.data.humidity);
                                                 break;
                                         }
                                     })
                                     .catch(function (error) {
                                         console.error(error);
                                     });
-                            }, 300000);
+                            }, 60000);
                         }
                     }
                 },

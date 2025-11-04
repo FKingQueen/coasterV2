@@ -185,9 +185,13 @@ export default defineComponent({
                             existingObj.$router.push('/admin/articlePlatform');
                         })
                         .catch(function (error) {
-
+                            if (error) {
+                                notification.error({
+                                    message: 'Notification',
+                                    description: 'Something went wrong. Please try again later.',
+                                });
+                            }
                         });
-
                 } else {
                 }
             })

@@ -13,9 +13,13 @@ class Download extends Model
         'id',
         'email',
         'name',
-        'address',
+        'address',  
         'agency',
         'purpose',
     ];
 
+    public function downloadList()
+    {
+        return $this->hasMany(DownloadList::class);
+    }
 }

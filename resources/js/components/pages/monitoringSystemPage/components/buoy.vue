@@ -74,6 +74,40 @@ export default defineComponent({
                     style: {
                         fontFamily: 'Arial, sans-serif', // Change the font
                     },
+                    events: {
+                        load: function () {
+                            const thiss = this
+                            const series = thiss.series[0];
+                            setInterval(function () {
+                                const id = thiss.userOptions.custom.id;
+                                const type = thiss.userOptions.custom.type;
+                                console.log('id: ', id);
+                                axios
+                                    .get(`/api/getBuoyLatest/${id}`)
+                                    .then((response) => {
+                                        switch (type) {
+                                            case '1':
+                                                series.addPoint(response.data.tide[0], true, true);
+                                                console.log('series: ', series);
+                                                console.log("buoy: ", response.data.tide[0]);
+                                                break;
+                                            case '2':
+                                                series.addPoint(response.data.temperature, true, true);
+                                                console.log("buoy: ", response.data.temperature);
+                                                break;
+                                        }
+                                    })
+                                    .catch(function (error) {
+                                        console.error(error);
+                                    });
+                            }, 60000);
+                        }
+                    },
+                },
+                // Store component reference and id in custom options
+                custom: {
+                    id: null,
+                    type: null
                 },
                 credits: {
                     text: '',
@@ -122,12 +156,26 @@ export default defineComponent({
                         type: '',
                     },
                 ],
+                plotOptions: {
+                    series: {
+                        pointStart: Date.UTC(2010, 0, 1),
+                        marker: {
+                            enabled: false,
+                            states: {
+                                hover: {
+                                    enabled: false
+                                }
+                            }
+                        }
+                    },
+                },
             },
         };
     },
     methods: {
         onChangeType(e) {
             let thiss = this;
+            thiss.chartOptions1.custom.type = thiss.type
             if (thiss.chartOptions1.series[0].data.length != 0) {
                 switch (thiss.type) {
                     case '1':
@@ -137,8 +185,7 @@ export default defineComponent({
                         break;
                     case '2':
                         thiss.setChartStyleTemp();
-                        thiss.chartOptions1.series[0].data = thiss.data.airTemp
-                        thiss.chartOptions1.series[1].data = thiss.data.waterTemp
+                        thiss.chartOptions1.series[0].data = thiss.data.temperature
                         break;
                     case '3':
                         thiss.setChartStyleWave();
@@ -315,12 +362,18 @@ export default defineComponent({
     async mounted() {
         let thiss = this;
 
+        // this.chartOptions1.custom.component = this;
+        this.chartOptions1.custom.id = this.id;
+
         await axios
             .get(`/api/getBouy/${this.id}`)
             .then((response) => {
                 thiss.type = '1'
+                thiss.chartOptions1.custom.type = '1'
                 thiss.data = response.data
                 thiss.chartOptions1.series[0].data = thiss.data.tide
+
+                console.log('data: ', thiss.data)
 
                 // Setting the Style of the Chart
                 thiss.setChartStyleTide();

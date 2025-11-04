@@ -13,8 +13,7 @@ use App\Mail\DownloadMail;
 class DownloadController extends Controller
 {
     public function getDownload(){
-
-        return Download::orderBy('id', 'desc')->get();
+        return Download::with('downloadList')->orderBy('id', 'desc')->get();
     }
     public function uploadDownload(Request $request)
     {

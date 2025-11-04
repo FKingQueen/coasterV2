@@ -153,7 +153,7 @@
                     <template #title>
                         <span>Basemap</span>
                     </template>
-                    <div @click="isbasemapOptionVisible = !isbasemapOptionVisible, isGotoLocationVisible = false"
+                    <div @click="isbasemapOptionVisible = !isbasemapOptionVisible, isGotoLocationVisible = false, isDownloadVisible = false"
                         class="bg-[#EEEEEE] p-1 cursor-pointer opacity-85 hover:opacity-50">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
@@ -166,7 +166,7 @@
                     <template #title>
                         <span>XY Location</span>
                     </template>
-                    <div @click="isGotoLocationVisible = !isGotoLocationVisible, isbasemapOptionVisible = false"
+                    <div @click="isGotoLocationVisible = !isGotoLocationVisible, isbasemapOptionVisible = false, isDownloadVisible = false"
                         class="bg-[#EEEEEE] p-1 cursor-pointer opacity-85 hover:opacity-50 text-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
@@ -177,10 +177,23 @@
                         </svg>
                     </div>
                 </a-tooltip>
+                <a-tooltip placement="left" :mouseEnterDelay=".8">
+                    <template #title>
+                        <span>Download</span>
+                    </template>
+                    <div @click="isDownloadVisible = !isDownloadVisible, isbasemapOptionVisible = false, isGotoLocationVisible = false"
+                        class="bg-[#EEEEEE] p-1 cursor-pointer opacity-85 hover:opacity-50 text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                        </svg>
+                    </div>
+                </a-tooltip>
             </div>
 
             <!-- Change Base map -->
-            <div v-if="isbasemapOptionVisible" class="basemap-option bg-gray-800 w-[200px]">
+            <div v-if="isbasemapOptionVisible" class="basemap-option bg-gray-800 w-[300px]">
                 <div class="text-[#EEEEEE]/70 text-[13px] space-y-2">
                     <div class="text-[#EEEEEE]/50 text-[13px] w-full justify-between flex px-1">
                         <div class="pt-1 pl-2">
@@ -194,7 +207,7 @@
                         </svg>
                     </div>
                     <div class="px-3 pb-2">
-                        <a-select ref="select" v-model:value="selectedBaseMap" style="width: 100%"
+                        <a-select ref="select" size="small" v-model:value="selectedBaseMap" style="width: 100%"
                             @change="onSelectBaseMap">
                             <a-select-option value="baseMap_OSM">Open Street Map (OSM)</a-select-option>
                             <a-select-option value="baseMap_Basic">Basic</a-select-option>
@@ -214,7 +227,7 @@
             <!-- Change Base map -->
 
             <!-- Goto Location -->
-            <div v-if="isGotoLocationVisible" class="goto-location bg-gray-800 w-[200px] ">
+            <div v-if="isGotoLocationVisible" class="goto-location bg-gray-800 w-[300px] ">
                 <div class="text-[#EEEEEE]/70 text-[13px] space-y-2">
                     <div class="text-[#EEEEEE]/50 text-[13px] w-full justify-between flex">
                         <div class="pt-1 pl-2">
@@ -237,23 +250,19 @@
                                     <p style="width: 60px">
                                         Latitude：
                                     </p>
-
                                     <Input v-model="goLocationLat" size="small" placeholder="Latitude" />
                                 </Space>
                                 <Space>
                                     <p style="width: 60px">
                                         Longitude：
                                     </p>
-
                                     <Input v-model="goLocationLon" size="small" placeholder="Longitude" />
                                 </Space>
                             </Space>
                             <div class="w-full flex justify-center">
-                                <div @click="goToLocation()"
-                                    class="w-2/4 bg-[#EEEEEE] text-blue-900 text-center cursor-pointer hover:bg-gray-500">
-                                    Enter
-                                </div>
-
+                                <Button size="small"
+                                    class="bg-[#EEEEEE] text-blue-900 text-center cursor-pointer hover:bg-gray-500"
+                                    @click="goToLocation()">Enter</Button>
                             </div>
                         </div>
                     </div>
@@ -261,6 +270,110 @@
                 </div>
             </div>
             <!-- Goto Location -->
+
+            <!-- Download -->
+            <div v-if="isDownloadVisible" class="download bg-gray-800 w-[300px] ">
+                <div class="text-[#EEEEEE]/70 text-[13px] space-y-2">
+                    <div class="text-[#EEEEEE]/50 text-[13px] w-full justify-between flex">
+                        <div class="pt-1 pl-2">
+                            <p>
+                                Download Layers
+                            </p>
+                        </div>
+                        <svg @click="isDownloadVisible = false" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 cursor-pointer">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
+                    </div>
+                    <div class="px-3 pb-2">
+                        <div class="text-justify space-y-3">
+                            <p>
+                                <span class="font-bold">Selected Layers:</span>
+                            </p>
+                            <Select v-model="model" placeholder="Select Layer" @on-change="downloadOnChange()"
+                                size="small" clearable style="width:278px">
+                                <Option v-for="item in selectedForDownload" :value="item.value" :key="item.value">{{
+                                    item.label }}
+                                </Option>
+                            </Select>
+
+                            <div class="w-full flex justify-end">
+                                <Button size="small"
+                                    class="bg-[#EEEEEE] text-blue-900 text-center cursor-pointer hover:bg-gray-500"
+                                    @click="addLayerDownload()">Add Layer</Button>
+                            </div>
+
+                            <div class="w-full" v-if="downloadList.length != 0">
+                                <table class="text-left w-full">
+                                    <thead class="bg-[#201E43] flex text-white w-full">
+                                        <tr class="flex w-full">
+                                            <th class="p-1">Layer Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="max-height: 100px;"
+                                        class="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full">
+                                        <tr class="flex w-full" v-for="value in downloadList">
+                                            <td class="p-2 border w-full bg-white text-gray-500">{{ value }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="w-full justify-end flex" v-if="downloadList.length != 0">
+                                <Button size="small"
+                                    class="bg-[#EEEEEE] text-blue-900 text-center cursor-pointer hover:bg-gray-500"
+                                    @click="downloadModal = true">Download</Button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Download -->
+
+            <!-- Download Modal -->
+            <Modal title="Download Request" v-model="downloadModal" :mask-closable="false" :footer-hide="true">
+                <div class="w-full pb-2" v-if="downloadList.length != 0">
+                    <table class="text-left w-full">
+                        <thead class="bg-[#73bbff] flex text-white w-full">
+                            <tr class="flex w-full">
+                                <th class="p-1">List of Layers to Download</th>
+                            </tr>
+                        </thead>
+                        <tbody style="max-height: 100px;"
+                            class="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full">
+                            <tr class="flex w-full" v-for="value in downloadList">
+                                <td class="p-2 border w-full bg-white text-gray-800">{{ value }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <a-divider style="height: 2px; background-color: #201E43" />
+                <Form ref="formValidate" label-position="top" :model="formValidate" :rules="ruleValidate">
+                    <FormItem label="Name" prop="name">
+                        <Input size="small" v-model="formValidate.name" placeholder="Enter your name"></Input>
+                    </FormItem>
+                    <FormItem label="E-mail" prop="mail">
+                        <Input size="small" v-model="formValidate.email" placeholder="Enter your e-mail"></Input>
+                    </FormItem>
+                    <FormItem label="Address" prop="address">
+                        <Input size="small" v-model="formValidate.address" placeholder="Enter your address"></Input>
+                    </FormItem>
+                    <FormItem label="Agency" prop="agency">
+                        <Input size="small" v-model="formValidate.agency" placeholder="Enter your agency"></Input>
+                    </FormItem>
+                    <FormItem label="Purpose" prop="purpose">
+                        <Input v-model="formValidate.purpose" type="textarea" :autosize="{ minRows: 2, maxRows: 5 }"
+                            placeholder="Enter your purpose"></Input>
+                    </FormItem>
+                    <FormItem class="w-full flex justify-end">
+                        <Button size="small"
+                            class="bg-[#EEEEEE] text-blue-900 text-center cursor-pointer hover:bg-gray-800"
+                            @click="handleSubmit('formValidate')">Submit</Button>
+                    </FormItem>
+                </Form>
+            </Modal>
+            <!-- Download Modal -->
 
             <!-- Details and Instructions -->
             <div v-if="isDetailsInstructions"
@@ -380,6 +493,35 @@ export default defineComponent({
     },
     data() {
         return {
+            downloadModal: false,
+            formValidate: {
+                name: '',
+                email: '',
+                address: '',
+                agency: '',
+                purpose: '',
+            },
+            ruleValidate: {
+                name: [
+                    { required: true, message: 'The name cannot be empty', trigger: 'blur' }
+                ],
+                email: [
+                    { required: true, message: 'Mailbox cannot be empty', trigger: 'blur' },
+                    { type: 'email', message: 'Incorrect email format', trigger: 'blur' }
+                ],
+                address: [
+                    { required: true, message: 'The address cannot be empty', trigger: 'blur' }
+                ],
+                agency: [
+                    { required: true, message: 'The agency cannot be empty', trigger: 'blur' }
+                ],
+                purpose: [
+                    { required: true, message: 'The purpose cannot be empty', trigger: 'blur' }
+                ],
+            },
+            selectedForDownload: [],
+            downloadList: [],
+            model: '',
             screenHeight: window.innerHeight - 100,
             columns: [
                 {
@@ -404,6 +546,7 @@ export default defineComponent({
             // BaseMap Option
             isbasemapOptionVisible: false,
             isGotoLocationVisible: false,
+            isDownloadVisible: false,
             selectedBaseMap: 'baseMap_OSM',
 
             isDetailsInstructions: true,
@@ -527,6 +670,28 @@ export default defineComponent({
             });
     },
     methods: {
+        handleSubmit(name) {
+            const thiss = this;
+            this.$refs[name].validate((valid) => {
+                if (valid) {
+                    thiss.formValidate.data = thiss.downloadList
+                    axios.post('/api/submitDownload', thiss.formValidate)
+                        .then(function (response) {
+                            console.log(response);
+                            thiss.$Message.success({
+                                content: "Successfully Submitted! Please check your email for a download verification request.",
+                                duration: 10
+                            });
+                        })
+                        .catch(function (error) {
+
+                        });
+
+                } else {
+                    this.$Message.error('Fail!');
+                }
+            })
+        },
         onSelectBaseMap() {
             const thiss = this
             const basemapList = [
@@ -551,6 +716,8 @@ export default defineComponent({
             if (layer) {
                 layer.setVisible(false);
             }
+
+            this.selectedForDownload = this.selectedForDownload.filter(item => item.value !== layerTitle);
         },
         onChangeCheckBox(value, layerTitle) {
 
@@ -719,6 +886,11 @@ export default defineComponent({
             if (!exists) {
                 this.addedLayers.push(option);
 
+                thiss.selectedForDownload.push({
+                    value: option.title,
+                    label: option.title
+                });
+
                 const layers = this.map.getLayers().getArray();
                 const layer = layers.find(l => l.get('title') === option.title);
                 if (layer) {
@@ -753,9 +925,7 @@ export default defineComponent({
                             'FEATURE_COUNT': 10
                         }
                     )
-
                     if (url) {
-
                         axios.get(url)
                             .then(response => {
                                 this.data = response.data.features[response.data.features.length - 1].properties;
@@ -796,6 +966,7 @@ export default defineComponent({
             this.isbasemapOptionVisible = false;
             this.isDetailsInstructions = false;
             this.isGotoLocationVisible = false;
+            this.isDownloadVisible = false;
             // this.isResultChartVisible = false;
         },
         onDrag() {
@@ -844,7 +1015,13 @@ export default defineComponent({
             thiss.isResultChartVisible = false;
             thiss.isbasemapOptionVisible = false;
             thiss.overlayLayer.setPosition(undefined);
-
+            thiss.addedLayers.forEach(item => {
+                const layers = thiss.map.getLayers().getArray();
+                const layer = layers.find((layer) => layer.get('title') === item.title);
+                if (layer) {
+                    layer.setVisible(false);
+                }
+            });
             thiss.addedLayers = [];
         },
         initializeMap() {
@@ -954,6 +1131,15 @@ export default defineComponent({
         closePopup() {
             this.overlayLayer.setPosition(undefined);
         },
+        downloadOnChange() {
+            console.log(this.model);
+        },
+        addLayerDownload() {
+            if (this.model && !this.downloadList.includes(this.model)) {
+                this.downloadList.push(this.model);
+            }
+            console.log(this.downloadList);
+        }
     },
 });
 </script>
@@ -996,6 +1182,13 @@ export default defineComponent({
     z-index: 10;
     position: absolute;
     top: 122px;
+    right: 55px;
+}
+
+.download {
+    z-index: 10;
+    position: absolute;
+    top: 158px;
     right: 55px;
 }
 

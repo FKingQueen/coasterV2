@@ -206,18 +206,18 @@ export default defineComponent({
             wlmsData: []
         }
     },
-    // async mounted() {
-    //     let existingObj = this;
-    //     const headers = {
-    //         'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-    //     };
-    //     await axios.get('/api/admin/getWLMSData', { headers })
-    //     .then(function (response) {
-    //         existingObj.wlmsData = response.data
-    //     })
-    //     .catch(function (error) {
-    //     });
-    // }
+    async mounted() {
+        let existingObj = this;
+        const headers = {
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        };
+        await axios.get('/api/admin/getWLMSData', { headers })
+        .then(function (response) {
+            existingObj.wlmsData = response.data
+        })
+        .catch(function (error) {
+        });
+    }
 
 })
 

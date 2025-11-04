@@ -112,7 +112,7 @@
                     </template>
                     <template #expandedRowRender="{ record }">
                         <p style="margin: 0">
-                            {{ record.purpose }}
+                            {{ record.download_list.map(item => item.name).join(', ') }}
                         </p>
                     </template>
                     <template #expandColumnTitle>
