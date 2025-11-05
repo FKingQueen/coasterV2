@@ -1,7 +1,7 @@
 <template>
     <div class="w-full h-full">
         <iframe 
-            src="https://mmsucoaster.xyz/coastervisualize/" 
+            src="http://localhost/coastervisualize/" 
             :style="minHeightStyle"
             class="w-full"
             >

@@ -15,7 +15,7 @@ class CreateTidesTable extends Migration
     {
         Schema::create('tides', function (Blueprint $table) {
             $table->id();
-            $table->integer('bouy_id');
+            $table->integer('buoy_id');
             $table->double('tide_height_cm', 15, 8);
             $table->double('temperature', 15, 8);
             $table->timestamps();

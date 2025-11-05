@@ -10,7 +10,7 @@ class Tide extends Model
     use HasFactory;
 
     protected $fillable = [
-        'bouy_id',
+        'buoy_id',
         'tide_height_cm',
         'temperature',
     ];

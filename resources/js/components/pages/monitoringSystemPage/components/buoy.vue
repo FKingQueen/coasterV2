@@ -85,11 +85,12 @@ export default defineComponent({
                                 axios
                                     .get(`/api/getBuoyLatest/${id}`)
                                     .then((response) => {
+                                        console.log('response update: ', response.data);
                                         switch (type) {
                                             case '1':
-                                                series.addPoint(response.data.tide[0], true, true);
+                                                series.addPoint(response.data.tide, true, true);
                                                 console.log('series: ', series);
-                                                console.log("buoy: ", response.data.tide[0]);
+                                                console.log("buoy: ", response.data.tide);
                                                 break;
                                             case '2':
                                                 series.addPoint(response.data.temperature, true, true);
@@ -209,6 +210,7 @@ export default defineComponent({
             thiss.chartOptions1.subtitle.text = 'Tide'
             thiss.chartOptions1.yAxis.title.text = 'Tide (Meter)'
             thiss.chartOptions1.series[0].tooltip = {
+                valueDecimals: 2,
                 valueSuffix: ' m'
             }
 
@@ -249,28 +251,10 @@ export default defineComponent({
                     ]
                 ]
             }
-
-            this.chartOptions1.series[0].tooltip = {
-                valueDecimals: 2
-            }
         },
         setChartStyleTemp() {
             const thiss = this
-            thiss.chartOptions1.series[0] = {
-                name: "",
-                data: [],  // your data will be filled dynamically
-                type: '',
-            };
-            thiss.chartOptions1.series[1] = {
-                name: "",
-                data: [],  // your data will be filled dynamically
-                type: '',
-            };
-            thiss.chartOptions1.series[2] = {
-                name: "",
-                data: [],  // your data will be filled dynamically
-                type: '',
-            };
+            thiss.chartOptions1.series = Array.from({ length: 3 }, () => ({ name: '', data: [], type: '' }));
 
             // Remove
             delete thiss.chartOptions1.series[0].fillColor;
@@ -290,15 +274,6 @@ export default defineComponent({
                 valueSuffix: '°C'
             }
             thiss.chartOptions1.series[0].color = '#FF0000'
-
-            // Water Temperature
-            thiss.chartOptions1.series[1].type = 'spline'
-            thiss.chartOptions1.series[1].name = 'Water Temperature'
-            thiss.chartOptions1.series[1].tooltip = {
-                valueDecimals: 2,
-                valueSuffix: '°C'
-            }
-            thiss.chartOptions1.series[1].color = '#FF774F'
 
         },
         setChartStyleWave() {

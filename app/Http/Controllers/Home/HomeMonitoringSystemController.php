@@ -214,14 +214,9 @@ class HomeMonitoringSystemController extends Controller
                 floatval(round($data->temperature * 100) / 100)
             ];
 
-            $tideData[] = [
+            $tideData = [
                 $milliseconds, // Converts to milliseconds
                 floatval(round($data->tide_height_cm * 100) / 100)
-            ];
-
-            $temperatureData[] = [
-                $milliseconds, // Converts to milliseconds
-                floatval(round($data->temperature * 100) / 100)
             ];
         }
 
