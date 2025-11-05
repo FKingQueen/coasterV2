@@ -181,11 +181,13 @@ export default defineComponent({
                 switch (thiss.type) {
                     case '1':
                         thiss.setChartStyleTide();
+                        thiss.fetched();
                         thiss.chartOptions1.series[0].data = thiss.data.tide
 
                         break;
                     case '2':
                         thiss.setChartStyleTemp();
+                        thiss.fetched();
                         thiss.chartOptions1.series[0].data = thiss.data.temperature
                         break;
                     case '3':
@@ -197,12 +199,33 @@ export default defineComponent({
                 }
             }
         },
+        // onChangeType(e) {
+        //     let thiss = this;
+        //     thiss.chartOptions1.custom.type = thiss.type
+        //     if (thiss.chartOptions1.series[0].data.length != 0) {
+        //         switch (thiss.type) {
+        //             case '1':
+        //                 thiss.setChartStyleTide();
+        //                 thiss.fetched();
+
+        //                 break;
+        //             case '2':
+        //                 thiss.setChartStyleTemp();
+        //                 thiss.fetched();
+        //                 break;
+        //             case '3':
+        //                 thiss.setChartStyleWave();
+        //                 thiss.chartOptions1.series[0].data = thiss.data.waveHeight
+        //                 thiss.chartOptions1.series[1].data = thiss.data.wavePeriod
+        //                 // thiss.chartOptions1.series[2].data = thiss.data.compass
+        //                 break;
+        //         }
+        //     }
+        // },
         setChartStyleTide() {
             let thiss = this;
 
             // Remove
-            thiss.chartOptions1.series[1].data = [];
-            thiss.chartOptions1.series[2].data = [];
 
             thiss.chartOptions1.series[0].type = 'areaspline'
             thiss.chartOptions1.rangeSelector.selected = 1
@@ -254,6 +277,7 @@ export default defineComponent({
         },
         setChartStyleTemp() {
             const thiss = this
+
             thiss.chartOptions1.series = Array.from({ length: 3 }, () => ({ name: '', data: [], type: '' }));
 
             // Remove
@@ -332,7 +356,22 @@ export default defineComponent({
             // Update chart subtitle and y-axis title
             thiss.chartOptions1.subtitle.text = 'Wave Characteristics';
             thiss.chartOptions1.yAxis.title.text = 'Wave Parameters';
-        }
+        },
+        async fetched() {
+            let thiss = this;
+            console.log(thiss.type);
+            await axios
+                .get(`/api/getBouy/${this.id}`)
+                .then((response) => {
+                    
+                    thiss.data = response.data
+
+                    thiss.loading = false
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+        },
     },
     async mounted() {
         let thiss = this;
@@ -346,9 +385,9 @@ export default defineComponent({
                 thiss.type = '1'
                 thiss.chartOptions1.custom.type = '1'
                 thiss.data = response.data
-                thiss.chartOptions1.series[0].data = thiss.data.tide
+                thiss.chartOptions1.series[0].data = response.data.tide
 
-                console.log('data: ', thiss.data)
+                console.log('data: ', response.data)
 
                 // Setting the Style of the Chart
                 thiss.setChartStyleTide();
@@ -357,6 +396,6 @@ export default defineComponent({
             .catch(function (error) {
                 console.error(error);
             });
-    },
+    }
 });
 </script>

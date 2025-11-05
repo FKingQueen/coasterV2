@@ -128,7 +128,7 @@ class HomeMonitoringSystemController extends Controller
             $validated = $data[$i - 1]->level - $data[$i]->level;
 
             // Check if the difference is within the range
-            if ($validated >= -0.50 && $validated <= 0.50) {
+            // if ($validated >= -0.50 && $validated <= 0.50) {
                 // Convert to the format similar to your original code
                 $validatedLevelData[] = [
                     $milliseconds, // Converts to milliseconds
@@ -139,7 +139,7 @@ class HomeMonitoringSystemController extends Controller
                             : floatval($data[$i]->level) // Default case if needed
                         )
                 ];
-            }
+            // }
         }
 
 
