@@ -234,7 +234,7 @@ export default defineComponent({
             thiss.chartOptions1.yAxis.title.text = 'Tide (Meter)'
             thiss.chartOptions1.series[0].tooltip = {
                 valueDecimals: 2,
-                valueSuffix: ' m'
+                valueSuffix: ' cm'
             }
 
             thiss.chartOptions1.series[0].color = Highcharts.getOptions().colors[0]
