@@ -38,10 +38,14 @@
                                     cursor-pointer blur-none tracking-wide antialiased font-roboto text-xs">
                             MONITORING SYSTEM
                         </router-link>
-                        <router-link to="/coastalfloodadvisory" class="px-4 py-3  flex text-blue-50 hover:bg-sky-700 hover:rounded
+                        <!-- <router-link to="/coastalfloodadvisory" class="px-4 py-3  flex text-blue-50 hover:bg-sky-700 hover:rounded
                                     cursor-pointer blur-none tracking-wide antialiased font-roboto text-xs">
                             COASTAL FLOOD ADVISORY
-                        </router-link>
+                        </router-link> -->
+                        <a href="http://10.10.56.86/coastervisualize/" target="_blank" rel="noopener noreferrer"
+                            class="px-4 py-3 flex text-blue-50 hover:bg-sky-700 hover:rounded cursor-pointer blur-none tracking-wide antialiased font-roboto text-xs">
+                            COASTAL FLOOD ADVISORY
+                        </a>
                         <div class="z-40 dropdown px-4 py-3  flex text-blue-50 hover:bg-sky-700 hover:rounded
                                 cursor-pointer transition-colors duration-300 " style="float:left;">
                             <button
@@ -79,7 +83,7 @@
                             </p>
                             <p>{{
                                 this.time
-                                }}
+                            }}
                             </p>
                             <p>
                                 {{ this.date }}
@@ -374,15 +378,15 @@ export default defineComponent({
     computed: {
         minHeightStyle() {
             return {
-                minHeight: `${this.screenHeight+11}px`
+                minHeight: `${this.screenHeight + 11}px`
             }
         },
         showFooter() {
             // Return true if the route is not "/hazardmaps"
-            if(this.$route.path == "/hazardmaps"){
+            if (this.$route.path == "/hazardmaps") {
                 return false;
             }
-            if(this.$route.path == "/coastalfloodadvisory"){
+            if (this.$route.path == "/coastalfloodadvisory") {
                 return false;
             }
             return true;

@@ -1,7 +1,7 @@
 <template>
     <div class="w-full h-full">
         <iframe 
-            src="https://coaster.mmsu.edu.ph/coastervisualize/" 
+            src="http://10.10.56.86/coastervisualize/" 
             :style="minHeightStyle"
             class="w-full"
             >
