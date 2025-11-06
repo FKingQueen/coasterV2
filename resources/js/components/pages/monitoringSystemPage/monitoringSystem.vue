@@ -56,7 +56,7 @@
                     <!-- <div class="block sm:flex"> -->
                     <div class="flex justify-center">
                         <!-- <div class="w-full sm:w-1/2  drop-shadow-lg p-1"> -->
-                        <div class="sm:w-3/4  drop-shadow-lg p-1">
+                        <div class="w-full sm:w-1/2 drop-shadow-lg p-1">
                             <div>
                                 <Buoy class="w-full p-3" :id="1" />
                             </div>
