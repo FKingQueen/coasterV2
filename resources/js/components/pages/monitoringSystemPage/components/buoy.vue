@@ -322,7 +322,7 @@ export default defineComponent({
                 data: thiss.data.waveHeight,
                 tooltip: {
                     valueDecimals: 2,
-                    valueSuffix: 'm'
+                    valueSuffix: 'cm'
                 }
             };
 
