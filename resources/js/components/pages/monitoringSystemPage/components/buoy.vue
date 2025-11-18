@@ -213,8 +213,8 @@ export default defineComponent({
                 thiss.type = '3'
                 thiss.data = response.data
 
-                thiss.chartOptions1.series[1].data = thiss.data.tide;
-                thiss.chartOptions1.series[0].data = thiss.data.temperature;
+                thiss.chartOptions1.series[1].data = thiss.data.temperature;
+                thiss.chartOptions1.series[0].data = thiss.data.tide;
 
                 thiss.chartOptions2.series[1].data = thiss.data.waveHeight;
                 thiss.chartOptions2.series[0].data = thiss.data.wavePeriod;
