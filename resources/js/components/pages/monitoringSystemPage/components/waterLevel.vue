@@ -64,15 +64,12 @@ export default defineComponent({
                                         switch (type) {
                                             case '1':
                                                 series.addPoint(response.data.level, true, true);
-                                                console.log("wlms: ", response.data.level);
                                                 break;
                                             case '2':
                                                 series.addPoint(response.data.temperature, true, true);
-                                                console.log("wlms: ", response.data.temperature);
                                                 break;
                                             case '3':
                                                 series.addPoint(response.data.humidity, true, true);
-                                                console.log("wlms: ", response.data.humidity);
                                                 break;
                                         }
                                     })
@@ -151,7 +148,6 @@ export default defineComponent({
         await axios
             .get(`/api/getWaterLevel/${this.id}`)
             .then((response) => {
-                console.log(response);
                 thiss.type = '1'
                 thiss.chartOptions.custom.type = '1'
                 thiss.data = response.data

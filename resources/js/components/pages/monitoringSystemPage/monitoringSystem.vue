@@ -1,6 +1,6 @@
 <template>
     <div class="w-full flex md:flex justify-center pt-3 bg-gradient-to-b from-[#002B5B]">
-        <div class="w-full sm:w-5/6">
+        <div class="w-full sm:w-11/12">
             <Tabs type="card" >
                 <TabPane label="Water Level Sensor" class="bg-white">
                     <div class="block sm:flex">
@@ -56,7 +56,7 @@
                     <!-- <div class="block sm:flex"> -->
                     <div class="flex justify-center">
                         <!-- <div class="w-full sm:w-1/2  drop-shadow-lg p-1"> -->
-                        <div class="w-full sm:w-1/2 drop-shadow-lg p-1">
+                        <div class="w-full drop-shadow-lg p-1">
                             <div>
                                 <Buoy class="w-full p-3" :id="1" />
                             </div>

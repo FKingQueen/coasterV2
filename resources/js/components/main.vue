@@ -42,7 +42,8 @@
                                     cursor-pointer blur-none tracking-wide antialiased font-roboto text-xs">
                             COASTAL FLOOD ADVISORY
                         </router-link> -->
-                        <a href="http://10.10.56.86/coastervisualize/" target="_blank" rel="noopener noreferrer"
+                        <a href="https://coaster.mmsu.edu.ph/coastervisualize/" target="_blank"
+                            rel="noopener noreferrer"
                             class="px-4 py-3 flex text-blue-50 hover:bg-sky-700 hover:rounded cursor-pointer blur-none tracking-wide antialiased font-roboto text-xs">
                             COASTAL FLOOD ADVISORY
                         </a>
@@ -83,7 +84,7 @@
                             </p>
                             <p>{{
                                 this.time
-                            }}
+                                }}
                             </p>
                             <p>
                                 {{ this.date }}

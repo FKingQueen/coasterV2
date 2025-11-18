@@ -855,6 +855,9 @@ video {
 .min-h-\[800px\] {
   min-height: 800px;
 }
+.min-h-\[900px\] {
+  min-height: 900px;
+}
 .min-h-screen {
   min-height: 100vh;
 }
@@ -1748,6 +1751,10 @@ video {
   --tw-text-opacity: 1;
   color: rgb(239 246 255 / var(--tw-text-opacity, 1));
 }
+.text-blue-700 {
+  --tw-text-opacity: 1;
+  color: rgb(29 78 216 / var(--tw-text-opacity, 1));
+}
 .text-blue-800 {
   --tw-text-opacity: 1;
   color: rgb(30 64 175 / var(--tw-text-opacity, 1));
@@ -2096,8 +2103,8 @@ video {
     width: 50%;
   }
 
-  .sm\:w-3\/4 {
-    width: 75%;
+  .sm\:w-11\/12 {
+    width: 91.666667%;
   }
 
   .sm\:w-5\/6 {

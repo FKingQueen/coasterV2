@@ -27,7 +27,7 @@ class HomeMonitoringSystemController extends Controller
 
         $data1 = Tide::where('buoy_id', $id)->orderBy('created_at', 'ASC')->get();
 
-        for ($i = 1; $i < count($data1); $i++) {
+        for ($i = 0; $i < count($data1); $i++) {
 
             $datetime = new \DateTime($data1[$i]->created_at->format('Y-m-d H:i:s'), new \DateTimeZone('UTC'));
             $milliseconds = $datetime->getTimestamp() * 1000;
@@ -47,7 +47,10 @@ class HomeMonitoringSystemController extends Controller
 
         $counter = 0;
 
-        for ($i = 1; $i < count($data); $i++) {
+        for ($i = 0; $i < count($data); $i++) {
+
+            $datetime = new \DateTime($data[$i]->created_at->format('Y-m-d H:i:s'), new \DateTimeZone('UTC'));
+            $milliseconds = $datetime->getTimestamp() * 1000;
 
             // $tideData[] = [
             //     Carbon::parse($data[$i]->created_at)->valueOf(), // Converts to milliseconds
@@ -55,27 +58,27 @@ class HomeMonitoringSystemController extends Controller
             // ];
 
             $airTempData[] = [
-                Carbon::parse($data[$i]->created_at)->valueOf(), // Converts to milliseconds
+                $milliseconds, // Converts to milliseconds
                 floatval(round($data[$i]->air_temperature * 100) / 100)
             ];
 
             $waterTempData[] = [
-                Carbon::parse($data[$i]->created_at)->valueOf(), // Converts to milliseconds
+                $milliseconds, // Converts to milliseconds
                 floatval(round($data[$i]->water_temperature * 100) / 100)
             ];
 
             $significantWaveHeightData[] = [
-                Carbon::parse($data[$i]->created_at)->valueOf(), // Converts to milliseconds
+                $milliseconds, // Converts to milliseconds
                 floatval(round($data[$i]->significant_wave_height * 100) / 100)
             ];
 
             $wavePeriodData[] = [
-                Carbon::parse($data[$i]->created_at)->valueOf(), // Converts to milliseconds
+                $milliseconds, // Converts to milliseconds
                 floatval(round($data[$i]->wave_period * 100) / 100)
             ];
 
             $compassData[] = [
-                Carbon::parse($data[$i]->created_at)->valueOf(), // Converts to milliseconds
+                $milliseconds, // Converts to milliseconds
                 floatval(round($data[$i]->significant_wave_height * 100) / 100),
                 floatval(round($data[$i]->compass * 100) / 100)
             ];

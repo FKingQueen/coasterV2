@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Home;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Bouy;
+use App\Models\Tide;
 use App\Models\WaterLevel;
 use DateTime;
 
@@ -18,8 +19,8 @@ class HomeStationController extends Controller
         $datas[1] = WaterLevel::where('wlms_id', 2)->latest('created_at')->first();
         
         // BUOY stations (fixed typo in comment)
-        $datas[2] = Bouy::where('bouy_id', 1)->latest('created_at')->first();
-        $datas[3] = Bouy::where('bouy_id', 2)->latest('created_at')->first();
+        $datas[2] = Tide::where('buoy_id', 1)->latest('created_at')->first();
+        $datas[3] = Tide::where('buoy_id', 2)->latest('created_at')->first();
         
         // Format dates for each data point if it exists
         foreach($datas as $key => $data) {

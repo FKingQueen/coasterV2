@@ -16,7 +16,7 @@
                     <div class="flex items-center w-1/4">
                         <div>
                             <img src="/img/icons/buoy.png" class="blur-none antialiased h-20 " alt="#">
-                            <p class="text-xs text-center">Laoag City</p>
+                            <p class="text-xs text-center">Currimao</p>
                         </div>
                     </div>
                     <div class="w-3/4 flex items-center">
@@ -25,35 +25,34 @@
                                 <tbody>
                                     <tr class="border-b">
                                         <td class="py-1 text-xs">Tide</td>
-                                        <td class="py-1 text-xs">{{ parseFloat(stationData.buoyData1.altitude_pressure /
-                                            100).toFixed(2) }}</td>
-                                        <td class="py-1 text-xs">m</td>
+                                        <td class="py-1 text-xs">{{ stationData.buoyData1.tide_height_cm }}</td>
+                                        <td class="py-1 text-xs">cm</td>
                                     </tr>
                                     <tr class="border-b">
-                                        <td class="py-1 text-xs">Air Temperature</td>
+                                        <td class="py-1 text-xs">Temperature</td>
                                         <td class="py-1 text-xs">{{
-                                            parseFloat(stationData.buoyData1.water_temperature).toFixed(2) }}</td>
+                                            stationData.buoyData1.temperature }}</td>
                                         <td class="py-1 text-xs">°C</td>
                                     </tr>
-                                    <tr class="border-b">
+                                    <!-- <tr class="border-b">
                                         <td class="py-1 text-xs">Water Temperature</td>
                                         <td class="py-1 text-xs">{{
                                             parseFloat(stationData.buoyData1.barometric_temperature).toFixed(2) }}</td>
                                         <td class="py-1 text-xs">°C</td>
-                                    </tr>
-                                    <tr class="border-b">
+                                    </tr> -->
+                                    <!-- <tr class="border-b">
                                         <td class="py-1 text-xs">Significant Wave Height</td>
                                         <td class="py-1 text-xs">{{
                                             parseFloat(stationData.buoyData1.significant_wave_height).toFixed(2) }}
                                         </td>
                                         <td class="py-1 text-xs">m</td>
-                                    </tr>
-                                    <tr class="border-b">
+                                    </tr> -->
+                                    <!-- <tr class="border-b">
                                         <td class="py-1 text-xs">Wave Period</td>
                                         <td class="py-1 text-xs">{{
                                             parseFloat(stationData.buoyData1.wave_period).toFixed(2) }}</td>
                                         <td class="py-1 text-xs">secs</td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table>
                             <p class="text-end text-xs">
@@ -80,11 +79,11 @@
                                         <td class="py-1 text-xs">m</td>
                                     </tr>
                                     <tr class="border-b">
-                                        <td class="py-1 text-xs">Air Temperature</td>
+                                        <td class="py-1 text-xs">Temperature</td>
                                         <td class="py-1 text-xs">NAN</td>
                                         <td class="py-1 text-xs">°C</td>
                                     </tr>
-                                    <tr class="border-b">
+                                    <!-- <tr class="border-b">
                                         <td class="py-1 text-xs">Water Temperature</td>
                                         <td class="py-1 text-xs">NAN</td>
                                         <td class="py-1 text-xs">°C</td>
@@ -98,7 +97,7 @@
                                         <td class="py-1 text-xs">Wave Period</td>
                                         <td class="py-1 text-xs">NAN</td>
                                         <td class="py-1 text-xs">secs</td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table>
                             <p class="text-end text-xs">
@@ -209,7 +208,7 @@ export default defineComponent({
             let thiss = this;
             await axios.get('/api/getStationCurrentData')
                 .then(function (response) {
-                    // console.log(response.data);
+                    console.log('data stations: ', response.data);
                     thiss.stationData.wlmsData1 = response.data[0];
                     thiss.stationData.wlmsData2 = response.data[1];
                     thiss.stationData.buoyData1 = response.data[2];
